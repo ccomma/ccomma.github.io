@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ccomma.cn/e45311de7e05/</loc>
+    <loc>https://ccomma.cn/e45311de7e05/</loc>
     
     <lastmod>2024-02-12</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://ccomma.cn/404/</loc>
+    <loc>https://ccomma.cn/404/</loc>
     
     <lastmod>2024-02-11</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://ccomma.cn/about/</loc>
+    <loc>https://ccomma.cn/about/</loc>
     
     <lastmod>2024-02-11</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://ccomma.cn/categories/</loc>
+    <loc>https://ccomma.cn/categories/</loc>
     
     <lastmod>2024-02-11</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://ccomma.cn/tags/</loc>
+    <loc>https://ccomma.cn/tags/</loc>
     
     <lastmod>2024-02-11</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://ccomma.cn/08b8c16f56cb/</loc>
+    <loc>https://ccomma.cn/08b8c16f56cb/</loc>
     
     <lastmod>2024-02-11</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>http://ccomma.cn/434f02b814ac/</loc>
+    <loc>https://ccomma.cn/434f02b814ac/</loc>
     
     <lastmod>2024-02-11</lastmod>
     
@@ -66,7 +66,7 @@
   
 
   <url>
-    <loc>http://ccomma.cn/</loc>
+    <loc>https://ccomma.cn/</loc>
     <lastmod>2024-02-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -74,21 +74,21 @@
 
   
   <url>
-    <loc>http://ccomma.cn/tags/%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://ccomma.cn/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2024-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://ccomma.cn/tags/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/</loc>
+    <loc>https://ccomma.cn/tags/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/</loc>
     <lastmod>2024-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://ccomma.cn/tags/%E5%88%B7%E9%A2%98/</loc>
+    <loc>https://ccomma.cn/tags/%E5%88%B7%E9%A2%98/</loc>
     <lastmod>2024-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -97,14 +97,14 @@
 
   
   <url>
-    <loc>http://ccomma.cn/categories/%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://ccomma.cn/categories/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2024-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://ccomma.cn/categories/%E5%88%B7%E9%A2%98/</loc>
+    <loc>https://ccomma.cn/categories/%E5%88%B7%E9%A2%98/</loc>
     <lastmod>2024-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
