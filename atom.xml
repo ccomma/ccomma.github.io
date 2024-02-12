@@ -3,11 +3,11 @@
   <title>Cat Code</title>
   
   <subtitle>Connect the world</subtitle>
-  <link href="https://github.com/ccomma/atom.xml" rel="self"/>
+  <link href="https://ccomma.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/ccomma/"/>
+  <link href="https://ccomma.github.io/"/>
   <updated>2024-02-11T09:47:26.123Z</updated>
-  <id>https://github.com/ccomma/</id>
+  <id>https://ccomma.github.io/</id>
   
   <author>
     <name>CComma</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>对 1e9 + 7 取模</title>
-    <link href="https://github.com/ccomma/434f02b814ac/"/>
-    <id>https://github.com/ccomma/434f02b814ac/</id>
+    <link href="https://ccomma.github.io/434f02b814ac/"/>
+    <id>https://ccomma.github.io/434f02b814ac/</id>
     <published>2022-11-19T13:45:19.000Z</published>
     <updated>2024-02-11T09:47:26.123Z</updated>
     
@@ -33,17 +33,17 @@
     
     
     
-    <category term="算法" scheme="https://github.com/ccomma/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://ccomma.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="https://github.com/ccomma/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://ccomma.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>矩阵快速幂</title>
-    <link href="https://github.com/ccomma/08b8c16f56cb/"/>
-    <id>https://github.com/ccomma/08b8c16f56cb/</id>
+    <link href="https://ccomma.github.io/08b8c16f56cb/"/>
+    <id>https://ccomma.github.io/08b8c16f56cb/</id>
     <published>2022-11-13T10:27:20.000Z</published>
     <updated>2024-02-11T09:47:33.767Z</updated>
     
@@ -58,19 +58,19 @@
     
     
     
-    <category term="算法" scheme="https://github.com/ccomma/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://ccomma.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="https://github.com/ccomma/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://ccomma.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="矩阵快速幂" scheme="https://github.com/ccomma/tags/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
+    <category term="矩阵快速幂" scheme="https://ccomma.github.io/tags/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
     
   </entry>
   
   <entry>
     <title>481. 神奇字符串</title>
-    <link href="https://github.com/ccomma/e45311de7e05/"/>
-    <id>https://github.com/ccomma/e45311de7e05/</id>
+    <link href="https://ccomma.github.io/e45311de7e05/"/>
+    <id>https://ccomma.github.io/e45311de7e05/</id>
     <published>2022-10-31T14:09:44.000Z</published>
     <updated>2024-02-12T09:21:52.282Z</updated>
     
@@ -88,12 +88,12 @@
     
     
     
-    <category term="刷题" scheme="https://github.com/ccomma/categories/%E5%88%B7%E9%A2%98/"/>
+    <category term="刷题" scheme="https://ccomma.github.io/categories/%E5%88%B7%E9%A2%98/"/>
     
     
-    <category term="算法" scheme="https://github.com/ccomma/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://ccomma.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="刷题" scheme="https://github.com/ccomma/tags/%E5%88%B7%E9%A2%98/"/>
+    <category term="刷题" scheme="https://ccomma.github.io/tags/%E5%88%B7%E9%A2%98/"/>
     
   </entry>
   
