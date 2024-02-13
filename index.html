@@ -18,8 +18,10 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="下一个目标：改变世界！">
 <meta property="og:type" content="website">
@@ -42,6 +44,9 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Cat Code</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
 
@@ -224,6 +229,20 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/434f02b814ac/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="434f02b814ac/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
@@ -241,13 +260,13 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
-<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br />这里可以先回顾下模除运算的等价性</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></table></figure>
+<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
 <p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。<del>例如：</del></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></table></figure>
-<p><del>只要 sum 不溢出，那么其结果和对每次运算结果都 ~~&#96;</del>%MOD<del>&#96;</del> 一遍是一样的。~~</p>
-<p>所以** 取模成了简化大数据的一种约定**，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
-<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br /><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除#等价性</a><br /><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br /><a target="_blank" rel="noopener" href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br /><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br /><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
+<p><del>只要 sum 不溢出，那么其结果和对每次运算结果都～～`</del>%MOD<del>`</del> 一遍是一样的。~~</p>
+<p>所以 ** 取模成了简化大数据的一种约定 **，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
+<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
 
       
     </div>
@@ -316,6 +335,20 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/08b8c16f56cb/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="08b8c16f56cb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
@@ -332,8 +365,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br />做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
-<p>矩阵快速幂由**_ 矩阵运算 _**和 **_快速幂 _**两部分组成</p>
+          <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
+<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
 <h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>
       
     </div>
@@ -402,6 +435,20 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/e45311de7e05/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="e45311de7e05/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
@@ -422,8 +469,8 @@
 <ul>
 <li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
 </ul>
-<p>s 的前几个元素是 s &#x3D; “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br />给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
-<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) &#123;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) &#123;</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) &#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
 
@@ -486,6 +533,9 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
 
   
@@ -493,6 +543,7 @@
 
 
 
+  <script src="/js/third-party/pace.js"></script>
 
 
   
@@ -500,6 +551,11 @@
 
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
 
 </body>
 </html>

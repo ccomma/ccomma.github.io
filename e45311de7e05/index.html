@@ -18,15 +18,17 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：  神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。  s 的前几个元素是 s &#x3D; “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组">
+    <meta name="description" content="神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：  神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。  s 的前几个元素是 s &#x3D; “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或">
 <meta property="og:type" content="article">
 <meta property="og:title" content="481. 神奇字符串">
 <meta property="og:url" content="https://ccomma.cn/e45311de7e05/">
 <meta property="og:site_name" content="Cat Code">
-<meta property="og:description" content="神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：  神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。  s 的前几个元素是 s &#x3D; “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组">
+<meta property="og:description" content="神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：  神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。  s 的前几个元素是 s &#x3D; “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-31T14:09:44.000Z">
 <meta property="article:modified_time" content="2024-02-12T09:21:52.282Z">
@@ -45,6 +47,9 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>481. 神奇字符串 | Cat Code</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
 
@@ -229,6 +234,20 @@
     </span>
 
   
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/e45311de7e05/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="e45311de7e05/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
@@ -248,8 +267,8 @@
 <ul>
 <li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
 </ul>
-<p>s 的前几个元素是 s &#x3D; “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br />给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
-<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) &#123;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) &#123;</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) &#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
 
@@ -312,6 +331,11 @@
 
 
 
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 </div>
   </main>
 
@@ -353,6 +377,9 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
 
   
@@ -360,6 +387,7 @@
 
 
 
+  <script src="/js/third-party/pace.js"></script>
 
 
   
@@ -367,6 +395,11 @@
 
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/e45311de7e05/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
 
 </body>
 </html>
