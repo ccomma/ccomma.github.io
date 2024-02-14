@@ -20,20 +20,6 @@
       </tags>
   </entry>
   <entry>
-    <title>矩阵快速幂</title>
-    <url>/08b8c16f56cb/</url>
-    <content><![CDATA[<p><a href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
-<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
-<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>矩阵快速幂</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>481. 神奇字符串</title>
     <url>/e45311de7e05/</url>
     <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
@@ -51,6 +37,20 @@
       <tags>
         <tag>算法</tag>
         <tag>刷题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>矩阵快速幂</title>
+    <url>/08b8c16f56cb/</url>
+    <content><![CDATA[<p><a href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
+<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>矩阵快速幂</tag>
       </tags>
   </entry>
 </search>
