@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>对 1e9 + 7 取模</title>
-    <url>/434f02b814ac/</url>
-    <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
-<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
-<p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。<del>例如：</del></p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
-<p><del>只要 sum 不溢出，那么其结果和对每次运算结果都～～`</del>%MOD<del>`</del> 一遍是一样的。~~</p>
-<p>所以 ** 取模成了简化大数据的一种约定 **，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
-<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>481. 神奇字符串</title>
     <url>/e45311de7e05/</url>
     <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
@@ -51,6 +32,25 @@
       <tags>
         <tag>算法</tag>
         <tag>矩阵快速幂</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对 1e9 + 7 取模</title>
+    <url>/434f02b814ac/</url>
+    <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
+<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
+<p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。<del>例如：</del></p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
+<p><del>只要 sum 不溢出，那么其结果和对每次运算结果都～～`</del>%MOD<del>`</del> 一遍是一样的。~~</p>
+<p>所以 ** 取模成了简化大数据的一种约定 **，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
+<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
