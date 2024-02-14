@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>481. 神奇字符串</title>
-    <url>/e45311de7e05/</url>
-    <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
-<ul>
-<li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
-</ul>
-<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
-<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
-]]></content>
-      <categories>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>对 1e9 + 7 取模</title>
     <url>/434f02b814ac/</url>
     <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
@@ -51,6 +31,26 @@
       <tags>
         <tag>算法</tag>
         <tag>矩阵快速幂</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>481. 神奇字符串</title>
+    <url>/e45311de7e05/</url>
+    <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
+<ul>
+<li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
+</ul>
+<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>刷题</tag>
       </tags>
   </entry>
 </search>
