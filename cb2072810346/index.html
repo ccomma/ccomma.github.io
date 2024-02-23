@@ -23,12 +23,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="现象2023.08.12 18:30 开始，桌位状态应用（seat-status）的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。 调用量：根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）异常时">
+    <meta name="description" content="现象2023.08.12 18:30 开始，桌位状态应用的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。 调用量：根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）异常时刻的 qps 大致为 23">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并行流导致接口慢调用问题">
 <meta property="og:url" content="https://ccomma.cn/cb2072810346/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="现象2023.08.12 18:30 开始，桌位状态应用（seat-status）的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。 调用量：根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）异常时">
+<meta property="og:description" content="现象2023.08.12 18:30 开始，桌位状态应用的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。 调用量：根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）异常时刻的 qps 大致为 23">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8ff9b37602e5bee3be548af291c7348e.png">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3dd26f56b4afe1a4bfcb5a79450452d1.png">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d1f735878b6e9667f825e70e452c8492.png">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/532b6fca9a1b64382d8ac364a4851385.png">
 <meta property="article:published_time" content="2023-08-14T00:55:38.000Z">
-<meta property="article:modified_time" content="2024-02-23T03:15:00.056Z">
+<meta property="article:modified_time" content="2024-02-23T03:38:52.642Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="问题">
 <meta property="article:tag" content="并行流">
@@ -310,7 +310,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>2023.08.12 18:30 开始，桌位状态应用（seat-status）的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>2023.08.12 18:30 开始，桌位状态应用的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。</p>
 <p><strong>调用量：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8ff9b37602e5bee3be548af291c7348e.png" alt="image.png"><br>根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）<br>异常时刻的 qps 大致为 236.1，几乎是一周前的 2 倍。</p>
 <p><strong>响应时间：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3dd26f56b4afe1a4bfcb5a79450452d1.png" alt="image.png"><br>每分钟响应时间平均为 3747 ms，整个异常过程中该接口最长的响应时间达到 8s 多。</p>
 <p><strong>dubbo 线程池：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5d7b54ac7097680e22af442ccbd6b276.png" alt="image.png"><br>所有接口的每分钟 dubbo 请求调用量在 18:35-18:45 内从 14.2k 增长至 35.6k<br>也是在这段时间内 dubbo 线程池被打满，在 18:40 左右基本被打满<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/decb4154e9d3362f4dd2e3b7dbd1892f.png" alt="image.png"></p>

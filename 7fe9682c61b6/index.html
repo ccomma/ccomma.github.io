@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/cd93f41c4b9e8b2fa85ccfcbbaa922f9.png">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/246e489c91161cdfb8b80ab2f2dc4de6.png">
 <meta property="article:published_time" content="2022-11-06T14:48:28.000Z">
-<meta property="article:modified_time" content="2024-02-23T03:15:00.051Z">
+<meta property="article:modified_time" content="2024-02-23T05:24:31.386Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="刷题">
@@ -312,6 +312,7 @@
 <li>第 i&nbsp;次移动（从 &nbsp;i == 1&nbsp;开始，到&nbsp;i == numMoves ），在选择的方向上走 i&nbsp;步。</li>
 </ul>
 <p>给定整数&nbsp;target ，返回 到达目标所需的 最小&nbsp;移动次数 (即最小 numMoves)&nbsp;。</p>
+<span id="more"></span>
 <h2 id="数学分析"><a href="#数学分析" class="headerlink" title="数学分析"></a>数学分析</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">reachNumber</span><span class="params">(<span class="type">int</span> target)</span> {</span><br><span class="line">        <span class="keyword">if</span> (target &lt; <span class="number">0</span>) target = -target;</span><br><span class="line">        <span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> (<span class="type">int</span>) Math.ceil((Math.sqrt(<span class="number">1</span> + <span class="number">8</span> * (<span class="type">double</span>) target) - <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> (<span class="number">1</span> + k) * k / <span class="number">2</span> - target;</span><br><span class="line">        <span class="keyword">if</span> ((d &amp; <span class="number">1</span>) == <span class="number">0</span>) <span class="keyword">return</span> k;</span><br><span class="line">        <span class="keyword">return</span> ((k + <span class="number">1</span>) &amp; <span class="number">1</span>) == <span class="number">1</span> ? k + <span class="number">1</span> : k + <span class="number">2</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/cd93f41c4b9e8b2fa85ccfcbbaa922f9.png" alt="image.png"></p>
