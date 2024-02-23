@@ -277,7 +277,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>3 mins.</span>
+      <span>4 mins.</span>
     </span>
 </div>
 
@@ -295,9 +295,7 @@
 </ul>
 <h1 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h1><h2 id="静态页面生成"><a href="#静态页面生成" class="headerlink" title="静态页面生成"></a>静态页面生成</h2><p>我们可以自己写一套个人博客网站，不过那样做周期太长，样式之类的东西都得手动去调整，也不利于我们去专心的写作。</p>
 <p>像博客这种静态页面可以由工具直接生成。市面上的博客工具有很多，像 hexo、vuepress</p>
-<p>为什么选择 hexo？主题较现代化、方便快捷</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">hexo github</a></p>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>Next 主题配置<br><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/theme-settings/">Theme Settings</a></p>
+<p>为什么选择 hexo？主题较现代化、方便快捷<br><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">hexo github</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/58a80fbce4aa/#more" rel="contents">
@@ -404,42 +402,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>2023.08.12 18:30 开始，桌位状态应用的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。</p>
-<p><strong>调用量：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8ff9b37602e5bee3be548af291c7348e.png" alt="image.png"><br>根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）<br>异常时刻的 qps 大致为 236.1，几乎是一周前的 2 倍。</p>
-<p><strong>响应时间：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3dd26f56b4afe1a4bfcb5a79450452d1.png" alt="image.png"><br>每分钟响应时间平均为 3747 ms，整个异常过程中该接口最长的响应时间达到 8s 多。</p>
-<p><strong>dubbo 线程池：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5d7b54ac7097680e22af442ccbd6b276.png" alt="image.png"><br>所有接口的每分钟 dubbo 请求调用量在 18:35-18:45 内从 14.2k 增长至 35.6k<br>也是在这段时间内 dubbo 线程池被打满，在 18:40 左右基本被打满<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/decb4154e9d3362f4dd2e3b7dbd1892f.png" alt="image.png"></p>
-<h2 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h2><p>初步判断流量突增的原因是客户端开放灰度，使得预定业务中的一个轮询调用的接口调用次数上升。<br>该接口调用桌位状态服务的一个较为通用的查询接口，里面使用 parallelStream 来进行 RPC 调用获取账单。<br>parallelStream 使用与 CPU 核数一致的线程数来处理任务，当请求量增大时线程池中的线程全部被打满，导致后续的任务一直在排队等待延迟处理，最终 dubbo 线程池也被占满。</p>
-<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><p>从问题的核心代码到外部调用，可优化的点如下：</p>
-<ol>
-<li>取消并行流</li>
-<li>加大批量获取数，让调用量减小</li>
-<li>经查看代码发现出现问题的使用并行流查账单是为了设置桌位状态的 payStatus，但是上层并不关心这个字段，所以可以让上层调用更轻量级的接口</li>
-<li>降低客户端轮询次数，轮询调用需谨慎，轮询策略需要好好设计</li>
-</ol>
-<h2 id="2023-08-13（代码修改后）"><a href="#2023-08-13（代码修改后）" class="headerlink" title="2023.08.13（代码修改后）"></a>2023.08.13（代码修改后）</h2><p>141 部署了优化后的代码，取消了并行流，分页大小增加到 10<br>142 没有改动，以此作为对照。</p>
-<p>总体应用每分钟调用量峰值也有 14.7k，但是 13 号这天的曲线明显更加平滑，没有出现 dubbo 线程池被打满的情况，慢调用的数量和时长都在正常范围内。</p>
-<p><strong>调用量：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b6f1ef4f96f597a9b716feb0c2990204.png" alt="image.png"></p>
-<p><strong>响应时间：</strong><br>141 比 142 更缓和</p>
-<ul>
-<li>141：</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4cbe6c1f08b59f911f0a0aa91140deae.png" alt="image.png"></p>
-<ul>
-<li>142：</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4573954d3923199d395b8c80d3cb6909.png" alt="image.png"></p>
-<p><strong>dubbo 线程数：</strong></p>
-<ul>
-<li>141：</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/50b9cd579f52f5b56e2e28be3205d865.png" alt="image.png"></p>
-<ul>
-<li>142：</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d1f735878b6e9667f825e70e452c8492.png" alt="image.png"></p>
-<p>08.13 修改优化后至今，142 会依然出现一定量的慢调用，141 没有出现过<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/532b6fca9a1b64382d8ac364a4851385.png" alt="image.png"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次问题应该是由于短时间内的调用量突增，加上使用并发流处理 RPC 调用引起的。<br>根据 13 号的对照来看，流量平滑增加的情况不会出现特别严重的线程池等待现象，但依然有慢调用，存在隐患。</p>
-<p>取消并行流，增加分页大小的方案是可行的，以后并行流需要谨慎使用。后续也和客户端讨论了上层接口的调整方案。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/cb2072810346/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

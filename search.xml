@@ -1,37 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>对 1e9 + 7 取模</title>
-    <url>/6a28fa6963c0/</url>
-    <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
-<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
-<p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。<del>例如：</del></p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
-<p><del>只要 sum 不溢出，那么其结果和对每次运算结果都～～`</del>%MOD<del>`</del> 一遍是一样的。~~</p>
-<p>所以 ** 取模成了简化大数据的一种约定 **，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
-<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
+    <title>从 0 到 1 快速搭建博客</title>
+    <url>/58a80fbce4aa/</url>
+    <content><![CDATA[<h1 id="为什么搭建博客"><a href="#为什么搭建博客" class="headerlink" title="为什么搭建博客"></a>为什么搭建博客</h1><ul>
+<li>知识积累</li>
+<li>分享</li>
+<li>影响力</li>
+</ul>
+<h1 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h1><h2 id="静态页面生成"><a href="#静态页面生成" class="headerlink" title="静态页面生成"></a>静态页面生成</h2><p>我们可以自己写一套个人博客网站，不过那样做周期太长，样式之类的东西都得手动去调整，也不利于我们去专心的写作。</p>
+<p>像博客这种静态页面可以由工具直接生成。市面上的博客工具有很多，像 hexo、vuepress</p>
+<p>为什么选择 hexo？主题较现代化、方便快捷<br><a href="https://github.com/hexojs/hexo">hexo github</a></p>
+<span id="more"></span>
+<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><p>_config.yml 里配置你的项目地址</p>
+<figure class="highlight xml"><table><tbody><tr><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:ccomma/ccomma.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>hexo 提供了很多主题，这里推荐 Next 主题，因为 Next 的社区非常活跃，这就导致 Next 主题有非常多的配置和插件</p>
+<p>Next 主题配置<br><a href="https://theme-next.js.org/docs/theme-settings/">Theme Settings</a></p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>博客可以部署在阿里云等云服务器上，但是特地买一台服务器专门用来部署博客还是有点太浪费了。</p>
+<p>以下几种方式可以免费部署静态 web 应用</p>
+<ul>
+<li>github pages<ul>
+<li> 服务器地理位置：美国</li>
+<li>推荐：push 即部署，简单快捷 </li>
+<li>缺点：网络连接严重不稳定</li>
+</ul>
+</li>
+<li> cloudflare pages<ul>
+<li> 服务器地理位置：美国自家节点</li>
+<li>推荐原因：速度稳定，在全球各地均有 CDN，支持从 Github/Gitlab 等平台自动部署 </li>
+<li>缺点：部署速度较慢，但不算太影响</li>
+</ul>
+</li>
+<li> Vercel<ul>
+<li> 服务器地理位置：美国 AWS</li>
+<li> 推荐原因：部署速度快，支持自动部署</li>
+<li>缺点：被墙过一次，速度有可能出现不稳定</li>
+</ul>
+</li>
+</ul>
+<h1 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h1><p>hexo 能让我们更专心写博客，但即使是如此，我们还是要先使用 <code>hexo new "xxx"</code> 命令来新建文档。而我们平时的笔记可能是写在 notion、语雀、飞书上。</p>
+<p>写作同步工具 <a href="https://github.com/LetTTGACO/elog">elog</a> 能让我们的在 notion、语雀、飞书上的笔记自动部署到 github 上</p>
+<p>elog 会在本地创建缓存，每次同步只会增量更新，包括图片上传也是。</p>
+<h1 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h1><p>github pages 自带域名：xxxx.github.io，够用，但是有点 low</p>
+<ul>
+<li><a href="https://dc.console.aliyun.com/next/index?spm=5176.2020520112.products-recent.ddomain.5c0234c0saWuKP#/overview">阿里云域名</a>：基本都是国内的，30+/ 年 </li>
+<li><a href="https://dash.cloudflare.com/a6c6359e7e3af154f46b1d98c1f57412">cloudflare</a>：国外域名，9.77～45 美元</li>
+</ul>
+<h2 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h2><p>1. 阿里云付费 SSL<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e79690ec1537f107639504c426c7654f.png" alt="image.png"></p>
+<p>2. 阿里个人测试证书，有效期 3 个月<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7abb7f515c8c087585cf82b749f58856.png" alt="image.png"></p>
+<p> 3.<a href="https://letsencrypt.org/">Let’s Encrypt</a>：提供免费 TLS 证书的非营利证书颁发机构，就个人博客而言足以</p>
+<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>阿里云 DNS：DNS 解析与域名服务捆绑，声誉一般</p>
+<p>cloudflare：</p>
+<ul>
+<li>支持 CDN（国内减速）</li>
+<li>自带 DDos 防御服务</li>
+<li>支持解析 A、AAAA、CNAME、MX、LOC、SRV、SPF、TXT、NS、CAA、PTR、CERT、DNSKEY、DS、NAPTR、SMIMEA、SSHFP、TLSA、URI</li>
+<li> 支持 DNSSEC</li>
+<li> 免费版支持一部分其他地方收费的配套服务，例如 Worker，Page，访客规则</li>
+</ul>
+<h1 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h1><p>搜索引擎优化，让你的网站更好的被搜索引擎收录</p>
+<p>google：<a href="https://search.google.com/search-console">https://search.google.com/search-console</a><br>bing：<a href="https://www.bing.com/webmasters">https://www.bing.com/webmasters</a><br>百度：<a href="https://ziyuan.baidu.com/site">https://ziyuan.baidu.com/site</a></p>
+<p>以 google 为例：<br>登录到 Google Search Console，选择您要验证的网站。输入网址<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/060a5e066eda3911a4d4b938a91b23b3.png" alt="image.png"><br>将验证码复制到 DNS 记录中<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/eb3c64f775d04dc6ff8dabc1d6990035.png" alt="image.png"></p>
+<h1 id="站点分析"><a href="#站点分析" class="headerlink" title="站点分析"></a>站点分析</h1><p>对网站流量访问进行分析</p>
+<p>1.<a href="https://dash.cloudflare.com/a6c6359e7e3af154f46b1d98c1f57412/web-analytics/sites">cloudflare</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b39742d06912a9f134af70c3df193507.png" alt="image.png"></p>
+<p>2.<a href="https://search.google.com/search-console?resource_id=sc-domain:ccomma.cn">google</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8d5ef6ca57eb04a42125cc57f9f95af0.png" alt="image.png"></p>
+<p>3. <a href="https://tongji.baidu.com/main/overview/10000609568/overview/index?siteId=20141034">百度统计</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bfbbe9f8eda65e69abc5b9b1074671cd.png" alt="image.png"></p>
+<h1 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h1><p>百度云 CDN：百度云加速分为免费版和付费版，免费版不支持 SSL 证书，海外网站也支持加速。</p>
+<p>cloudflare CDN：<br>免费提供，对于国外的服务器还行，国内服务器反而减速。支持 SSL，无须备案</p>
+<p>七牛云 CDN：<br>每个月可使用 10G 的免费存储量和 10G 的 CDN 流量与 100 万次的 Get 请求数，七牛云在海外也有众多加速节点，七牛云 TCP 压缩优化使网页中大图和样式等实现秒加载。但请注意使用七牛 CDN，须保证账户中有最低金额 10 元。国内必须备案，支持 SSL。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.bilibili.com/video/BV1Sp4y157br/?vd_source=8f8a2ec64a5f07bb8bf30a6ef4819025">将 Hexo 博客部署到 CloudFlare Pages 使用全球加速</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1987796?areaSource=102001.7&amp;traceId=zTjHWNtLK7p3TbHHsvayg">5 个免费的静态 Web 应用部署平台</a></li>
+<li><a href="https://hqyman.cn/post/4255.html">国内外免费域名 DNS 解析推荐</a></li>
+<li><a href="https://www.zhihu.com/question/342631132">如何使用 Notion 制作个人网站？</a></li>
+<li><a href="https://www.cnblogs.com/wangyuehan/p/12743624.html">Notion 做个人博客的两种实现方式</a></li>
+<li><a href="https://blog.ithuo.net/post/2023-11-07%2FNotion%E5%8D%9A%E5%AE%A2%E6%8A%98%E8%85%BE%E6%8C%87%E5%8D%97">Notion 博客折腾指南</a></li>
+<li><a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html#%E4%BD%BF%E7%94%A8hexo%E5%86%99%E5%8D%9A%E5%AE%A2">使用 hexo+github 搭建免费个人博客</a></li>
+<li><a href="https://juejin.cn/post/7304540675668181003">语雀写作，Kubernetes 部署 ——Elog+Hexo 博客持续集成</a></li>
+</ul>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>其他</category>
       </categories>
       <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>矩阵快速幂</title>
-    <url>/e8fc79331955/</url>
-    <content><![CDATA[<p><a href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
-<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
-<span id="more"></span>
-<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>矩阵快速幂</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -73,6 +125,8 @@
     <title>并行流导致接口慢调用问题</title>
     <url>/cb2072810346/</url>
     <content><![CDATA[<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>2023.08.12 18:30 开始，桌位状态应用的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。</p>
+<span id="more"></span>
+
 <p><strong>调用量：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8ff9b37602e5bee3be548af291c7348e.png" alt="image.png"><br>根据 ARMS 分析该接口的调用量在 18:31-18:41 出现断崖式增长，每分钟请求数从 5.1k 增加到 14.7k，10 分钟增长了 9.6k。（后续调查表明在该时间段内大部分接口调用量都出现了断崖式增长）<br>异常时刻的 qps 大致为 236.1，几乎是一周前的 2 倍。</p>
 <p><strong>响应时间：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3dd26f56b4afe1a4bfcb5a79450452d1.png" alt="image.png"><br>每分钟响应时间平均为 3747 ms，整个异常过程中该接口最长的响应时间达到 8s 多。</p>
 <p><strong>dubbo 线程池：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5d7b54ac7097680e22af442ccbd6b276.png" alt="image.png"><br>所有接口的每分钟 dubbo 请求调用量在 18:35-18:45 内从 14.2k 增长至 35.6k<br>也是在这段时间内 dubbo 线程池被打满，在 18:40 左右基本被打满<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/decb4154e9d3362f4dd2e3b7dbd1892f.png" alt="image.png"></p>
@@ -145,85 +199,37 @@
       </tags>
   </entry>
   <entry>
-    <title>从 0 到 1 快速搭建博客</title>
-    <url>/58a80fbce4aa/</url>
-    <content><![CDATA[<h1 id="为什么搭建博客"><a href="#为什么搭建博客" class="headerlink" title="为什么搭建博客"></a>为什么搭建博客</h1><ul>
-<li>知识积累</li>
-<li>分享</li>
-<li>影响力</li>
-</ul>
-<h1 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h1><h2 id="静态页面生成"><a href="#静态页面生成" class="headerlink" title="静态页面生成"></a>静态页面生成</h2><p>我们可以自己写一套个人博客网站，不过那样做周期太长，样式之类的东西都得手动去调整，也不利于我们去专心的写作。</p>
-<p>像博客这种静态页面可以由工具直接生成。市面上的博客工具有很多，像 hexo、vuepress</p>
-<p>为什么选择 hexo？主题较现代化、方便快捷</p>
-<p><a href="https://github.com/hexojs/hexo">hexo github</a></p>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>Next 主题配置<br><a href="https://theme-next.js.org/docs/theme-settings/">Theme Settings</a></p>
-<span id="more"></span>
-<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>博客可以部署在阿里云等云服务器上，但是特地买一台服务器专门用来部署博客还是有点太浪费了。</p>
-<p>以下几种方式可以免费部署静态 web 应用</p>
-<ul>
-<li>github pages<ul>
-<li> 服务器地理位置：美国</li>
-<li>推荐：push 即部署，简单快捷 </li>
-<li>缺点：网络连接严重不稳定</li>
-</ul>
-</li>
-<li> cloudflare pages<ul>
-<li> 服务器地理位置：美国自家节点 </li>
-<li>推荐原因：速度稳定，在全球各地均有 CDN，支持从 Github/Gitlab 等平台自动部署 </li>
-<li>缺点：部署速度较慢，但不算太影响</li>
-</ul>
-</li>
-<li> Vercel<ul>
-<li> 服务器地理位置：美国 AWS</li>
-<li> 推荐原因：部署速度快，支持自动部署</li>
-<li>缺点：被墙过一次，速度有可能出现不稳定</li>
-</ul>
-</li>
-</ul>
-<h1 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h1><p>hexo 能让我们更专心写博客，但即使是如此，我们还是要先使用 <code>hexo new "xxx"</code> 命令来新建文档。而我们平时的笔记可能是写在 notion、语雀、飞书上。</p>
-<p>写作同步工具 <a href="https://github.com/LetTTGACO/elog">elog</a> 能让我们的在 notion、语雀、飞书上的笔记自动部署到 github 上</p>
-<h1 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h1><ul>
-<li><a href="https://dc.console.aliyun.com/next/index?spm=5176.2020520112.products-recent.ddomain.5c0234c0saWuKP#/overview">阿里云域名</a>：基本都是国内的，30+/ 年 </li>
-<li><a href="https://dash.cloudflare.com/a6c6359e7e3af154f46b1d98c1f57412">cloudflare</a>：国外域名，9.77～45 美元</li>
-</ul>
-<h2 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h2><p>1. 阿里云付费 SSL<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e79690ec1537f107639504c426c7654f.png" alt="image.png"></p>
-<p>2. 阿里个人测试证书，有效期 3 个月<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7abb7f515c8c087585cf82b749f58856.png" alt="image.png"></p>
-<p> 3.<a href="https://letsencrypt.org/">Let’s Encrypt</a>：提供 TLS 证书的非营利证书颁发机构，就个人博客而言足以</p>
-<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>阿里云 DNS：DNS 解析与域名服务捆绑，声誉一般</p>
-<p>cloudflare：</p>
-<ul>
-<li>支持 CDN（加速 | 国内减速）</li>
-<li>自带 DDos 防御服务（I’m Under Atteck！确信）</li>
-<li>支持解析 A、AAAA、CNAME、MX、LOC、SRV、SPF、TXT、NS、CAA、PTR、CERT、DNSKEY、DS、NAPTR、SMIMEA、SSHFP、TLSA、URI</li>
-<li> 支持 DNSSEC（高深莫测）</li>
-<li>免费版支持一部分其他地方收费的配套服务，例如 Worker，Page，访客规则</li>
-</ul>
-<h1 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h1><p>搜索引擎优化，让你的网站更好的被搜索引擎收录</p>
-<p>google：<a href="https://search.google.com/search-console">https://search.google.com/search-console</a><br>bing：<a href="https://www.bing.com/webmasters">https://www.bing.com/webmasters</a><br>百度：<a href="https://ziyuan.baidu.com/site">https://ziyuan.baidu.com/site</a></p>
-<p>以 google 为例：<br>登录到 Google Search Console，选择您要验证的网站。输入网址<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/060a5e066eda3911a4d4b938a91b23b3.png" alt="image.png"><br>将验证码复制到 DNS 记录中<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/eb3c64f775d04dc6ff8dabc1d6990035.png" alt="image.png"></p>
-<h1 id="站点分析"><a href="#站点分析" class="headerlink" title="站点分析"></a>站点分析</h1><p>对网站流量访问进行分析</p>
-<p>1.<a href="https://dash.cloudflare.com/a6c6359e7e3af154f46b1d98c1f57412/web-analytics/sites">cloudflare</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b39742d06912a9f134af70c3df193507.png" alt="image.png"></p>
-<p>2.<a href="https://search.google.com/search-console?resource_id=sc-domain:ccomma.cn">google</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8d5ef6ca57eb04a42125cc57f9f95af0.png" alt="image.png"></p>
-<p>3. <a href="https://tongji.baidu.com/main/overview/10000609568/overview/index?siteId=20141034">百度统计</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bfbbe9f8eda65e69abc5b9b1074671cd.png" alt="image.png"></p>
-<h1 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h1><p>百度云 CDN：百度云加速分为免费版和付费版，免费版不支持 SSL 证书，海外网站也支持加速。</p>
-<p>cloudflare CDN：<br>免费提供，对于国外的服务器还行，国内服务器反而减速。支持 SSL，无须备案</p>
-<p>七牛云 CDN：<br>每个月可使用 10G 的免费存储量和 10G 的 CDN 流量与 100 万次的 Get 请求数，七牛云在海外也有众多加速节点，七牛云 TCP 压缩优化使网页中大图和样式等实现秒加载。但请注意使用七牛 CDN，须保证账户中有最低金额 10 元。国内必须备案，支持 SSL。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.bilibili.com/video/BV1Sp4y157br/?vd_source=8f8a2ec64a5f07bb8bf30a6ef4819025">将 Hexo 博客部署到 CloudFlare Pages 使用全球加速</a></li>
-<li><a href="https://cloud.tencent.com/developer/article/1987796?areaSource=102001.7&amp;traceId=zTjHWNtLK7p3TbHHsvayg">5 个免费的静态 Web 应用部署平台</a></li>
-<li><a href="https://hqyman.cn/post/4255.html">国内外免费域名 DNS 解析推荐</a></li>
-<li><a href="https://www.zhihu.com/question/342631132">如何使用 Notion 制作个人网站？</a></li>
-<li><a href="https://www.cnblogs.com/wangyuehan/p/12743624.html">Notion 做个人博客的两种实现方式</a></li>
-<li><a href="https://blog.ithuo.net/post/2023-11-07%2FNotion%E5%8D%9A%E5%AE%A2%E6%8A%98%E8%85%BE%E6%8C%87%E5%8D%97">Notion 博客折腾指南</a></li>
-<li><a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html#%E4%BD%BF%E7%94%A8hexo%E5%86%99%E5%8D%9A%E5%AE%A2">使用 hexo+github 搭建免费个人博客</a></li>
-<li><a href="https://juejin.cn/post/7304540675668181003">语雀写作，Kubernetes 部署 ——Elog+Hexo 博客持续集成</a></li>
-</ul>
+    <title>对 1e9 + 7 取模</title>
+    <url>/6a28fa6963c0/</url>
+    <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
+<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
+<p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。<del>例如：</del></p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
+<p><del>只要 sum 不溢出，那么其结果和对每次运算结果都～～`</del>%MOD<del>`</del> 一遍是一样的。~~</p>
+<p>所以 ** 取模成了简化大数据的一种约定 **，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
+<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
 ]]></content>
       <categories>
-        <category>其他</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>博客</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>矩阵快速幂</title>
+    <url>/e8fc79331955/</url>
+    <content><![CDATA[<p><a href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
+<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
+<span id="more"></span>
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>矩阵快速幂</tag>
       </tags>
   </entry>
   <entry>
@@ -255,28 +261,6 @@
       </tags>
   </entry>
   <entry>
-    <title>481. 神奇字符串</title>
-    <url>/5889a7e516e2/</url>
-    <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
-<ul>
-<li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
-</ul>
-<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
-<span id="more"></span>
-<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>1620. 网络信号最好的坐标</title>
     <url>/9dc3e8a4d1b1/</url>
     <content><![CDATA[<p>给你一个数组 towers&nbsp;和一个整数 radius 。<br>数组&nbsp; towers&nbsp; 中包含一些网络信号塔，其中&nbsp;towers [i] = [xi, yi, qi]&nbsp;表示第&nbsp;i&nbsp;个网络信号塔的坐标是&nbsp;(xi, yi)&nbsp;且信号强度参数为&nbsp;qi&nbsp;。所有坐标都是在&nbsp; X-Y 坐标系内的&nbsp;整数&nbsp;坐标。两个坐标之间的距离用 欧几里得距离&nbsp;计算。<br>整数&nbsp;radius&nbsp;表示一个塔 能到达&nbsp;的 最远距离&nbsp;。如果一个坐标跟塔的距离在 radius&nbsp;以内，那么该塔的信号可以到达该坐标。在这个范围以外信号会很微弱，所以 radius&nbsp;以外的距离该塔是 不能到达的&nbsp;。<br>如果第 i&nbsp;个塔能到达 (x, y)&nbsp;，那么该塔在此处的信号为&nbsp;⌊qi / (1 + d)⌋&nbsp;，其中&nbsp;d&nbsp;是塔跟此坐标的距离。一个坐标的 信号强度 是所有 能到达&nbsp;该坐标的塔的信号强度之和。<br>请你返回数组 [cx, cy] ，表示 信号强度 最大的 整数 坐标点&nbsp;(cx, cy) 。如果有多个坐标网络信号一样大，请你返回字典序最小的 非负 坐标。<br>注意：</p>
@@ -288,6 +272,55 @@
 </li>
 <li>⌊val⌋&nbsp;表示小于等于&nbsp;val&nbsp;的最大整数（向下取整函数）。</li>
 </ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>刷题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1668. 最大重复子字符串</title>
+    <url>/084a2e22f3ba/</url>
+    <content><![CDATA[<p>给你一个字符串&nbsp;sequence&nbsp;，如果字符串 word&nbsp;连续重复&nbsp;k&nbsp;次形成的字符串是&nbsp;sequence&nbsp;的一个子字符串，那么单词&nbsp;word 的 重复值为 k 。单词 word&nbsp;的 最大重复值&nbsp;是单词&nbsp;word&nbsp;在&nbsp;sequence&nbsp;中最大的重复值。如果&nbsp;word&nbsp;不是&nbsp;sequence&nbsp;的子串，那么重复值&nbsp;k&nbsp;为 0 。<br>给你一个字符串 sequence&nbsp;和 word&nbsp;，请你返回 最大重复值&nbsp;k 。</p>
+<span id="more"></span>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxRepeating</span><span class="params">(String sequence, String word)</span> {</span><br><span class="line">        <span class="type">char</span>[] seqArray = sequence.toCharArray();</span><br><span class="line">        <span class="type">char</span>[] wordArray = word.toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> seqArray.length - wordArray.length + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 遍历</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="type">int</span> <span class="variable">e</span> <span class="operator">=</span> s + wordArray.length;</span><br><span class="line">            <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (e &lt;= seqArray.length) {</span><br><span class="line">                <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> s;</span><br><span class="line">                <span class="keyword">for</span> (; j &lt; e; j++) {</span><br><span class="line">                    <span class="keyword">if</span> (seqArray[j] != wordArray[j - s]) <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span> (j == e) {</span><br><span class="line">                    cnt++;</span><br><span class="line">                    s = e;</span><br><span class="line">                    e += wordArray.length;</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (cnt &gt; result) result = cnt;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f81256185fb2eaa9a76f211b218fe376.png" alt="image.png"></p>
+<h2 id="简单枚举-动态规划"><a href="#简单枚举-动态规划" class="headerlink" title="简单枚举 + 动态规划"></a>简单枚举 + 动态规划</h2><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c0150a85f67492b303819cdc095c976c.png" alt="image.png"></p>
+<h2 id="KMP-算法-动态规划"><a href="#KMP-算法-动态规划" class="headerlink" title="KMP 算法 + 动态规划"></a>KMP 算法 + 动态规划</h2><p>方法一的数组 valid 本质上就是标记了字符串 word 在字符串 sequence 中所有出现的位置。而我们可以使用更高效的 <a href="https://oi-wiki.org/string/kmp/">KMP 算法</a> 在 O (m+n) O (m+n) 的时间内得到数组 valid。</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxRepeating</span><span class="params">(String sequence, String word)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> sequence.length(), m = word.length();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; m) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] fail = <span class="keyword">new</span> <span class="title class_">int</span>[m];</span><br><span class="line">        Arrays.fill(fail, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; m; ++i) {</span><br><span class="line">            <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> fail[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">while</span> (j != -<span class="number">1</span> &amp;&amp; word.charAt(j + <span class="number">1</span>) != word.charAt(i)) {</span><br><span class="line">                j = fail[j];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (word.charAt(j + <span class="number">1</span>) == word.charAt(i)) {</span><br><span class="line">                fail[i] = j + <span class="number">1</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] f = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i) {</span><br><span class="line">            <span class="keyword">while</span> (j != -<span class="number">1</span> &amp;&amp; word.charAt(j + <span class="number">1</span>) != sequence.charAt(i)) {</span><br><span class="line">                j = fail[j];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (word.charAt(j + <span class="number">1</span>) == sequence.charAt(i)) {</span><br><span class="line">                ++j;</span><br><span class="line">                <span class="keyword">if</span> (j == m - <span class="number">1</span>) {</span><br><span class="line">                    f[i] = (i &gt;= m ? f[i - m] : <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">                    j = fail[j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(f).max().getAsInt();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>复杂度分析</p>
+<ul>
+<li>时间复杂度：O (m + n) O (m+n)，其中 nn 和 mm 分别是字符串 sequence 和 word 的长度。</li>
+<li>空间复杂度：O (m + n) O (m+n)，即为 KMP 算法中的数组 fail 以及数组 f 需要使用的空间。</li>
+</ul>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&amp;mid=2247489813&amp;idx=1&amp;sn=7f3bc18ca390d85b17655f7164d8e660">【字符串哈希】字符串哈希入门</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/77e54569881e1323d57e605359c57fc2.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>刷题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>481. 神奇字符串</title>
+    <url>/5889a7e516e2/</url>
+    <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
+<ul>
+<li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
+</ul>
+<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
+<span id="more"></span>
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -342,14 +375,12 @@
       </tags>
   </entry>
   <entry>
-    <title>790. 多米诺和托米诺平铺</title>
-    <url>/8a6c84365f71/</url>
-    <content><![CDATA[<p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
-<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
-<span id="more"></span>
-<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> <span class="number">1000000007</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numTilings</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// d[i][0] =&gt; 第 i 列上面占位</span></span><br><span class="line">        <span class="comment">// d[i][1] =&gt; 第 i 列下面占位</span></span><br><span class="line">        <span class="comment">// d[i][2] =&gt; 第 i 列都占位</span></span><br><span class="line">        <span class="type">int</span>[][] d = <span class="keyword">new</span> <span class="title class_">int</span>[n][<span class="number">3</span>];</span><br><span class="line">        d[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; n; i++) {</span><br><span class="line">            d[i][<span class="number">0</span>] = (d[i - <span class="number">1</span>][<span class="number">1</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">1</span>] = (d[i - <span class="number">1</span>][<span class="number">0</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">2</span>] = (((d[i - <span class="number">1</span>][<span class="number">2</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">0</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">1</span>]) % MOD;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> d[n - <span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>TODO</p>
+    <title>792. 匹配子序列的单词数</title>
+    <url>/66915abb06c0/</url>
+    <content><![CDATA[<p>给定字符串 <code>s</code>&nbsp;和字符串数组&nbsp;<code>words</code>, 返回&nbsp;&nbsp;<code>words[i]</code>&nbsp;中是 <code>s</code> 的子序列的单词个数&nbsp;。<br>字符串的 <strong>子序列</strong> 是从原始字符串中生成的新字符串，可以从中删去一些字符 (可以是 none)，而不改变其余字符的相对顺序。</p>
+<ul>
+<li>例如， <code>“ace”</code> 是 <code>“abcde”</code> 的子序列。</li>
+</ul>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -385,39 +416,14 @@
       </tags>
   </entry>
   <entry>
-    <title>792. 匹配子序列的单词数</title>
-    <url>/66915abb06c0/</url>
-    <content><![CDATA[<p>给定字符串 <code>s</code>&nbsp;和字符串数组&nbsp;<code>words</code>, 返回&nbsp;&nbsp;<code>words[i]</code>&nbsp;中是 <code>s</code> 的子序列的单词个数&nbsp;。<br>字符串的 <strong>子序列</strong> 是从原始字符串中生成的新字符串，可以从中删去一些字符 (可以是 none)，而不改变其余字符的相对顺序。</p>
-<ul>
-<li>例如， <code>“ace”</code> 是 <code>“abcde”</code> 的子序列。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1668. 最大重复子字符串</title>
-    <url>/084a2e22f3ba/</url>
-    <content><![CDATA[<p>给你一个字符串&nbsp;sequence&nbsp;，如果字符串 word&nbsp;连续重复&nbsp;k&nbsp;次形成的字符串是&nbsp;sequence&nbsp;的一个子字符串，那么单词&nbsp;word 的 重复值为 k 。单词 word&nbsp;的 最大重复值&nbsp;是单词&nbsp;word&nbsp;在&nbsp;sequence&nbsp;中最大的重复值。如果&nbsp;word&nbsp;不是&nbsp;sequence&nbsp;的子串，那么重复值&nbsp;k&nbsp;为 0 。<br>给你一个字符串 sequence&nbsp;和 word&nbsp;，请你返回 最大重复值&nbsp;k 。</p>
+    <title>790. 多米诺和托米诺平铺</title>
+    <url>/8a6c84365f71/</url>
+    <content><![CDATA[<p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
+<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
 <span id="more"></span>
-<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxRepeating</span><span class="params">(String sequence, String word)</span> {</span><br><span class="line">        <span class="type">char</span>[] seqArray = sequence.toCharArray();</span><br><span class="line">        <span class="type">char</span>[] wordArray = word.toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> seqArray.length - wordArray.length + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 遍历</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="type">int</span> <span class="variable">e</span> <span class="operator">=</span> s + wordArray.length;</span><br><span class="line">            <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (e &lt;= seqArray.length) {</span><br><span class="line">                <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> s;</span><br><span class="line">                <span class="keyword">for</span> (; j &lt; e; j++) {</span><br><span class="line">                    <span class="keyword">if</span> (seqArray[j] != wordArray[j - s]) <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span> (j == e) {</span><br><span class="line">                    cnt++;</span><br><span class="line">                    s = e;</span><br><span class="line">                    e += wordArray.length;</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (cnt &gt; result) result = cnt;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> <span class="number">1000000007</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numTilings</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// d[i][0] =&gt; 第 i 列上面占位</span></span><br><span class="line">        <span class="comment">// d[i][1] =&gt; 第 i 列下面占位</span></span><br><span class="line">        <span class="comment">// d[i][2] =&gt; 第 i 列都占位</span></span><br><span class="line">        <span class="type">int</span>[][] d = <span class="keyword">new</span> <span class="title class_">int</span>[n][<span class="number">3</span>];</span><br><span class="line">        d[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; n; i++) {</span><br><span class="line">            d[i][<span class="number">0</span>] = (d[i - <span class="number">1</span>][<span class="number">1</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">1</span>] = (d[i - <span class="number">1</span>][<span class="number">0</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">2</span>] = (((d[i - <span class="number">1</span>][<span class="number">2</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">0</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">1</span>]) % MOD;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> d[n - <span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f81256185fb2eaa9a76f211b218fe376.png" alt="image.png"></p>
-<h2 id="简单枚举-动态规划"><a href="#简单枚举-动态规划" class="headerlink" title="简单枚举 + 动态规划"></a>简单枚举 + 动态规划</h2><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c0150a85f67492b303819cdc095c976c.png" alt="image.png"></p>
-<h2 id="KMP-算法-动态规划"><a href="#KMP-算法-动态规划" class="headerlink" title="KMP 算法 + 动态规划"></a>KMP 算法 + 动态规划</h2><p>方法一的数组 valid 本质上就是标记了字符串 word 在字符串 sequence 中所有出现的位置。而我们可以使用更高效的 <a href="https://oi-wiki.org/string/kmp/">KMP 算法</a> 在 O (m+n) O (m+n) 的时间内得到数组 valid。</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxRepeating</span><span class="params">(String sequence, String word)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> sequence.length(), m = word.length();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; m) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] fail = <span class="keyword">new</span> <span class="title class_">int</span>[m];</span><br><span class="line">        Arrays.fill(fail, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; m; ++i) {</span><br><span class="line">            <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> fail[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">while</span> (j != -<span class="number">1</span> &amp;&amp; word.charAt(j + <span class="number">1</span>) != word.charAt(i)) {</span><br><span class="line">                j = fail[j];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (word.charAt(j + <span class="number">1</span>) == word.charAt(i)) {</span><br><span class="line">                fail[i] = j + <span class="number">1</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] f = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i) {</span><br><span class="line">            <span class="keyword">while</span> (j != -<span class="number">1</span> &amp;&amp; word.charAt(j + <span class="number">1</span>) != sequence.charAt(i)) {</span><br><span class="line">                j = fail[j];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (word.charAt(j + <span class="number">1</span>) == sequence.charAt(i)) {</span><br><span class="line">                ++j;</span><br><span class="line">                <span class="keyword">if</span> (j == m - <span class="number">1</span>) {</span><br><span class="line">                    f[i] = (i &gt;= m ? f[i - m] : <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">                    j = fail[j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(f).max().getAsInt();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>复杂度分析</p>
-<ul>
-<li>时间复杂度：O (m + n) O (m+n)，其中 nn 和 mm 分别是字符串 sequence 和 word 的长度。</li>
-<li>空间复杂度：O (m + n) O (m+n)，即为 KMP 算法中的数组 fail 以及数组 f 需要使用的空间。</li>
-</ul>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&amp;mid=2247489813&amp;idx=1&amp;sn=7f3bc18ca390d85b17655f7164d8e660">【字符串哈希】字符串哈希入门</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/77e54569881e1323d57e605359c57fc2.png" alt="image.png"></p>
+<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>TODO</p>
 ]]></content>
       <categories>
         <category>算法</category>
