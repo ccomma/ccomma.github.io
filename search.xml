@@ -1,114 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ES 写入原理及调优</title>
-    <url>/4216ce6ea7d2/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？</p>
-<p><strong>1. 解决写入问题</strong><br>心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。</p>
-<p><strong>2. 学习架构设计思想</strong><br>这也是很重要的一点，了解 ES 是如何处理写入中遇到的问题，以及这些处理方式是否在我们平常项目中有所帮助。</p>
-<p><strong>3. 应对面试</strong><br>虽然比较功利，但不可否认，写入原理是 ES 面试的高频问题</p>
-<p>常见的面试问题：</p>
-<ul>
-<li>你了解 ES 的写入原理吗</li>
-<li>你了解文档的写入 / 删除过程吗</li>
-<li>如何保证 ES 数据写入一致性</li>
-<li>文档写入超时原因</li>
-<li> ES 写入实时性如何去保证</li>
-<li>数据量大时如何保证数据写入性能</li>
-<li>如何提高数据检索能力</li>
-</ul>
-<span id="more"></span>
-<h2 id="写入流程"><a href="#写入流程" class="headerlink" title="写入流程"></a>写入流程</h2><p>ES 中的数据写入均发生在主分片上。由于 ES 是分布式系统，实际接收到写入请求的节点可能是任意一台节点，这就需要将请求通过 routing 路由到具体主分片所在的节点，将数据写入该节点的主分片中，然后主分片再同步数据到其他节点的副分片中。<br>路由公式：<code>shard_num = hash(_routing) % num_primary_shards</code><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5b20c17eb26dfc1a90e9433ae005a39e.jpeg"><br>具体流程：</p>
-<ol>
-<li>客户端发起写入请求至 node 4</li>
-<li>node 4 通过文档 id 在路由表中的映射信息确定当前数据的位置为分片 0，分片 0 的主分片位于 node 5，并将数据转发至 node 5。</li>
-<li>数据在 node 5 写入，写入成功之后将数据的同步请求转发至其副本所在的 node 4 和 node 6 上面，等待所有副本数据写入成功之后 node 5 将结果报告 node 4，并由 node 4 将结果返回给客户端，报告数据写入成功。</li>
-</ol>
-<h2 id="写一致性策略"><a href="#写一致性策略" class="headerlink" title="写一致性策略"></a>写一致性策略</h2><p>ES 5.x 之后，一致性策略由 <code>wait_for_active_shards</code> 参数控制：状态为 active 的主副分片数量达到设定阈值时才视为写入成功，才会返回数据给客户端。默认为 1，即只需要主分片写入成功，可设置为 <code>all</code> 或任何正整数，最大值为索引中的分片总数 (&nbsp;<code>number_of_replicas + 1</code> )。</p>
-<p>如果当前 active 状态的副本没有达到设定阈值，写操作必须等待并且重试，默认等待时间 30 秒，直到 active 状态的副本数量超过设定的阈值或者超时返回失败为止。</p>
-<p>执行索引操作时，分配给执行索引操作的主分片可能不可用。造成这种情况的原因可能是主分片当前正在从网关恢复或正在进行重定位。默认情况下，索引操作将在主分片上等待最多 1 分钟，然后才会失败并返回错误。</p>
-<h2 id="写入原理"><a href="#写入原理" class="headerlink" title="写入原理"></a>写入原理</h2><p>我们已经知道了宏观上的写入流程：先找到主节点，写入主节点后再同步到副节点。<br><strong>那 ES 是怎么把数据写入主节点和副节点中的呢？</strong></p>
-<p>大家可能会有疑问，难道不是直接写入到磁盘吗？<strong>我们可以思考下，每次请求都直接写入到磁盘这种方式在高并发的场景下会消耗大量的 IO 资源，每次都要寻址然后写入磁盘。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba7282dc7f49c616767143d774646a3b.jpeg" alt="未命名文件.jpg"></p>
-<p>对此我们可以用缓存来解决，即把数据写入系统缓存后，定期批量写入磁盘，同时缓存也提供检索服务。<br>而 Lucene 中索引是细分为多个 segment 的，segment 是索引中存储索引数据的内部存储元素，并且是不可变的。较小的 segment 会定期合并到较大的 segment 中，以控制索引大小。问题又来了：<strong>如果每次请求都创建一个新的 segment，那么会导致频繁的合并操作（merge）。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ec5aedd4c9bc6e805872b3f5944957a8.jpeg" alt="未命名文件.jpg"></p>
-<p>所以 ES 在请求进入缓存之前先让请求进缓冲区（memory buffer），每秒或每 100 个缓存才会执行刷新操作（Refresh）把缓冲区中的数据创建 segment 写入系统缓存中。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg" alt="未命名文件 (1).jpg"></p>
-<p>至此这套批量持久化结构已经比较完善，但还有一个问题：<strong>缓存虽然提高了性能，但毕竟未持久化到磁盘，一旦系统出现故障数据就会丢失。</strong>ES 采用事务日志（translog）的方式解决此问题，当请求进来时会同时写入缓冲区和事务日志中，当服务重启后就会从事务日志中恢复数据到缓存。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg" alt="未命名文件 (1).jpg"></p>
-<p>整体结构：</p>
-<ul>
-<li>Memory Buffer（缓冲区）：数据批量操作，高性能写入</li>
-<li> Translog（事务日志）：保证数据写入安全性，防止丢失</li>
-<li> OS Cache（内存）：保证数据高性能检索</li>
-<li> OS Disk（磁盘）：保证数据持久化</li>
-</ul>
-<p>具体流程：</p>
-<ol>
-<li>客户端写入 Memory Buffer 缓冲区，并追加写入 Translog 事务日志（删除、写入…）以保证数据安全性。</li>
-<li>Memory Buffer 达到阈值（100 条 / 1s）后执行 Refresh 操作生成 Segment 索引文件到系统缓存中。<ol>
-<li>然后系统缓存会把该 Segment 标记为可被检索，因此数据有 1s 不可读的延迟。</li>
-<li>Refresh 操作不能过于频繁，因此针对实时性不高的数据，可以配置 refresh 的间隔时间为 30s 一次。</li>
-</ol>
-</li>
-<li>每个 Segment 都会消耗文件句柄、内存、CPU 运行周期，所以每隔一段时间会执行 Merge 操作，合并 Segment。<ol>
-<li>Merge 操作发生在 JVM 中，频率过高会占用堆内存空间，所以 Refresh 的频率不能太高，否则会使 Merge 频率增高。</li>
-<li>不合并 Segment 的影响：<ol>
-<li>每个 Segment 占据的内存不会随着 GC 释放的。导致系统内存不足，进一步导致超时问题。</li>
-<li>查询时会遍历每个 Segment，过多的 Segment 会导致查询速度下降。</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>执行 Flush 操作缓存写入 OS Disk（磁盘）并提交一次，并清空 Translog。<ol>
-<li>系统缓存每隔 30 分钟、Translog 每隔 5 秒刷一次到磁盘中，所以默认情况下，可能会有 5s 数据丢失。</li>
-<li>系统缓存和 Translog 写满时也会刷磁盘。</li>
-</ol>
-</li>
-<li>断电等异常操作导致数据丢失时，服务重启后会读取 Translog 中的数据到 Memory Buffer 中，以完成回滚操作。</li>
-</ol>
-<p>相关参数：</p>
-<ul>
-<li>index.translog.durability：同步还是异步<ul>
-<li> request：（默认）主副分片在每个请求后执行 fsync 和 commit，才会向客户端报告索引、删除、更新或批量请求的成功。如果发生崩溃，那么所有只要是已经确认的写操作都已经被提交到磁盘。</li>
-<li>async：在后台每 index.translog.sync_interval 时间进行一次 fsync 和 commit。意味着如果发生崩溃，那么所有在上一次自动提交以后的已确认的写操作将会丢失。</li>
-</ul>
-</li>
-<li>index.translog.sync_interval：translog 多久被同步到磁盘并提交一次。默认 5 秒。这个值不能小于 100ms。</li>
-<li>index.translog.flush_threshold_size：translog 执行 flush 操作的空间最大阈值，默认 512 MB。</li>
-</ul>
-<h2 id="写入性能调优"><a href="#写入性能调优" class="headerlink" title="写入性能调优"></a>写入性能调优</h2><p>生产经常面临的写入可以分为两种情况：</p>
-<ul>
-<li>高并发：高频的创建 / 更新索引文档，一般发生在 C 端场景下</li>
-<li>高吞吐：定期重建索引或批量更新文档数据，一般为 B 端场景</li>
-</ul>
-<p><strong>1. 提升写入吞吐量和并发</strong><br>ES 数据写入具有一定的延时性，这是为了减少频繁的索引文件产生。默认情况下 ES 每秒生成一个 segment 文件，当达到一定阈值的时候会执行 merge，merge 过程发生在 JVM 中，频繁的生成 segmen 文件可能会导致频繁的触发 FGC，导致 OOM。<br>为了避免避免这种情况，通常采取的手段是降低 segment 文件的生成频率，手段有两个，一个是增加时间阈值，另一个是增大 buffer 的空间阈值。</p>
-<ol>
-<li>增加 flush 时间间隔。Flush 是 IO 操作，很消耗性能，不能太频繁</li>
-<li>增加 refresh_interval 的参数值<ol>
-<li>目的是减少 segment 文件的创建，减少 segment 的 merge 次数。</li>
-<li>merge 是发生在 JVM 中的，有可能导致 full GC，增加 refresh 会降低搜索的实时性。</li>
-</ol>
-</li>
-<li>增加 buffer 大小<ol>
-<li>减小 refresh 的时间间隔，因为导致 segment 文件创建的原因不仅有时间阈值，还有 buffer 空间大小，写满了也会创建。</li>
-<li>默认最小值 48MB &lt; 默认值 JVM 空间的 10% &lt; 默认最大无限制</li>
-</ol>
-</li>
-<li>关闭副本（提高单次吞吐）<ol>
-<li>需要单次写入大量数据的时候，可以关闭副本（减少数据同步），暂停搜索服务，或选择在检索请求量谷值区间时间段来完成。因为副本的存在会导致主从之间频繁的进行数据同步，大大增加服务器的资源占用。</li>
-<li>可通过则设置 index.number_of_replicas 为 0 以加快索引速度。没有副本意味着丢失单个节点可能会导致数据丢失，因此数据保存在其他地方很重要，以便在出现问题时可以重试初始加载。初始加载完成后，可以设置 index.number_of_replicas 改回其原始值。</li>
-</ol>
-</li>
-<li>max_result_window 参数</li>
-</ol>
-<p>分页返回的最大数值，默认值为 10000。通过设定一个合理的阈值，避免初学者分页查询时由于单页数据过大而导致 OOM。</p>
-<p><strong>2. 提高写入实时性（不推荐）</strong><br>在搜索引擎的业务场景下，用户一般并不需要那么高的写入实时性。有时这个延时的过程需要处理很多事情，比如信息需要后台审核。<br>可以提高 Memory Buffer 的 refresh 操作频率，但是过高的 refresh 会导致频繁 merge segment，会消耗更多堆内存、CPU 的资源</p>
-<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><p>1. 避免单次召回大量数据<br>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询<br> <br>2. 避免单个文档过大<br>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。<br> <br>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。<br> <br>3. 使用 filter 代替 query<br>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。<br> <br>4. 避免深度分页<br> <br>5. 使用 Keyword 类型<br>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
-<p>参考：</p>
-<ul>
-<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index-modules-translog.html">Translog | Elasticsearch Guide [7.17] | Elastic</a></li>
-<li><a href="https://blog.csdn.net/a645293829/article/details/132223065">【HBZ 分享】ES 索引分片的写入原理 及 流程</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>包依赖导致的 ClassNotFoundException</title>
     <url>/2659d1283ba8/</url>
     <content><![CDATA[<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">2022</span>-08-<span class="number">25</span> <span class="number">17</span>:<span class="number">47</span>:<span class="number">31.203</span> ERROR o.s.boot.SpringApplication.reportFailure:<span class="number">860</span> Application run failed</span><br><span class="line">java.lang.TypeNotPresentException: Type com.dfire.soa.consumer.vo.DinningTableVo not present</span><br><span class="line">        at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:<span class="number">117</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:<span class="number">125</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:<span class="number">49</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.visitor.Reifier.reifyTypeArguments(Reifier.java:<span class="number">68</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:<span class="number">138</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:<span class="number">49</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.repository.MethodRepository.getReturnType(MethodRepository.java:<span class="number">68</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at java.lang.reflect.Method.getGenericReturnType(Method.java:<span class="number">255</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at org.apache.dubbo.common.utils.ReflectUtils.getReturnTypes(ReflectUtils.java:<span class="number">1196</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.rpc.model.MethodDescriptor.&lt;init&gt;(MethodDescriptor.java:<span class="number">48</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.rpc.model.ServiceDescriptor.initMethods(ServiceDescriptor.java:<span class="number">54</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.rpc.model.ServiceDescriptor.&lt;init&gt;(ServiceDescriptor.java:<span class="number">45</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.rpc.model.ServiceRepository.lambda$registerService$<span class="number">0</span>(ServiceRepository.java:<span class="number">64</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:<span class="number">1688</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at org.apache.dubbo.rpc.model.ServiceRepository.registerService(ServiceRepository.java:<span class="number">63</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:<span class="number">321</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:<span class="number">314</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.ServiceConfig.export(ServiceConfig.java:<span class="number">238</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.bootstrap.DubboBootstrap.exportService(DubboBootstrap.java:<span class="number">1099</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.bootstrap.DubboBootstrap.lambda$exportServices$<span class="number">14</span>(DubboBootstrap.java:<span class="number">1086</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at java.util.HashMap$Values.forEach(HashMap.java:<span class="number">981</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at org.apache.dubbo.config.bootstrap.DubboBootstrap.exportServices(DubboBootstrap.java:<span class="number">1070</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.bootstrap.DubboBootstrap.start(DubboBootstrap.java:<span class="number">886</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.spring.context.DubboBootstrapApplicationListener.onContextRefreshedEvent(DubboBootstrapApplicationListener.java:<span class="number">70</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at org.apache.dubbo.config.spring.context.DubboBootstrapApplicationListener.onApplicationContextEvent(DubboBootstrapApplicationListener.java:<span class="number">63</span>) ~[dubbo-<span class="number">2.7</span><span class="number">.15</span>.jar:<span class="number">2.7</span><span class="number">.15</span>]</span><br><span class="line">        at com.alibaba.spring.context.OnceApplicationContextEventListener.onApplicationEvent(OnceApplicationContextEventListener.java:<span class="number">52</span>) ~[spring-context-support-<span class="number">1.0</span><span class="number">.11</span>.jar:na]</span><br><span class="line">        at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:<span class="number">176</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:<span class="number">169</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:<span class="number">143</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:<span class="number">421</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:<span class="number">378</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:<span class="number">938</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:<span class="number">586</span>) ~[spring-context-<span class="number">5.3</span><span class="number">.13</span>.jar:<span class="number">5.3</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:<span class="number">144</span>) ~[spring-boot-<span class="number">2.4</span><span class="number">.13</span>.jar:<span class="number">2.4</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:<span class="number">771</span>) ~[spring-boot-<span class="number">2.4</span><span class="number">.13</span>.jar:<span class="number">2.4</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:<span class="number">763</span>) ~[spring-boot-<span class="number">2.4</span><span class="number">.13</span>.jar:<span class="number">2.4</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:<span class="number">438</span>) ~[spring-boot-<span class="number">2.4</span><span class="number">.13</span>.jar:<span class="number">2.4</span><span class="number">.13</span>]</span><br><span class="line">        at org.springframework.boot.SpringApplication.run(SpringApplication.java:<span class="number">339</span>) ~[spring-boot-<span class="number">2.4</span><span class="number">.13</span>.jar:<span class="number">2.4</span><span class="number">.13</span>]</span><br><span class="line">        at com.dfire.soa.SpringbootApplication.main(SpringbootApplication.java:<span class="number">21</span>) [cash-platform-soa.jar:na]</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: com.dfire.soa.consumer.vo.DinningTableVo</span><br><span class="line">        at java.net.URLClassLoader.findClass(URLClassLoader.java:<span class="number">382</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at java.lang.ClassLoader.loadClass(ClassLoader.java:<span class="number">418</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:<span class="number">352</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at java.lang.ClassLoader.loadClass(ClassLoader.java:<span class="number">351</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at java.lang.Class.forName0(Native Method) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at java.lang.Class.forName(Class.java:<span class="number">348</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:<span class="number">114</span>) ~[na:<span class="number">1.8</span><span class="number">.0_292</span>]</span><br><span class="line">        ... <span class="number">38</span> common frames omitted</span><br></pre></td></tr></tbody></table></figure>
@@ -124,23 +16,30 @@
       </tags>
   </entry>
   <entry>
-    <title>如何快速定位问题</title>
-    <url>/6c827d88b19c/</url>
-    <content><![CDATA[<p>这周碰到一个问题：客户在 C 端下单后，打印机延迟打印甚至不打印。很是让人头疼，耗费了大把时间结果发现只是因为手机 B 端 APP 处于后台无法自动更新。</p>
-<p>整个链路流程大致是这样，用户在小程序上下单后通过消息通道发消息给客户端，客户端再去调用打印机打印，然后再去更新打印状态。</p>
-<p>排查了很久发现是客户端接收不到消息，客户端同学也表示不知所措，问了消息通道那边的同学后发现安卓客户端在这之前就断开连接了，重新连接后立马就接收到了消息。一度怀疑是消息通道的问题，后来才发现客户端一直运行在后台，且自动刷新是关闭的。</p>
-<p>因整个排查浪费了太多时间故在此做个复盘<br>整个链路很长，任何环节都有可能出现问题。</p>
-<ol>
-<li>先尽可能排除用户误操作产生的影响</li>
-<li>有些地方不好排查（如消息通道），排查必须得有侧重点</li>
-<li>需要有一个负责人协调多位项目相关人，依次推进进度，提高效率</li>
-</ol>
+    <title>类型转换异常 sun.reflect.generics.reflectiveObjects.TypeVariableImpl cannot be cast to java.lang.Class</title>
+    <url>/fb2b1fd4b701/</url>
+    <content><![CDATA[<h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> getClass().getGenericSuperclass();</span><br><span class="line"><span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) {</span><br><span class="line">    <span class="type">ParameterizedType</span> <span class="variable">parameterizedType</span> <span class="operator">=</span> (ParameterizedType) type;</span><br><span class="line">    Class&lt;R&gt; requestClass = (Class&lt;R&gt;) parameterizedType.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>第四行 <code>Class&lt;R&gt; requestClass = (Class&lt;R&gt;) parameterizedType.getActualTypeArguments()[0]</code> 报 <code>java.lang.ClassCastException: sun.reflect.generics.reflectiveObjects.TypeVariableImpl cannot be cast to java.lang.Class</code> 错误</p>
+<p>这个代码是子类想要拿到泛型参数时出现的类型转换异常</p>
+<span id="more"></span>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>上述问题中的类结构简化如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request</span> {}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request2</span> <span class="keyword">extends</span> <span class="title class_">Request</span> {}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request3</span> <span class="keyword">extends</span> <span class="title class_">Request2</span> {}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">A</span>&lt;R <span class="keyword">extends</span> <span class="title class_">Request</span>&gt; {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> requestHandle {</span><br><span class="line">        <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) {</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">parameterizedType</span> <span class="operator">=</span> (ParameterizedType) type;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">requestClass</span> <span class="operator">=</span> (Class) parameterizedType.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">            ...</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span>&lt;R <span class="keyword">extends</span> <span class="title class_">Request2</span>&gt; <span class="keyword">extends</span> <span class="title class_">A</span>&lt;R&gt; {</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C</span> <span class="keyword">extends</span> <span class="title class_">B</span>&lt;Request3&gt; {</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>1/ <code>(new C).requestHandle()</code><br>因为 C 继承 B<request3>，所以 <code>parameterizedType.getActualTypeArguments()[0]</code> 拿到的其实就是 <code>Request3.class</code> </request3></p>
+<p>2/ <code>(new B).requestHandle()</code><br>这种情况 <code>parameterizedType.getActualTypeArguments()[0]</code> 返回的是 <code>TypeVariable</code>，不是 Class<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/266de73a45592b057e2f6005b846e830.png" alt="image.png"><br>很好理解，因为 B 类的定义是 B<r extends="" request2="">，这里很容易因为泛型的类型擦除误认为 <code>parameterizedType.getActualTypeArguments()[0]</code> 会返回 <code>Request2.class</code></r></p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>仔细观察 <code>TypeVariable</code> 接口定义</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 类型变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TypeVariable</span>&lt;D <span class="keyword">extends</span> <span class="title class_">GenericDeclaration</span>&gt; <span class="keyword">extends</span> <span class="title class_">Type</span>, AnnotatedElement {</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取上边界</span></span><br><span class="line"><span class="comment">     * 例：B&lt;R extends Request2&gt; 返回 Request2.class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Type[] getBounds();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取泛型声明的类型，即这个类型变量的声明来源</span></span><br><span class="line"><span class="comment">     * 例：B&lt;R extends Request2&gt; 返回 B.class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    D <span class="title function_">getGenericDeclaration</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取该类型变量名称</span></span><br><span class="line"><span class="comment">     * 例：B&lt;R extends Request2&gt; 返回 R</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">getName</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 带注解的上边界</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    AnnotatedType[] getAnnotatedBounds();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们可以调用 <code>getBounds()</code> 来获取泛型的上边界</p>
+<p>最终调整如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> requestHandle {</span><br><span class="line">    <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> getClass().getGenericSuperclass();</span><br><span class="line">    <span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) {</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">parameterizedType</span> <span class="operator">=</span> (ParameterizedType) type;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">actualTypeArgument</span> <span class="operator">=</span> type.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (actualTypeArgument <span class="keyword">instanceof</span> Class) {</span><br><span class="line">            <span class="type">Class</span> <span class="variable">requestClass</span> <span class="operator">=</span> (Class) parameterizedType.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">            ...</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (actualTypeArgument <span class="keyword">instanceof</span> TypeVariable) {</span><br><span class="line">            <span class="type">TypeVariable</span> <span class="variable">v</span> <span class="operator">=</span> (TypeVariable) actualTypeArgument;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">requestClass</span> <span class="operator">=</span> (Class) v.getBounds()[<span class="number">0</span>];</span><br><span class="line">            ...</span><br><span class="line">        }</span><br><span class="line">        ...</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
 ]]></content>
       <categories>
         <category>问题记录</category>
       </categories>
       <tags>
-        <tag>思考</tag>
+        <tag>问题</tag>
       </tags>
   </entry>
   <entry>
@@ -191,6 +90,61 @@
       <tags>
         <tag>问题</tag>
         <tag>并行流</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对 1e9 + 7 取模</title>
+    <url>/6a28fa6963c0/</url>
+    <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
+<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
+<p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。例如：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
+<p>只要 sum 不溢出，那么其结果和对每次运算结果都 <code>%MOD</code> 一遍是一样的。</p>
+<p>所以 <strong>取模成了简化大数据的一种约定</strong>，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
+<span id="more"></span>
+<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>矩阵快速幂</title>
+    <url>/e8fc79331955/</url>
+    <content><![CDATA[<p><a href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
+<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
+<span id="more"></span>
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>矩阵快速幂</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何快速定位问题</title>
+    <url>/6c827d88b19c/</url>
+    <content><![CDATA[<p>这周碰到一个问题：客户在 C 端下单后，打印机延迟打印甚至不打印。很是让人头疼，耗费了大把时间结果发现只是因为手机 B 端 APP 处于后台无法自动更新。</p>
+<p>整个链路流程大致是这样，用户在小程序上下单后通过消息通道发消息给客户端，客户端再去调用打印机打印，然后再去更新打印状态。</p>
+<p>排查了很久发现是客户端接收不到消息，客户端同学也表示不知所措，问了消息通道那边的同学后发现安卓客户端在这之前就断开连接了，重新连接后立马就接收到了消息。一度怀疑是消息通道的问题，后来才发现客户端一直运行在后台，且自动刷新是关闭的。</p>
+<p>因整个排查浪费了太多时间故在此做个复盘<br>整个链路很长，任何环节都有可能出现问题。</p>
+<ol>
+<li>先尽可能排除用户误操作产生的影响</li>
+<li>有些地方不好排查（如消息通道），排查必须得有侧重点</li>
+<li>需要有一个负责人协调多位项目相关人，依次推进进度，提高效率</li>
+</ol>
+]]></content>
+      <categories>
+        <category>问题记录</category>
+      </categories>
+      <tags>
+        <tag>思考</tag>
       </tags>
   </entry>
   <entry>
@@ -280,26 +234,6 @@
       </tags>
   </entry>
   <entry>
-    <title>对 1e9 + 7 取模</title>
-    <url>/6a28fa6963c0/</url>
-    <content><![CDATA[<h2 id="为什么取模"><a href="#为什么取模" class="headerlink" title="为什么取模"></a>为什么取模</h2><p>OJ 上很多题目因为难度原因需要非常大的测试数据量（数据量大了自然会对算法的时间复杂度要求更高），而大数据量往往会导致溢出，虽然可以用 BigInt 等方式做题，但这就失去了这道题的原本意义。</p>
-<p>这种情况题目会要求计算结果对 1e9 + 7 取模，因为对取模不会影响算法的正确性，既避免了高精度运算，又能保证极少的冲突情况。<br>这里可以先回顾下模除运算的等价性</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">(a + b) % p = (a % p + b % p) % p</span><br><span class="line">(a - b) % p = (a % p - b % p ) % p</span><br><span class="line">(a * b) % p = (a % p * b % p) % p</span><br><span class="line">a ^ b % p = ((a % p)^b) % p</span><br></pre></td></tr></tbody></table></figure>
-<p>由上述各个公式可知只要每次运算后觉得结果过大都可以对其进行取模，只要避免数据溢出，那么最终结果都是一样的。例如：</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> MOD + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a + <span class="number">1</span> + a * a;</span><br><span class="line">sum %= MOD;</span><br></pre></td></tr></tbody></table></figure>
-<p>只要 sum 不溢出，那么其结果和对每次运算结果都 <code>%MOD</code> 一遍是一样的。</p>
-<p>所以 <strong>取模成了简化大数据的一种约定</strong>，服务端给定算法取模后的测试数据，我们写算法时也进行取模，那么依然能验证算法的正确性。</p>
-<span id="more"></span>
-<h2 id="为什么是-1e9-7"><a href="#为什么是-1e9-7" class="headerlink" title="为什么是 1e9 + 7"></a>为什么是 1e9 + 7</h2><p>参考：<br><a href="https://zh.wikipedia.org/zh-hans/%E6%A8%A1%E9%99%A4#%E7%AD%89%E4%BB%B7%E6%80%A7">wiki 模除 #等价性</a><br><a href="https://blog.csdn.net/qq_46689648/article/details/122795304">为什么对 1e9+7 取模</a><br><a href="https://blog.csdn.net/cpb____/article/details/107959450?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3.no_search_link">C++ 中 1e9（初始化、无穷大）解析</a><br><a href="https://blog.csdn.net/qq_43827595/article/details/104267327?utm_term=1e9%207java%E5%8F%96%E6%A8%A1&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104267327&amp;spm=3001.4430">【C++ 取模 mod 易错点】由于答案可能会很大，请你将结果对 1e9+7 取模后再返回</a><br><a href="https://www.zhihu.com/question/49374703">为什么很多程序竞赛题目都要求答案对 1e9+7 取模？</a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>1106. 解析布尔表达式</title>
     <url>/ef40641adb89/</url>
     <content><![CDATA[<p>给你一个以字符串形式表述的&nbsp;布尔表达式（boolean） expression，返回该式的运算结果。<br>有效的表达式需遵循以下约定：</p>
@@ -328,18 +262,150 @@
       </tags>
   </entry>
   <entry>
-    <title>矩阵快速幂</title>
-    <url>/e8fc79331955/</url>
-    <content><![CDATA[<p><a href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
-<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
+    <title>ES 写入原理及调优</title>
+    <url>/4216ce6ea7d2/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？</p>
+<p><strong>1. 解决写入问题</strong><br>心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。</p>
+<p><strong>2. 学习架构设计思想</strong><br>这也是很重要的一点，了解 ES 是如何处理写入中遇到的问题，以及这些处理方式是否在我们平常项目中有所帮助。</p>
+<p><strong>3. 应对面试</strong><br>虽然比较功利，但不可否认，写入原理是 ES 面试的高频问题</p>
+<p>常见的面试问题：</p>
+<ul>
+<li>你了解 ES 的写入原理吗</li>
+<li>你了解文档的写入 / 删除过程吗</li>
+<li>如何保证 ES 数据写入一致性</li>
+<li>文档写入超时原因</li>
+<li> ES 写入实时性如何去保证</li>
+<li>数据量大时如何保证数据写入性能</li>
+<li>如何提高数据检索能力</li>
+</ul>
 <span id="more"></span>
-<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2>]]></content>
+<h2 id="写入流程"><a href="#写入流程" class="headerlink" title="写入流程"></a>写入流程</h2><p>ES 中的数据写入均发生在主分片上。由于 ES 是分布式系统，实际接收到写入请求的节点可能是任意一台节点，这就需要将请求通过 routing 路由到具体主分片所在的节点，将数据写入该节点的主分片中，然后主分片再同步数据到其他节点的副分片中。<br>路由公式：<code>shard_num = hash(_routing) % num_primary_shards</code><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5b20c17eb26dfc1a90e9433ae005a39e.jpeg"><br>具体流程：</p>
+<ol>
+<li>客户端发起写入请求至 node 4</li>
+<li>node 4 通过文档 id 在路由表中的映射信息确定当前数据的位置为分片 0，分片 0 的主分片位于 node 5，并将数据转发至 node 5。</li>
+<li>数据在 node 5 写入，写入成功之后将数据的同步请求转发至其副本所在的 node 4 和 node 6 上面，等待所有副本数据写入成功之后 node 5 将结果报告 node 4，并由 node 4 将结果返回给客户端，报告数据写入成功。</li>
+</ol>
+<h2 id="写一致性策略"><a href="#写一致性策略" class="headerlink" title="写一致性策略"></a>写一致性策略</h2><p>ES 5.x 之后，一致性策略由 <code>wait_for_active_shards</code> 参数控制：状态为 active 的主副分片数量达到设定阈值时才视为写入成功，才会返回数据给客户端。默认为 1，即只需要主分片写入成功，可设置为 <code>all</code> 或任何正整数，最大值为索引中的分片总数 (&nbsp;<code>number_of_replicas + 1</code> )。</p>
+<p>如果当前 active 状态的副本没有达到设定阈值，写操作必须等待并且重试，默认等待时间 30 秒，直到 active 状态的副本数量超过设定的阈值或者超时返回失败为止。</p>
+<p>执行索引操作时，分配给执行索引操作的主分片可能不可用。造成这种情况的原因可能是主分片当前正在从网关恢复或正在进行重定位。默认情况下，索引操作将在主分片上等待最多 1 分钟，然后才会失败并返回错误。</p>
+<h2 id="写入原理"><a href="#写入原理" class="headerlink" title="写入原理"></a>写入原理</h2><p>我们已经知道了宏观上的写入流程：先找到主节点，写入主节点后再同步到副节点。<br><strong>那 ES 是怎么把数据写入主节点和副节点中的呢？</strong></p>
+<p>大家可能会有疑问，难道不是直接写入到磁盘吗？<strong>我们可以思考下，每次请求都直接写入到磁盘这种方式在高并发的场景下会消耗大量的 IO 资源，每次都要寻址然后写入磁盘。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba7282dc7f49c616767143d774646a3b.jpeg" alt="未命名文件.jpg"></p>
+<p>对此我们可以用缓存来解决，即把数据写入系统缓存后，定期批量写入磁盘，同时缓存也提供检索服务。<br>而 Lucene 中索引是细分为多个 segment 的，segment 是索引中存储索引数据的内部存储元素，并且是不可变的。较小的 segment 会定期合并到较大的 segment 中，以控制索引大小。问题又来了：<strong>如果每次请求都创建一个新的 segment，那么会导致频繁的合并操作（merge）。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ec5aedd4c9bc6e805872b3f5944957a8.jpeg" alt="未命名文件.jpg"></p>
+<p>所以 ES 在请求进入缓存之前先让请求进缓冲区（memory buffer），每秒或每 100 个缓存才会执行刷新操作（Refresh）把缓冲区中的数据创建 segment 写入系统缓存中。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg" alt="未命名文件 (1).jpg"></p>
+<p>至此这套批量持久化结构已经比较完善，但还有一个问题：<strong>缓存虽然提高了性能，但毕竟未持久化到磁盘，一旦系统出现故障数据就会丢失。</strong>ES 采用事务日志（translog）的方式解决此问题，当请求进来时会同时写入缓冲区和事务日志中，当服务重启后就会从事务日志中恢复数据到缓存。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg" alt="未命名文件 (1).jpg"></p>
+<p>整体结构：</p>
+<ul>
+<li>Memory Buffer（缓冲区）：数据批量操作，高性能写入</li>
+<li> Translog（事务日志）：保证数据写入安全性，防止丢失</li>
+<li> OS Cache（内存）：保证数据高性能检索</li>
+<li> OS Disk（磁盘）：保证数据持久化</li>
+</ul>
+<p>具体流程：</p>
+<ol>
+<li>客户端写入 Memory Buffer 缓冲区，并追加写入 Translog 事务日志（删除、写入…）以保证数据安全性。</li>
+<li>Memory Buffer 达到阈值（100 条 / 1s）后执行 Refresh 操作生成 Segment 索引文件到系统缓存中。<ol>
+<li>然后系统缓存会把该 Segment 标记为可被检索，因此数据有 1s 不可读的延迟。</li>
+<li>Refresh 操作不能过于频繁，因此针对实时性不高的数据，可以配置 refresh 的间隔时间为 30s 一次。</li>
+</ol>
+</li>
+<li>每个 Segment 都会消耗文件句柄、内存、CPU 运行周期，所以每隔一段时间会执行 Merge 操作，合并 Segment。<ol>
+<li>Merge 操作发生在 JVM 中，频率过高会占用堆内存空间，所以 Refresh 的频率不能太高，否则会使 Merge 频率增高。</li>
+<li>不合并 Segment 的影响：<ol>
+<li>每个 Segment 占据的内存不会随着 GC 释放的。导致系统内存不足，进一步导致超时问题。</li>
+<li>查询时会遍历每个 Segment，过多的 Segment 会导致查询速度下降。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>执行 Flush 操作缓存写入 OS Disk（磁盘）并提交一次，并清空 Translog。<ol>
+<li>系统缓存每隔 30 分钟、Translog 每隔 5 秒刷一次到磁盘中，所以默认情况下，可能会有 5s 数据丢失。</li>
+<li>系统缓存和 Translog 写满时也会刷磁盘。</li>
+</ol>
+</li>
+<li>断电等异常操作导致数据丢失时，服务重启后会读取 Translog 中的数据到缓存中，以完成回滚操作。</li>
+</ol>
+<p>相关参数：</p>
+<ul>
+<li>index.translog.durability：同步还是异步<ul>
+<li> request：（默认）主副分片在每个请求后执行 fsync 和 commit，才会向客户端报告索引、删除、更新或批量请求的成功。如果发生崩溃，那么所有只要是已经确认的写操作都已经被提交到磁盘。</li>
+<li>async：在后台每 index.translog.sync_interval 时间进行一次 fsync 和 commit。意味着如果发生崩溃，那么所有在上一次自动提交以后的已确认的写操作将会丢失。</li>
+</ul>
+</li>
+<li>index.translog.sync_interval：translog 多久被同步到磁盘并提交一次。默认 5 秒。这个值不能小于 100ms。</li>
+<li>index.translog.flush_threshold_size：translog 执行 flush 操作的空间最大阈值，默认 512 MB。</li>
+</ul>
+<h2 id="写入性能调优"><a href="#写入性能调优" class="headerlink" title="写入性能调优"></a>写入性能调优</h2><p>生产经常面临的写入可以分为两种情况：</p>
+<ul>
+<li>高并发：高频的创建 / 更新索引文档，一般发生在 C 端场景下</li>
+<li>高吞吐：定期重建索引或批量更新文档数据，一般为 B 端场景</li>
+</ul>
+<p><strong>1. 提升写入吞吐量和并发</strong><br>ES 数据写入具有一定的延时性，这是为了减少频繁的索引文件产生。默认情况下 ES 每秒生成一个 segment 文件，当达到一定阈值的时候会执行 merge，merge 过程发生在 JVM 中，频繁的生成 segmen 文件可能会导致频繁的触发 FGC，导致 OOM。<br>为了避免避免这种情况，通常采取的手段是降低 segment 文件的生成频率，手段有两个，一个是增加时间阈值，另一个是增大 buffer 的空间阈值。</p>
+<ol>
+<li>增加 flush 时间间隔。Flush 是 IO 操作，很消耗性能，不能太频繁</li>
+<li>增加 refresh_interval 的参数值<ol>
+<li>目的是减少 segment 文件的创建，减少 segment 的 merge 次数。</li>
+<li>merge 是发生在 JVM 中的，有可能导致 full GC，增加 refresh 会降低搜索的实时性。</li>
+</ol>
+</li>
+<li>增加 buffer 大小<ol>
+<li>减小 refresh 的时间间隔，因为导致 segment 文件创建的原因不仅有时间阈值，还有 buffer 空间大小，写满了也会创建。</li>
+<li>默认最小值 48MB &lt; 默认值 JVM 空间的 10% &lt; 默认最大无限制</li>
+</ol>
+</li>
+<li>关闭副本（提高单次吞吐）<ol>
+<li>需要单次写入大量数据的时候，可以关闭副本（减少数据同步），暂停搜索服务，或选择在检索请求量谷值区间时间段来完成。因为副本的存在会导致主从之间频繁的进行数据同步，大大增加服务器的资源占用。</li>
+<li>可通过则设置 index.number_of_replicas 为 0 以加快索引速度。没有副本意味着丢失单个节点可能会导致数据丢失，因此数据保存在其他地方很重要，以便在出现问题时可以重试初始加载。初始加载完成后，可以设置 index.number_of_replicas 改回其原始值。</li>
+</ol>
+</li>
+<li>max_result_window 参数</li>
+</ol>
+<p>分页返回的最大数值，默认值为 10000。通过设定一个合理的阈值，避免初学者分页查询时由于单页数据过大而导致 OOM。</p>
+<p><strong>2. 提高写入实时性（不推荐）</strong><br>在搜索引擎的业务场景下，用户一般并不需要那么高的写入实时性。有时这个延时的过程需要处理很多事情，比如信息需要后台审核。<br>可以提高 Memory Buffer 的 refresh 操作频率，但是过高的 refresh 会导致频繁 merge segment，会消耗更多堆内存、CPU 的资源</p>
+<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><p>1. 避免单次召回大量数据<br>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询<br> <br>2. 避免单个文档过大<br>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。<br> <br>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。<br> <br>3. 使用 filter 代替 query<br>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。<br> <br>4. 避免深度分页<br> <br>5. 使用 Keyword 类型<br>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index-modules-translog.html">Translog | Elasticsearch Guide [7.17] | Elastic</a></li>
+<li><a href="https://blog.csdn.net/a645293829/article/details/132223065">【HBZ 分享】ES 索引分片的写入原理 及 流程</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>1620. 网络信号最好的坐标</title>
+    <url>/9dc3e8a4d1b1/</url>
+    <content><![CDATA[<p>给你一个数组 towers&nbsp;和一个整数 radius 。<br>数组&nbsp; towers&nbsp; 中包含一些网络信号塔，其中&nbsp;towers [i] = [xi, yi, qi]&nbsp;表示第&nbsp;i&nbsp;个网络信号塔的坐标是&nbsp;(xi, yi)&nbsp;且信号强度参数为&nbsp;qi&nbsp;。所有坐标都是在&nbsp; X-Y 坐标系内的&nbsp;整数&nbsp;坐标。两个坐标之间的距离用 欧几里得距离&nbsp;计算。<br>整数&nbsp;radius&nbsp;表示一个塔 能到达&nbsp;的 最远距离&nbsp;。如果一个坐标跟塔的距离在 radius&nbsp;以内，那么该塔的信号可以到达该坐标。在这个范围以外信号会很微弱，所以 radius&nbsp;以外的距离该塔是 不能到达的&nbsp;。<br>如果第 i&nbsp;个塔能到达 (x, y)&nbsp;，那么该塔在此处的信号为&nbsp;⌊qi / (1 + d)⌋&nbsp;，其中&nbsp;d&nbsp;是塔跟此坐标的距离。一个坐标的 信号强度 是所有 能到达&nbsp;该坐标的塔的信号强度之和。<br>请你返回数组 [cx, cy] ，表示 信号强度 最大的 整数 坐标点&nbsp;(cx, cy) 。如果有多个坐标网络信号一样大，请你返回字典序最小的 非负 坐标。<br>注意：</p>
+<ul>
+<li>坐标&nbsp;(x1, y1)&nbsp;字典序比另一个坐标&nbsp;(x2, y2) 小，需满足以下条件之一：<ul>
+<li>要么&nbsp;x1 &lt; x2&nbsp;，</li>
+<li>要么&nbsp;x1 == x2 且&nbsp;y1 &lt; y2&nbsp;。</li>
+</ul>
+</li>
+<li>⌊val⌋&nbsp;表示小于等于&nbsp;val&nbsp;的最大整数（向下取整函数）。</li>
+</ul>
+]]></content>
       <categories>
         <category>算法</category>
+        <category>刷题</category>
       </categories>
       <tags>
         <tag>算法</tag>
-        <tag>矩阵快速幂</tag>
+        <tag>刷题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>764. 最大加号标志</title>
+    <url>/6dc201714435/</url>
+    <content><![CDATA[<p>在一个 <code>n x n</code> 的矩阵&nbsp;<code>grid</code>&nbsp;中，除了在数组&nbsp;<code>mines</code>&nbsp;中给出的元素为&nbsp;<code>0</code>，其他每个元素都为&nbsp;<code>1</code>。<code>mines[i] = [xi, yi]</code> 表示&nbsp;<code>grid[xi][yi] == 0</code><br>返回 &nbsp;<code>grid</code> 中包含&nbsp;<code>1</code>&nbsp;的最大的 <strong><em>轴对齐</em></strong> 加号标志的阶数 。如果未找到加号标志，则返回 <code>0</code> 。</p>
+<p>一个&nbsp;<code>k</code>&nbsp;阶由&nbsp;<code>1</code>&nbsp;组成的 <strong><em>“轴对称” 加号标志</em></strong> 具有中心网格&nbsp;<code>grid[r][c] == 1</code>&nbsp;，以及 4 个从中心向上、向下、向左、向右延伸，长度为&nbsp;<code>k-1</code>，由&nbsp;<code>1</code>&nbsp;组成的臂。注意，只有加号标志的所有网格要求为 1 ，别的网格可能为 <code>0</code> 也可能为 <code>1</code> 。</p>
+<span id="more"></span>
+<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><h2 id="暴力"><a href="#暴力" class="headerlink" title="暴力"></a>暴力</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">orderOfLargestPlusSign</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] mines)</span> {</span><br><span class="line">        <span class="type">boolean</span>[][] map = <span class="keyword">new</span> <span class="title class_">boolean</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; mines.length; i++) {</span><br><span class="line">            <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> mines[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">y</span>  <span class="operator">=</span> mines[i][<span class="number">1</span>];</span><br><span class="line">            map[x][y] = <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> n % <span class="number">2</span> == <span class="number">0</span> ? n - <span class="number">1</span>: n;</span><br><span class="line">        <span class="keyword">for</span> (; m &gt; <span class="number">0</span>; m -= <span class="number">2</span>) {</span><br><span class="line">            <span class="comment">// i =&gt; 上下偏移</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n - m; i++) {</span><br><span class="line">                <span class="comment">// j =&gt; 左右偏移</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= n - m; j++) {</span><br><span class="line">                    <span class="comment">// 横向</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> m / <span class="number">2</span> + i;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> j;</span><br><span class="line">                    <span class="keyword">for</span> (; y &lt; j + m; y++) {</span><br><span class="line">                        <span class="keyword">if</span> (map[x][y]) <span class="keyword">break</span>;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="comment">// 横向有 0</span></span><br><span class="line">                    <span class="keyword">if</span> (y != j + m) {</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 纵向</span></span><br><span class="line">                    x = i;</span><br><span class="line">                    y = m / <span class="number">2</span> + j;</span><br><span class="line">                    <span class="keyword">for</span> (; x &lt; i + m; x++) {</span><br><span class="line">                        <span class="keyword">if</span> (map[x][y]) <span class="keyword">break</span>;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="comment">// 可行，返回</span></span><br><span class="line">                    <span class="keyword">if</span> (x == i + m) {</span><br><span class="line">                        <span class="keyword">return</span> m / <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>刷题</tag>
       </tags>
   </entry>
   <entry>
@@ -370,25 +436,6 @@
       </tags>
   </entry>
   <entry>
-    <title>790. 多米诺和托米诺平铺</title>
-    <url>/8a6c84365f71/</url>
-    <content><![CDATA[<p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
-<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
-<span id="more"></span>
-<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> <span class="number">1000000007</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numTilings</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// d[i][0] =&gt; 第 i 列上面占位</span></span><br><span class="line">        <span class="comment">// d[i][1] =&gt; 第 i 列下面占位</span></span><br><span class="line">        <span class="comment">// d[i][2] =&gt; 第 i 列都占位</span></span><br><span class="line">        <span class="type">int</span>[][] d = <span class="keyword">new</span> <span class="title class_">int</span>[n][<span class="number">3</span>];</span><br><span class="line">        d[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; n; i++) {</span><br><span class="line">            d[i][<span class="number">0</span>] = (d[i - <span class="number">1</span>][<span class="number">1</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">1</span>] = (d[i - <span class="number">1</span>][<span class="number">0</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">2</span>] = (((d[i - <span class="number">1</span>][<span class="number">2</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">0</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">1</span>]) % MOD;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> d[n - <span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>TODO</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>481. 神奇字符串</title>
     <url>/5889a7e516e2/</url>
     <content><![CDATA[<p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
@@ -400,23 +447,6 @@
 <h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">magicalString</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] result = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        result[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">        result[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) {</span><br><span class="line">            result[i] = result[i - <span class="number">1</span>] == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                sum++;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result[s] == <span class="number">2</span> &amp;&amp; i &lt; n) {</span><br><span class="line">                result[i] = result[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (result[i++] == <span class="number">1</span>) {</span><br><span class="line">                    sum++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            s++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>双指针推导题，没啥可说的，就是题目文字多了点。。。</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>764. 最大加号标志</title>
-    <url>/6dc201714435/</url>
-    <content><![CDATA[<p>在一个 <code>n x n</code> 的矩阵&nbsp;<code>grid</code>&nbsp;中，除了在数组&nbsp;<code>mines</code>&nbsp;中给出的元素为&nbsp;<code>0</code>，其他每个元素都为&nbsp;<code>1</code>。<code>mines[i] = [xi, yi]</code> 表示&nbsp;<code>grid[xi][yi] == 0</code><br>返回 &nbsp;<code>grid</code> 中包含&nbsp;<code>1</code>&nbsp;的最大的 <strong><em>轴对齐</em></strong> 加号标志的阶数 。如果未找到加号标志，则返回 <code>0</code> 。</p>
-<p>一个&nbsp;<code>k</code>&nbsp;阶由&nbsp;<code>1</code>&nbsp;组成的 <strong><em>“轴对称” 加号标志</em></strong> 具有中心网格&nbsp;<code>grid[r][c] == 1</code>&nbsp;，以及 4 个从中心向上、向下、向左、向右延伸，长度为&nbsp;<code>k-1</code>，由&nbsp;<code>1</code>&nbsp;组成的臂。注意，只有加号标志的所有网格要求为 1 ，别的网格可能为 <code>0</code> 也可能为 <code>1</code> 。</p>
-<span id="more"></span>
-<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><h2 id="暴力"><a href="#暴力" class="headerlink" title="暴力"></a>暴力</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">orderOfLargestPlusSign</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] mines)</span> {</span><br><span class="line">        <span class="type">boolean</span>[][] map = <span class="keyword">new</span> <span class="title class_">boolean</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; mines.length; i++) {</span><br><span class="line">            <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> mines[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">y</span>  <span class="operator">=</span> mines[i][<span class="number">1</span>];</span><br><span class="line">            map[x][y] = <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> n % <span class="number">2</span> == <span class="number">0</span> ? n - <span class="number">1</span>: n;</span><br><span class="line">        <span class="keyword">for</span> (; m &gt; <span class="number">0</span>; m -= <span class="number">2</span>) {</span><br><span class="line">            <span class="comment">// i =&gt; 上下偏移</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n - m; i++) {</span><br><span class="line">                <span class="comment">// j =&gt; 左右偏移</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= n - m; j++) {</span><br><span class="line">                    <span class="comment">// 横向</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> m / <span class="number">2</span> + i;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> j;</span><br><span class="line">                    <span class="keyword">for</span> (; y &lt; j + m; y++) {</span><br><span class="line">                        <span class="keyword">if</span> (map[x][y]) <span class="keyword">break</span>;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="comment">// 横向有 0</span></span><br><span class="line">                    <span class="keyword">if</span> (y != j + m) {</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 纵向</span></span><br><span class="line">                    x = i;</span><br><span class="line">                    y = m / <span class="number">2</span> + j;</span><br><span class="line">                    <span class="keyword">for</span> (; x &lt; i + m; x++) {</span><br><span class="line">                        <span class="keyword">if</span> (map[x][y]) <span class="keyword">break</span>;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="comment">// 可行，返回</span></span><br><span class="line">                    <span class="keyword">if</span> (x == i + m) {</span><br><span class="line">                        <span class="keyword">return</span> m / <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -471,17 +501,38 @@
       </tags>
   </entry>
   <entry>
-    <title>1620. 网络信号最好的坐标</title>
-    <url>/9dc3e8a4d1b1/</url>
-    <content><![CDATA[<p>给你一个数组 towers&nbsp;和一个整数 radius 。<br>数组&nbsp; towers&nbsp; 中包含一些网络信号塔，其中&nbsp;towers [i] = [xi, yi, qi]&nbsp;表示第&nbsp;i&nbsp;个网络信号塔的坐标是&nbsp;(xi, yi)&nbsp;且信号强度参数为&nbsp;qi&nbsp;。所有坐标都是在&nbsp; X-Y 坐标系内的&nbsp;整数&nbsp;坐标。两个坐标之间的距离用 欧几里得距离&nbsp;计算。<br>整数&nbsp;radius&nbsp;表示一个塔 能到达&nbsp;的 最远距离&nbsp;。如果一个坐标跟塔的距离在 radius&nbsp;以内，那么该塔的信号可以到达该坐标。在这个范围以外信号会很微弱，所以 radius&nbsp;以外的距离该塔是 不能到达的&nbsp;。<br>如果第 i&nbsp;个塔能到达 (x, y)&nbsp;，那么该塔在此处的信号为&nbsp;⌊qi / (1 + d)⌋&nbsp;，其中&nbsp;d&nbsp;是塔跟此坐标的距离。一个坐标的 信号强度 是所有 能到达&nbsp;该坐标的塔的信号强度之和。<br>请你返回数组 [cx, cy] ，表示 信号强度 最大的 整数 坐标点&nbsp;(cx, cy) 。如果有多个坐标网络信号一样大，请你返回字典序最小的 非负 坐标。<br>注意：</p>
+    <title>864. 获取所有钥匙的最短路径</title>
+    <url>/1728e5a327c0/</url>
+    <content><![CDATA[<p>给定一个二维网格&nbsp;grid&nbsp;，其中：</p>
 <ul>
-<li>坐标&nbsp;(x1, y1)&nbsp;字典序比另一个坐标&nbsp;(x2, y2) 小，需满足以下条件之一：<ul>
-<li>要么&nbsp;x1 &lt; x2&nbsp;，</li>
-<li>要么&nbsp;x1 == x2 且&nbsp;y1 &lt; y2&nbsp;。</li>
+<li><code>'.'</code> 代表一个空房间</li>
+<li><code>'#'</code> 代表一堵</li>
+<li><code>'@'</code>&nbsp;是起点</li>
+<li>小写字母代表钥匙</li>
+<li>大写字母代表锁</li>
 </ul>
-</li>
-<li>⌊val⌋&nbsp;表示小于等于&nbsp;val&nbsp;的最大整数（向下取整函数）。</li>
-</ul>
+<p>我们从起点开始出发，一次移动是指向四个基本方向之一行走一个单位空间。我们不能在网格外面行走，也无法穿过一堵墙。如果途经一个钥匙，我们就把它捡起来。除非我们手里有对应的钥匙，否则无法通过锁。<br>假设 k&nbsp;为 钥匙 / 锁 的个数，且满足&nbsp;<code>1 &lt;= k&nbsp;&lt;= 6</code>，字母表中的前 <code>k</code>&nbsp;个字母在网格中都有自己对应的一个小写和一个大写字母。换言之，每个锁有唯一对应的钥匙，每个钥匙也有唯一对应的锁。另外，代表钥匙和锁的字母互为大小写并按字母顺序排列。<br>返回获取所有钥匙所需要的移动的最少次数。如果无法获取所有钥匙，返回&nbsp;<code>-1</code>&nbsp;。</p>
+<span id="more"></span>
+<h2 id="BFS-状态压缩"><a href="#BFS-状态压缩" class="headerlink" title="BFS + 状态压缩"></a>BFS + 状态压缩</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">35</span>, K = <span class="number">10</span>, INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span>[][][] dist = <span class="keyword">new</span> <span class="title class_">int</span>[N][N][<span class="number">1</span> &lt;&lt; K];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span>[][] dirs = <span class="keyword">new</span> <span class="title class_">int</span>[][]{{<span class="number">1</span>,<span class="number">0</span>},{-<span class="number">1</span>,<span class="number">0</span>},{<span class="number">0</span>,<span class="number">1</span>},{<span class="number">0</span>,-<span class="number">1</span>}};</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortestPathAllKeys</span><span class="params">(String[] g)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> g.length, m = g[<span class="number">0</span>].length(), cnt = <span class="number">0</span>;</span><br><span class="line">        Deque&lt;<span class="type">int</span>[]&gt; d = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; m; j++) {</span><br><span class="line">                Arrays.fill(dist[i][j], INF);</span><br><span class="line">                <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> g[i].charAt(j);</span><br><span class="line">                <span class="keyword">if</span> (c == <span class="string">'@'</span>) {</span><br><span class="line">                    d.addLast(<span class="keyword">new</span> <span class="title class_">int</span>[]{i, j, <span class="number">0</span>});</span><br><span class="line">                    dist[i][j][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>) cnt++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (!d.isEmpty()) {</span><br><span class="line">            <span class="type">int</span>[] info = d.pollFirst();</span><br><span class="line">            <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> info[<span class="number">0</span>], y = info[<span class="number">1</span>], cur = info[<span class="number">2</span>], step = dist[x][y][cur];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span>[] di : dirs) {</span><br><span class="line">                <span class="type">int</span> <span class="variable">nx</span> <span class="operator">=</span> x + di[<span class="number">0</span>], ny = y + di[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (nx &lt; <span class="number">0</span> || nx &gt;= n || ny &lt; <span class="number">0</span> || ny &gt;= m) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> g[nx].charAt(ny);</span><br><span class="line">                <span class="keyword">if</span> (c == <span class="string">'#'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> ((c &gt;= <span class="string">'A'</span> &amp;&amp; c &lt;= <span class="string">'Z'</span>) &amp;&amp; (cur &gt;&gt; (c - <span class="string">'A'</span>) &amp; <span class="number">1</span>) == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">int</span> <span class="variable">ncur</span> <span class="operator">=</span> cur;</span><br><span class="line">                <span class="keyword">if</span> (c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>) ncur |= <span class="number">1</span> &lt;&lt; (c - <span class="string">'a'</span>);</span><br><span class="line">                <span class="keyword">if</span> (ncur == (<span class="number">1</span> &lt;&lt; cnt) - <span class="number">1</span>) <span class="keyword">return</span> step + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (step + <span class="number">1</span> &gt;= dist[nx][ny][ncur]) <span class="keyword">continue</span>;</span><br><span class="line">                dist[nx][ny][ncur] = step + <span class="number">1</span>;</span><br><span class="line">                d.addLast(<span class="keyword">new</span> <span class="title class_">int</span>[]{nx, ny, ncur});</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>刷题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>790. 多米诺和托米诺平铺</title>
+    <url>/8a6c84365f71/</url>
+    <content><![CDATA[<p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
+<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
+<span id="more"></span>
+<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> <span class="number">1000000007</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numTilings</span><span class="params">(<span class="type">int</span> n)</span> {</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// d[i][0] =&gt; 第 i 列上面占位</span></span><br><span class="line">        <span class="comment">// d[i][1] =&gt; 第 i 列下面占位</span></span><br><span class="line">        <span class="comment">// d[i][2] =&gt; 第 i 列都占位</span></span><br><span class="line">        <span class="type">int</span>[][] d = <span class="keyword">new</span> <span class="title class_">int</span>[n][<span class="number">3</span>];</span><br><span class="line">        d[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        d[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; n; i++) {</span><br><span class="line">            d[i][<span class="number">0</span>] = (d[i - <span class="number">1</span>][<span class="number">1</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">1</span>] = (d[i - <span class="number">1</span>][<span class="number">0</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD;</span><br><span class="line">            d[i][<span class="number">2</span>] = (((d[i - <span class="number">1</span>][<span class="number">2</span>] + d[i - <span class="number">2</span>][<span class="number">2</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">0</span>]) % MOD + d[i - <span class="number">1</span>][<span class="number">1</span>]) % MOD;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> d[n - <span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>TODO</p>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -507,57 +558,6 @@
       <tags>
         <tag>算法</tag>
         <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>864. 获取所有钥匙的最短路径</title>
-    <url>/1728e5a327c0/</url>
-    <content><![CDATA[<p>给定一个二维网格&nbsp;grid&nbsp;，其中：</p>
-<ul>
-<li><code>'.'</code> 代表一个空房间</li>
-<li><code>'#'</code> 代表一堵</li>
-<li><code>'@'</code>&nbsp;是起点</li>
-<li>小写字母代表钥匙</li>
-<li>大写字母代表锁</li>
-</ul>
-<p>我们从起点开始出发，一次移动是指向四个基本方向之一行走一个单位空间。我们不能在网格外面行走，也无法穿过一堵墙。如果途经一个钥匙，我们就把它捡起来。除非我们手里有对应的钥匙，否则无法通过锁。<br>假设 k&nbsp;为 钥匙 / 锁 的个数，且满足&nbsp;<code>1 &lt;= k&nbsp;&lt;= 6</code>，字母表中的前 <code>k</code>&nbsp;个字母在网格中都有自己对应的一个小写和一个大写字母。换言之，每个锁有唯一对应的钥匙，每个钥匙也有唯一对应的锁。另外，代表钥匙和锁的字母互为大小写并按字母顺序排列。<br>返回获取所有钥匙所需要的移动的最少次数。如果无法获取所有钥匙，返回&nbsp;<code>-1</code>&nbsp;。</p>
-<span id="more"></span>
-<h2 id="BFS-状态压缩"><a href="#BFS-状态压缩" class="headerlink" title="BFS + 状态压缩"></a>BFS + 状态压缩</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">35</span>, K = <span class="number">10</span>, INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span>[][][] dist = <span class="keyword">new</span> <span class="title class_">int</span>[N][N][<span class="number">1</span> &lt;&lt; K];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span>[][] dirs = <span class="keyword">new</span> <span class="title class_">int</span>[][]{{<span class="number">1</span>,<span class="number">0</span>},{-<span class="number">1</span>,<span class="number">0</span>},{<span class="number">0</span>,<span class="number">1</span>},{<span class="number">0</span>,-<span class="number">1</span>}};</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">shortestPathAllKeys</span><span class="params">(String[] g)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> g.length, m = g[<span class="number">0</span>].length(), cnt = <span class="number">0</span>;</span><br><span class="line">        Deque&lt;<span class="type">int</span>[]&gt; d = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; m; j++) {</span><br><span class="line">                Arrays.fill(dist[i][j], INF);</span><br><span class="line">                <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> g[i].charAt(j);</span><br><span class="line">                <span class="keyword">if</span> (c == <span class="string">'@'</span>) {</span><br><span class="line">                    d.addLast(<span class="keyword">new</span> <span class="title class_">int</span>[]{i, j, <span class="number">0</span>});</span><br><span class="line">                    dist[i][j][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">                } <span class="keyword">else</span> <span class="keyword">if</span> (c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>) cnt++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (!d.isEmpty()) {</span><br><span class="line">            <span class="type">int</span>[] info = d.pollFirst();</span><br><span class="line">            <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> info[<span class="number">0</span>], y = info[<span class="number">1</span>], cur = info[<span class="number">2</span>], step = dist[x][y][cur];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span>[] di : dirs) {</span><br><span class="line">                <span class="type">int</span> <span class="variable">nx</span> <span class="operator">=</span> x + di[<span class="number">0</span>], ny = y + di[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (nx &lt; <span class="number">0</span> || nx &gt;= n || ny &lt; <span class="number">0</span> || ny &gt;= m) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> g[nx].charAt(ny);</span><br><span class="line">                <span class="keyword">if</span> (c == <span class="string">'#'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> ((c &gt;= <span class="string">'A'</span> &amp;&amp; c &lt;= <span class="string">'Z'</span>) &amp;&amp; (cur &gt;&gt; (c - <span class="string">'A'</span>) &amp; <span class="number">1</span>) == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">int</span> <span class="variable">ncur</span> <span class="operator">=</span> cur;</span><br><span class="line">                <span class="keyword">if</span> (c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>) ncur |= <span class="number">1</span> &lt;&lt; (c - <span class="string">'a'</span>);</span><br><span class="line">                <span class="keyword">if</span> (ncur == (<span class="number">1</span> &lt;&lt; cnt) - <span class="number">1</span>) <span class="keyword">return</span> step + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (step + <span class="number">1</span> &gt;= dist[nx][ny][ncur]) <span class="keyword">continue</span>;</span><br><span class="line">                dist[nx][ny][ncur] = step + <span class="number">1</span>;</span><br><span class="line">                d.addLast(<span class="keyword">new</span> <span class="title class_">int</span>[]{nx, ny, ncur});</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>刷题</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>刷题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>类型转换异常 sun.reflect.generics.reflectiveObjects.TypeVariableImpl cannot be cast to java.lang.Class</title>
-    <url>/fb2b1fd4b701/</url>
-    <content><![CDATA[<h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> getClass().getGenericSuperclass();</span><br><span class="line"><span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) {</span><br><span class="line">    <span class="type">ParameterizedType</span> <span class="variable">parameterizedType</span> <span class="operator">=</span> (ParameterizedType) type;</span><br><span class="line">    Class&lt;R&gt; requestClass = (Class&lt;R&gt;) parameterizedType.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>第四行 <code>Class&lt;R&gt; requestClass = (Class&lt;R&gt;) parameterizedType.getActualTypeArguments()[0]</code> 报 <code>java.lang.ClassCastException: sun.reflect.generics.reflectiveObjects.TypeVariableImpl cannot be cast to java.lang.Class</code> 错误</p>
-<p>这个代码是子类想要拿到泛型参数时出现的类型转换异常</p>
-<span id="more"></span>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>上述问题中的类结构简化如下：</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request</span> {}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request2</span> <span class="keyword">extends</span> <span class="title class_">Request</span> {}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request3</span> <span class="keyword">extends</span> <span class="title class_">Request2</span> {}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">A</span>&lt;R <span class="keyword">extends</span> <span class="title class_">Request</span>&gt; {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> requestHandle {</span><br><span class="line">        <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) {</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">parameterizedType</span> <span class="operator">=</span> (ParameterizedType) type;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">requestClass</span> <span class="operator">=</span> (Class) parameterizedType.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">            ...</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span>&lt;R <span class="keyword">extends</span> <span class="title class_">Request2</span>&gt; <span class="keyword">extends</span> <span class="title class_">A</span>&lt;R&gt; {</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C</span> <span class="keyword">extends</span> <span class="title class_">B</span>&lt;Request3&gt; {</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-
-<p>1/ <code>(new C).requestHandle()</code><br>因为 C 继承 B<request3>，所以 <code>parameterizedType.getActualTypeArguments()[0]</code> 拿到的其实就是 <code>Request3.class</code> </request3></p>
-<p>2/ <code>(new B).requestHandle()</code><br>这种情况 <code>parameterizedType.getActualTypeArguments()[0]</code> 返回的是 <code>TypeVariable</code>，不是 Class<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/266de73a45592b057e2f6005b846e830.png" alt="image.png"><br>很好理解，因为 B 类的定义是 B<r extends="" request2="">，这里很容易因为泛型的类型擦除误认为 <code>parameterizedType.getActualTypeArguments()[0]</code> 会返回 <code>Request2.class</code></r></p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>仔细观察 <code>TypeVariable</code> 接口定义</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 类型变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TypeVariable</span>&lt;D <span class="keyword">extends</span> <span class="title class_">GenericDeclaration</span>&gt; <span class="keyword">extends</span> <span class="title class_">Type</span>, AnnotatedElement {</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取上边界</span></span><br><span class="line"><span class="comment">     * 例：B&lt;R extends Request2&gt; 返回 Request2.class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Type[] getBounds();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取泛型声明的类型，即这个类型变量的声明来源</span></span><br><span class="line"><span class="comment">     * 例：B&lt;R extends Request2&gt; 返回 B.class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    D <span class="title function_">getGenericDeclaration</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取该类型变量名称</span></span><br><span class="line"><span class="comment">     * 例：B&lt;R extends Request2&gt; 返回 R</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">getName</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 带注解的上边界</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    AnnotatedType[] getAnnotatedBounds();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>我们可以调用 <code>getBounds()</code> 来获取泛型的上边界</p>
-<p>最终调整如下：</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> requestHandle {</span><br><span class="line">    <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> getClass().getGenericSuperclass();</span><br><span class="line">    <span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) {</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">parameterizedType</span> <span class="operator">=</span> (ParameterizedType) type;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">actualTypeArgument</span> <span class="operator">=</span> type.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (actualTypeArgument <span class="keyword">instanceof</span> Class) {</span><br><span class="line">            <span class="type">Class</span> <span class="variable">requestClass</span> <span class="operator">=</span> (Class) parameterizedType.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">            ...</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (actualTypeArgument <span class="keyword">instanceof</span> TypeVariable) {</span><br><span class="line">            <span class="type">TypeVariable</span> <span class="variable">v</span> <span class="operator">=</span> (TypeVariable) actualTypeArgument;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">requestClass</span> <span class="operator">=</span> (Class) v.getBounds()[<span class="number">0</span>];</span><br><span class="line">            ...</span><br><span class="line">        }</span><br><span class="line">        ...</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-]]></content>
-      <categories>
-        <category>问题记录</category>
-      </categories>
-      <tags>
-        <tag>问题</tag>
       </tags>
   </entry>
 </search>
