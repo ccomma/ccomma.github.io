@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg">
 <meta property="article:published_time" content="2024-03-12T02:37:13.000Z">
-<meta property="article:modified_time" content="2024-03-15T07:39:34.050Z">
+<meta property="article:modified_time" content="2024-03-15T07:55:09.334Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
@@ -392,7 +392,7 @@
 </ol>
 <p>分页返回的最大数值，默认值为 10000。通过设定一个合理的阈值，避免初学者分页查询时由于单页数据过大而导致 OOM。</p>
 <p><strong>2. 提高写入实时性（不推荐）</strong><br>在搜索引擎的业务场景下，用户一般并不需要那么高的写入实时性。有时这个延时的过程需要处理很多事情，比如信息需要后台审核。<br>可以提高 Memory Buffer 的 refresh 操作频率，但是过高的 refresh 会导致频繁 merge segment，会消耗更多堆内存、CPU 的资源</p>
-<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><p>1. 避免单次召回大量数据<br>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询<br>2. 避免单个文档过大<br>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。<br> <br>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。<br>3. 使用 filter 代替 query<br>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。<br>4. 避免深度分页<br>5. 使用 Keyword 类型<br>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
+<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><p>1. 避免单次召回大量数据<br>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询<br> <br>2. 避免单个文档过大<br>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。<br> <br>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。<br> <br>3. 使用 filter 代替 query<br>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。<br> <br>4. 避免深度分页<br> <br>5. 使用 Keyword 类型<br>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
 <p>参考：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index-modules-translog.html">Translog | Elasticsearch Guide [7.17] | Elastic</a></li>
