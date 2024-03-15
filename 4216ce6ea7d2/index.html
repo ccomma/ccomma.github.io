@@ -31,9 +31,12 @@
 <meta property="og:description" content="背景ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？ 1. 解决写入问题心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。 2. 学习架构设计思想这也是很重要的一点">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5b20c17eb26dfc1a90e9433ae005a39e.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba7282dc7f49c616767143d774646a3b.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ec5aedd4c9bc6e805872b3f5944957a8.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg">
 <meta property="article:published_time" content="2024-03-12T02:37:13.000Z">
-<meta property="article:modified_time" content="2024-03-12T12:24:38.260Z">
+<meta property="article:modified_time" content="2024-03-15T07:39:34.050Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
@@ -317,12 +320,10 @@
 <p>如果当前 active 状态的副本没有达到设定阈值，写操作必须等待并且重试，默认等待时间 30 秒，直到 active 状态的副本数量超过设定的阈值或者超时返回失败为止。</p>
 <p>执行索引操作时，分配给执行索引操作的主分片可能不可用。造成这种情况的原因可能是主分片当前正在从网关恢复或正在进行重定位。默认情况下，索引操作将在主分片上等待最多 1 分钟，然后才会失败并返回错误。</p>
 <h2 id="写入原理"><a href="#写入原理" class="headerlink" title="写入原理"></a>写入原理</h2><p>我们已经知道了宏观上的写入流程：先找到主节点，写入主节点后再同步到副节点。<br><strong>那 ES 是怎么把数据写入主节点和副节点中的呢？</strong></p>
-<p>大家可能会有疑问，难道不是直接写入到磁盘吗？<strong>我们可以思考下，每次请求都直接写入到磁盘这种方式在高并发的场景下会消耗大量的 IO 资源，每次都要寻址然后写入磁盘。</strong></p>
-<p>对此我们可以用缓存来解决，即把数据写入系统缓存后，定期批量写入磁盘，同时缓存也提供检索服务。<br>而 Lucene 中索引是细分为多个 segment 的，segment 是索引中存储索引数据的内部存储元素，并且是不可变的。较小的 segment 会定期合并到较大的 segment 中，以控制索引大小。问题又来了：<strong>如果每次请求都创建一个新的 segment，那么会导致频繁的合并操作（merge）。</strong></p>
-<p>所以 ES 在请求进入缓存之前先让请求进缓冲区（memory buffer），每秒或每 100 个缓存才会执行刷新操作（Refresh）把缓冲区中的数据创建 segment 写入系统缓存中。</p>
-<p>至此这套批量持久化结构已经比较完善，但还有一个问题：<strong>缓存虽然提高了性能，但毕竟未持久化到磁盘，一旦系统出现故障数据就会丢失。</strong>ES 采用事务日志（translog）的方式解决此问题，当请求进来时会同时写入缓冲区和事务日志中，当服务重启后就会从事务日志中恢复数据到缓存。</p>
-<p>以下是架构及详细流程</p>
-<p>架构图：<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg" alt="未命名文件 (1).jpg"></p>
+<p>大家可能会有疑问，难道不是直接写入到磁盘吗？<strong>我们可以思考下，每次请求都直接写入到磁盘这种方式在高并发的场景下会消耗大量的 IO 资源，每次都要寻址然后写入磁盘。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba7282dc7f49c616767143d774646a3b.jpeg" alt="未命名文件.jpg"></p>
+<p>对此我们可以用缓存来解决，即把数据写入系统缓存后，定期批量写入磁盘，同时缓存也提供检索服务。<br>而 Lucene 中索引是细分为多个 segment 的，segment 是索引中存储索引数据的内部存储元素，并且是不可变的。较小的 segment 会定期合并到较大的 segment 中，以控制索引大小。问题又来了：<strong>如果每次请求都创建一个新的 segment，那么会导致频繁的合并操作（merge）。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ec5aedd4c9bc6e805872b3f5944957a8.jpeg" alt="未命名文件.jpg"></p>
+<p>所以 ES 在请求进入缓存之前先让请求进缓冲区（memory buffer），每秒或每 100 个缓存才会执行刷新操作（Refresh）把缓冲区中的数据创建 segment 写入系统缓存中。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg" alt="未命名文件 (1).jpg"></p>
+<p>至此这套批量持久化结构已经比较完善，但还有一个问题：<strong>缓存虽然提高了性能，但毕竟未持久化到磁盘，一旦系统出现故障数据就会丢失。</strong>ES 采用事务日志（translog）的方式解决此问题，当请求进来时会同时写入缓冲区和事务日志中，当服务重启后就会从事务日志中恢复数据到缓存。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg" alt="未命名文件 (1).jpg"></p>
 <p>整体结构：</p>
 <ul>
 <li>Memory Buffer（缓冲区）：数据批量操作，高性能写入</li>
@@ -332,24 +333,24 @@
 </ul>
 <p>具体流程：</p>
 <ol>
-<li>客户端写入 Memory Buffer 缓冲区，并追加写入 Translog 事务日志（删除、写入…）以保证数据安全性 </li>
+<li>客户端写入 Memory Buffer 缓冲区，并追加写入 Translog 事务日志（删除、写入…）以保证数据安全性。</li>
 <li>Memory Buffer 达到阈值（100 条 / 1s）后执行 Refresh 操作生成 Segment 索引文件到系统缓存中。<ol>
 <li>然后系统缓存会把该 Segment 标记为可被检索，因此数据有 1s 不可读的延迟。</li>
 <li>Refresh 操作不能过于频繁，因此针对实时性不高的数据，可以配置 refresh 的间隔时间为 30s 一次。</li>
 </ol>
 </li>
-<li>每个 Segment 都回消耗文件句柄、内存、CPU 运行周期，所以每隔一段时间会执行 Merge 操作，合并 Segment。</li>
-</ol>
-<p>Merge 操作发生在 JVM 中，频率过高会占用堆内存空间，所以 Refresh 的频率不能太高，否则会使 Merge 频率增高。<br>不合并 Segment 的影响：</p>
-<ul>
+<li>每个 Segment 都会消耗文件句柄、内存、CPU 运行周期，所以每隔一段时间会执行 Merge 操作，合并 Segment。<ol>
+<li>Merge 操作发生在 JVM 中，频率过高会占用堆内存空间，所以 Refresh 的频率不能太高，否则会使 Merge 频率增高。</li>
+<li>不合并 Segment 的影响：<ol>
 <li>每个 Segment 占据的内存不会随着 GC 释放的。导致系统内存不足，进一步导致超时问题。</li>
 <li>查询时会遍历每个 Segment，过多的 Segment 会导致查询速度下降。</li>
-</ul>
-<ol start="4">
+</ol>
+</li>
+</ol>
+</li>
 <li>执行 Flush 操作缓存写入 OS Disk（磁盘）并提交一次，并清空 Translog。<ol>
 <li>系统缓存每隔 30 分钟、Translog 每隔 5 秒刷一次到磁盘中，所以默认情况下，可能会有 5s 数据丢失。</li>
 <li>系统缓存和 Translog 写满时也会刷磁盘。</li>
-<li><br></li>
 </ol>
 </li>
 <li>断电等异常操作导致数据丢失时，服务重启后会读取 Translog 中的数据到 Memory Buffer 中，以完成回滚操作。</li>
@@ -372,44 +373,26 @@
 <p><strong>1. 提升写入吞吐量和并发</strong><br>ES 数据写入具有一定的延时性，这是为了减少频繁的索引文件产生。默认情况下 ES 每秒生成一个 segment 文件，当达到一定阈值的时候会执行 merge，merge 过程发生在 JVM 中，频繁的生成 segmen 文件可能会导致频繁的触发 FGC，导致 OOM。<br>为了避免避免这种情况，通常采取的手段是降低 segment 文件的生成频率，手段有两个，一个是增加时间阈值，另一个是增大 buffer 的空间阈值。</p>
 <ol>
 <li>增加 flush 时间间隔。Flush 是 IO 操作，很消耗性能，不能太频繁</li>
-<li>增加 refresh_interval 的参数值</li>
+<li>增加 refresh_interval 的参数值<ol>
+<li>目的是减少 segment 文件的创建，减少 segment 的 merge 次数。</li>
+<li>merge 是发生在 JVM 中的，有可能导致 full GC，增加 refresh 会降低搜索的实时性。</li>
 </ol>
-<p>目的是减少 segment 文件的创建，减少 segment 的 merge 次数。<br>merge 是发生在 JVM 中的，有可能导致 full GC，增加 refresh 会降低搜索的实时性。</p>
-<ol start="3">
-<li>增加 buffer 大小</li>
+</li>
+<li>增加 buffer 大小<ol>
+<li>减小 refresh 的时间间隔，因为导致 segment 文件创建的原因不仅有时间阈值，还有 buffer 空间大小，写满了也会创建。</li>
+<li>默认最小值 48MB &lt; 默认值 JVM 空间的 10% &lt; 默认最大无限制</li>
 </ol>
-<p>减小 refresh 的时间间隔，因为导致 segment 文件创建的原因不仅有时间阈值，还有 buffer 空间大小，写满了也会创建。<br>默认最小值 48MB &lt; 默认值 JVM 空间的 10% &lt; 默认最大无限制</p>
-<ol start="4">
-<li>关闭副本（提高单次吞吐）</li>
+</li>
+<li>关闭副本（提高单次吞吐）<ol>
+<li>需要单次写入大量数据的时候，可以关闭副本（减少数据同步），暂停搜索服务，或选择在检索请求量谷值区间时间段来完成。因为副本的存在会导致主从之间频繁的进行数据同步，大大增加服务器的资源占用。</li>
+<li>可通过则设置 index.number_of_replicas 为 0 以加快索引速度。没有副本意味着丢失单个节点可能会导致数据丢失，因此数据保存在其他地方很重要，以便在出现问题时可以重试初始加载。初始加载完成后，可以设置 index.number_of_replicas 改回其原始值。</li>
 </ol>
-<p>需要单次写入大量数据的时候，可以关闭副本（减少数据同步），暂停搜索服务，或选择在检索请求量谷值区间时间段来完成。因为副本的存在会导致主从之间频繁的进行数据同步，大大增加服务器的资源占用。</p>
-<p>可通过则设置 index.number_of_replicas 为 0 以加快索引速度。没有副本意味着丢失单个节点可能会导致数据丢失，因此数据保存在其他地方很重要，以便在出现问题时可以重试初始加载。初始加载完成后，可以设置 index.number_of_replicas 改回其原始值。</p>
-<ol start="5">
+</li>
 <li>max_result_window 参数</li>
 </ol>
 <p>分页返回的最大数值，默认值为 10000。通过设定一个合理的阈值，避免初学者分页查询时由于单页数据过大而导致 OOM。</p>
-<p><strong>2. 提高写入实时性（不推荐）</strong><br>在搜索引擎的业务场景下，用户一般并不需要那么高的写入实时性。有时这个延时的过程需要处理很多事情，比如信息需要后台审核。</p>
-<ol>
-<li>提高 Memory Buffer 的 refresh 操作频率，但是过高的 refresh 会导致频繁 merge segment，会消耗更多堆内存、CPU 的资源</li>
-</ol>
-<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><ol>
-<li>避免单次召回大量数据</li>
-</ol>
-<p>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询</p>
-<ol start="2">
-<li>避免单个文档过大</li>
-</ol>
-<p>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。</p>
-<p>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。</p>
-<ol start="3">
-<li>使用 filter 代替 query</li>
-</ol>
-<p>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。</p>
-<ol start="4">
-<li>避免深度分页</li>
-<li>使用 Keyword 类型</li>
-</ol>
-<p>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
+<p><strong>2. 提高写入实时性（不推荐）</strong><br>在搜索引擎的业务场景下，用户一般并不需要那么高的写入实时性。有时这个延时的过程需要处理很多事情，比如信息需要后台审核。<br>可以提高 Memory Buffer 的 refresh 操作频率，但是过高的 refresh 会导致频繁 merge segment，会消耗更多堆内存、CPU 的资源</p>
+<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><p>1. 避免单次召回大量数据<br>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询<br>2. 避免单个文档过大<br>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。<br> <br>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。<br>3. 使用 filter 代替 query<br>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。<br>4. 避免深度分页<br>5. 使用 Keyword 类型<br>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
 <p>参考：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index-modules-translog.html">Translog | Elasticsearch Guide [7.17] | Elastic</a></li>
