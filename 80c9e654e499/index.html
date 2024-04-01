@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="google-site-verification" content="5K7puGkNbKLWhZTmZZm6haOpSbJ-oOvUQFYJeMFBJSk">
+  <meta name="baidu-site-verification" content="codeva-3O8Y6jTFCL">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="文件是进程创建的信息逻辑单元，每个文件是独立于其他文件的，是对磁盘的建模，而非对 RAM 的建模。如果能把每个文件看成一个地址空间，那么就能理解文件的本质了。 1. 文件文件是一种抽象机制，它提供了一种在磁盘上保存信息而且方便以后读取的方法。这种方法可以使用户不必了解存储信息的方法、位置和实际磁盘工作方式等有关细节。 1.1. 文件结构字节序列：操作系统所见到的就是字节。把文件看成字节序列为操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统从入门到入土④：文件系统">
+<meta property="og:url" content="https://ccomma.cn/80c9e654e499/">
+<meta property="og:site_name" content="CComma&#39;s Blog">
+<meta property="og:description" content="文件是进程创建的信息逻辑单元，每个文件是独立于其他文件的，是对磁盘的建模，而非对 RAM 的建模。如果能把每个文件看成一个地址空间，那么就能理解文件的本质了。 1. 文件文件是一种抽象机制，它提供了一种在磁盘上保存信息而且方便以后读取的方法。这种方法可以使用户不必了解存储信息的方法、位置和实际磁盘工作方式等有关细节。 1.1. 文件结构字节序列：操作系统所见到的就是字节。把文件看成字节序列为操作系">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/65d091a49e4597962d304520c5c9d67d.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/03309c8ff0e13ecd6dbca1884b53adb0.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9d2d137aa665f2c49fb1186ed6343ae1.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2fde8879d2d9fcab6b8095b4f21aedd5.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/604bbbe0e74a4b222b595328b5c6f165.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/260adba8d2976d1deaeeca52a9fd7c6c.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a1f2c8b312ce3415c59614cb481c8990.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b92159db3de68498c88943e13be37fac.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c9f3295a4bd698e2628b6c48d3ba5cc8.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8afb0a7f4fea11bc8c7677a71eb7db20.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/32c033a3c3acfb80406195c6c3121f03.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0fa715ceaed2fabec2fd258f402a9c35.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0b47f051e1fb1983d4e108dd3f3b5ff0.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a6babd0fa3d488ecd95bf7ca3c2815cf.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b302e3be29c0fd7a4b63e189dcbfb173.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/00a52c6a623e67ab4d59c781e5a5c9da.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/85532654edb9a0c1861fabf488dc2dda.png">
+<meta property="article:published_time" content="2021-10-29T09:26:09.000Z">
+<meta property="article:modified_time" content="2024-04-01T09:03:37.225Z">
+<meta property="article:author" content="CComma">
+<meta property="article:tag" content="编程技术、Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/65d091a49e4597962d304520c5c9d67d.png">
+
+
+<link rel="canonical" href="https://ccomma.cn/80c9e654e499/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/80c9e654e499/","path":"80c9e654e499/","title":"操作系统从入门到入土④：文件系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统从入门到入土④：文件系统 | CComma's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?152282c2c823c1e5ab34c577ba338801"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="CComma's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/ccomma.png" alt="CComma's Blog">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CComma's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Connect the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">7</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">79</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">1. 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 文件访问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">2. 文件系统的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 文件的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1. 连续分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E9%93%BE%E8%A1%A8%E5%88%86%E9%85%8D"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2. 链表分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E9%87%87%E7%94%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E8%A1%A8%E8%BF%9B%E8%A1%8C%E9%93%BE%E8%A1%A8%E5%88%86%E9%85%8D"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3. 采用内存中的表进行链表分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-i-%E8%8A%82%E7%82%B9"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4. i 节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%9A%84%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 文件属性的存储位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E7%9B%AE%E5%BD%95%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 目录的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E5%AE%9E%E7%8E%B0%E5%8F%AF%E5%8F%98%E9%95%BF%E5%BA%A6%E7%9A%84%E9%95%BF%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1. 实现可变长度的长文件名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E5%8A%A0%E5%BF%AB%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE%E9%80%9F%E5%BA%A6"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2. 加快文件查找速度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E6%97%A5%E5%BF%97%E7%BB%93%E6%9E%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.4.</span> <span class="nav-text">2.4. 日志结构文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.5.</span> <span class="nav-text">2.5. 日志文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.6.</span> <span class="nav-text">2.6. 虚拟文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-Windows-%E5%A4%84%E7%90%86%E5%A4%9A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.6.1.</span> <span class="nav-text">2.6.1. Windows 处理多文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-Unix-%E5%A4%84%E7%90%86%E5%A4%9A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.6.2.</span> <span class="nav-text">2.6.2. Unix 处理多文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-3-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88Virtual-File-System-VFS%EF%BC%89"><span class="nav-number">2.6.3.</span> <span class="nav-text">2.6.3. 虚拟文件系统（Virtual File System, VFS）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3. 文件系统管理及优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 磁盘空间管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E5%9D%97%E5%A4%A7%E5%B0%8F"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1. 块大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E8%AE%B0%E5%BD%95%E7%A9%BA%E9%97%B2%E5%9D%97"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2. 记录空闲块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. 文件系统性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E7%A3%81%E7%9B%98%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1. 磁盘高速缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E5%9D%97%E6%8F%90%E5%89%8D%E8%AF%BB"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2. 块提前读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-%E5%87%8F%E5%B0%91%E7%A3%81%E7%9B%98%E8%87%82%E8%BF%90%E5%8A%A8"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3. 减少磁盘臂运动</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CComma"
+      src="/images/ccomma.png">
+  <p class="site-author-name" itemprop="name">CComma</p>
+  <div class="site-description" itemprop="description">下一个目标：改变世界！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccomma" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccomma" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/ccomma_cat" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;ccomma_cat" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/80c9e654e499/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统从入门到入土④：文件系统 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统从入门到入土④：文件系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-10-29 17:26:09" itemprop="dateCreated datePublished" datetime="2021-10-29T17:26:09+08:00">2021-10-29</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/80c9e654e499/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="80c9e654e499/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>21 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>文件是进程创建的信息逻辑单元，每个文件是独立于其他文件的，是对磁盘的建模，而非对 RAM 的建模。<br>如果能把每个文件看成一个地址空间，那么就能理解文件的本质了。</p>
+<h1 id="1-文件"><a href="#1-文件" class="headerlink" title="1. 文件"></a>1. 文件</h1><p>文件是一种抽象机制，它提供了一种在磁盘上保存信息而且方便以后读取的方法。这种方法可以使用户不必了解存储信息的方法、位置和实际磁盘工作方式等有关细节。</p>
+<h2 id="1-1-文件结构"><a href="#1-1-文件结构" class="headerlink" title="1.1. 文件结构"></a>1.1. 文件结构</h2><p>字节序列：<br>操作系统所见到的就是字节。把文件看成字节序列为操作系统提供了最大的灵活性。用户程序可以向文件中加入任何内容，并以任何方便的形式命名。</p>
+<p>记录序列：<br>文件是具有固定长度记录的序列，每个记录都有其内部结构。<br>读操作返回一个记录，而写操作重写或追加一个记录。</p>
+<p>树：<br>按 key 排序，可对特定 key 进行快速查找。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/65d091a49e4597962d304520c5c9d67d.png" alt="image.png"></p>
+<h2 id="1-2-文件访问"><a href="#1-2-文件访问" class="headerlink" title="1.2. 文件访问"></a>1.2. 文件访问</h2><p><strong>顺序访问（sequential access）：</strong><br>进程在这些系统中可从头按顺序读取文件的全部字节或记录，但不能跳过某一些内容。<br>顺序访问文件是可以返回到起点的，需要时可多次读取该文件。在存储介质是磁带而不是磁盘时，顺序访问文件是很方便的。</p>
+<p><strong>随机访问（random access file）：</strong><br>当用磁盘来存储文件时，可以不按顺序读取文件，或者也可以按照关键字来访问记录。这种能够以任何次序读取其中字节或记录的文件称作随机访问文件。 </p>
+<p>如订票程序必须能直接访问该航班记录，而不必先读出其他航班的成千上万个记录。有两种方法可以指示从何处开始读取文件。</p>
+<ul>
+<li>一种是每次 read 操作都给出开始读文件的位置。</li>
+<li>另种是用一个特殊的 seek 操作设置当前位置，在 seek 操作后，从这个当前位置顺序地开始读文件。</li>
+</ul>
+<h1 id="2-文件系统的实现"><a href="#2-文件系统的实现" class="headerlink" title="2. 文件系统的实现"></a>2. 文件系统的实现</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/03309c8ff0e13ecd6dbca1884b53adb0.png" alt="image.png"><br><strong>主引导记录（Master Boot Record, MBR）：</strong><br>文件系统存放在磁盘上，划分为多个分区，每个分区中都有独立的文件系统。<br>磁盘的 0 号扇区称为主引导记录，用来引导计算机。</p>
+<p><strong>分区表：</strong><br>在 MBR 的结尾是分区表。该表给出了每个分区的起始和结束地址。表中的一个分区被标记为活动分区。</p>
+<p><strong>引导块（boot block）：</strong><br>在计算机被引导时，BIOS 读入并执行 MBR。MBR 做的第一件事是确定活动分区，读入它的第一个块，称为引导块，并执行之。引导块中的程序将装载该分区中的操作系统。<br>为统一起见， 每个分区都从一个引导块开始，即使它不含有一个可启动的操作系统。不过，未来这个分区也许会有一个操作系统的。</p>
+<p><strong>超级块（superblock）：</strong><br>超级块包含文件系统的所有关键参数，在计算机启动时，或者在该文件系统首次使用时，超级块会被读入内存。<br>超级块中的信息包括：确定文件系统类型用的魔数、文件系统中块的数量等</p>
+<h2 id="2-1-文件的实现"><a href="#2-1-文件的实现" class="headerlink" title="2.1. 文件的实现"></a>2.1. 文件的实现</h2><p>文件存储实现的关键问题是：如何记录文件用到哪些磁盘块。</p>
+<h3 id="2-1-1-连续分配"><a href="#2-1-1-连续分配" class="headerlink" title="2.1.1. 连续分配"></a>2.1.1. 连续分配</h3><p>把每个文件作为一串连续数据块存储在磁盘上。<br>在块大小为 1KB 的磁盘上，50KB 的文件要分配 50 个连续的块。<br>在块大小为 2KB 的磁盘上，50KB 的文件要分配 25 个连续的块。</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9d2d137aa665f2c49fb1186ed6343ae1.png" alt="image.png"><br>初始状态下，磁盘是空的。接着，从磁盘开始处（块 0）开始写入长度为 4 块的文件 A。紧接着，在文件 A 的结尾开始写入一个 3 块的文件 B。</p>
+<p>每个文件都从一个新的块开始，这样如果文件 A 实际上只有 3.5 块，那么其最后一块的结尾会浪费一些空间。</p>
+<p><strong>缺点：</strong><br>随着时间的推移，磁盘会变得零碎。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2fde8879d2d9fcab6b8095b4f21aedd5.png" alt="image.png"><br>假设删除 D 和 F，会在磁盘上留下一堆空闲块。磁盘不会填充空闲块，因为会涉及之后的所有文件。</p>
+<p>磁盘被充满后，要么压缩磁盘，要么重新使用空洞所在的空闲空间。前者由于代价太高而不可行。后者需要维护一个空洞列表，但是在当创建一个新的文件时，就必须得知道该文件的最终大小，这是不可理喻的。</p>
+<p>但这个办法在 CD-ROM 上是可行的并被广泛使用。在 CD-ROM 上所有文件的大小都是已知的，并在后续使用中它们的大小也不会改变。<br>所以如果文件的大小已知且不会改变，那么连续分配是一种好方法。</p>
+<h3 id="2-1-2-链表分配"><a href="#2-1-2-链表分配" class="headerlink" title="2.1.2. 链表分配"></a>2.1.2. 链表分配</h3><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/604bbbe0e74a4b222b595328b5c6f165.png" alt="image.png"><br>每个块的第一个字作为指向下一块的指针，块的其他部分存放数据。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>链表分配可以充分利用每个磁盘块。不会因为磁盘碎片而浪费存储空间。</li>
+<li>在目录项中，只需要存放第一块的磁盘地址，文件的其他块就可以从这个首块地址查找到。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>随机访问相当缓慢。要获得块 n，操作系统每一次都必须从头开始，并且要先读前面的 n - 1 块。</li>
+<li>由于指针占去了一些字节，每个磁盘块存储数据的字节数不再是 2 的整数次幂。怪异的大小降低了系统的运行效率，因为许多程序都是以长度为 2 的整数次幂来读写磁盘块的。</li>
+</ul>
+<p>由于每个块的前几个字节被指向下一个块的指针所占据，所以要读出完整的一个块大小的信息，就需要从两个磁盘块中获得和拼接。</p>
+<h3 id="2-1-3-采用内存中的表进行链表分配"><a href="#2-1-3-采用内存中的表进行链表分配" class="headerlink" title="2.1.3. 采用内存中的表进行链表分配"></a>2.1.3. 采用内存中的表进行链表分配</h3><p>如果取出每个磁盘块的指针字，把它们放在内存的一个表中，就可以解决使用链表的两个不足。</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/260adba8d2976d1deaeeca52a9fd7c6c.png" alt="image.png"><br>内存中的这样一个表格称为 <strong>文件分配表（File Allocation Table, FAT）</strong>。</p>
+<ul>
+<li>文件 A 依次使用了磁盘块 4、7、2、10、12。</li>
+<li>文件 B 依次使用了磁盘块 6、3、11、14。</li>
+<li>这两个链都以一个不属于有效磁盘编号的特殊标记 -1 结束。</li>
+</ul>
+<p>因为整个链都存放在内存中，所以不需要任何磁盘引用，随机访问变得也容易了。</p>
+<p><strong>缺点：</strong><br>必须把整个表都存放在内存中。<br>若磁盘大小为 1TB，块大小为 1KB，那么这张表需要有 10 亿项。每项至少 3 个字节，为了提高查找速度，有时需要 4 个字节。根据系统对空间或时间的优化方案，这张表要占用 3GB 或 2.4GB 内存。<br>上述方法并不实用，FAT 的管理方式不能较好地扩展并应用于大型磁盘中。</p>
+<h3 id="2-1-4-i-节点"><a href="#2-1-4-i-节点" class="headerlink" title="2.1.4. i 节点"></a>2.1.4. i 节点</h3><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a1f2c8b312ce3415c59614cb481c8990.png" alt="image.png"><br>给每个文件赋予一个称为 i 节点的数据结构。其中列出了文件属性和文件块的磁盘地址。所以只要有 i 节点，就能找到文件的所有块。</p>
+<p>相比于 FAT，i 节点只在对应文件打开时才在内存中。而 FAT 需保留所有磁盘块的关系链表。</p>
+<p>当一个文件所含的磁盘块的数目超出了 i 节点所能容纳的数目怎么办？<br>一个方案是最后一个地址指向另一个用于存储额外地址的块。</p>
+<h2 id="2-2-文件属性的存储位置"><a href="#2-2-文件属性的存储位置" class="headerlink" title="2.2. 文件属性的存储位置"></a>2.2. 文件属性的存储位置</h2><p>每个文件系统维护文件的文件属性，它们必须存储在某个地方。</p>
+<p><strong>存至目录项：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b92159db3de68498c88943e13be37fac.png" alt="image.png"><br>一种方法是把文件属性直接存放在目录项中。目录中有一个固定大小的目录项列<br>表，每个文件对应一项，其中包含一个文件名、一个文件属性的结构体以及用以说明磁盘块位置的一个或多个磁盘地址。</p>
+<p><strong>存至 i 节点：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c9f3295a4bd698e2628b6c48d3ba5cc8.png" alt="image.png"><br>对于采用 i 节点的系统，还存在另一种方法，即把文件属性存放在 i 节点中而不是目录项中。目录项会只有文件名和 i 节点号。</p>
+<h2 id="2-3-目录的实现"><a href="#2-3-目录的实现" class="headerlink" title="2.3. 目录的实现"></a>2.3. 目录的实现</h2><p>打开文件时，操作系统利用路径名找到相应目录项。目录项中提供了查找文件磁盘块所需要的信息。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8afb0a7f4fea11bc8c7677a71eb7db20.png" alt="image.png"></p>
+<h3 id="2-3-1-实现可变长度的长文件名"><a href="#2-3-1-实现可变长度的长文件名" class="headerlink" title="2.3.1. 实现可变长度的长文件名"></a>2.3.1. 实现可变长度的长文件名</h3><p><strong>简单固定长度：</strong><br>最简单的方法是给予文件名一个长度限制，典型值为 255 个字符，并为每个文件名保留 255 个字符空间。这种处理很简单，但是浪费了大量的目录空间。</p>
+<p><strong>文件名分散在各自文件中：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/32c033a3c3acfb80406195c6c3121f03.png" alt="image.png"><br>一种替代方案是每个目录项分为两部分。</p>
+<ol>
+<li>固定部分：以目录项的长度开始，后面是固定格式的数据，通常包括所有者、创建时间、保护信息以及其他属性。</li>
+<li>任意长度的实际文件名。</li>
+</ol>
+<p>如上图，有三个文件，project budget、personnel 和 foo，每个文件名以一个特殊字符（通常是 0）结束。</p>
+<p>缺点：</p>
+<ol>
+<li>当移走文件后就引入了一个长度可变的空隙，下一个进来的文件不一定正好适合这个空隙。</li>
+<li>一个目录项可能会分布在多个页面上，在读取文件名时可能发生缺页中断。</li>
+</ol>
+<p><strong>文件名集中在一起：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0fa715ceaed2fabec2fd258f402a9c35.png" alt="image.png"><br>另一种方法是，使目录项自身都有固定长度，而将文件名放置在目录后面的堆中。</p>
+<p>优点：</p>
+<ol>
+<li>当一个文件目录项被移走后，另一个文件的目录项总是可以适合这个空隙。当然，必须要对堆进行管理。而在处理文件名时缺页中断仍旧会发生。</li>
+<li>文件名不再需要从字的边界开始，每个文件名后面就不需要用于凑整的填充字符了。</li>
+</ol>
+<h3 id="2-3-2-加快文件查找速度"><a href="#2-3-2-加快文件查找速度" class="headerlink" title="2.3.2. 加快文件查找速度"></a>2.3.2. 加快文件查找速度</h3><p><strong>散列表：</strong><br>对于非常长的目录，线性查找就太慢了。加快查找速度的一个方法是在每个目录中使用散列表。</p>
+<p>添加一个文件时，对散列表中对应的表项进行检查。<br>如果该表项没有被使用，就将一个指向文件目录项的指针放入。<br>如果该表项被使用了，就构造一个链表，该链表的表头指针存放在该表项中，并链接所有具有相同散列值的文件目录项。</p>
+<p>查找文件按照相同的过程进行。散列处理文件名，以便选择一个散列表项。<br>检查链表头在该位置上的链表的所有表项，查看要找的文件名是否存在。如果名字不在该链上，该文件就不在这个目录中。</p>
+<p>使用散列表的优点是查找非常迅速。其缺点是需要复杂的管理。只有在预计系统中的目录经常会有成百上千个文件时，才把散列方案真正作为备用方案考虑。</p>
+<p><strong>高速缓存：</strong><br>另一种加快大型目录查找速度的方法是，将查找结果存入高速缓存。<br>在开始查找之前，先查看文件名是否在高速缓存中。如果是，该文件可以立即定位。当然，只有在查询目标集中在相对小范围的文件集合的时候，高速缓存的方案才有效果。</p>
+<h2 id="2-4-日志结构文件系统"><a href="#2-4-日志结构文件系统" class="headerlink" title="2.4. 日志结构文件系统"></a>2.4. 日志结构文件系统</h2><p><strong>技术背景：</strong><br>磁盘高速缓存迅速地增加，这使得来自文件系统高速缓存的大部分读请求不需要磁盘访问操作。<br>未来多数的磁盘访问是写操作，但是在一些文件系统中使用的提前读机制（需要读取数据之前预取磁盘块），并不能获得更好的性能。</p>
+<p>在大多数文件系统中，写操作往往都是零碎的。<br>一个 50us 的磁盘写操作之前通常需要 10ms 的寻道时间和 4ms 的旋转延迟时间。</p>
+<p>在 UNIX 文件系统上创建一个新文件。为了写这个文件，必须写该文件目录的节点、目录块、文件的 i 节点以及文件本身。<br>这些写操作有可能被延迟，如果在写操作完成之前发生死机，就可能在文件系统中造成不一致。所以 i 节点的写操作一般是立即完成的。</p>
+<p><strong>原理：</strong><br>LFS 系统即使面对一个大部分由零碎的随机写操作组成的任务，同样能够充分利用磁盘的带宽。</p>
+<p>所有的写操作最初都被缓冲在内存中，然后周期性地把所有已缓冲的写作为一个单独的段，在日志的末尾处写入磁盘。段可能会包括 i 节点、目录块、数据块。</p>
+<p>i 节点分散在整个日志中，而不是放在磁盘的某一个固定位置。维护一个由节点编号索引组成的节点图。<br>要打开一个文件，则首先需要从 i 节点图中找到文件的节点。一旦节点定位之后就可以找到相应的块的地址。所有的块都放在段中，在日志的某个位置上。</p>
+<p><strong>清理线程：</strong><br>实际的硬盘空间是有限的，最终日志将会占用整个磁盘。LFS 有一个清理线程，会程周期地扫描日志进行磁盘压缩。</p>
+<ul>
+<li>首先读日志中的第一个段的摘要，检查有哪些 i 节点和文件。</li>
+<li>然后查看当前节点图，判断该 i 节点是否有效以及文件块是否仍在使用中。<ul>
+<li>如果没有使用，则该信息被丢弃。</li>
+<li>如果仍然使用，那么 i 节点和块就进入内存等待写回到下一个段中。</li>
+</ul>
+</li>
+</ul>
+<p>当一个文件块被写回到一个新段的时候，该文件的 i 节点必须首先要定位、更新，然后放到内存中准备写回到下一个段中。i 节点图接着必须更新以指向新的位置。</p>
+<ul>
+<li>接着，原来的段被标记为空闲。整个磁盘成为一个大的环形的缓冲区，写线程将新的段写到前面，而清理线程则将旧的段从后面移走。</li>
+</ul>
+<p><strong>性能：</strong><br>LFS 在处理大量的零碎的写操作时性能上比 UNIX 好上一个数量级，在读和大块写操作的性能方面并不比 UNIX 文件系统差，甚至更好。</p>
+<h2 id="2-5-日志文件系统"><a href="#2-5-日志文件系统" class="headerlink" title="2.5. 日志文件系统"></a>2.5. 日志文件系统</h2><p><strong>日志文件系统：</strong><br>保存一个用于记录系统下一步将要做什么的日志。这样当系统在任务中崩溃，重新启动后，可以查看日志获取崩溃前计划完成的任务。</p>
+<p><strong>系统崩溃带来的问题：</strong><br>以移除文件操作举例，移除文件操作步骤如下：</p>
+<ol>
+<li>在目录中删除文件；</li>
+<li>释放 i 节点到空闲节点池；</li>
+<li>将所有磁盘块归还空闲磁盘块池。</li>
+</ol>
+<p>假如在第一步完成后系统崩溃。i 节点和文件块将不会被任何文件获得，也不会被再分配，它们只存在于废物池中的某个地方。<br>如果崩溃发生在第二步后，那么只有磁盘块会丢失。</p>
+<p><strong>日志事务：</strong><br>日志文件系统先写一个日志项，列出三个将要完成的动作，然后日志项被写入磁盘。只有当日志项已经被写人，不同的操作才可以进行。当所有的操作成功完成后，擦除日志项。<br>如果系统这时崩溃，系统恢复后，文件系统可以通过检查日志来查看是不是有未完成的操作。如果有，可以重新运行所有未完成的操作，直到文件被正确地删除。<br>这要求被写入日志的操作必须是幂等的。</p>
+<blockquote>
+<p>保证中间件的可靠性也可以用这种方法</p>
+</blockquote>
+<p>为了增加可靠性，一个文件系统可以引入数据库中原子事务 (atomic transaction) 的概念。使用这个概念，一组动作可以被界定在开始事务和结束事务操作之间。<br>这样，文件系统就会知道它或者必须完成所有被界定的操作，或者什么也不做。</p>
+<h2 id="2-6-虚拟文件系统"><a href="#2-6-虚拟文件系统" class="headerlink" title="2.6. 虚拟文件系统"></a>2.6. 虚拟文件系统</h2><p>即使在同一个操作系统下，也会使用很多不同的文件系统。</p>
+<h3 id="2-6-1-Windows-处理多文件系统"><a href="#2-6-1-Windows-处理多文件系统" class="headerlink" title="2.6.1. Windows 处理多文件系统"></a>2.6.1. Windows 处理多文件系统</h3><p>Windows 通过指定不同的盘符来处理这些不同的文件系统。当一个进程打开一个文件，盘符是显式或者隐式存在的。<br>所以 Windows 知道向哪个文件系统传递请求，不需要尝试将不同类型文件系统整合为统一的模式。</p>
+<h3 id="2-6-2-Unix-处理多文件系统"><a href="#2-6-2-Unix-处理多文件系统" class="headerlink" title="2.6.2. Unix 处理多文件系统"></a>2.6.2. Unix 处理多文件系统</h3><p>相比之下，所有现代的 UNIX 系统做了一个很认真的尝试，即将多种文件系统整合到一个统一的结构中。<br>一个 Linux 系统可以用 ext2 作为根文件系统，ext3 分区装载在 /usr 下，另一块采用 ReiserFS 文件系统的硬盘装载在 /home 下，以及一个 ISO 9660 的 CD-ROM 临时装载在 /mnt 下。<br>从用户的观点来看，只有一个文件系统层级。它们事实上是多种文件系统，对于用户和进程是不可见的。</p>
+<h3 id="2-6-3-虚拟文件系统（Virtual-File-System-VFS）"><a href="#2-6-3-虚拟文件系统（Virtual-File-System-VFS）" class="headerlink" title="2.6.3. 虚拟文件系统（Virtual File System, VFS）"></a>2.6.3. 虚拟文件系统（Virtual File System, VFS）</h3><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0b47f051e1fb1983d4e108dd3f3b5ff0.png" alt="image.png"><br>虚拟文件系统尝试将多种文件系统统一成一个有序的结构。<br>其关键思想是抽象出所有文件系统共有的部分，并且将这部分代码放在单独的一层，该层调用底层的实际文件系统来具体管理数据。</p>
+<p><strong>VFS 交互接口：</strong></p>
+<ul>
+<li>上层接口：被用户进程调用，是标准的 POSIX 系统调用，比如 open. read、 write 和 lseek 等。</li>
+<li>下层接口：调用下层实际文件系统。VFS 接口包含许多功能调用。所以当创造一个新的文件系统和 VFS 一起工作时，设计者就必须确定它提供 VFS 所需要的功能调用。</li>
+</ul>
+<p><strong>用虚拟文件系统进行读操作过程：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a6babd0fa3d488ecd95bf7ca3c2815cf.png" alt="image.png"></p>
+<ol>
+<li>_装载文件系统：_文件系统在 VFS 中注册，提供一个包含 VFS 所需要的函数地址列表。VFS 知道如何执行实际文件系统提供的每一个功能。</li>
+<li>_创建 v 节点：_如果一个文件系统装载在 /usr 并且一个进程调用 open (“/usr/lnclude/unistd.h”, O_RDONLY)</li>
+</ol>
+<p>VFS 会找到它所装载的文件的根目录，在那里查找路径 include/unistd.h，然后创建一个 v 节点并调用实际文件系统，从而返回文件 i 节点中的所有信息，并和其他信息一起复制到 v 节点中。</p>
+<ol start="3">
+<li>VFS 在文件描述符表中创建一个表项，并且将它指向新的 v 节点。</li>
+<li>VFS 向调用者返回文件描述符，调用者可以用它去读、写或者关闭文件。</li>
+<li>当进程用文件描述符进行一个读操作，VFS 通过进程表和文件描述符表确定 v 节点的位置，并跟随指针指向函数表，运行在实际文件系统中的代码。<blockquote>
+<p>联想：VFS 类似一个面向用户的统一接口，具体实现由下层文件系统实现</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="3-文件系统管理及优化"><a href="#3-文件系统管理及优化" class="headerlink" title="3. 文件系统管理及优化"></a>3. 文件系统管理及优化</h1><h2 id="3-1-磁盘空间管理"><a href="#3-1-磁盘空间管理" class="headerlink" title="3.1. 磁盘空间管理"></a>3.1. 磁盘空间管理</h2><p>按连续字节序列存储文件有一个明显问题，当文件扩大时，有可能需要在磁<br>盘上移动文件。因此，几乎所有的文件系统都把文件分割成固定大小的块来存储。</p>
+<h3 id="3-1-1-块大小"><a href="#3-1-1-块大小" class="headerlink" title="3.1.1. 块大小"></a>3.1.1. 块大小</h3><p>块尺寸设的过大会导致很小的文件也会占用大量的磁盘空间。<br>块尺寸设的过小会导致大多数文件会跨越多个块，因此需要多次寻道与旋转延迟才能读出它们，从而降低了性能。</p>
+<h3 id="3-1-2-记录空闲块"><a href="#3-1-2-记录空闲块" class="headerlink" title="3.1.2. 记录空闲块"></a>3.1.2. 记录空闲块</h3><p><strong>采用磁盘块链表：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b302e3be29c0fd7a4b63e189dcbfb173.png" alt="image.png"><br>链表的每个块中包含尽可能多的空闲磁盘块号。对于 1KB 大小的块和 32 位的磁盘块号，空闲表中每个块包含有 255 个空闲块的块号（需要有一个位置存放指向下一个块的指针）。</p>
+<p><strong>采用位图：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/00a52c6a623e67ab4d59c781e5a5c9da.png" alt="image.png"><br>另一种空闲磁盘空间管理的方法是采用位图。<br>n 个块的磁盘需要 n 位位图。空闲块用 1 表示，已分配块用 0 表示（或者相反）。位图方法所需空间较少，因为每块只用一个二进制位标识，而在链表方法中，每一块要用到 32 位。</p>
+<h2 id="3-2-文件系统性能"><a href="#3-2-文件系统性能" class="headerlink" title="3.2. 文件系统性能"></a>3.2. 文件系统性能</h2><p>访问磁盘比访问内存慢得多。读内存中一个 32 位字大概要 10ns。从硬盘上读的速度大约为 100MB/s，对每 32 位字来说，大约要慢 4 倍，还要加上 5~10ms 寻道时间，并等待所需的扇面抵达磁头下。</p>
+<h3 id="3-2-1-磁盘高速缓存"><a href="#3-2-1-磁盘高速缓存" class="headerlink" title="3.2.1. 磁盘高速缓存"></a>3.2.1. 磁盘高速缓存</h3><p>高速缓存指的是一系列的块， 它们在逻辑上属于磁盘，但实际上基于性能的考虑被保存在内存中。<br>最常用的减少磁盘访问次数技术是 <strong>块高速缓存（block cache）</strong>或者 <strong>缓冲区高速缓存（buffer cache）</strong>。</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/85532654edb9a0c1861fabf488dc2dda.png" alt="image.png"><br><strong>散列表：</strong>高速缓存使用散列表结构，方便快速查找所需要的块。</p>
+<p><strong>LRU：</strong><br>使用双向链表把块以先后使用顺序链接起来。最近使用最少的块在链表的前端，最近使用最多的块在该链表的后端。</p>
+<p>如果一个关键块（如 i 节点块）读进了高速缓存并做过修改，在写回磁盘前系统崩溃了，导致文件系统的不一致。如果把 i 节点块放在 LRU 链的尾部，在它到达链首并写回磁盘前，需要相当长的一段时间。</p>
+<p><strong>置换策略：</strong><br>如果高速缓存已满，此时需要调入新的块，则要把原来的某一块调出高速缓存，如果要调出的块在上次调入以后修改过，则要把它写回磁盘。<br>与分页相似，常用的页面置换算法适用于高速缓存。</p>
+<p><strong>同步 / 异步写回：</strong><br>我们不希望数据块在告诉缓存放很久之后才写回磁盘，这样十分容易丢失数据。为此操作系统采取了策略。</p>
+<ul>
+<li>异步定时写回：UNIX 系统启动时会在后台运行 update 程序，每隔 30s 就执行 sync 调用。</li>
+<li>同步写回： Windows 执行 FlushFileBuffers 系统调用。只要被写入高速缓存，就把每个被修改的块写回磁盘，但这样需要更多的磁盘 I/O。</li>
+</ul>
+<h3 id="3-2-2-块提前读"><a href="#3-2-2-块提前读" class="headerlink" title="3.2.2. 块提前读"></a>3.2.2. 块提前读</h3><p>在需要用到块之前，提前将其写入高速缓存，从而提高命中率。<br>许多文件都是顺序读的，如果请求文件系统在某个文件中生成块 k，文件系统执行相关操作且在完成之后，会检查块 k+1 是否已经在高速缓存。如果还不在，文件系统会为块 k+1 安排一个预读。</p>
+<p>块提前读策略只适用于实际顺序读取的文件。对随机访问文件，提前读丝毫不起作用。文件系统通过跟踪每一个打开文件的访问方式来确定时候是顺序访问。</p>
+<p>在最初不能确定文件属于哪种存取方式时，先将该位设置成顺序访问方式，查找一完成就将该位清除。这样即便弄错了一次也只是浪费一小段磁盘的带宽而已。</p>
+<h3 id="3-2-3-减少磁盘臂运动"><a href="#3-2-3-减少磁盘臂运动" class="headerlink" title="3.2.3. 减少磁盘臂运动"></a>3.2.3. 减少磁盘臂运动</h3><p>把有可能顺序访问的块放在一起，最好是在同一个柱面上，从而减少磁盘臂的移动次数。<br> </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/e9eb9f4d0df9/" rel="prev" title="操作系统从入门到入土③：内存管理">
+                  <i class="fa fa-angle-left"></i> 操作系统从入门到入土③：内存管理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/fd6d81abe0b0/" rel="next" title="操作系统从入门到入土⑤：输入 / 输出">
+                  操作系统从入门到入土⑤：输入 / 输出 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">CComma</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ccomma" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/80c9e654e499/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
