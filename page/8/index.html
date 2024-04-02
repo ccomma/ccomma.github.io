@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">7</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">79</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">17</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">97</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,13 +163,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -216,7 +216,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/fd84f239d2d2/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/920cb6e295db/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -234,7 +234,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/fd84f239d2d2/" class="post-title-link" itemprop="url">git flow</a>
+          <a href="/920cb6e295db/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土①：概述</a>
         </h2>
 
         <div class="post-meta-container">
@@ -245,7 +245,16 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-05-13 09:59:37" itemprop="dateCreated datePublished" datetime="2022-05-13T09:59:37+08:00">2022-05-13</time>
+      <time title="Created: 2022-04-23 19:29:17" itemprop="dateCreated datePublished" datetime="2022-04-23T19:29:17+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+        </span>
     </span>
 
   
@@ -257,8 +266,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/fd84f239d2d2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="fd84f239d2d2/" itemprop="commentCount"></span>
+    <a title="disqus" href="/920cb6e295db/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="920cb6e295db/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,7 +277,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>3 mins.</span>
     </span>
 </div>
 
@@ -279,215 +288,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652406645058-0b412afc-2599-455e-93ae-2750f2cd6951.pdf">📎代码分支策略・语雀.pdf</a><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f388a58466a12a9126440b2257c9781a.png"></p>
-<h2 id="1-Master"><a href="#1-Master" class="headerlink" title="1. Master"></a>1. Master</h2><p>线上</p>
-<h2 id="2-Develop"><a href="#2-Develop" class="headerlink" title="2. Develop"></a>2. Develop</h2><p>开发</p>
-<h2 id="3-Feature"><a href="#3-Feature" class="headerlink" title="3. Feature"></a>3. Feature</h2><p>Feature 分支做完后，必须合并回 Develop 分支<br>合并完分支后一般会删点这个 Feature 分支，但是也可以保留</p>
-<h2 id="4-Release"><a href="#4-Release" class="headerlink" title="4. Release"></a>4. Release</h2><p><em><strong>概述：</strong></em> 基于 Develop 分支创建，用于测试，修改 Bug<br><em><strong>创建：</strong></em> 一旦创建了 Release 分支之后，不要再从 Develop 分支上合并新的改动到 Release 分支<br><em><strong>发布：</strong></em> 发布 Release 分支时，合并 Release 到 Master 和 Develop， 同时在 Master 分支上打个 Tag 记住 Release 版本号，然后删除 Release 分支</p>
-<h2 id="5-Hotfix"><a href="#5-Hotfix" class="headerlink" title="5. Hotfix"></a>5. Hotfix</h2><p>基于 Master 分支创建，开发完后需要合并回 Master 和 Develop 分支，同时在 Master 上打一个 tag</p>
-<p>若有收获，就点个赞吧</p>
+          <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><p>ZooKeeper 是一个分布式协调中间件，是 Google 的 Chubby 一个开源的实现。它是集群的管理者，监视着集群中各个节点的状态根据节点提交的反馈进行下一步合理操作。最终，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
+<p><strong><em>特性：</em></strong></p>
+<ul>
+<li><em>顺序一致性：</em> 客户端的更新将按顺序执行。因其写操作完全由单一 Leader 节点来执行（事务 id）</li>
+<li><em>原子性：</em> &nbsp; &nbsp; &nbsp; &nbsp; 操作要么成功要么失败（事务）</li>
+<li><em>单一视图：</em> &nbsp; &nbsp; 无论连接到哪个节点，客户端都能看到相同的视图。（恢复模式 + 广播模式）</li>
+<li><em>及时性：</em> &nbsp; &nbsp; &nbsp; &nbsp; 在特定时间范围内的数据是最新的。由最终一致性保证，同步需一定时间（数据同步）</li>
+<li><em>可靠性：</em> <ul>
+<li>数据不会丢失。zk 是将数据存储到内存中的，所以肯定会有持久化（日志 + 快照）</li>
+<li>快速恢复 Leader。恢复模式（选主 + 数据同步）</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2. 配置"></a>2. 配置</h1><p><strong><em>conf/zoo.cfg：</em></strong></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">计算时间的基本单元 ms</span></span><br><span class="line">tickTime=2000</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许从节点连接并同步到主节点的初始化连接时间，以 tickTime 为单位</span></span><br><span class="line">initLimit=10</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主节点与从节点请求和应答（心跳）的时间长度，以 tickTime 为单位</span></span><br><span class="line">syncLimit=5</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">快照及 Log 存储位置</span></span><br><span class="line">dataDir=/usr/local/zookeeper/dataDir</span><br><span class="line">dataLogDir=/usr/local/zookeeper/dataLogDir</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">服务端口</span></span><br><span class="line">clientPort=2181</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host1</span></span><br><span class="line">server.1=0.0.0.0:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host2</span></span><br><span class="line">server.2=121.43.178.178:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host3</span></span><br><span class="line">server.3=47.99.220.125:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host4，observer 角色</span></span><br><span class="line">server.4=49.56.165.144:2888:3888:observer</span><br></pre></td></tr></tbody></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/6c08649469df/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/6c08649469df/" class="post-title-link" itemprop="url">git 常用命令</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-05-13 09:58:52" itemprop="dateCreated datePublished" datetime="2022-05-13T09:58:52+08:00">2022-05-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/6c08649469df/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="6c08649469df/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="1-提交和拉取"><a href="#1-提交和拉取" class="headerlink" title="1. 提交和拉取"></a>1. 提交和拉取</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暂存所有文件</span></span><br><span class="line">git add .</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暂存并提交</span></span><br><span class="line">git commit -am</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">push 到远程 git</span></span><br><span class="line">git push</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从远程 git 下拉到本地 git</span></span><br><span class="line">git pull</span><br></pre></td></tr></tbody></table></figure>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000002783245">Git push 与 pull 的默认行为</a></p>
-<h2 id="2-查看"><a href="#2-查看" class="headerlink" title="2. 查看"></a>2. 查看</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看不同</span></span><br><span class="line">git diff</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看日志</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">git <span class="built_in">log</span> --pretty=oneline --abbrev-commit</span></span><br><span class="line">git log</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看你的每一次命令</span></span><br><span class="line">git reflog</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="3-回退"><a href="#3-回退" class="headerlink" title="3. 回退"></a>3. 回退</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">回退上一次提交，保留暂存区</span></span><br><span class="line">git reset --soft HEAD^</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">回退到指定版本</span></span><br><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="4-检出"><a href="#4-检出" class="headerlink" title="4. 检出"></a>4. 检出</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拉取暂存区文件到工作区</span></span><br><span class="line">git checkout -- &lt;file&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换分支</span></span><br><span class="line">git checkout branchName</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">新建并检出分支</span></span><br><span class="line">git checkout -b dev  =&gt;  git branch dev   &amp;   git checkout dev</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="5-远程"><a href="#5-远程" class="headerlink" title="5. 远程"></a>5. 远程</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看远程库的信息</span></span><br><span class="line">git remote</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">显示了可以抓取和推送的 origin 的地址</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加远程地址</span></span><br><span class="line">git remote add origin git@github.com:xxxxx</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从远程 git 上 <span class="built_in">clone</span> 项目</span></span><br><span class="line">git clone git@github.com:xxxxx</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="6-分支"><a href="#6-分支" class="headerlink" title="6. 分支"></a>6. 分支</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建 dev 分支</span></span><br><span class="line">git branch dev</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除 dev 分支</span></span><br><span class="line">git branch -d dev</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">强行删除 dev 分支</span></span><br><span class="line">git branch -D dev</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="7-合并"><a href="#7-合并" class="headerlink" title="7. 合并"></a>7. 合并</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">合并 dev 分支到当前分支</span></span><br><span class="line">git merge dev</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">强制禁用 Fast forward</span></span><br><span class="line">git merge --no-ff -m "merge branch 'dev' into master" dev</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">变基</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">比较 git merge 合并整合得到的结果没有任何区别，但是通过 git rebase 衍合能产生一个更为整洁的提交历史。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">把解决分支补丁同最新主干代码之间的冲突的责任，划转给由提交补丁的人来解决</span></span><br><span class="line">git rebase</span><br></pre></td></tr></tbody></table></figure>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4a8f4af4e803">rebase 用法小结</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wh_19910525/article/details/7554489">merge&nbsp;和&nbsp;rebase&nbsp;间的区别</a></p>
-<h2 id="8-暂存"><a href="#8-暂存" class="headerlink" title="8. 暂存"></a>8. 暂存</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加注释</span></span><br><span class="line">git stash save "message"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">存储列表</span></span><br><span class="line">git stash list</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用某个存储，不删除</span></span><br><span class="line">git stash apply</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除某个存储</span></span><br><span class="line">git stash drop</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用并删除某个存储</span></span><br><span class="line">git stash pop</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="9-标签"><a href="#9-标签" class="headerlink" title="9. 标签"></a>9. 标签</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建一个新的标签</span></span><br><span class="line">git tag v1.0</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">对 <span class="built_in">id</span> 为 f52c633 的 commit 打标签</span></span><br><span class="line">git tag v0.9 f52c633</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除标签</span></span><br><span class="line">git tag -d v0.1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送标签</span></span><br><span class="line">git push origin v1.0</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送全部标签</span></span><br><span class="line">git push origin --tags</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除远程标签</span></span><br><span class="line">git push origin :refs/tags/v0.9</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有标签</span></span><br><span class="line">git tag</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">带有说明的标签</span></span><br><span class="line">git tag -a v0.1 -m "version 0.1 released" 1094adb</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看标签信息</span></span><br><span class="line">git show v0.9</span><br></pre></td></tr></tbody></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/d59b3a8193b0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/d59b3a8193b0/" class="post-title-link" itemprop="url">git 配置</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-05-13 09:57:31" itemprop="dateCreated datePublished" datetime="2022-05-13T09:57:31+08:00">2022-05-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/d59b3a8193b0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d59b3a8193b0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="1-配置用户名"><a href="#1-配置用户名" class="headerlink" title="1. 配置用户名"></a>1. 配置用户名</h2><p><code>git config --global user.name "username"</code></p>
-<h2 id="2-配置邮箱"><a href="#2-配置邮箱" class="headerlink" title="2. 配置邮箱"></a>2. 配置邮箱</h2><p><code>git config --global user.email "xxxx@xxxx.xx"</code></p>
-<h2 id="3-其他配置"><a href="#3-其他配置" class="headerlink" title="3. 其他配置"></a>3. 其他配置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">让 Git 不要管 Windows/Unix 换行符转换的事</span></span><br><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="4-编码配置"><a href="#4-编码配置" class="headerlink" title="4. 编码配置"></a>4. 编码配置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">避免 git gui 中的中文乱码</span></span><br><span class="line">git config --global gui.encoding utf-8</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">避免 git status 显示的中文文件名乱码</span></span><br><span class="line">git config --global core.quotepath off</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">让 git 对大小写敏感</span></span><br><span class="line">git config --global core.ignorecase false</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">配置别名</span></span><br><span class="line">git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>5. ssh key pair 配置</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/upshi/article/details/78327125">(10 条消息) Git 多 SSH 账号管理_一黑到底 - CSDN 博客_git 多 ssh</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/popfisher/p/5731232.html">Windows 下 Git 多账号配置，同一电脑多个 ssh-key 的管理 - popfisher - 博客园 (cnblogs.com)</a><br>SSH 是建立在应用层和传输层基础上的安全协议，其目的是专为远程登录会话和其他网络服务提供安全性的保障<br>SSH 密钥对可以让我们方便的登录到 SSH 服务器，而无需输入密码</p>
+<p><strong>集群：</strong></p>
 <ol>
-<li>Windows 上 Git Bash 命令行窗口中输入：ssh-keygen -t rsa -C “<a href="mailto:xxx@xxx.com">xxx@xxx.com</a>“</li>
-<li>接着一直回车生成 ssh key pair</li>
-<li><code>ssh-add ~/.ssh/id_rsa</code>    #把专用密钥添加到 ssh-agent 的高速缓存中，ssh-agent 能避免这种反复输入私钥的烦恼</li>
-<li><code>cat ~/.ssh/id_rsa.pub</code></li>
+<li>创建 dataDir/myid，内容为 1 代表 id 为 1。其他实例同上创建不同 id 的 myid 文件 </li>
+<li>server. 服务器 id = 服务器 ip: 服务器之间的通信端口：服务器之间的投票选举端口 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host1 当前机器的 host，用 0.0.0.0 表示</span></span><br><span class="line">server.1=0.0.0.0:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host2</span></span><br><span class="line">server.2=121.43.178.178:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host3</span></span><br><span class="line">server.3=47.99.220.125:2888:3888</span><br></pre></td></tr></tbody></table></figure></li>
 </ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e1edcae107e0bcbb1f409d558e1434a1.png" alt="image.png"></p>
-<h1 id=""><a href="#" class="headerlink" title=""></a><br></h1>
+<h1 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h1><p>启动服务：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh start</span><br></pre></td></tr></tbody></table></figure>
+
+<p>启动客户端：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkCli.sh</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查看启动状态：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="4-Session"><a href="#4-Session" class="headerlink" title="4. Session"></a>4. Session</h1><ul>
+<li>每当客户端连接到服务端会创建一个 SessionId。<strong>创建 / 删除 SessionId 也是事务操作，会有 zxid，会被同步到所有节点中</strong> </li>
+<li> Session 过期，则根据该 Session 创建的临时节点 znode 都会被抛弃 </li>
+<li>可设置超时时间。未超时的情况下，客户端 api 若保存了 SessionId，重连后 Session 不会消失（还是原来的 Session） </li>
+<li>心跳机制</li>
+</ul>
+<h1 id="5-基本模型"><a href="#5-基本模型" class="headerlink" title="5. 基本模型"></a>5. 基本模型</h1><h2 id="5-1-Zookeeper-抽象模型"><a href="#5-1-Zookeeper-抽象模型" class="headerlink" title="5.1. Zookeeper 抽象模型"></a>5.1. Zookeeper 抽象模型</h2><p>Zookeeper 提供了一种树形结构级的命名空间<br>为了保证高吞吐和低延迟，Zookeeper 在内存中维护了这个树状的目录结构，这种特性使得 Zookeeper <strong>不能用于存放大量的数据</strong>，每个节点的存放数据上限为 <strong>1M</strong>。</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/71cee598f8577e486a102cf8e2e06ba4.png"></p>
+<h2 id="5-2-节点类型"><a href="#5-2-节点类型" class="headerlink" title="5.2. 节点类型"></a>5.2. 节点类型</h2><ul>
+<li><strong>永久无序节点：</strong> 不会因为会话结束或者超时而消失</li>
+<li><strong>永久有序节点：</strong> 不会因为会话结束或者超时而消失，且有序</li>
+<li><strong>临时无序节点：</strong> 如果会话结束或者超时就会消失</li>
+<li><strong>临时有序节点：</strong> 如果会话结束或者超时就会消失，且有序<blockquote>
+<p>有序节点：会在节点名的后面加一个数字后缀，并且是有序的，例如生成的有序节点为 /lock/node-0000000000，它的下一个有序节点则为 /lock/node-0000000001，以此类推</p>
+</blockquote>
+</li>
+</ul>
+
       
     </div>
 
@@ -513,7 +361,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/cd58652eb14b/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/957cfc92c9ca/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -531,7 +379,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/cd58652eb14b/" class="post-title-link" itemprop="url">Git</a>
+          <a href="/957cfc92c9ca/" class="post-title-link" itemprop="url">MyBatis 中使用枚举</a>
         </h2>
 
         <div class="post-meta-container">
@@ -542,7 +390,16 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-05-12 22:59:00" itemprop="dateCreated datePublished" datetime="2022-05-12T22:59:00+08:00">2022-05-12</time>
+      <time title="Created: 2021-12-05 19:49:27" itemprop="dateCreated datePublished" datetime="2021-12-05T19:49:27+08:00">2021-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MyBatis/" itemprop="url" rel="index"><span itemprop="name">MyBatis</span></a>
+        </span>
     </span>
 
   
@@ -554,8 +411,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/cd58652eb14b/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cd58652eb14b/" itemprop="commentCount"></span>
+    <a title="disqus" href="/957cfc92c9ca/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="957cfc92c9ca/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -565,7 +422,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>5 mins.</span>
     </span>
 </div>
 
@@ -576,7 +433,57 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652407285001-fab2c18e-81c0-4748-bdca-10cf3e727610.pdf?_lake_card=%7B%22src%22:%22https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652407285001-fab2c18e-81c0-4748-bdca-10cf3e727610.pdf%22,%22name%22:%22%E5%88%AB%E4%B9%B1%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E4%BA%86%EF%BC%8C%E7%9C%8B%E4%B8%8B%E5%A4%A7%E5%8E%82%20Git%20%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%81.pdf%22,%22size%22:1610472,%22ext%22:%22pdf%22,%22source%22:%22%22,%22status%22:%22done%22,%22download%22:true,%22type%22:%22application/pdf%22,%22taskId%22:%22u37544941-f41e-4c9f-972d-237495d4b11%22,%22taskType%22:%22upload%22,%22mode%22:%22title%22,%22id%22:%22u16e3b7e8%22,%22card%22:%22file%22%7D">别乱提交代码了，看下大厂 Git 提交规范是怎么做的！.pdf</a><br><a target="_blank" rel="noopener" href="http://iissnan.com/progit/">Pro Git 简体中文版 (iissnan.com)</a><br><a target="_blank" rel="noopener" href="https://github.com/zurawiki/gptcommit">gptcommit</a></p>
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在编码过程中，经常会遇到用某个数值来表示某种状态、类型或者阶段的情况，比如有这样一个枚举：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">ComputerState</span> {</span><br><span class="line"></span><br><span class="line">    OPEN(<span class="number">10</span>),         <span class="comment">//开启</span></span><br><span class="line">    </span><br><span class="line">    CLOSE(<span class="number">11</span>),         <span class="comment">//关闭</span></span><br><span class="line">    </span><br><span class="line">    OFF_LINE(<span class="number">12</span>),     <span class="comment">//离线</span></span><br><span class="line">    </span><br><span class="line">    FAULT(<span class="number">200</span>),     <span class="comment">//故障</span></span><br><span class="line">    </span><br><span class="line">    UNKNOWN(<span class="number">255</span>);     <span class="comment">//未知</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    ComputerState(<span class="type">int</span> code) { <span class="built_in">this</span>.code = code; }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>通常我们希望将表示状态的数值存入数据库，即 ComputerState.OPEN 存入数据库取值为 10。</p>
+<h1 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h1><p>首先，我们先看看 MyBatis 是否能够满足我们的需求。<br>MyBatis 内置了两个枚举转换器分别是：<code>org.apache.ibatis.type.EnumTypeHandler</code> 和 <code>org.apache.ibatis.type.EnumOrdinalTypeHandler</code>。</p>
+<h2 id="EnumTypeHandler"><a href="#EnumTypeHandler" class="headerlink" title="EnumTypeHandler"></a>EnumTypeHandler</h2><p>这是默认的枚举转换器，该转换器将枚举实例转换为实例名称的字符串，即将 <code>ComputerState.OPEN</code> 转换 <code>OPEN</code>。</p>
+<h2 id="EnumOrdinalTypeHandler"><a href="#EnumOrdinalTypeHandler" class="headerlink" title="EnumOrdinalTypeHandler"></a>EnumOrdinalTypeHandler</h2><p>顾名思义这个转换器将枚举实例的 ordinal 属性作为取值，即 <code>ComputerState.OPEN</code> 转换为 0，<code>ComputerState.CLOSE</code> 转换为 1。<br>使用它的方式是在 MyBatis 配置文件中定义：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span> <span class="tag">&lt;<span class="name">typeHandler</span> <span class="attr">handler</span>=<span class="string">"org.apache.ibatis.type.EnumOrdinalTypeHandler"</span> <span class="attr">javaType</span>=<span class="string">"com.example.entity.enums.ComputerState"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">typeHandlers</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p> &nbsp;<br>以上的两种转换器都不能满足我们的需求，所以看起来要自己编写一个转换器了。</p>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><p>MyBatis 提供了 <code>org.apache.ibatis.type.BaseTypeHandler</code> 类用于我们自己扩展类型转换器，上面的 <code>EnumTypeHandler</code> 和 <code>EnumOrdinalTypeHandler</code> 也都实现了这个接口。</p>
+<h2 id="1-定义接口"><a href="#1-定义接口" class="headerlink" title="1. 定义接口"></a>1. 定义接口</h2><p>我们需要一个接口来确定某部分枚举类的行为。如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BaseCodeEnum</span> {</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getCode</span><span class="params">()</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><br>该接口只有一个返回编码的方法，返回值将被存入数据库。</p>
+<h2 id="2-改造枚举"><a href="#2-改造枚举" class="headerlink" title="2. 改造枚举"></a>2. 改造枚举</h2><p>就拿上面的 <code>ComputerState</code> 来实现 <code>BaseCodeEnum</code> 接口：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">ComputerState</span> <span class="keyword">implements</span> <span class="title class_">BaseCodeEnum</span>{</span><br><span class="line"></span><br><span class="line">    OPEN(<span class="number">10</span>),         <span class="comment">//开启</span></span><br><span class="line">    </span><br><span class="line">    CLOSE(<span class="number">11</span>),         <span class="comment">//关闭</span></span><br><span class="line">    </span><br><span class="line">    OFF_LINE(<span class="number">12</span>),     <span class="comment">//离线</span></span><br><span class="line">    </span><br><span class="line">    FAULT(<span class="number">200</span>),     <span class="comment">//故障</span></span><br><span class="line">    </span><br><span class="line">    UNKNOWN(<span class="number">255</span>);     <span class="comment">//未知</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    ComputerState(<span class="type">int</span> code) { <span class="built_in">this</span>.code = code; }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCode</span><span class="params">()</span> { <span class="keyword">return</span> <span class="built_in">this</span>.code; }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="3-编写一个转换工具类"><a href="#3-编写一个转换工具类" class="headerlink" title="3. 编写一个转换工具类"></a>3. 编写一个转换工具类</h2><p>现在我们能顺利的将枚举转换为某个数值了，还需要一个工具将数值转换为枚举实例。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CodeEnumUtil</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;E <span class="keyword">extends</span> <span class="title class_">Enum</span>&lt;?&gt; &amp; BaseCodeEnum&gt; E <span class="title function_">codeOf</span><span class="params">(Class&lt;E&gt; enumClass, <span class="type">int</span> code)</span> {</span><br><span class="line">        E[] enumConstants = enumClass.getEnumConstants();</span><br><span class="line">        <span class="keyword">for</span> (E e : enumConstants) {</span><br><span class="line">            <span class="keyword">if</span> (e.getCode() == code)</span><br><span class="line">                <span class="keyword">return</span> e;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="4-自定义类型转换器"><a href="#4-自定义类型转换器" class="headerlink" title="4. 自定义类型转换器"></a>4. 自定义类型转换器</h2><p>准备工作做的差不多了，是时候开始编写转换器了。<br><code>BaseTypeHandler&lt;T&gt;</code> 一共需要实现 4 个方法：</p>
+<ol>
+<li><code>void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType)</code></li>
+</ol>
+<p>用于定义设置参数时，该如何把 Java 类型的参数转换为对应的数据库类型</p>
+<ol start="2">
+<li><code>T getNullableResult(ResultSet rs, String columnName)</code></li>
+</ol>
+<p>用于定义通过字段名称获取字段数据时，如何把数据库类型转换为对应的 Java 类型</p>
+<ol start="3">
+<li><code> T getNullableResult(ResultSt rs, int columnIndex)</code><br>用于定义通过字段索引获取字段数据时，如何把数据库类型转换为对应的 Java 类型</li>
+<li><code>T getNullableResult(CallableStatement cs, int columnIndex)</code><br>用定义调用存储过程后，如何把数据库类型转换为对应的 Java 类型 </li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CodeEnumTypeHandler</span>&lt;E <span class="keyword">extends</span> <span class="title class_">Enum</span>&lt;?&gt; &amp; BaseCodeEnum&gt; <span class="keyword">extends</span> <span class="title class_">BaseTypeHandler</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;E&gt; type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CodeEnumTypeHandler</span><span class="params">(Class&lt;E&gt; type)</span> {</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"Type argument cannot be null"</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNonNullParameter</span><span class="params">(PreparedStatement ps, <span class="type">int</span> i, BaseCodeEnum parameter, JdbcType jdbcType)</span></span><br><span class="line">    <span class="keyword">throws</span> SQLException {</span><br><span class="line">        ps.setInt(i, parameter.getCode());</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> rs.getInt(columnName);</span><br><span class="line">        <span class="keyword">return</span> rs.wasNull() ? <span class="literal">null</span> : codeOf(code);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> rs.getInt(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> rs.wasNull() ? <span class="literal">null</span> : codeOf(code);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(CallableStatement cs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> cs.getInt(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> cs.wasNull() ? <span class="literal">null</span> : codeOf(code);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> E <span class="title function_">codeOf</span><span class="params">(<span class="type">int</span> code)</span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">return</span> CodeEnumUtil.codeOf(type, code);</span><br><span class="line">        } <span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"Cannot convert "</span> + code + <span class="string">" to "</span> + type.getSimpleName() + <span class="string">" by code value."</span>, ex);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="5-使用"><a href="#5-使用" class="headerlink" title="5. 使用"></a>5. 使用</h2><p>接下来需要指定哪个类使用我们自己编写转换器进行转换，在 MyBatis 配置文件中配置如下：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span> <span class="tag">&lt;<span class="name">typeHandler</span> <span class="attr">handler</span>=<span class="string">"com.example.typeHandler.CodeEnumTypeHandler"</span> <span class="attr">javaType</span>=<span class="string">"com.example.entity.enums.ComputerState"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">typeHandlers</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p> &nbsp;<br>搞定！ 经测试 <code>ComputerState.OPEN</code> 被转换为 10，<code>ComputerState.UNKNOWN</code> 被转换为 255，达到了预期的效果。</p>
+<h2 id="6-优化"><a href="#6-优化" class="headerlink" title="6. 优化"></a>6. 优化</h2><p>在第 5 步时，我们在 MyBatis 中添加 typeHandler 用于指定哪些类使用我们自定义的转换器，一旦系统中的枚举类多了起来，MyBatis 的配置文件维护起来会变得非常麻烦，也容易出错。如何解决呢？<br>在 Spring 中我们可以使用 JavaConfig 方式来干预 SqlSessionFactory 的创建过程，来完成转换器的指定。</p>
+<p><strong>思路</strong></p>
+<ol>
+<li>再写一个能自动匹配转换行为的转换器</li>
+<li>通过 <code>sqlSessionFactory.getConfiguration().getTypeHandlerRegistry()</code> 取得类型转换器注册器</li>
+<li>再使用 typeHandlerRegistry.setDefaultEnumTypeHandler (Class&lt;? extends TypeHandler&gt; typeHandler) 将第一步的转换器注册成为默认的</li>
+</ol>
+<p>首先，我们需要一个能确定转换行为的转换器：<br>AutoEnumTypeHandler.java</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoEnumTypeHandler</span>&lt;E <span class="keyword">extends</span> <span class="title class_">Enum</span>&gt; <span class="keyword">extends</span> <span class="title class_">BaseTypeHandler</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">BaseTypeHandler</span> <span class="variable">typeHandler</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AutoEnumTypeHandler</span><span class="params">(Class&lt;E&gt; type)</span> {</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"Type argument cannot be null"</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(BaseCodeEnum.class.isAssignableFrom(type)){</span><br><span class="line">            <span class="comment">// 如果实现了 BaseCodeEnum 则使用我们自定义的转换器</span></span><br><span class="line">            typeHandler = <span class="keyword">new</span> <span class="title class_">CodeEnumTypeHandler</span>(type);</span><br><span class="line">        }<span class="keyword">else</span> {</span><br><span class="line">            <span class="comment">// 默认转换器 也可换成 EnumOrdinalTypeHandler</span></span><br><span class="line">            typeHandler = <span class="keyword">new</span> <span class="title class_">EnumTypeHandler</span>&lt;&gt;(type);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNonNullParameter</span><span class="params">(PreparedStatement ps, <span class="type">int</span> i, E parameter, JdbcType jdbcType)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        typeHandler.setNonNullParameter(ps,i, parameter,jdbcType);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="keyword">return</span> (E) typeHandler.getNullableResult(rs,columnName);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="keyword">return</span> (E) typeHandler.getNullableResult(rs,columnIndex);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(CallableStatement cs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="keyword">return</span> (E) typeHandler.getNullableResult(cs,columnIndex);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接下来，我们需要干预 <code>SqlSessionFactory</code> 的创建过程，将刚刚的转换器指定为默认的：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>  </span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix  = "mybatis")</span> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisConfig</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String configLocation;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String mapperLocations;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>  </span><br><span class="line">    <span class="keyword">public</span> SqlSessionFactory <span class="title function_">sqlSessionFactory</span><span class="params">(</span></span><br><span class="line"><span class="params">        DataSource dataSource,</span></span><br><span class="line"><span class="params">        JSONArrayHandler jsonArrayHandler,</span></span><br><span class="line"><span class="params">        JSONObjectHandler jsonObjectHandler)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">SqlSessionFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SqlSessionFactoryBean</span>();</span><br><span class="line">        factory.setDataSource(dataSource);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 设置配置文件及mapper文件地址</span></span><br><span class="line">        <span class="type">ResourcePatternResolver</span> <span class="variable">resolver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PathMatchingResourcePatternResolver</span>();</span><br><span class="line">        factory.setConfigLocation(resolver.getResource(configLocation));</span><br><span class="line">        factory.setMapperLocations(resolver.getResources(mapperLocations));</span><br><span class="line">    </span><br><span class="line">        <span class="type">SqlSessionFactory</span> <span class="variable">sqlSessionFactory</span> <span class="operator">=</span> factory.getObject();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 取得类型转换注册器</span></span><br><span class="line">        <span class="type">TypeHandlerRegistry</span> <span class="variable">typeHandlerRegistry</span> <span class="operator">=</span> sqlSessionFactory.getConfiguration().getTypeHandlerRegistry();</span><br><span class="line">        <span class="comment">// 注册默认枚举转换器</span></span><br><span class="line">        typeHandlerRegistry.setDefaultEnumTypeHandler(AutoEnumTypeHandler.class);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactory;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ... getter setter</span></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>搞定！ 这样一来，如果枚举实现了 <code>BaseCodeEnum</code> 接口就使用我们自定义的 <code>CodeEnumTypeHandler</code>，如果没有实现 <code>BaseCodeEnum</code> 接口就使用默认的。再也不用写 MyBatis 的配置文件了！</p>
 
       
     </div>
@@ -2477,8 +2384,516 @@ XCHG 指令可以代替 TSL，它原子性地交换了两个位置的内容，�
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/a39820b4ce4b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/a39820b4ce4b/" class="post-title-link" itemprop="url">ThreadLocal 详解</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-03-13 22:03:28" itemprop="dateCreated datePublished" datetime="2021-03-13T22:03:28+08:00">2021-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/a39820b4ce4b/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="a39820b4ce4b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>把共享数据的可见范围限制在同一个线程之内，这样，无须同步也能保证线程之间不出现数据争用的问题</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/a39820b4ce4b/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/26d195955dea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/26d195955dea/" class="post-title-link" itemprop="url">Java 并发详解 ⑦：AQS</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-03-05 18:48:44" itemprop="dateCreated datePublished" datetime="2021-03-05T18:48:44+08:00">2021-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">并发</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/26d195955dea/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="26d195955dea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>6 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="1-CountDownLatch"><a href="#1-CountDownLatch" class="headerlink" title="1. CountDownLatch"></a>1. CountDownLatch</h2><p><strong>概述：</strong> 用来控制一个线程等待多个线程</p>
+<p><strong>原理：</strong><br>维护了一个计数器 cnt，每次调用 countDown () 方法会让计数器的值减 1，减到 0 的时候，那些因为调用 await () 方法而在等待的线程就会被唤醒</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/859b76a0bc977dc9c5274854fdf6fbaa.png"></p>
+<p><strong>API：</strong></p>
+<ul>
+<li><strong>await()：</strong> 调用 await () 方法的线程会被挂起，它会等待直到 count 值为 0 才继续执行</li>
+<li><strong> await(long timeout, TimeUnit unit)：</strong> 和 await () 类似，只不过等待一定的时间后 count 值还没变为 0 的话就会继续执行</li>
+<li><strong> countDown()：</strong> 将 count 值减 1</li>
+</ul>
+<p><strong>实例：</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CountdownLatchExample</span> {</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">totalThread</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">        <span class="type">CountDownLatch</span> <span class="variable">countDownLatch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(totalThread);</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; totalThread; i++) {</span><br><span class="line">            executorService.execute(() -&gt; {</span><br><span class="line">                System.out.print(<span class="string">"run.."</span>);</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            });</span><br><span class="line">        }</span><br><span class="line">        countDownLatch.await();</span><br><span class="line">        System.out.println(<span class="string">"end"</span>);</span><br><span class="line">        executorService.shutdown();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">// run..run..run..run..run..run..run..run..run..run..end</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>场景：</strong></p>
+<ol>
+<li>启动一个服务时，主线程需要等待多个组件加载完毕，之后再继续执行 </li>
+<li>实现多个线程开始执行任务的最大并行性<br>CountDownLatch (1)，多个线程挂起，当主线程调用 countDown () 时，多个线程同时被唤醒</li>
+</ol>
+<p><strong>不足：</strong><br>CountDownLatch 是一次性的，计数器的值只能在构造方法中初始化一次，之后没有任何机制再次对其设置值，当 CountDownLatch 使用完毕后，它不能再次被使用。</p>
+<h2 id="2-CyclicBarrier"><a href="#2-CyclicBarrier" class="headerlink" title="2. CyclicBarrier"></a>2. CyclicBarrier</h2><p><strong>概述：</strong> 用来控制多个线程互相等待，只有当多个线程都到达时，这些线程才会继续执行</p>
+<p><strong>原理：</strong><br>线程执行 await () 方法之后计数器会减 1，并进行等待，直到计数器为 0，所有调用 await () 方法而在等待的线程才能继续执行</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/34d25411ae97dcbd9bf972dc9b81c829.png"></p>
+<p><strong>方法：</strong></p>
+<ul>
+<li><strong>await()</strong></li>
+<li><strong>await(long timeout, TimeUnit unit)：</strong> 设置超时时间，超过该时间仍然还有线程还没到达屏障则忽略这些线程，将等待的线程全部释放</li>
+</ul>
+<p><strong>区别：</strong> CyclicBarrier 和 CountdownLatch 的区别是，CyclicBarrier 的计数器通过调用 reset () 方法可以 <strong>循环使用</strong>，所以它才叫做循环屏障</p>
+<p><strong>构造器：</strong> CyclicBarrier 有两个构造函数，其中 parties 指示计数器的初始值，barrierAction 在所有线程都到达屏障的时候会选择一个线程执行一次</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">CyclicBarrier</span><span class="params">(<span class="type">int</span> parties, Runnable barrierAction)</span> {</span><br><span class="line">    <span class="keyword">if</span> (parties &lt;= <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">    <span class="built_in">this</span>.parties = parties;</span><br><span class="line">    <span class="built_in">this</span>.count = parties;</span><br><span class="line">    <span class="built_in">this</span>.barrierCommand = barrierAction;</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="title function_">CyclicBarrier</span><span class="params">(<span class="type">int</span> parties)</span> {</span><br><span class="line">    <span class="built_in">this</span>(parties, <span class="literal">null</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>实例：</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CyclicBarrierExample</span> {</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">totalThread</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">        <span class="type">CyclicBarrier</span> <span class="variable">cyclicBarrier</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CyclicBarrier</span>(totalThread);</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; totalThread; i++) {</span><br><span class="line">            executorService.execute(() -&gt; {</span><br><span class="line">                System.out.print(<span class="string">"before.."</span>);</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    cyclicBarrier.await();</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException | BrokenBarrierException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">                System.out.print(<span class="string">"after.."</span>);</span><br><span class="line">            });</span><br><span class="line">        }</span><br><span class="line">        executorService.shutdown();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">// before..before..before..before..before..before..before..before..before..before..after..after..after..after..after..after..after..after..after..after..</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>重用：</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line">        <span class="type">CyclicBarrier</span> <span class="variable">barrier</span>  <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CyclicBarrier</span>(N);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) {</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Writer</span>(barrier).start();</span><br><span class="line">        }</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            Thread.sleep(<span class="number">25000</span>);</span><br><span class="line">        } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line"> </span><br><span class="line">        System.out.println(<span class="string">"CyclicBarrier重用"</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) {</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Writer</span>(barrier).start();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Writer</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> {</span><br><span class="line">        <span class="keyword">private</span> CyclicBarrier cyclicBarrier;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Writer</span><span class="params">(CyclicBarrier cyclicBarrier)</span> {</span><br><span class="line">            <span class="built_in">this</span>.cyclicBarrier = cyclicBarrier;</span><br><span class="line">        }</span><br><span class="line"> </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">            System.out.println(<span class="string">"线程"</span> + Thread.currentThread().getName() + <span class="string">"正在写入数据..."</span>);</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                <span class="comment">//以睡眠来模拟写入数据操作</span></span><br><span class="line">                Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">                System.out.println(<span class="string">"线程"</span> + Thread.currentThread().getName() + <span class="string">"写入数据完毕，等待其他线程写入完毕"</span>);</span><br><span class="line"> </span><br><span class="line">                cyclicBarrier.await();</span><br><span class="line">            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            } <span class="keyword">catch</span>(BrokenBarrierException e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"所有线程写入完毕，继续处理其他任务..."</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="3-Phaser"><a href="#3-Phaser" class="headerlink" title="3. Phaser"></a>3. Phaser</h2><p>main：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    phaser.bulkRegister(<span class="number">7</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">"p"</span> + i)).start();</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">"新郎"</span>)).start();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">"新娘"</span>)).start();</span><br><span class="line"> </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Phaser：指定什么阶段做什么事</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ass MarriagePhaser <span class="keyword">extends</span> <span class="title class_">Phaser</span> {</span><br><span class="line">    <span class="comment">// phase: 阶段编号： registeredParties: 此阶段注册人数</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">onAdvance</span><span class="params">(<span class="type">int</span> phase, <span class="type">int</span> registeredParties)</span> {</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">switch</span> (phase) {</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>run：如何到达阶段逻辑</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> {</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">        <span class="comment">// doing something</span></span><br><span class="line">        <span class="comment">// 等待所有注册的线程全部到达后执行</span></span><br><span class="line">        phaser.arriveAndAwaitAdvance();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (name.equals(<span class="string">"新郎"</span>) || name.equals(<span class="string">"新娘"</span>)) {</span><br><span class="line">            System.out.printf(<span class="string">"%s 洞房！\n"</span>, name);</span><br><span class="line">            phaser.arriveAndAwaitAdvance();</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 指定注销</span></span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            phaser.arriveAndDeregister();</span><br><span class="line">            <span class="comment">//phaser.register()</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="4-ReadWriteLock"><a href="#4-ReadWriteLock" class="headerlink" title="4. ReadWriteLock"></a>4. ReadWriteLock</h2><p>StampedLock</p>
+<ul>
+<li>共享锁</li>
+<li>排它锁 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ReadWriteLock</span> <span class="variable">readWriteLock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReadWriteLock</span>();</span><br><span class="line"><span class="type">Lock</span> <span class="variable">readLock</span> <span class="operator">=</span> readWriteLock.readLock();</span><br><span class="line"><span class="type">Lock</span> <span class="variable">writeLock</span> <span class="operator">=</span> readWriteLock.writeLock();</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="5-Semaphore"><a href="#5-Semaphore" class="headerlink" title="5. Semaphore"></a>5. Semaphore</h2><p><strong>概述：</strong> Semaphore 类似于操作系统中的信号量，可以 <strong>控制对互斥资源的访问线程数</strong></p>
+<p><strong>原理：</strong><br>acquire () 获取一个许可，如果没有就等待<br>release () 释放一个许可<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/fcd57279bb6fbe23660b6fb53d4c0848.png"></p>
+<p><strong>构造器：</strong></p>
+<ul>
+<li><strong>Semaphore(int permits)：</strong> 参数 permits 表示许可数目，即同时可以允许多少线程进行访问</li>
+<li><strong> Semaphore(int permits, boolean fair)：</strong> 这个多了一个参数 fair 表示是否是公平的，即等待时间越久的越先获取许可</li>
+</ul>
+<p><strong>API：</strong></p>
+<ul>
+<li><strong>acquire()：</strong> 获取一个许可</li>
+<li><strong> acquire(int permits)：</strong> 获取 permits 个许可</li>
+<li><strong> release()：</strong> 释放一个许可</li>
+<li><strong> release(int permits)：</strong> 释放 permits 个许可</li>
+</ul>
+<p><strong>实例：</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SemaphoreExample</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">clientCount</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">totalRequestCount</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">        <span class="type">Semaphore</span> <span class="variable">semaphore</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Semaphore</span>(clientCount);</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newCachedThreadPool();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; totalRequestCount; i++) {</span><br><span class="line">            executorService.execute(() -&gt; {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    semaphore.acquire();</span><br><span class="line">                    System.out.print(semaphore.availablePermits() + <span class="string">" "</span>);</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    semaphore.release();</span><br><span class="line">                }</span><br><span class="line">            });</span><br><span class="line">        }</span><br><span class="line">        executorService.shutdown();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">// 2 1 2 2 2 2 2 1 2 2</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="6-Exchanger"><a href="#6-Exchanger" class="headerlink" title="6. Exchanger"></a>6. Exchanger</h2><p>线程交换</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Exchanger&lt;String&gt; exchanger = <span class="keyword">new</span> <span class="title class_">Exchanger</span>&lt;&gt;();</span><br><span class="line"> </span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">    <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">"T1"</span>;</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        <span class="comment">// 阻塞等待交换，交换后才能继续执行</span></span><br><span class="line">        s1 = exchanger.exchange(s1);</span><br><span class="line">    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">    System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + s1);</span><br><span class="line">}, <span class="string">"t1"</span>).start();</span><br><span class="line"> </span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">    <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="string">"T2"</span>;</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        s2 = exchanger.exchange(s2);</span><br><span class="line">    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">    System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + s2);</span><br><span class="line">}, <span class="string">"t2"</span>).start();</span><br><span class="line"> </span><br><span class="line"><span class="comment">// t1:T2</span></span><br><span class="line"><span class="comment">// t2:T1</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="7-LockSupport"><a href="#7-LockSupport" class="headerlink" title="7. LockSupport"></a>7. LockSupport</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {</span><br><span class="line">        System.out.println(i);</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">5</span>) {</span><br><span class="line">            <span class="comment">// 停止当前线程</span></span><br><span class="line">            LockSupport.park();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">});</span><br><span class="line">t.start();</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 继续执行</span></span><br><span class="line">LockSupport.unpark(t);</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="8-CompletableFuture"><a href="#8-CompletableFuture" class="headerlink" title="8. CompletableFuture"></a>8. CompletableFuture</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sermonlizhi/article/details/123356877">CompletableFuture 使用详解</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8c9dc192fa63">CompletableFuture 避坑 1—— 需要自定义线程池</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/339203275">使用 CompletableFuture 时，那些令人头疼的问题</a><br>管理多个线程运行后返回的结果</p>
+<ul>
+<li>allOf ()：所有任务全部完成才结束</li>
+<li> anyOf ()：任意一个任务完成才结束 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CompletableFuture&lt;Double&gt; futureTM = CompletableFuture.supplyAsync(() -&gt; priceOfTM())</span><br><span class="line">    <span class="comment">// 对结果进行处理</span></span><br><span class="line">    .thenApply(String::valueOf)</span><br><span class="line">    .thenApply(str -&gt; <span class="string">"price "</span> + str)</span><br><span class="line">    .thenAccept(System.out::println);</span><br><span class="line">CompletableFuture&lt;Double&gt; futureTB = CompletableFuture.supplyAsync(() -&gt; priceOfTB());</span><br><span class="line">CompletableFuture&lt;Double&gt; futureJD = CompletableFuture.supplyAsync(() -&gt; priceOfJD());</span><br><span class="line"></span><br><span class="line">CompletableFuture.allOf(futureTM, futureTB, futureJD).join();</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 循环线程获取订单数</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">now</span> <span class="operator">=</span> LocalDate.now(ZoneOffset.ofHours(<span class="number">8</span>));</span><br><span class="line"><span class="type">int</span> <span class="variable">totalCount</span> <span class="operator">=</span> <span class="number">4</span> * <span class="number">7</span>;</span><br><span class="line">List&lt;ReserveOrderCountVO&gt; resultList = Lists.newArrayListWithExpectedSize(totalCount);</span><br><span class="line">CompletableFuture[] completableFutures = Stream.iterate(<span class="number">0</span>, n -&gt; ++n).limit(totalCount)</span><br><span class="line">    .map(num -&gt; CompletableFuture.supplyAsync(() -&gt; <span class="built_in">this</span>.getReserveCountByDate(reserveCountQuery, now.plusDays(num)), COUNT_EXECUTOR)</span><br><span class="line">         .whenComplete((result, e) -&gt; resultList.add(result)))</span><br><span class="line">    .toArray(CompletableFuture[]::<span class="keyword">new</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻塞直到所有任务运行结束</span></span><br><span class="line">CompletableFuture.allOf(completableFutures).join();</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="9-AQS-源码"><a href="#9-AQS-源码" class="headerlink" title="9. AQS 源码"></a>9. AQS 源码</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/da9d051dcc3d">Java 技术之 AQS 详解</a></p>
+<p>内部维护一个 state 和一个双向线程链表</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/37dad34951493ee77b1058a67e6356b0.png"></p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/82c79dff8f34a6e45717d561477e01ac.png"></p>
+<ol>
+<li>ReentrantLock#lock <ol>
+<li><p>AbstractQueuedSynchronizer#compareAndSetState：CAS 把 state 从 0 变为 1，若成功则代表拿到锁 </p>
+</li>
+<li><p>AbstractOwnableSynchronizer#setExclusiveOwnerThread：若抢到锁，则设置当前线程为独占线程 </p>
+</li>
+<li><p>AbstractQueuedSynchronizer#acquire </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">acquire</span><span class="params">(<span class="type">int</span> arg)</span> {</span><br><span class="line">    <span class="keyword">if</span> (!tryAcquire(arg) &amp;&amp;</span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        selfInterrupt();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+<li><p>ReentrantLock.NonfairSync#tryAcquire<br>  1. ReentrantLock.Sync#nonfairTryAcquire： </p>
+<ul>
+<li>state 为 0，则继续调用 compareAndSetState 抢锁（尝试把 state 变为 1，成功则接着调用 setExclusiveOwnerThread）</li>
+<li>state 为 &gt; 0，且当前线程是独占访问的那个线程（说明锁重入），则 state++（此时 state 代表重入线程数）</li>
+<li>否则 TryAcquire 失败</li>
+</ul>
+</li>
+<li><p> TryAcquire 失败则调用 AbstractQueuedSynchronizer#addWaiter：使用 CAS 加入链表队列</p>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jdk 8</span></span><br><span class="line"><span class="keyword">private</span> Node <span class="title function_">addWaiter</span><span class="params">(Node mode)</span> {</span><br><span class="line">    <span class="type">Node</span> <span class="variable">node</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(Thread.currentThread(), mode);</span><br><span class="line">    <span class="comment">// Try the fast path of enq; backup to full enq on failure</span></span><br><span class="line">    <span class="type">Node</span> <span class="variable">pred</span> <span class="operator">=</span> tail;</span><br><span class="line">    <span class="keyword">if</span> (pred != <span class="literal">null</span>) {</span><br><span class="line">        <span class="comment">// jdk 9 使用 VarHandler.set(this, pred)。</span></span><br><span class="line">        <span class="comment">// VarHandler 内部有 CAS 的方法</span></span><br><span class="line">        node.prev = pred;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSetTail(pred, node)) {</span><br><span class="line">            pred.next = node;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    enq(node);</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">private</span> Node <span class="title function_">enq</span><span class="params">(<span class="keyword">final</span> Node node)</span> {</span><br><span class="line">    <span class="keyword">for</span> (;;) {</span><br><span class="line">        <span class="type">Node</span> <span class="variable">t</span> <span class="operator">=</span> tail;</span><br><span class="line">        <span class="keyword">if</span> (t == <span class="literal">null</span>) { <span class="comment">// Must initialize</span></span><br><span class="line">            <span class="keyword">if</span> (compareAndSetHead(<span class="keyword">new</span> <span class="title class_">Node</span>()))</span><br><span class="line">                tail = head;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            node.prev = t;</span><br><span class="line">            <span class="keyword">if</span> (compareAndSetTail(t, node)) {</span><br><span class="line">                t.next = node;</span><br><span class="line">                <span class="keyword">return</span> t;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><br>jdk 9 使用 <code>VarHandler.set(this, pred)</code> 代替 <code>node.prev = pred;</code>，其调用 native 实现（相当于直接操纵二进制码），效率比反射高<br>VarHandler 指向一个变量  </p>
+<pre><code>     1. AbstractQueuedSynchronizer#acquireQueued：加入队列后不断监听前一个节点，若前节点为头结点（已拿到锁），则试图去抢锁，成功则返回 false（不中断）
+</code></pre>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">acquireQueued</span><span class="params">(<span class="keyword">final</span> Node node, <span class="type">int</span> arg)</span> {</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">failed</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">interrupted</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (;;) {</span><br><span class="line">            <span class="keyword">final</span> <span class="type">Node</span> <span class="variable">p</span> <span class="operator">=</span> node.predecessor();</span><br><span class="line">            <span class="keyword">if</span> (p == head &amp;&amp; tryAcquire(arg)) {</span><br><span class="line">                setHead(node);</span><br><span class="line">                p.next = <span class="literal">null</span>; <span class="comment">// help GC</span></span><br><span class="line">                failed = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">return</span> interrupted;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                parkAndCheckInterrupt())</span><br><span class="line">                interrupted = <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">    } <span class="keyword">finally</span> {</span><br><span class="line">        <span class="keyword">if</span> (failed)</span><br><span class="line">            cancelAcquire(node);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/75f42c054e7b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/75f42c054e7b/" class="post-title-link" itemprop="url">Java 并发详解 ④：ReentrantLock</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-25 13:03:22" itemprop="dateCreated datePublished" datetime="2021-02-25T13:03:22+08:00">2021-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">并发</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/75f42c054e7b/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="75f42c054e7b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>6 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><em>boolean tryLock(long time, TimeUnit unit)：</em> 尝试获得锁，阻塞时间不会超过给定的值；如果成功返回 true</li>
+<li><em>void &nbsp;lockInterruptibly()：</em> 获得锁，但是会不确定地发生阻塞。如果线程被中断，抛出一个 InterruptedException 异常</li>
+</ul>
+<h2 id="1-条件对象"><a href="#1-条件对象" class="headerlink" title="1. 条件对象"></a>1. 条件对象</h2><p><strong>作用：</strong> 条件对象用来管理那些已经进入被保护的代码段但还不能运行的线程。一个 Condition 对象为一个队列。</p>
+<p><strong>方法：</strong><br>ReentrantLock &lt;==&gt; synchronized</p>
+<ul>
+<li>await () &lt;==&gt; wait ()： 将该线程放到条件的等待集中</li>
+<li> signalAll () &lt;==&gt; notifyAll ()： 解除该条件的等待集中的所有线程的阻塞状态</li>
+<li> signal () &lt;==&gt; notify ()： 从该条件的等待集中随机地选择一个线程，解除其阻塞状态 </li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Condition</span> <span class="variable">sufficientFunds</span> <span class="operator">=</span> bankLock.newCondition();</span><br><span class="line"><span class="comment">// 当前线程不满足条件，进入该条件的等待集，放弃锁</span></span><br><span class="line"><span class="keyword">while</span> (!(ok to proceed)) {</span><br><span class="line">    sufficientFunds.await();</span><br><span class="line">}</span><br><span class="line"><span class="comment">// do something</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 其他线程的操作应使该线程重新判断条件。</span></span><br><span class="line"><span class="comment">// 重新激活因为这一条件而等待的所有线程。</span></span><br><span class="line">sufficientFunds.signalAll();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以创建多个不同的 Condition，实现不同的等待队列</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Condition</span> <span class="variable">producer</span> <span class="operator">=</span> lock.newCondition();</span><br><span class="line"><span class="type">Condition</span> <span class="variable">comsumer</span> <span class="operator">=</span> lock.newCondition();</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> (isProducer) {</span><br><span class="line">    comsumer.await();</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line">producer.signalAll();</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="2-读写锁"><a href="#2-读写锁" class="headerlink" title="2. 读写锁"></a>2. 读写锁</h2><ul>
+<li>Lock readLock ()： 得到一个可以被多个读操作共用的读锁，但会排斥所有写操作</li>
+<li> Lock writeLock ()： 得到一个写锁，排斥所有其他的读操作和写操作 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">ReentrantReadWriteLock</span> <span class="variable">rwl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantReadWriteLock</span>();</span><br><span class="line"><span class="keyword">private</span> <span class="type">Lock</span> <span class="variable">readLock</span> <span class="operator">=</span> rwl.readLock();</span><br><span class="line"><span class="keyword">private</span> <span class="type">Lock</span> <span class="variable">writeLock</span> <span class="operator">=</span> rwl.writeLock();</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 对所有的获取方法加读锁</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> doule <span class="title function_">getTotalBalance</span><span class="params">()</span> {</span><br><span class="line">   readLock.lock();</span><br><span class="line">   <span class="keyword">try</span> {</span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">   } <span class="keyword">finally</span> {</span><br><span class="line">       readLock.unlock();</span><br><span class="line">   }</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 对所有的修改方法加写锁</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">transfer</span><span class="params">()</span> {</span><br><span class="line">   writeLock.lock();</span><br><span class="line">   <span class="keyword">try</span> {</span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">   } <span class="keyword">finally</span> {</span><br><span class="line">       writeLock.unlock();</span><br><span class="line">   }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="3-比较"><a href="#3-比较" class="headerlink" title="3. 比较"></a>3. 比较</h2><ol>
+<li><em>锁的实现：</em> synchronized 是 JVM 实现的，而 ReentrantLock 是 JDK 实现的</li>
+<li><em>性能：</em> 新版本 Java 对 synchronized 进行了很多优化，例如自旋锁等，synchronized 与 ReentrantLock 大致相同</li>
+<li><em>等待可中断：</em> 当持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情<br>ReentrantLock 可中断，而 synchronized 不行</li>
+<li><em>公平锁：</em> 公平锁是指多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得锁<br>synchronized 中的锁是非公平的，ReentrantLock 默认情况下也是非公平的，但是也可以是公平的</li>
+<li><em>锁绑定多个条件：</em> 一个 ReentrantLock 可以同时绑定多个 Condition 对象</li>
+</ol>
+<h2 id="4-CAS"><a href="#4-CAS" class="headerlink" title="4. CAS"></a>4. CAS</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bd68ddf91240">深入解析 volatile 、CAS 的实现原理</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/v123411739/article/details/79561458">面试必问的 CAS，你懂了吗？</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&amp;mid=2247484178&amp;idx=1&amp;sn=9002eff9605ac67ee0440e8ce93903d8&amp;chksm=fd985573caefdc65f39a17d464f067303780707617689ff7e701c0f6a96671e8d15e443603f2#rd">《面试必备之乐观锁与悲观锁》</a></p>
+<p><strong>并发策略：</strong></p>
+<ul>
+<li><em>乐观并发策略（乐观锁）：</em> 乐观地认为本次操作没有其他线程竞争。<br>先尝试进行操作，如果没有其它线程争用共享数据，那操作就成功了。否则采取补偿措施（不断地重试）直到成功为止。 </li>
+<li><em>悲观并发策略（悲观锁）：</em> 悲观地认为本次操作有其他线程竞争。<br>直接使用互斥量进行加锁阻塞。</li>
+</ul>
+<p><strong>原理：</strong> CAS 指令是原子操作，有 3 个操作数。分别是内存地址 V、旧的预期值 A 和新值 B。</p>
+<p>当执行操作时，只有当 V 的值等于 A（即认为未被其他线程修改过），才将 V 的值更新为 B。</p>
+<p>若失败了则重新获取这三个值再次进行判断，直到操作成功。</p>
+<p><strong>乐观锁适用于多读的应用类型，这样可以提高吞吐量</strong></p>
+<h3 id="1-ABA-问题"><a href="#1-ABA-问题" class="headerlink" title="1. ABA 问题"></a>1. ABA 问题</h3><p>如果一个变量初次读取的时候是 A 值，它的值被改成了 B，后来又被改回为 A，那 CAS 操作就会误认为它从来没有被改变过。</p>
+<p><strong>解决：</strong> J.U.C 包提供了一个带有标记的原子引用类 <strong>AtomicStampedReference</strong> 来解决这个问题，它可以通过控制变量值的版本来保证 CAS 的正确性。</p>
+<p>改用传统的互斥同步可能会比原子类更高效。</p>
+<h3 id="2-Atomic-类"><a href="#2-Atomic-类" class="headerlink" title="2. Atomic 类"></a>2. Atomic 类</h3><p><strong>LongAdder：</strong><br>思想：分段锁 CAS，分片执行，结果汇总</p>
+<p>例：1000 个线程分为 4 个任务，每个任务 250 个线程，执行完后汇总</p>
+<h3 id="3-Unsafe"><a href="#3-Unsafe" class="headerlink" title="3. Unsafe"></a>3. Unsafe</h3><p>J.U.C 包里面的 AtomicInteger 等原子类的方法调用了 Unsafe 类的 CAS 操作。</p>
+<p>AtomicInteger：</p>
+<ol>
+<li><p>内部调用 <code>public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5);</code> 本地方法，compareAndSwapInt 定义在 jdk8u: unsafe.cpp 中 </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AtomicInteger.class</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">incrementAndGet</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">for</span> (;;) {</span><br><span class="line">        <span class="type">int</span> <span class="variable">current</span> <span class="operator">=</span> get();</span><br><span class="line">        <span class="type">int</span> <span class="variable">next</span> <span class="operator">=</span> current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, next))</span><br><span class="line">            <span class="keyword">return</span> next;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">compareAndSet</span><span class="params">(<span class="type">int</span> expect, <span class="type">int</span> update)</span> {</span><br><span class="line">    <span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="built_in">this</span>, valueOffset, expect, update);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+<li><p>compareAndSwapInt 调用 cmpxchg（compare and exchange）方法</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jdk8u: unsafe.cpp</span></span><br><span class="line">UNSAFE_ENTRY(jboolean, Unsafe_CompareAndSwapInt(JNIEnv *env, jobject unsafe, jobject obj, jlong offset, jint e, jint x))</span><br><span class="line">  UnsafeWrapper(<span class="string">"Unsafe_CompareAndSwapInt"</span>);</span><br><span class="line">  oop p = JNIHandles::resolve(obj);</span><br><span class="line">  jint* addr = (jint *) index_oop_from_field_offset_long(p, offset);</span><br><span class="line">  <span class="keyword">return</span> (jint)(Atomic::cmpxchg(x, addr, e)) == e;</span><br><span class="line">UNSAFE_END</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+<li><p>cmpxchg 方法执行逻辑<br>以下是 cmpxchg 在 JDK 8，Linux 操作系统，X86 处理器环境下的实现： </p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jdk8u: atomic_linux_x86.inline.hpp</span></span><br><span class="line"><span class="keyword">inline</span> jint <span class="title function_">Atomic::cmpxchg</span><span class="params">(jint exchange_value, <span class="keyword">volatile</span> jint* dest, jint compare_value)</span> {</span><br><span class="line">  <span class="type">int</span> mp = os::is_MP();</span><br><span class="line">  __asm__ <span class="title function_">volatile</span> <span class="params">(LOCK_IF_MP(%<span class="number">4</span>) <span class="string">"cmpxchgl %1,(%3)"</span></span></span><br><span class="line"><span class="params">                    : <span class="string">"=a"</span> (exchange_value)</span></span><br><span class="line"><span class="params">                    : <span class="string">"r"</span> (exchange_value), <span class="string">"a"</span> (compare_value), <span class="string">"r"</span> (dest), <span class="string">"r"</span> (mp)</span></span><br><span class="line"><span class="params">                    : <span class="string">"cc"</span>, <span class="string">"memory"</span>)</span>;</span><br><span class="line">  <span class="keyword">return</span> exchange_value;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><br>其详细执行逻辑如下： </p>
+</li>
+<li><p>is_MP（Multi Processor）方法判断 <strong>是否为多个处理器</strong>，保存到变量 mp 中。 </p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jdk8u: os.hpp</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="title function_">is_MP</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">return</span> (_processor_count != <span class="number">1</span>) || AssumeMP;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+<li><p>LOCK_IF_MP </p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jdk8u: atomic_linux_x86.inline.hpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LOCK_IF_MP(mp) <span class="string">"cmp $0, "</span> #mp <span class="string">"; je 1f; lock; 1: "</span></span></span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<pre><code>  -  如果是在多处理器上运行就为 cmpxchg 指令加上 `lock` 前缀（lock cmpxchg）。**这就使 cmpxchg 指令变成原子操作** 
+  -  如果是在单处理器上运行就省略 `lock` 前缀 
+</code></pre>
+<ol start="3">
+<li>执行 cmpxchgl：<strong>比较并交换</strong>，操作成功返回比较值（旧值），操作失败返回目标地址中的值 <blockquote>
+<p>“cmpxchgl %1,(%3)”<br>: “=a” (exchange_value)<br>: “r” (exchange_value), “a” (compare_value), “r” (dest), “r” (mp)<br>: “cc”, “memory”</p>
+<ul>
+<li>输入 exchange_value（交换值，即更新值，%1）、compare_value（比较值，即期待值，%2）、dest（目标地址值，%3）、mp（是否多核，%4） 四个值 </li>
+<li>输出 exchange_value（%0）</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p><br><code>cmpxchgl %1,(%3)</code> 即表示 <code>cmpxchgl exchange_value,(dest)</code> </p>
+<pre><code>  1. 输入：`"r" (exchange_value), "a" (compare_value), "r" (dest), "r" (mp)`，代表把 compare_value 存入 eax 寄存器，把 exchange_value、dest、mp 的值存入任意的通用寄存器
+  2. cmpxchgl 有个隐含操作数 eax，会先比较 eax 的值（也就是 compare_value）和 dest 地址所存的值是否相等
+  3. 相等则把 exchange_value 的值写入 dest 指向的地址
+  4. 不相等则把 dest 地址所存的值更新到 eax 中（因为最终输出 eax 中的值，写入 dest 的值代表更新失败）
+  5. 输出：`"=a" (exchange_value)`，把 eax 中存的值写入 exchange_value 变量中。
+  6. 如果输出的是比较值（说明操作成功），Unsafe_CompareAndSwapInt 方法中 `return (jint)(Atomic::cmpxchg(x, addr, e)) == e;` 会返回 `ture`，即表示 CAS 成功！否则表示 CAS失败。
+</code></pre>
+<ol>
+<li>最终实现 cmpxchg = cas 修改变量值<br>lock 指令在执行后面指令的时候锁定一个北桥信号（不采用锁总线的方式） <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock cmpxchg 指令</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">7</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">79</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">17</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">97</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,13 +163,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -207,1160 +207,6 @@
     </div>
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/53c460edad67/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/53c460edad67/" class="post-title-link" itemprop="url">Redis Sentinel</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-17 19:20:03" itemprop="dateCreated datePublished" datetime="2022-12-17T19:20:03+08:00">2022-12-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/53c460edad67/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="53c460edad67/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>3 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>一、概述</strong></p>
-<ul>
-<li>sentinel 是特殊的 redis（不存储数据，支持的命令有限）</li>
-<li>多节点实现</li>
-<li>默认端口： 26379</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/6f29a6eefff469e8d170d5cf543f6b38.png" alt="image.png"><br><strong>二、配置</strong><br><strong><em>启动：</em></strong> redis-sentinel redis-sentinel-26379.conf<br><strong><em>查看 sentinel 信息：</em></strong> info sentinel</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">port 26379</span><br><span class="line">dir "/opt/soft/redis/data"</span><br><span class="line">logfile "26379.log"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">sentinel monitor master名称 ip port n</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2个sentinel节点认为 master 有问题则进行故障转移</span></span><br><span class="line">sentinel monitor mymaster 127.0.0.1 7000 2</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">超过 30s 做主观下线判断（单个 sentinel 做下线判断）</span></span><br><span class="line">sentinel down-after-milliseconds mymaster 30000</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">并发复制新的 master 的 slave 数目</span></span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">故障转移时间</span></span><br><span class="line">sentinel failover-timeout mymaster 180000</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>三、故障转移</strong><br>可实现 <strong>多个主从复制</strong> 的故障转移<br><strong><em>主观下线：</em></strong> 一个 sentinel 节点主观地认为某个 redis 节点已下线，即这个主观认知可能是错误的（因网络等因素）<br><strong><em>客观下线：</em></strong> 超过 quorum 个 sentinel 节点认为某个 master 节点已下线，达成共识。通过 sentinel is-master-down-by-addr 询问其他 sentinel 节点对该 master 节点的看法</p>
-<blockquote>
-<p>sentinel monitor ${masterName} ${ip} ${port} ${quorum} </p>
-</blockquote>
-<p><strong><em>命令：</em></strong></p>
-<ul>
-<li>sentinel is-master-down-by-addr：<ul>
-<li>客观下线时 sentinel 节点询问其他 sentinel 节点对该 master 节点的看法</li>
-<li>选举 sentinel 节点领导</li>
-</ul>
-</li>
-<li> sentinel failover ${masterName}： 手动故障转移</li>
-</ul>
-<p><strong>1. 定时任务监控</strong></p>
-<ol>
-<li>每 10 秒每个 sentinel 对 master 和 slave 执行 info<ol>
-<li> 发现 slave 节点</li>
-<li>确定主从关系</li>
-</ol>
-</li>
-</ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0535492dae6355ec852d9bd505360a56.png" alt="image.png"></p>
-<ol>
-<li>每 2 秒每个 sentinel 通过 master 节点的 channel 交换信息（发布 / 订阅）<ol>
-<li>通过订阅 <strong>sentinel</strong>:hello 频道实现交互</li>
-<li>交互对节点的认知和自身信息</li>
-</ol>
-</li>
-</ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d83a8f1f518851e73cd95926a04b73fe.png" alt="image.png"></p>
-<ol>
-<li>每 1 秒每个 sentinel 对其他 sentinel 和 redis 执行 ping</li>
-</ol>
-<p><strong>2. 过程</strong></p>
-<ol>
-<li><strong>发现问题：</strong> 多个 sentinel 结点发现 master 出现问题（主观下线 + 客观下线）</li>
-<li><strong>sentinel 选举领导（raft 算法）：</strong> 选举出一个 sentinel 作为领导<ol>
-<li><em>拉票：</em> 每个做出了主观下线的 sentinel 节点（A）会向其他 sentinel 节点（B）发送 sentinel is-master-down-by-addr 命令，以获得 B 的投票。若 B 尚未投票则投票给 A</li>
-<li><em> 成为领导者：</em> 如果某个拉票的 sentinel 节点获得的票数超过 sentinel 集合的半数且超过 quorum，则成为领导者。若有选出了多个领导者，则重新进行选举</li>
-</ol>
-</li>
-<li><strong> redis 选举新 master：</strong> 从 slave 中选出一个新的 master，并让其余的 slave 成为新 master 的 slave<ol>
-<li><em> 优先级：</em> 首先选择 slave-priority（节点优先级）最高的 slave 节点</li>
-<li><em>复制完整性：</em> 其次选择复制偏移量最大的（复制最完整的） slave 节点</li>
-<li><em>启动最早：</em> 再其次选择 runId 最小的（启动最早的） slave 节点</li>
-</ol>
-</li>
-<li><strong>通知客户端：</strong> 通知客户端主从变化</li>
-<li><strong>监听故障 master：</strong> 监听等待故障的 master 恢复，恢复后使其成为新 master 的 slave</li>
-</ol>
-<p><strong>四、客户端</strong><br><strong>1. 客户端实现原理</strong></p>
-<ol>
-<li><strong>获取 Sentinel 节点：</strong> 遍历所有 Sentinel 节点，获取一个可用的 Sentinel 节点</li>
-<li><strong>获取 master 节点：</strong> 执行 sentinel get-master-addr-by-name ${masterName} 命令获取 master 节点</li>
-<li><strong>验证 master 节点：</strong> 执行 role 或 role replication 命令获取节点信息进行验证其是否故障</li>
-<li><strong>故障转移通知：</strong> 当 redis 主从变化时通知客户端<ol>
-<li><em> +switch-master：</em> 切换主节点（从节点晋升主节点）</li>
-<li><em>+convert-to-slave：</em> 切换从节点（主节点降为从节点）</li>
-<li><em>+sdown：</em> 主观下线</li>
-</ol>
-</li>
-</ol>
-<p><strong>2. Jedis</strong></p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JedisSentinelPool</span> <span class="variable">sentinelPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisSentinelPool</span>(masterName, sentinelSet, poolConfig, timeout);</span><br><span class="line">Jedis = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    jedis = <span class="keyword">new</span> <span class="title class_">redisSentinelPool</span>.getResource();</span><br><span class="line">} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">    logger.error(e.getMessage(), e);</span><br><span class="line">} <span class="keyword">finally</span> {</span><br><span class="line">    <span class="keyword">if</span> (jedis != <span class="literal">null</span>) {</span><br><span class="line">        jedis.close();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/c22a917d2319/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/c22a917d2319/" class="post-title-link" itemprop="url">Redis Cluster</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-17 19:14:30" itemprop="dateCreated datePublished" datetime="2022-12-17T19:14:30+08:00">2022-12-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c22a917d2319/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c22a917d2319/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>5 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>一、概述</strong><br><strong><em>采用虚拟槽分片：</em></strong></p>
-<ul>
-<li>每个节点分配一堆槽</li>
-<li>每个节点与其他所有节点共享消息</li>
-<li>官方指定全部槽数量为 16384（0-16383）</li>
-<li>每个节点有主从复制</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/be3189a2010a7f13a39bbe83c05888c4.png" alt="image.png"><br><strong><em>命令：</em></strong></p>
-<ul>
-<li><strong>cluster nodes：</strong> 查看自动生成的集群本地配置文件记录</li>
-<li><strong> cluster info：</strong> 集群信息</li>
-<li><strong> cluster meet ip port：</strong> 两个 cluster 节点之间的消息沟通</li>
-<li><strong> cluster addslots slot [slot…]：</strong> 为节点分配槽</li>
-<li><strong> cluster slots：</strong> 查看槽的分配信息</li>
-<li><strong> cluster replicate ${node-id}：</strong> 设置主从关系</li>
-<li><strong> cluster forget ${downNodeId}：</strong> 遗忘节点</li>
-<li> ** cluster keyslot ${key}：** 返回 key 对应的槽</li>
-</ul>
-<p><strong>二、部署</strong><br><strong><em>配置：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">port 6379</span><br><span class="line">daemonize yes</span><br><span class="line">logfile "6379.log"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主从复制依赖于 rdb</span></span><br><span class="line">dbfilename dump-6379.rdb</span><br><span class="line">dir /opt/soft/redis/data/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当前节点是一个 cluster 节点</span></span><br><span class="line">cluster-enabled yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">节点超时时间</span></span><br><span class="line">cluster-node-timeout 15000</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">集群本地配置文件记录，自动生成</span></span><br><span class="line">cluster-config-file nodes-${port}.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全部节点正常时集群才能提供服务</span></span><br><span class="line">cluster-require-full-coverage no</span><br></pre></td></tr></tbody></table></figure>
-<p><strong><em>获取节点信息命令：</em></strong></p>
-<ul>
-<li><strong>cluster nodes：</strong> 查看自动生成的集群本地配置文件记录</li>
-<li><strong> cluster info：</strong> 集群信息</li>
-</ul>
-<p><strong>1. 原生部署</strong><br><strong>1.1. 启动</strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis-7000.conf</span><br><span class="line">redis-server redis-7001.conf</span><br><span class="line">redis-server redis-7002.conf</span><br><span class="line">redis-server redis-7003.conf</span><br><span class="line">redis-server redis-7004.conf</span><br><span class="line">redis-server redis-7005.conf</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>1.2. meet</strong><br><strong><em>cluster meet ip port：</em></strong> 两个 cluster 节点之间的消息沟通</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 -p 7000 cluster meet 127.0.0.1 7001</span><br><span class="line">redis-cli -h 127.0.0.1 -p 7000 cluster meet 127.0.0.1 7002</span><br><span class="line">redis-cli -h 127.0.0.1 -p 7000 cluster meet 127.0.0.1 7003</span><br><span class="line">redis-cli -h 127.0.0.1 -p 7000 cluster meet 127.0.0.1 7004</span><br><span class="line">redis-cli -h 127.0.0.1 -p 7000 cluster meet 127.0.0.1 7005</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>1.3. 分配槽</strong><br><strong><em>cluster addslots slot [slot…]：</em></strong> 为节点分配槽<br><strong><em>cluster slots：</em></strong> 查看槽的分配信息<br><strong><em>addslots.sh：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">host=$1</span><br><span class="line">port=$2</span><br><span class="line">start=$3</span><br><span class="line">end=$4</span><br><span class="line">for slot in `seq ${start} ${end}`</span><br><span class="line">do</span><br><span class="line">    redis-cli -h ${host} -p ${port} cluster addslots ${slot}</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh addslots.sh 127.0.0.1 7000 0 5461</span><br><span class="line">sh addslots.sh 127.0.0.1 7001 5462 10922</span><br><span class="line">sh addslots.sh 127.0.0.1 7002 10923 16383</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>1.4. 设置主从</strong><br><strong><em>cluster replicate node-id：</em></strong> 设置主从关系<br><strong><em>通过 cluster nodes 命令获取 node-id：</em></strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/61bab65c2a4da3d275b69bd79b883d3a.png" alt="image.png"></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 7003 cluster replicate ${node-id-7000}</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>2. 使用 redis-trib 部署（需要 ruby 环境）</strong><br><strong>2.1. 启动</strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis-7000.conf</span><br><span class="line">redis-server redis-7001.conf</span><br><span class="line">redis-server redis-7002.conf</span><br><span class="line">redis-server redis-7003.conf</span><br><span class="line">redis-server redis-7004.conf</span><br><span class="line">redis-server redis-7005.conf</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>2.2. 创建</strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--replicas 1表示每个节点的备份数为1</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">7000 7001 7002 为主</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">7003 7004 7005 为从</span></span><br><span class="line">./redis1-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>三、集群伸缩</strong><br><strong><em>概述：</em></strong> 槽和数据在节点之间移动<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2e2bc7631836cb377850f7c201c02975.png" alt="image.png"><br><strong>1. 扩容</strong><br><strong>1.1. 添加节点</strong><br><strong><em>具体实现：</em></strong></p>
-<ol>
-<li><strong>redis-cli 命令：</strong> meet</li>
-<li><strong>redis-trib 命令：</strong> ./redis-trib.rb add-node mhost:mport shost:sport</li>
-</ol>
-<p><strong>1.2. 迁移槽和数据</strong><br><strong><em>概述：</em></strong> 从源节点迁移数据到目标节点<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0be390675381ca0c337991dd3b314480.png" alt="image.png"></p>
-<ol>
-<li><strong>目标节点准备导入槽 {slot}：</strong> 目标节点执行 cluster setslot {slot} importing {sourceNodeId}</li>
-<li><strong> 源节点准备导出槽 {slot}：</strong> 源节点执行 cluster setslot {slot} migrating {targetNodeId}</li>
-<li><strong> 获取源节点 {slot} 槽下的 {count} 个键：</strong> 源节点执行 cluster getkeysinslot {slot} {count}</li>
-<li><strong> 批量迁移相关键的数据：</strong> 源节点执行 migrate {targetIp} {targetPort} key 0 {timeout}</li>
-<li><strong> 循环迁移数据：</strong> 循环执行 3、4 步骤直到槽下所有的键数据迁移到目标节点</li>
-<li><strong>通知 {slot} 槽被目标节点负责：</strong> 向所有节点发送 cluster setslot {slot} node {targetNodeId}</li>
-</ol>
-<p><strong><em>具体实现：</em></strong></p>
-<ul>
-<li>redis-trib.rb reshard host:port</li>
-</ul>
-<p><strong>2. 缩容</strong><br><strong><em>步骤：</em></strong></p>
-<ol>
-<li>迁移槽： 同扩容</li>
-<li>所有节点遗忘下线节点： cluster forget {downNodeId}</li>
-<li> 关闭节点</li>
-</ol>
-<p><strong><em>具体实现：</em></strong></p>
-<ul>
-<li>迁移槽： redis-trib.rb reshard host:port –from {fromNodeId} –to {toNodeId} –slots {slotNums}</li>
-<li> 遗忘下线节点： redis-trib.rb del-node host:port {downNodeId}</li>
-</ul>
-<p><strong>四、客户端</strong><br><strong>1. moved 重定向</strong><br><strong><em>概述：</em></strong> 客户端存取键值的时候使用的重定向</p>
-<ul>
-<li>命中则直接返回</li>
-<li>不命中则返回目标 ip 及对应的槽给客户端，通过 cluster keyslot ${key} 命令可算出 key 对应的槽</li>
-</ul>
-<p><strong><em>-c：</em></strong> cluster 模式执行，出现 moved 不命中的情况可直接跳转到对应节点上执行命令。非 cluster 模式时会出现 moved 错误<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/116076ca37beeae6639ab4745ce2ed33.png" alt="image.png"><br><strong>2. ask 重定向</strong><br><strong><em>概述：</em></strong> 扩容或缩容中槽在迁移时客户端访问源节点发生的重定向</p>
-<ol>
-<li>客户端向源节点发送键命令后源节点回复 ask 转向</li>
-<li>客户端再向目标节点发送 Asking 命令</li>
-</ol>
-<p><strong>3. smart 客户端</strong><br><strong><em>原理：</em></strong><br>假设有 n 个节点，若随机选择一个结点发送命令，那么命中率为 n/1，有性能问题<br>smart 客户端先为所有节点创建连接池，再根据 key 获得相应的 slot 进行直连<br><strong><em>过程：</em></strong></p>
-<ol>
-<li>从集群中选一个可运行节点，得到 cluster slots 的映射集，为每个节点创建 JedisPool</li>
-<li> 执行键命令</li>
-</ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8d3f7a10ccd09f32f917f953c4f9070b.png" alt="image.png"><br><strong><em>工厂类：</em></strong></p>
-<ul>
-<li><p>无需手动归还连接池</p>
-</li>
-<li><p>使用单例模式</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@Conponent</span><br><span class="line">public class JedisClusterFactory {</span><br><span class="line">    private JedisCluster jedisCluster;</span><br><span class="line">    private List&lt;String&gt; hostPortList;</span><br><span class="line">    private int timeout;</span><br><span class="line">    private Logger logger = LoggerFactory.getLogger(JedisClusterFactory.class);</span><br><span class="line">    </span><br><span class="line">    public void init() {</span><br><span class="line">        // 可以设置相关参数</span><br><span class="line">        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();</span><br><span class="line">        </span><br><span class="line">        Set&lt;HostAndPort&gt; nodeSet = new HashSet&lt;HostAndPort&gt;();</span><br><span class="line">        for (String hostPort : hostPortList) {</span><br><span class="line">            String[] arr = hostPort.split(":");</span><br><span class="line">            if (arr.length != 2) {</span><br><span class="line">                continue;</span><br><span class="line">            }</span><br><span class="line">            nodeSet.add(new HosrAndPort(arr[0], Integer.parseInt(arr[1])));</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        try {</span><br><span class="line">            jedisCluster = new JedisCluster(nodeSet, timeout, jedisPoolConfig);</span><br><span class="line">        } catch (Exception e) {</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    public void destroy() {</span><br><span class="line">        if (jedisCluster != null) {</span><br><span class="line">            try {</span><br><span class="line">                jedisCluster.close();                </span><br><span class="line">            } catch (IOException e) {</span><br><span class="line">                logger.error(e.getMessage(), e);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    // set and get</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p><strong><em>获取所有节点：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 获取所有节点的连接池</span><br><span class="line">Map&lt;String, JedisPool&gt; jedisPoolMap = jedisCluster.getClusterNodes();</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>五、故障转移</strong><br><strong>1. 故障发现</strong><br><strong><em>概述：</em></strong> 通过 ping/pong 消息实现故障发现，不需要 sentinel<br><strong><em>主观下线 流程：</em></strong><br>ping 超时则认为主观下线<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/43c60451a837a93ffcc4f34c4f7710ca.png" alt="image.png"><br><strong><em>客观下线 流程：</em></strong><br>半数以上持有槽的主节点都标记某节点主观下线时<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/53a11b50de8e1a700bb532d0531448fc.png" alt="image.png"><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b39b92057c1916a19179e6c37c2ca891.png" alt="image.png"><br><strong>2. 故障转移</strong><br><strong><em>概述：</em></strong> 发现故障后，故障节点的从节点替代主节点工作<br><strong><em>流程：</em></strong></p>
-</li>
-<li><p><strong><em>检查从节点资格：</em></strong> 每个从节点检查与其故障的主节点的断线时间，若超过 》cluster-node-timeout * cluster-slave-validity-factor 则取消资格</p>
-<blockquote>
-<p>cluster-node-timeout 默认为 15s，cluster-slave-validity-factor 默认为 10</p>
-</blockquote>
-</li>
-<li><p><strong><em>偏移量优先：</em></strong> 偏移量更小的从节点延迟选举时间越小，越能更快开始选举，获得的票数也越多</p>
-</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d3624377185a40982f8dbfd65d524299.png" alt="image.png"></p>
-<ul>
-<li><strong><em>开始选举：</em></strong> 每个主节点对从节点投票</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a0b75d0c32e6daf58b0059940a5f15c2.png" alt="image.png"></p>
-<ul>
-<li><strong><em>替换主节点：</em></strong> 选举成功的从节点变为主节点</li>
-<li><strong><em>替换槽：</em></strong> 执行 clusterDelSlot 撤销故障主节点的槽，并执行 clusterAddSlot 把相应的槽分配给选出的从节点</li>
-<li><strong><em>通知集群：</em></strong> 向集群广播自己的 pong 消息，表明已替换故障主节点</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/16ad1292fb72/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/16ad1292fb72/" class="post-title-link" itemprop="url">redis.conf 配置</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-17 19:13:21" itemprop="dateCreated datePublished" datetime="2022-12-17T19:13:21+08:00">2022-12-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/16ad1292fb72/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="16ad1292fb72/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>13 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ul>
-<li>daemonize no</li>
-<li>port 6379</li>
-<li>dir /usr/local/redis/data</li>
-<li>logfile “6379.log”</li>
-</ul>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Redis配置文件样例</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Note on units: when memory size is needed, it is possible to specifiy</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">it <span class="keyword">in</span> the usual form of 1k 5GB 4M and so forth:</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># 1k =&gt; 1000 bytes</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1kb =&gt; 1024 bytes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1m =&gt; 1000000 bytes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1mb =&gt; 1024*1024 bytes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1g =&gt; 1000000000 bytes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1gb =&gt; 1024*1024*1024 bytes</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># units are case insensitive so 1GB 1Gb 1gB are all the same.</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用<span class="built_in">yes</span>启用守护进程</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启用守护进程后，Redis会把pid写到一个pidfile中，在/var/run/redis.pid</span></span><br><span class="line">daemonize no</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定</span></span><br><span class="line">pidfile /var/run/redis.pid</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定Redis监听端口，默认端口为6379</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果指定0端口，表示Redis不监听TCP连接</span></span><br><span class="line">port 6379</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">绑定的主机地址</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">你可以绑定单一接口，如果没有绑定，所有接口都会监听到来的连接</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">bind</span> 127.0.0.1</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Specify the path <span class="keyword">for</span> the unix socket that will be used to listen <span class="keyword">for</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">incoming connections. There is no default, so Redis will not listen</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">on a unix socket when not specified.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># unixsocket /tmp/redis.sock</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">unixsocketperm 755</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span></span><br><span class="line">timeout 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">debug (很多信息, 对开发／测试比较有用)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">verbose (many rarely useful info, but not a mess like the debug level)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">notice (moderately verbose, what you want <span class="keyword">in</span> production probably)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">warning (only very important / critical messages are logged)</span></span><br><span class="line">loglevel verbose</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">日志记录方式，默认为标准输出，如果配置为redis为守护进程方式运行，而这里又配置为标准输出，则日志将会发送给/dev/null</span></span><br><span class="line">logfile stdout</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">To <span class="built_in">enable</span> logging to the system logger, just <span class="built_in">set</span> <span class="string">'syslog-enabled'</span> to <span class="built_in">yes</span>,</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">and optionally update the other syslog parameters to suit your needs.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">syslog-enabled no</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Specify the syslog identity.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">syslog-ident redis</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Specify the syslog facility.  Must be USER or between LOCAL0-LOCAL7.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">syslog-facility local0</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置数据库的数量，默认数据库为0，可以使用<span class="keyword">select</span> &lt;dbid&gt;命令在连接上指定数据库<span class="built_in">id</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dbid是从0到‘databases’-1的数目</span></span><br><span class="line">databases 16</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">############################### SNAPSHOTTING  #################################</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Save the DB on disk:</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment">#   save &lt;seconds&gt; &lt;changes&gt;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment">#   Will save the DB if both the given number of seconds and the given</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  number of write operations against the DB occurred.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment">#   满足以下条件将会同步数据:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  900秒（15分钟）内有1个更改</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  300秒（5分钟）内有10个更改</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  60秒内有10000个更改</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Note: 可以把所有“save”行注释掉，这样就取消同步操作了</span></span><br><span class="line"></span><br><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定存储至本地数据库时是否压缩数据，默认为<span class="built_in">yes</span>，Redis采用LZF压缩，如果为了节省CPU时间，可以关闭该选项，但会导致数据库文件变的巨大</span></span><br><span class="line">rdbcompression yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定本地数据库文件名，默认值为dump.rdb</span></span><br><span class="line">dbfilename dump.rdb</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">工作目录.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定本地数据库存放目录，文件名由上一个dbfilename配置项指定</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Also the Append Only File will be created inside this directory.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># 注意，这里只能指定一个目录，不能指定文件名</span></span></span><br><span class="line">dir ./</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">################################ REPLICATION #################################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主从复制。使用slaveof从 Redis服务器复制一个Redis实例。注意，该配置仅限于当前slave有效</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">so <span class="keyword">for</span> example it is possible to configure the slave to save the DB with a</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">different interval, or to listen to another port, and so on.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置当本机为slav服务时，设置master服务的ip地址及端口，在Redis启动时，它会自动从master进行数据同步</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">slaveof &lt;masterip&gt; &lt;masterport&gt;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当master服务设置了密码保护时，slav服务连接master的密码</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下文的“requirepass”配置项可以指定密码</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">masterauth &lt;master-password&gt;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">When a slave lost the connection with the master, or when the replication</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">is still <span class="keyword">in</span> progress, the slave can act <span class="keyword">in</span> two different ways:</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># 1) if slave-serve-stale-data is set to 'yes' (the default) the slave will</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   still reply to client requests, possibly with out of data data, or the</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   data <span class="built_in">set</span> may just be empty <span class="keyword">if</span> this is the first synchronization.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># 2) if slave-serve-stale data is set to 'no' the slave will reply with</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   an error <span class="string">"SYNC with master in progress"</span> to all the kind of commands</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   but to INFO and SLAVEOF.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">slave-serve-stale-data <span class="built_in">yes</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Slaves send PINGs to server <span class="keyword">in</span> a predefined interval. It<span class="string">'s possible to change</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">this interval with the repl_ping_slave_period option. The default value is 10</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">seconds.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># repl-ping-slave-period 10</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">The following option sets a timeout for both Bulk transfer I/O timeout and</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">master data or ping response timeout. The default value is 60 seconds.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># It is important to make sure that this value is greater than the value</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">specified for repl-ping-slave-period otherwise a timeout will be detected</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">every time there is low traffic between the master and the slave.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># repl-timeout 60</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">################################# SECURITY ###################################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Warning: since Redis is pretty fast an outside user can try up to</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">150k passwords per second against a good box. This means that you should</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">use a very strong password otherwise it will be very easy to break.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过auth &lt;password&gt;命令提供密码，默认关闭</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">requirepass foobared</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Command renaming.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># It is possilbe to change the name of dangerous commands in a shared</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">environment. For instance the CONFIG command may be renamed into something</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">of hard to guess so that it will be still available for internal-use</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">tools but not available for general clients.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># Example:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># It is also possilbe to completely kill a command renaming it into</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">an empty string:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># rename-command CONFIG ""</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">################################## LIMITS ####################################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">如果设置maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max Number of clients reached错误信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">maxclients 128</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Don'</span>t use more memory than the specified amount of bytes.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">When the memory <span class="built_in">limit</span> is reached Redis will try to remove keys with an</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">EXPIRE <span class="built_in">set</span>. It will try to start freeing keys that are going to expire</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">in</span> little time and preserve keys with a longer time to live.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Redis will also try to remove objects from free lists <span class="keyword">if</span> possible.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># If all this fails, Redis will start to reply with errors to commands</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">that will use more memory, like SET, LPUSH, and so on, and will <span class="built_in">continue</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">to reply to most read-only commands like GET.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># WARNING: maxmemory can be a good idea mainly if you want to use Redis as a</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">'state'</span> server or cache, not as a real DB. When Redis is used as a real</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">database the memory usage will grow over the weeks, it will be obvious <span class="keyword">if</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">it is going to use too much memory <span class="keyword">in</span> the long run, and you<span class="string">'ll have the time</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">to upgrade. With maxmemory after the limit is reached you'</span>ll start to get</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">errors <span class="keyword">for</span> write operations, and this may even lead to DB inconsistency.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当此方法处理后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Redis新的vm机制，会把Key存放内存，Value会存放在swap区</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">maxmemory &lt;bytes&gt;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">MAXMEMORY POLICY: how Redis will <span class="keyword">select</span> what to remove when maxmemory</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">is reached? You can <span class="keyword">select</span> among five behavior:</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># volatile-lru -&gt; remove the key with an expire set using an LRU algorithm</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">allkeys-lru -&gt; remove any key accordingly to the LRU algorithm</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">volatile-random -&gt; remove a random key with an expire <span class="built_in">set</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">allkeys-&gt;random -&gt; remove a random key, any key</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">volatile-ttl -&gt; remove the key with the nearest expire time (minor TTL)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">noeviction -&gt; don<span class="string">'t expire at all, just return an error on write operations</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># Note: with all the kind of policies, Redis will return an error on write</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">      operations, when there are not suitable keys for eviction.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash">#       At the date of writing this commands are: set setnx setex append</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">      incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">      sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">      zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">      getset mset msetnx exec sort</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># The default is:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># maxmemory-policy volatile-lru</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">LRU and minimal TTL algorithms are not precise algorithms but approximated</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">algorithms (in order to save memory), so you can select as well the sample</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">size to check. For instance for default Redis will check three keys and</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">pick the one that was used less recently, you can change the sample size</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">using the following configuration directive.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># maxmemory-samples 3</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">############################# APPEND ONLY MODE ###############################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># Note that you can have both the async dumps and the append only file if you</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">like (you have to comment the "save" statements above to disable the dumps).</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Still if append only mode is enabled Redis will load the data from the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">log file at startup ignoring the dump.rdb file.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">因为redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">IMPORTANT: Check the BGREWRITEAOF to check how to rewrite the append</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">log file in background when it gets too big.</span></span></span><br><span class="line"></span><br><span class="line">appendonly no</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">指定更新日志文件名，默认为appendonly.aof</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">appendfilename appendonly.aof</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">The fsync() call tells the Operating System to actually write data on disk</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">instead to wait for more data in the output buffer. Some OS will really flush</span></span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">data on disk, some other OS will just try to do it ASAP.</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">指定更新日志条件，共有3个可选值：</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">no:表示等操作系统进行数据缓存同步到磁盘（快）</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">always:表示每次更新操作后手动调用fsync()将数据写到磁盘（慢，安全）</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">everysec:表示每秒同步一次（折衷，默认值）</span></span></span><br><span class="line"></span><br><span class="line">appendfsync everysec</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">appendfsync no</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">When the AOF fsync policy is set to always or everysec, and a background</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">saving process (a background save or AOF log background rewriting) is</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">performing a lot of I/O against the disk, in some Linux configurations</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Redis may block too long on the fsync() call. Note that there is no fix for</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">this currently, as even performing fsync in a different thread will block</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">our synchronous write(2) call.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># In order to mitigate this problem it'</span>s possible to use the following option</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">that will prevent fsync() from being called <span class="keyword">in</span> the main process <span class="keyword">while</span> a</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">BGSAVE or BGREWRITEAOF is <span class="keyword">in</span> progress.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This means that while another child is saving the durability of Redis is</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">the same as <span class="string">"appendfsync none"</span>, that <span class="keyword">in</span> pratical terms means that it is</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">possible to lost up to 30 seconds of <span class="built_in">log</span> <span class="keyword">in</span> the worst scenario (with the</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">default Linux settings).</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># If you have latency problems turn this to "yes". Otherwise leave it as</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">"no"</span> that is the safest pick from the point of view of durability.</span></span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Automatic rewrite of the append only file.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Redis is able to automatically rewrite the <span class="built_in">log</span> file implicitly calling</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">BGREWRITEAOF when the AOF <span class="built_in">log</span> size will growth by the specified percentage.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This is how it works: Redis remembers the size of the AOF file after the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">latest rewrite (or <span class="keyword">if</span> no rewrite happened since the restart, the size of</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">the AOF at startup is used).</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This base size is compared to the current size. If the current size is</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bigger than the specified percentage, the rewrite is triggered. Also</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">you need to specify a minimal size <span class="keyword">for</span> the AOF file to be rewritten, this</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">is useful to avoid rewriting the AOF file even <span class="keyword">if</span> the percentage increase</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">is reached but it is still pretty small.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Specify a precentage of zero in order to disable the automatic AOF</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">rewrite feature.</span></span><br><span class="line"></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">################################# SLOW LOG ###################################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">The Redis Slow Log is a system to <span class="built_in">log</span> queries that exceeded a specified</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">execution time. The execution time does not include the I/O operations</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">like talking with the client, sending the reply and so forth,</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">but just the time needed to actually execute the <span class="built_in">command</span> (this is the only</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">stage of <span class="built_in">command</span> execution <span class="built_in">where</span> the thread is blocked and can not serve</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">other requests <span class="keyword">in</span> the meantime).</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># You can configure the slow log with two parameters: one tells Redis</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">what is the execution time, <span class="keyword">in</span> microseconds, to exceed <span class="keyword">in</span> order <span class="keyword">for</span> the</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">command</span> to get logged, and the other parameter is the length of the</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">slow <span class="built_in">log</span>. When a new <span class="built_in">command</span> is logged the oldest one is removed from the</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">queue of logged commands.</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">The following time is expressed <span class="keyword">in</span> microseconds, so 1000000 is equivalent</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">to one second. Note that a negative number disables the slow <span class="built_in">log</span>, <span class="keyword">while</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">a value of zero forces the logging of every <span class="built_in">command</span>.</span></span><br><span class="line">slowlog-log-slower-than 10000</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">There is no <span class="built_in">limit</span> to this length. Just be aware that it will consume memory.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">You can reclaim memory used by the slow <span class="built_in">log</span> with SLOWLOG RESET.</span></span><br><span class="line">slowlog-max-len 1024</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">############################### VIRTUAL MEMORY ###############################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## WARNING! Virtual Memory is deprecated in Redis 2.4</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## The use of Virtual Memory is strongly discouraged.</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## WARNING! Virtual Memory is deprecated in Redis 2.4</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## The use of Virtual Memory is strongly discouraged.</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Virtual Memory allows Redis to work with datasets bigger than the actual</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">amount of RAM needed to hold the whole dataset <span class="keyword">in</span> memory.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">In order to <span class="keyword">do</span> so very used keys are taken <span class="keyword">in</span> memory <span class="keyword">while</span> the other keys</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">are swapped into a swap file, similarly to what operating systems <span class="keyword">do</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">with memory pages.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定是否启用虚拟内存机制，默认值为no，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">VM机制将数据分页存放，由Redis将访问量较少的页即冷数据swap到磁盘上，访问多的页面由磁盘自动换出到内存中</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">把vm-enabled设置为<span class="built_in">yes</span>，根据需要设置好接下来的三个VM参数，就可以启动VM了</span></span><br><span class="line">vm-enabled no</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vm-enabled <span class="built_in">yes</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This is the path of the Redis swap file. As you can guess, swap files</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">can<span class="string">'t be shared by different Redis instances, so make sure to use a swap</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">file for every redis process you are running. Redis will complain if the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">swap file is already in use.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># Redis交换文件最好的存储是SSD（固态硬盘）</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">虚拟内存文件路径，默认值为/tmp/redis.swap，不可多个Redis实例共享</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">*** WARNING *** if you are using a shared hosting the default of putting</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">the swap file under /tmp is not secure. Create a dir with access granted</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">only to Redis user and configure Redis to create the swap file there.</span></span></span><br><span class="line">vm-swap-file /tmp/redis.swap</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">With vm-max-memory 0 the system will swap everything it can. Not a good</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">default, just specify the max amount of RAM you can in bytes, but it'</span>s</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">better to leave some margin. For instance specify an amount of RAM</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">that<span class="string">'s more or less between 60 and 80% of your free RAM.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">将所有大于vm-max-memory的数据存入虚拟内存，无论vm-max-memory设置多少，所有索引数据都是内存存储的（Redis的索引数据就是keys）</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">也就是说当vm-max-memory设置为0的时候，其实是所有value都存在于磁盘。默认值为0</span></span></span><br><span class="line">vm-max-memory 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Redis swap文件分成了很多的page，一个对象可以保存在多个page上面，但一个page上不能被多个对象共享，vm-page-size是要根据存储的数据大小来设定的。</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">建议如果存储很多小对象，page大小最后设置为32或64bytes；如果存储很大的对象，则可以使用更大的page，如果不确定，就使用默认值</span></span></span><br><span class="line">vm-page-size 32</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">设置swap文件中的page数量由于页表（一种表示页面空闲或使用的bitmap）是存放在内存中的，在磁盘上每8个pages将消耗1byte的内存</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">swap空间总容量为 vm-page-size * vm-pages</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># With the default of 32-bytes memory pages and 134217728 pages Redis will</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">use a 4 GB swap file, that will use 16 MB of RAM for the page table.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># It'</span>s better to use the smallest acceptable value <span class="keyword">for</span> your application,</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">but the default is large <span class="keyword">in</span> order to work <span class="keyword">in</span> most conditions.</span></span><br><span class="line">vm-pages 134217728</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Max number of VM I/O threads running at the same time.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This threads are used to <span class="built_in">read</span>/write data from/to swap file, since they</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">also encode and decode objects from disk to memory or the reverse, a bigger</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">number of threads can <span class="built_in">help</span> with big objects even <span class="keyword">if</span> they can<span class="string">'t help with</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">I/O itself as the physical device may not be able to couple with many</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">reads/writes operations at the same time.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">设置访问swap文件的I/O线程数，最后不要超过机器的核数，如果设置为0，那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟，默认值为4</span></span></span><br><span class="line">vm-max-threads 4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">############################## ADVANCED CONFIG ###############################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Hashes are encoded in a special way (much more memory efficient) when they</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">have at max a given numer of elements, and the biggest element does not</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">exceed a given threshold. You can configure this limits with the following</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">configuration directives.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算法</span></span></span><br><span class="line">hash-max-zipmap-entries 512</span><br><span class="line">hash-max-zipmap-value 64</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Similarly to hashes, small lists are also encoded in a special way in order</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">to save a lot of space. The special representation is only used when</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">you are under the following limits:</span></span></span><br><span class="line">list-max-ziplist-entries 512</span><br><span class="line">list-max-ziplist-value 64</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Sets have a special encoding in just one case: when a set is composed</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">of just strings that happens to be integers in radix 10 in the range</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">of 64 bit signed integers.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">The following configuration setting sets the limit in the size of the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">set in order to use this special memory saving encoding.</span></span></span><br><span class="line">set-max-intset-entries 512</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Similarly to hashes and lists, sorted sets are also specially encoded in</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">order to save a lot of space. This encoding is only used when the length and</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">elements of a sorted set are below the following limits:</span></span></span><br><span class="line">zset-max-ziplist-entries 128</span><br><span class="line">zset-max-ziplist-value 64</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">order to help rehashing the main Redis hash table (the one mapping top-level</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">keys to values). The hash table implementation redis uses (see dict.c)</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">performs a lazy rehashing: the more operation you run into an hash table</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">that is rhashing, the more rehashing "steps" are performed, so if the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">server is idle the rehashing is never complete and some more memory is used</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">by the hash table.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># The default is to use this millisecond 10 times every second in order to</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">active rehashing the main dictionaries, freeing memory when possible.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># If unsure:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">use "activerehashing no" if you have hard latency requirements and it is</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">not a good thing in your environment that Redis can reply form time to time</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">to queries with 2 milliseconds delay.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">指定是否激活重置哈希，默认为开启</span></span></span><br><span class="line">activerehashing yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">################################# INCLUDES ###################################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">指定包含其他的配置文件，可以在同一主机上多个Redis实例之间使用同一份配置文件，而同时各实例又拥有自己的特定配置文件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">include /path/to/local.conf</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">include /path/to/other.conf</span></span></span><br></pre></td></tr></tbody></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/1de494c22a68/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/1de494c22a68/" class="post-title-link" itemprop="url">Redis 命令</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-17 19:11:56" itemprop="dateCreated datePublished" datetime="2022-12-17T19:11:56+08:00">2022-12-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/1de494c22a68/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="1de494c22a68/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>5 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://redis.io/commands">commands</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kevinws/p/6281395.html">Redis 常用命令整理</a><br><a target="_blank" rel="noopener" href="http://doc.redisfans.com/?tdsourcetag=s_pctim_aiomsg#redis">Redis 命令参考</a></p>
-<h1 id="一、准备"><a href="#一、准备" class="headerlink" title="一、准备"></a>一、准备</h1><h2 id="1-redis-cli"><a href="#1-redis-cli" class="headerlink" title="1. redis-cli"></a>1. redis-cli</h2><p>执行命令<br><strong><em>例：</em></strong><br>远程 redis 服务上执行命令</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h host -p port -a password</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="2-ping"><a href="#2-ping" class="headerlink" title="2. ping"></a>2. ping</h2><p>该命令用于检测 redis 服务是否启动<br><strong><em>例：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PING</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="二、Redis-键"><a href="#二、Redis-键" class="headerlink" title="二、Redis 键"></a>二、Redis 键</h1><h2 id="1-增删查改"><a href="#1-增删查改" class="headerlink" title="1. 增删查改"></a>1. 增删查改</h2><p><strong>1.1. set key value</strong><br>赋值</p>
-<ul>
-<li>setnx key value：key 不存在时设置</li>
-<li> set key value xx：key 存在时才设置</li>
-</ul>
-<p><strong>1.2. get key</strong><br>取值<br><strong>1.3. del key [key…..]</strong><br>可以删除一个或多个键，返回值是删除的键的个数，不支持通配符删除<br><strong>1.4. mget key1 key2 key3</strong><br>批量获取 key，原子操作<br>取不到的 key 返回 null<br><strong>1.5. mset key1 value1 key2 value2</strong><br>批量设置 key-value<br><strong>1.6. getset key newvalue</strong><br>设值后返回旧值<br><strong>1.7. append key value</strong><br>追加值</p>
-<h2 id="2-key-信息"><a href="#2-key-信息" class="headerlink" title="2. key 信息"></a>2. key 信息</h2><p><strong>2.1. keys</strong></p>
-<ul>
-<li>? 匹配一个字符</li>
-<li><ul>
-<li>匹配任意个（包括 0 个）字符</li>
-</ul>
-</li>
-<li> [] 匹配括号间的任一个字符，可以使用 “-“ 符号表示一个范围，如 a [b-d] 可以匹配 “ab”,”ac”,”ad”</li>
-<li>\x 匹配字符 x，用于转义符号，如果要匹配 “?” 就需要使用？</li>
-</ul>
-<p>注： 一般不在生产环境中使用<br><strong>2.2. dbsize</strong><br>计算 key 的总数<br><strong>2.3. exists key</strong><br>如果存在，返回整数类型 1 ，否则返回 0<br><strong>2.4. type key</strong><br>获得键值的数据类型<br>返回值可能是 string (字符串类型) hash (散列类型) list (列表类型) set (集合类型) zset (有序集合类型)</p>
-<h2 id="3-自增-自减"><a href="#3-自增-自减" class="headerlink" title="3. 自增/自减"></a>3. 自增 / 自减</h2><p><strong>3.1. incr key</strong><br>当存储的字符串是整数形式时，redis 提供了一个使用的命令 incr 作用是让当前的键值递增，并返回递增后的值<br>当要操作的键不存在时会默认键值为 0 ，所以第一次递增后的结果是 1 ，当键值不是整数时 redis 会提示错误<br><strong>3.2. incrby key increment</strong><br>通过 increment 参数指定一次增加的数值<br>incrby num 2<br><strong>3.3. decr key</strong><br>自减<br>同 incr key<br><strong>3.4. decrby key</strong><br>自减<br>同 incrby key increment</p>
-<h2 id="4-过期时间"><a href="#4-过期时间" class="headerlink" title="4. 过期时间"></a>4. 过期时间</h2><p><strong>4.1. expire key seconds</strong><br>设置过期时间<br><strong>4.2. ttl key</strong><br>查询 key 的剩余过期时间<br>-2： 不存在 key<br>-1： 未设置过期时间<br><strong>4.3. persist key</strong><br>去掉 key 的过期时间</p>
-<h2 id="5-hash"><a href="#5-hash" class="headerlink" title="5. hash"></a>5. hash</h2><p><strong>5.1. hset key field value</strong><br>设置 hash key 对应 的 field 的 value<br><strong>5.2. hget key field</strong><br>获取 hash key 对应 的 field 的 value<br><strong>5.3. hdel key field</strong><br>删除 hash key 对应 的 field 的 value<br><strong>5.4. hexists key field</strong><br>判断 hash key 是否有 field<br><strong>5.5. hlen key</strong><br>获取 hash key field 的数量<br><strong>5.6. hgetall key</strong><br>获取 hash key 所有的 field 和 value<br><strong>5.7. hkeys key</strong><br>获取 hash key 所有的 field<br><strong>5.8. hvals key</strong><br>获取 hash key 所有的 field 中的 value</p>
-<h2 id="6-list"><a href="#6-list" class="headerlink" title="6. list"></a>6. list</h2><p><strong>6.1. 插入</strong></p>
-<ul>
-<li><strong>rpush key value1 value2 value3：</strong> 列表右端插入多个值</li>
-<li><strong> lpush key value1 value2 value3：</strong> 列表左端插入多个值</li>
-<li><strong> linsert key before|after value newValue：</strong> 在键为 key 的 list 的指定值 value 的 前 | 后 插入 newValue</li>
-</ul>
-<p><strong>6.2. 删除</strong></p>
-<ul>
-<li><strong>lpop key：</strong> 从列表左侧弹出一个元素</li>
-<li><strong> rpop key：</strong> 从列表右侧弹出一个元素</li>
-<li><strong> lrem key count value：</strong> 删除 count 个与 value 的值相等的值<ul>
-<li> count &gt; 0： 从左到右删除 count 个与 value 的值相等的值</li>
-<li> count &lt; 0： 从右到左删除 count 个与 value 的值相等的值</li>
-<li> count = 0： 删除所有与 value 的值相等的值</li>
-</ul>
-</li>
-<li><strong> ltrim key start end：</strong> 按索引截取 [start, end] 范围内的值，范围外的值删除。索引从 0 开始</li>
-</ul>
-<p><strong>6.3. 查找</strong></p>
-<ul>
-<li><strong>lrange key start end：</strong> 获取索引在 [start, end] 范围内的值。左边索引从 0 开始递增，右边索引从 -1 开始递减</li>
-<li><strong> lindex key index：</strong> 按索引获取值。左边索引从 0 开始递增，右边索引从 -1 开始递减</li>
-<li><strong> llen：</strong> 获取列表长度</li>
-</ul>
-<p><strong>6.4. 更新</strong></p>
-<ul>
-<li><strong>lset key index newValue：</strong> 设置列表指定索引值为 newValue</li>
-</ul>
-<h2 id="7-set"><a href="#7-set" class="headerlink" title="7. set"></a>7. set</h2><p><strong>7.1. 添加</strong></p>
-<ul>
-<li><strong>sadd key element：</strong> 添加 element（若已存在，则添加失败）</li>
-</ul>
-<p><strong>7.2. 删除</strong></p>
-<ul>
-<li><strong>spop key：</strong> 随机弹出一个元素</li>
-<li><strong> srem key element：</strong> 删除 element</li>
-</ul>
-<p><strong>7.3. 查找</strong></p>
-<ul>
-<li><strong>scard key：</strong> 获取元素总数</li>
-<li><strong> sismember key element：</strong> 判断键为 key 的 set 中是否存在 element</li>
-<li><strong>srandmember key count：</strong> 从键为 key 的 set 中随机选出 count 个元素</li>
-<li><strong> smembers key：</strong> 获取键为 key 的 set 的全部元素（无序）</li>
-</ul>
-<p><strong>7.4. 差集、交集、并集</strong></p>
-<ul>
-<li><strong>sdiff key1 key2：</strong> 求得键为 key1 、key2 的两个 set 的差集（key1 - key2）</li>
-<li><strong>sinter key1 key2：</strong> 求得键为 key1、key2 的两个 set 的交集</li>
-<li><strong> sunion key1 key2：</strong> 求得键为 key1、key2 的两个 set 的并集</li>
-</ul>
-<h2 id="8-zset"><a href="#8-zset" class="headerlink" title="8. zset"></a>8. zset</h2><p><strong>8.1. 添加</strong></p>
-<ul>
-<li><strong>zadd key score element：</strong> 添加 score 和 element（可以多对）</li>
-<li><strong>zincrby key increScore element：</strong> 使 element 的分数增加 increScore</li>
-</ul>
-<p><strong>8.2. 删除</strong></p>
-<ul>
-<li><strong>zrem key element：</strong> 删除 element</li>
-<li><strong>zremrangebyrank key startRank endRank：</strong> 删除排名在 [startRank, endRank] 范围内的升序元素，左边索引从 0 开始递增，右边索引从 -1 开始递减。</li>
-<li><strong>zremrangebyscore key startScore endScore：</strong> 删除分数在 [startScore, endScore] 范围内的升序元素，左边索引从 0 开始递增，右边索引从 -1 开始递减。</li>
-</ul>
-<p><strong>8.3. 查询</strong></p>
-<ul>
-<li><strong>zcard key：</strong> 获取元素总数</li>
-<li><strong> zount key startScore endScore：</strong> 获取分数在 [startScore, endScore] 范围内的元素个数，左边索引从 0 开始递增，右边索引从 -1 开始递减。</li>
-<li><strong>zrank key element：</strong> 获取 element 的排名（升序）</li>
-<li><strong>zscore key element：</strong> 获取 element 的分数</li>
-<li><strong> zrange key startRank endRank [withscores]：</strong> 获取排名在 [startRank, endRank] 范围内的升序元素，左边索引从 0 开始递增，右边索引从 -1 开始递减。<ul>
-<li>withscores：携带分数</li>
-</ul>
-</li>
-<li> **zrangebyscore key startScore endScore [withscores]： ** 获取分数在 [startScore, endScore] 范围内的升序元素，左边索引从 0 开始递增，右边索引从 -1 开始递减。<ul>
-<li>withscores：携带分数</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/7a9ea0da31f4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/7a9ea0da31f4/" class="post-title-link" itemprop="url">Redis 高级</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-17 19:10:08" itemprop="dateCreated datePublished" datetime="2022-12-17T19:10:08+08:00">2022-12-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/7a9ea0da31f4/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="7a9ea0da31f4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>一、慢查询</strong><br><strong>1. Redis 请求过程</strong><br>慢查询发生在 执行命令阶段<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e54533b87280e919df50ae491be9c654.png" alt="image.png"><br><strong>2. 结构</strong><br>保存在内存中的长度固定的 <strong>先进先出队列</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d8834ce0eb85fc2f1215b30305114cc7.png" alt="image.png"><br><strong>3. 配置</strong><br><strong><em>slowlog-max-len：</em></strong> 最大长度，默认为 128<br><strong><em>slowlog-log-slower-than=1000：</em></strong> 超过 1s 则加入慢查队列中，默认为 10000</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 动态配置</span><br><span class="line">config set slowlog-max-len 1000</span><br><span class="line">config set slowlog-log-slower-than=10000</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>4. 命令</strong><br><strong><em>slowlog get [n]：</em></strong> 获取慢查询队列，n 为条数<br><strong><em>slowlog len：</em></strong> 获取慢查询队列长度<br><strong><em>slowlog reset：</em></strong> 清空慢查询队列<br><strong>二、流水线（pipeline）</strong><br><strong><em>作用：</em></strong> 解决批量执行 hset、hget 等操作的问题<br><strong><em>非原子命令</em></strong><br><strong><em>只能作用在一个 Redis 节点上</em></strong><br><strong><em>例：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = new Jedis("127.0.0.1", 6379);</span><br><span class="line">for (int i = 0; i &lt; 100; i++) {</span><br><span class="line">    Pipeline pipeline = jedis.pipelined();</span><br><span class="line">    for (int j = i * 100; j &lt; (i + 1) * 100; j++) {</span><br><span class="line">        pipeline.hset("hashkey:" + j, "field" + j, "value" + j);</span><br><span class="line">    }</span><br><span class="line">    pipeline.syncAndReturnAll();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>三、位图（Bitmap）</strong><br><strong><em>setbit key offset value：</em></strong> 给位图指定索引设置值，返回之前位的值<br><strong>例：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bb66464075181714bc5d0e455049de93.png" alt="image.png"><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bca2b6ea3715c2b07d6589450a2542ef.png" alt="image.png"><br><strong><em>get key offset：</em></strong> 返回位图指定索引的值<br><strong><em>bitcount key [start] [end]：</em></strong> 获取位图指定范围值为 1 的个数<br><strong><em>bitops key targetBit [start] [end]：</em></strong> 计算位图指定范围内第一个值等于 targetBit 的位置<br><strong><em>bitop op destkey key [key…]：</em></strong> 把多个 Bitmap 的 与、或、非、异或 操作的结果保存在 destkey 中</p>
-<ul>
-<li>op： and（与）、or（或）、not（非）、xor（异或）</li>
-</ul>
-<p><strong>四、HyperLogLog</strong><br><strong><em>概述：</em></strong> 以极小的空间统计独立数量，本质还是 string 类型<br><strong>1. 命令</strong><br><strong><em>pfadd key element [element…]：</em></strong> 添加元素<br><strong><em>pfcount key [key…]：</em></strong> 计算总数<br><strong><em>pfmerge destkey key [key…]：</em></strong> 合并多个 hyperloglog<br><strong>2. 缺陷</strong><br><strong><em>错误率：</em></strong> 0.81%<br><strong>五、GEO</strong><br><strong><em>概述：</em></strong> 地理信息定位。存储经纬度，计算两地距离和范围等，本质是 zset 类型<br><strong>1. 命令</strong><br><strong><em>geo key longitude latitude member [longitude latitude member…]：</em></strong> 添加地理位置信息<br><strong><em>geopos key member：</em></strong> 获取地理位置信息<br><strong><em>geodist key member1 member2 [unit]：</em></strong> 获取两个地理位置的距离</p>
-<ul>
-<li>unit： m、km、mi、ft</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/c47ab3a4d1ad/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/c47ab3a4d1ad/" class="post-title-link" itemprop="url">Redis 笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-12-17 19:02:03" itemprop="dateCreated datePublished" datetime="2022-12-17T19:02:03+08:00">2022-12-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c47ab3a4d1ad/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c47ab3a4d1ad/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>19 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>一、概述</strong><br>- <a target="_blank" rel="noopener" href="https://www.cnblogs.com/rjzheng/p/9096228.html">分布式之 redis 复习精讲</a><br>- <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34337272/article/details/80012284">面试中关于 Redis 的问题看这篇就够了</a><br>- <a target="_blank" rel="noopener" href="https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b336601f265da598e13f917">Redis 深度历险：核心原理与应用实践</a><br>- <a target="_blank" rel="noopener" href="http://blog.itpub.net/31545684/viewspace-2213990/">分享 30 道 Redis 面试题，面试官能问到的我都找到了</a><br>- <a target="_blank" rel="noopener" href="https://blog.csdn.net/zjttlance/article/details/80234341">最全面的缓存架构设计（全是干货）</a><br>- <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000014128432">基于 Redis 的分布式锁</a><br>- <a target="_blank" rel="noopener" href="https://www.cnblogs.com/rjzheng/p/9041659.html">分布式之数据库和缓存双写一致性方案解析</a><br>- <a target="_blank" rel="noopener" href="https://www.quora.com/Why-does-Facebook-use-delete-to-remove-the-key-value-pair-in-Memcached-instead-of-updating-the-Memcached-during-write-request-to-the-backend">Why does Facebook use delete to remove the key-value pair in Memcached instead of updating the Memcached during write request to the backend?</a><br>- <a target="_blank" rel="noopener" href="https://www.slideshare.net/enissoz/hbase-and-hdfs-understanding-filesystem-usage">HBase and HDFS: Understanding FileSystem Usage in HBase</a><br>- <a target="_blank" rel="noopener" href="https://coolshell.cn/articles/8239.html">无锁队列的实现</a><br>- <a target="_blank" rel="noopener" href="https://redis.io/topics/distlock">Redis 的文档 RedLock</a><br>redis-benchmark： 自带测试工具<br>Redis 是速度非常快的 <strong>非关系型（NoSQL）内存键值数据库</strong>，可以存储键和五种不同类型的值之间的映射<br><strong>1. 与 Memcached 的不同</strong></p>
-<ol>
-<li><strong>数据类型：</strong><ol>
-<li>Redis 支持五种不同的数据类型，可以更灵活地解决问题</li>
-<li> Memcached <strong>仅支持字符串类型</strong></li>
-</ol>
-</li>
-<li><strong>数据持久化：</strong><ol>
-<li>Redis 支持两种持久化策略：RDB 快照和 AOF 日志</li>
-<li> Memcached <strong>不支持持久化</strong></li>
-</ol>
-</li>
-<li><strong>分布式：</strong><ol>
-<li>Redis Cluster 实现了分布式的支持</li>
-<li> Memcached <strong>不支持分布式</strong>，只能通过在客户端使用一致性哈希来实现分布式存储，这种方式在存储和查询时都需要先在客户端计算一次数据所在的节点</li>
-</ol>
-</li>
-<li><strong>内存管理机制：</strong><ol>
-<li>在 Redis 中，并不是所有数据都一直存储在内存中，可以将一些很久没用的 value 交换到磁盘，而 Memcached 的数据则会一直在内存中</li>
-<li> Memcached 将内存分割成特定长度的块来存储数据，以完全解决内存碎片的问题。但是这种方式会使得内存的利用率不高，例如块的大小为 128 bytes，只存储 100 bytes 的数据，那么剩下的 28 bytes 就浪费掉了</li>
-</ol>
-</li>
-</ol>
-<p><strong>2. 遇到的问题</strong><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34545249">缓存世界中的三大问题及解决方案</a><br><strong>2.1. 缓存和数据库双写一致性问题</strong></p>
-<ul>
-<li>** 只能降低 ** 不一致发生的概率，无法完全避免。因此，有强一致性要求的数据，不能放缓存</li>
-<li><strong>不能先写缓存再写数据库</strong>，万一数据库事务回滚会产生数据不一致</li>
-<li>采取 <strong>正确更新策略</strong>，先更新数据库，再删缓存</li>
-<li>因为可能存在删除缓存失败的问题，提供一个补偿措施即可，例如利用 <strong>消息队列</strong></li>
-</ul>
-<p><strong>2.2. 缓存雪崩问题</strong><br><strong><em>概念：</em></strong> 即缓存 <strong>同一时间大面积 失效</strong>，这个时候又来了一波请求，结果请求都怼到数据库上，从而导致数据库连接异常<br><strong><em>思路：</em></strong></p>
-<ol>
-<li>不同时间</li>
-<li>双缓存</li>
-</ol>
-<p><strong><em>解决：</em></strong></p>
-<ol>
-<li>给缓存的失效时间，加上一个 <strong>随机值</strong>，避免集体失效<ol>
-<li>零点补课避免出现大量过期，不宜使用随机</li>
-<li>与时点性无关，可以使用随机</li>
-</ol>
-</li>
-<li>使用 <strong>互斥锁</strong>，但是该方案吞吐量明显下降了</li>
-<li><strong>双缓存</strong>。我们有两个缓存，缓存 A 和缓存 B。缓存 A 的失效时间为 20 分钟，缓存 B 不设失效时间。自己做缓存预热操作<ol>
-<li>从缓存 A 读数据库，有则直接返回</li>
-<li> A 没有数据，直接从 B 读数据，直接返回，并且异步启动一个更新线程。更新线程同时更新缓存 A 和缓存 B</li>
-</ol>
-</li>
-</ol>
-<p><strong>2.3. 击穿</strong><br>缓存过期了</p>
-<ol>
-<li>利用 <strong>互斥锁</strong>，缓存失效的时候，先去获得锁，得到锁了，再去请求数据库。没得到锁，则休眠一段时间重试</li>
-</ol>
-<p><strong>2.3. 缓存穿透问题</strong><br><strong><em>概念：</em></strong> 黑客故意去 ** 请求 ** 缓存中 ** 不存在 ** 的数据，导致所有的请求都怼到数据库上，从而数据库连接异常<br><strong>直接原因：</strong></p>
-<ol>
-<li>频繁请求</li>
-<li>值不存在直接请求数据库</li>
-</ol>
-<p><strong>思路：</strong></p>
-<ol>
-<li>对请求做拦截（锁、拦截器）</li>
-<li>不直接访问数据库</li>
-</ol>
-<p><strong><em>解决：</em></strong></p>
-<ol>
-<li>利用 <strong>互斥锁</strong>，缓存失效的时候，先去获得锁，得到锁了，再去请求数据库。没得到锁，则休眠一段时间重试</li>
-<li>采用 <strong>异步更新策略</strong>，无论 key 是否取到值，都直接返回<ol>
-<li> value 值中维护一个缓存失效时间，缓存如果过期，异步起一个线程去读数据库，更新缓存</li>
-<li>需要做缓存预热（项目启动前，先加载缓存）操作</li>
-</ol>
-</li>
-<li>提供一个能迅速判断请求是否有效的 <strong>拦截机制</strong>，比如，利用布隆过滤器，内部维护一系列合法有效的 key。迅速判断出，请求所携带的 Key 是否合法有效。如果不合法，则直接返回</li>
-</ol>
-<p><strong>2.4. 并发竞争 key 问题</strong><br><strong><em>概念：</em></strong> 同时有多个子系统去 set 一个 key</p>
-<ol>
-<li>如果对这个 key 操作，不要求顺序<ol>
-<li><strong>分布式锁</strong></li>
-</ol>
-</li>
-<li>如果对这个 key 操作，要求顺序<ol>
-<li>写入数据库的时候，需要保存一个 <strong>时间戳</strong></li>
-</ol>
-</li>
-</ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5d85bc71e099cf375eface009480e95c.png" alt="image.png"><br>采用队列模式将并发访问变为串行访问<br><strong>3. 单线程快速的原因</strong></p>
-<ol>
-<li>纯内存操作</li>
-<li>单线程操作，避免了频繁的上下文切换</li>
-<li>采用了非阻塞 I/O 多路复用机制</li>
-</ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/98c6a0c7b7f6830366cd40bd8676cc66.png" alt="image.png"><br><strong>二、数据类型与结构</strong><br><strong>1. 数据类型</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>数据类型</strong></th>
-<th><strong>可以存储的值</strong></th>
-<th><strong>应用场景</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td> STRING</td>
-<td> 字符串、整数或者浮点数</td>
-<td>计数（秒杀、点赞）、缓存</td>
-</tr>
-<tr>
-<td> LIST</td>
-<td> 列表</td>
-<td>消息队列、排行榜、关注列表</td>
-</tr>
-<tr>
-<td> SET</td>
-<td> 无序集合</td>
-<td>集群部署全局去重<br>共同喜好，自己独有的喜好</td>
-</tr>
-<tr>
-<td> ZSET</td>
-<td> 有序集合</td>
-<td>排行榜</td>
-</tr>
-<tr>
-<td> HASH</td>
-<td> 包含键值对的无序散列表</td>
-<td>单点登录，以 cookieId 作为 key<br>模拟 session、<br>存储对象</td>
-</tr>
-</tbody></table>
-<p><strong>2. 使用场景</strong></p>
-<ol>
-<li><strong>计数器</strong><ol>
-<li>可以对 String 进行自增自减运算，从而实现计数器功能</li>
-<li> Redis 这种内存型数据库的读写性能非常高，很适合存储频繁读写的计数量</li>
-</ol>
-</li>
-<li><strong>缓存</strong><ol>
-<li>将热点数据放到内存中，设置内存的最大使用量以及淘汰策略来保证缓存的命中率</li>
-</ol>
-</li>
-<li><strong>查找表</strong><ol>
-<li>例如 DNS 记录就很适合使用 Redis 进行存储</li>
-<li>查找表和缓存类似，也是利用了 Redis 快速的查找特性。但是查找表的内容不能失效，而缓存的内容可以失效，因为缓存不作为可靠的数据来源</li>
-</ol>
-</li>
-<li><strong>消息队列</strong><ol>
-<li> List 是一个双向链表，可以通过 lpop 和 lpush 写入和读取消息。不过最好使用 Kafka、RabbitMQ 等消息中间件</li>
-</ol>
-</li>
-<li><strong>会话缓存</strong><ol>
-<li>可以使用 Redis 来统一存储多台应用服务器的会话信息</li>
-<li>当应用服务器不再存储用户的会话信息，也就不再具有状态，一个用户可以请求任意一个应用服务器，从而更容易实现高可用性以及可伸缩性</li>
-</ol>
-</li>
-<li><strong>分布式锁实现</strong><ol>
-<li>在分布式场景下，无法使用单机环境下的锁来对多个节点上的进程进行同步。可以使用 Reids 自带的 SETNX 命令实现分布式锁，除此之外，还可以使用官方提供的 RedLock 分布式锁实现</li>
-</ol>
-</li>
-<li><strong>并发</strong><ol>
-<li>在大并发的情况下，所有的请求直接访问数据库，数据库会出现连接异常。这个时候，就需要使用 redis 做一个缓冲操作，让请求先访问到 redis，而不是直接访问数据库</li>
-</ol>
-</li>
-<li><strong>其它</strong><ol>
-<li> Set 可以实现交集、并集等操作，从而实现共同好友等功能</li>
-<li> ZSet 可以实现有序性操作，从而实现排行榜等功能</li>
-</ol>
-</li>
-</ol>
-<p><strong>3. 数据结构</strong><br><strong>3.1. 字典</strong><br><strong><em>dictht 结构：</em></strong> dictht 是一个散列表结构，使用拉链法保存哈希冲突</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* This is our hash table structure. Every dictionary has two of this as we</span></span><br><span class="line"><span class="comment">* implement incremental rehashing, for the old to the new table. */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> {</span></span><br><span class="line">    dictEntry **table;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> size;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> sizemask;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> used;</span><br><span class="line">} dictht;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> {</span></span><br><span class="line">    <span class="type">void</span> *key;</span><br><span class="line">    <span class="class"><span class="keyword">union</span> {</span></span><br><span class="line">    <span class="type">void</span> *val;</span><br><span class="line">    <span class="type">uint64_t</span> u64;</span><br><span class="line">    <span class="type">int64_t</span> s64;</span><br><span class="line">    <span class="type">double</span> d;</span><br><span class="line">} v;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">} dictEntry;</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong><em>dict rehash 操作：</em></strong><br>Redis 的字典 dict 中包含两个哈希表 dictht，这是为了方便进行 rehash 操作<br>在扩容时，将其中一个 dictht 上的键值对 rehash 到另一个 dictht 上面，完成之后释放空间并交换两个 dictht 的角色</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> {</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="type">void</span> *privdata;</span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="type">long</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> iterators; <span class="comment">/* number of iterators currently running */</span></span><br><span class="line">} dict;</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong><em>渐进方式：</em></strong> rehash 操作不是一次性完成，而是采用渐进方式，这是为了避免一次性执行过多的 rehash 操作给服务器带来过大的负担<br>渐进式 rehash 通过记录 dict 的 rehashidx 完成，它从 0 开始，然后每执行一次 rehash 都会递增。例如在一次 rehash 中，要把 dict [0] rehash 到 dict [1]，这一次会把 dict [0] 上 table [rehashidx] 的键值对 rehash 到 dict [1] 上，dict [0] 的 table [rehashidx] 指向 null，并令 rehashidx++<br>在 rehash 期间，每次对字典执行添加、删除、查找或者更新操作时，都会执行一次渐进式 rehash<br>采用渐进式 rehash 会导致字典中的数据分散在两个 dictht 上，因此对字典的查找操作也需要到对应的 dictht 去执行</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Performs N steps of incremental rehashing. Returns 1 if there are still</span></span><br><span class="line"><span class="comment"> * keys to move from the old to the new hash table, otherwise 0 is returned.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Note that a rehashing step consists in moving a bucket (that may have more</span></span><br><span class="line"><span class="comment"> * than one key as we use chaining) from the old to the new hash table, however</span></span><br><span class="line"><span class="comment"> * since part of the hash table may be composed of empty spaces, it is not</span></span><br><span class="line"><span class="comment"> * guaranteed that this function will rehash even a single bucket, since it</span></span><br><span class="line"><span class="comment"> * will visit at max N*10 empty buckets in total, otherwise the amount of</span></span><br><span class="line"><span class="comment"> * work it does would be unbound and the function may block for a long time. */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dictRehash</span><span class="params">(dict *d, <span class="type">int</span> n)</span> {</span><br><span class="line">    <span class="type">int</span> empty_visits = n * <span class="number">10</span>; <span class="comment">/* Max number of empty buckets to visit. */</span></span><br><span class="line">    <span class="keyword">if</span> (!dictIsRehashing(d)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (n-- &amp;&amp; d-&gt;ht[<span class="number">0</span>].used != <span class="number">0</span>) {</span><br><span class="line">        dictEntry *de, *nextde;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Note that rehashidx can't overflow as we are sure there are more</span></span><br><span class="line"><span class="comment">         * elements because ht[0].used != 0 */</span></span><br><span class="line">        assert(d-&gt;ht[<span class="number">0</span>].size &gt; (<span class="type">unsigned</span> <span class="type">long</span>) d-&gt;rehashidx);</span><br><span class="line">        <span class="keyword">while</span> (d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx] == <span class="literal">NULL</span>) {</span><br><span class="line">            d-&gt;rehashidx++;</span><br><span class="line">            <span class="keyword">if</span> (--empty_visits == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line">        de = d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx];</span><br><span class="line">        <span class="comment">/* Move all the keys in this bucket from the old to the new hash HT */</span></span><br><span class="line">        <span class="keyword">while</span> (de) {</span><br><span class="line">            <span class="type">uint64_t</span> h;</span><br><span class="line"></span><br><span class="line">            nextde = de-&gt;next;</span><br><span class="line">            <span class="comment">/* Get the index in the new hash table */</span></span><br><span class="line">            h = dictHashKey(d, de-&gt;key) &amp; d-&gt;ht[<span class="number">1</span>].sizemask;</span><br><span class="line">            de-&gt;next = d-&gt;ht[<span class="number">1</span>].table[h];</span><br><span class="line">            d-&gt;ht[<span class="number">1</span>].table[h] = de;</span><br><span class="line">            d-&gt;ht[<span class="number">0</span>].used--;</span><br><span class="line">            d-&gt;ht[<span class="number">1</span>].used++;</span><br><span class="line">            de = nextde;</span><br><span class="line">        }</span><br><span class="line">        d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx] = <span class="literal">NULL</span>;</span><br><span class="line">        d-&gt;rehashidx++;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Check if we already rehashed the whole table... */</span></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;ht[<span class="number">0</span>].used == <span class="number">0</span>) {</span><br><span class="line">        zfree(d-&gt;ht[<span class="number">0</span>].table);</span><br><span class="line">        d-&gt;ht[<span class="number">0</span>] = d-&gt;ht[<span class="number">1</span>];</span><br><span class="line">        _dictReset(&amp;d-&gt;ht[<span class="number">1</span>]);</span><br><span class="line">        d-&gt;rehashidx = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* More to rehash... */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>3.2. 跳跃表</strong><br><strong><em>概述：</em></strong> 是有序集合的底层实现之一。跳跃表是基于多指针有序链表实现的，可以看成多个有序链表<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/283bf4e292bcb9e64563c5eb79844e91.png" alt="image.png"><br><strong><em>查找：</em></strong> 在查找时，从上层指针开始查找，找到对应的区间之后再到下一层去查找。<br>下图演示了查找 22 的过程：<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9825611b39a36e97e8916ee681b6aacb.png" alt="image.png"><br><strong><em>优点：</em></strong> 与红黑树等平衡树相比，跳跃表具有以下优点：</p>
-<ul>
-<li>插入速度非常快速，因为不需要进行旋转等操作来维护平衡性</li>
-<li>更容易实现</li>
-<li>支持无锁操作</li>
-</ul>
-<p><strong><em>原理：</em></strong></p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ZSETs use a specialized version of Skiplists */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> {</span></span><br><span class="line">    sds ele;</span><br><span class="line">    <span class="type">double</span> score;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> {</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="type">unsigned</span> <span class="type">int</span> span;</span><br><span class="line">    } level[];</span><br><span class="line">} zskiplistNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> {</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> length;</span><br><span class="line">    <span class="type">int</span> level;</span><br><span class="line">} zskiplist;</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4667bef9826a52b9d27a17410dd369da.png" alt="image.png"></p>
-<p><strong>三、过期策略 与 数据淘汰</strong><br><strong>1. 过期策略</strong><br><strong><em>定期删除：</em></strong> 默认每隔 <strong>100ms 随机抽取 <strong>进行检查，是否有过期的 key，有过期 key 则删除。因此没抽查到的需要惰性删除进一步筛选<br></strong><em>惰性删除：</em></strong> 获取某个 key 的时候，如果该 key 已过期，则删除。<br><strong>2. 数据淘汰</strong><br>可以设置内存最大使用量，当内存使用量超出时，会施行数据淘汰。<br>Redis 具体有 6 种淘汰策略：</p>
-<table>
-<thead>
-<tr>
-<th><strong>策略</strong></th>
-<th><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td> volatile-lru</td>
-<td> 从已设置过期时间的数据集中挑选最近最少使用的数据淘汰</td>
-</tr>
-<tr>
-<td> volatile-ttl</td>
-<td> 从已设置过期时间的数据集中挑选将要过期的数据淘汰</td>
-</tr>
-<tr>
-<td> volatile-random</td>
-<td> 从已设置过期时间的数据集中任意选择数据淘汰</td>
-</tr>
-<tr>
-<td> allkeys-lru</td>
-<td> 从所有数据集中挑选最近最少使用的数据淘汰</td>
-</tr>
-<tr>
-<td> allkeys-random</td>
-<td> 从所有数据集中任意选择数据进行淘汰</td>
-</tr>
-<tr>
-<td> noeviction</td>
-<td> 禁止驱逐数据</td>
-</tr>
-</tbody></table>
-<p>作为内存数据库，出于对性能和内存消耗的考虑，Redis 的淘汰算法实际实现上并非针对所有 key，而是抽样一小部分并且从中选出被淘汰的 key。<br>使用 Redis 缓存数据时，为了提高缓存命中率，需要保证缓存数据都是热点数据。可以将内存最大使用量设置为热点数据占用的内存量，然后启用 allkeys-lru 淘汰策略，将最近最少使用的数据淘汰。<br>Redis 4.0 引入了 volatile-lfu 和 allkeys-lfu 淘汰策略，LFU 策略通过统计访问频率，将访问频率最少的键值对淘汰。<br><strong>四、持久化</strong><br>Redis 是内存型数据库，为了保证数据在断电后不会丢失，需要将内存中的数据持久化到硬盘上<br><strong>1. RDB 持久化</strong><br><strong><em>概述：</em></strong><br>将 ** 某个时间点 ** 的所有数据都存放到硬盘上<br>可以将 <strong>快照 <strong>复制到其它服务器从而创建具有相同数据的服务器副本<br></strong><em>缺点：</em></strong></p>
-<ul>
-<li>如果数据量很大，保存快照的 <strong>时间会很长</strong></li>
-<li>如果系统发生故障，将会 ** 丢失 ** 最后一次创建快照之后的数据</li>
-<li>不支持拉链，只有一个 dump.rdb</li>
-</ul>
-<p><strong><em>优点：</em></strong> 回复速度相对快<br><strong><em>场景：</em></strong> 关机维护<br><strong><em>三种触发机制：</em></strong></p>
-<ul>
-<li><strong>save 命令：</strong><ul>
-<li>同步</li>
-<li>直接生成 rdb 二进制文件</li>
-<li>若有老的备份，新的备份会替换老的备份</li>
-</ul>
-</li>
-<li><strong> bgsave 命令：</strong><ul>
-<li>异步</li>
-<li>通过 fork () 创建一个子进程去创建 rdb 文件</li>
-<li> fork ()：浅拷贝 + copy on write：可以做到快速拷贝，且父子互不影响<ul>
-<li>快速拷贝</li>
-<li>写时复制触发次数不多（不可能父子进程把所有数据都改一遍）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>配置：</strong><ul>
-<li>save seconds changes（save 900 1）</li>
-<li>本质为执行 bgsave</li>
-<li> 一般都会把配置关闭</li>
-<li>推荐配置如下 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份命名为 dump-<span class="variable">${port}</span>.rdb</span></span><br><span class="line">dbfilename "dump-${port}.rdb"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份存储位置</span></span><br><span class="line">dir /bigdiskpath</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bgsave 错误时停止写入</span></span><br><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">压缩格式</span></span><br><span class="line">rdbcompression yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">校验和</span></span><br><span class="line">rdbchecksum yes</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-</li>
-</ul>
-<p><strong>2. AOF 持久化</strong><br><strong><em>概述：</em></strong> 将写命令添加到 AOF 文件（Append Only File）的末尾<br><strong><em>过程：</em></strong> 每次执行写命令时会把命令加入缓冲区，缓冲区根据策略进行持久化<br><strong><em>缺点：</em></strong> 体量无限变大<br><strong>2.1. 同步选项</strong><br>使用 AOF 持久化需要设置同步选项，从而确保写命令 ** 什么时候 ** 会同步到磁盘文件上<br>这是因为对文件进行写入并不会马上将内容同步到磁盘上，而是先存储到缓冲区，然后由操作系统决定什么时候同步到磁盘</p>
-<table>
-<thead>
-<tr>
-<th><strong>选项</strong></th>
-<th><strong>同步频率</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td> always</td>
-<td> 每个写命令都同步</td>
-</tr>
-<tr>
-<td> everysec</td>
-<td> 每秒同步一次</td>
-</tr>
-<tr>
-<td> no</td>
-<td> 让操作系统来决定何时同步</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong> always：</strong> 会严重减低服务器的性能</li>
-<li><strong> everysec：</strong> 比较合适，可以保证系统崩溃时只会丢失一秒左右的数据，并且 Redis 每秒执行一次同步对服务器性能几乎没有任何影响</li>
-<li><strong> no：</strong> 并不能给服务器性能带来多大的提升，而且也会增加系统崩溃时数据丢失的数量</li>
-</ul>
-<p><strong>2.2. AOF 重写（4.0 以前）</strong><br>随着服务器写请求的增多，AOF 文件会越来越大<br>Redis 提供了一种将 AOF 重写的特性，能够去除 AOF 文件中的冗余写命令<br><strong><em>原理：</em></strong> 删除抵消的命令，合并重复的命令<br><strong><em>两种方式：</em></strong></p>
-<ul>
-<li>bgrewriteaof 命令：<ul>
-<li>异步</li>
-<li>通过 fork () 创建一个子进程来在内存中执行 AOF 重写</li>
-</ul>
-</li>
-<li>配置：<ul>
-<li>推荐配置如下 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 AOF</span></span><br><span class="line">appendonly yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份名</span></span><br><span class="line">appendfilename "appendonly-${port}.aof"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">持久化策略为每秒进行</span></span><br><span class="line">appendfsync everysec</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份存储位置</span></span><br><span class="line">dir /bigdiskpath</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF 重写时不会执行 AOF</span></span><br><span class="line">no-appendfsync-on-rewrite yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF 文件重写所需的最小大小</span></span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF 文件增长率</span></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-</li>
-</ul>
-<p><strong>2.3. AOF 重写（4.0 以后）</strong><br>RDB 和 AOF 混合</p>
-<ul>
-<li>将老的数据 RDB 到 AOF 文件中</li>
-<li>将增量的数据以指令的方式 append 到 AOF 中</li>
-</ul>
-<p><strong>五、事务</strong><br>一个事务包含了 <strong>多个命令</strong>，服务器在执行事务期间，<strong>不会改去执行其它客户端的命令请求</strong><br>事务中的多个命令被 <strong>一次性 <strong>发送给服务器，而不是一条一条发送，这种方式被称为流水线，它可以减少客户端与服务器之间的网络通信次数从而提升性能。<br>Redis 最简单的事务实现方式是使用 MULTI 和 EXEC 命令将事务操作包围起来。<br><strong>六、事件</strong><br>Redis 服务器是一个事件驱动程序。<br><strong>1. 文件事件</strong><br></strong><em>概述：</em></strong> 服务器通过套接字与客户端或者其它服务器进行通信，<strong>文件事件就是对套接字操作的抽象</strong>。<br>Redis 基于 Reactor 模式开发了自己的网络事件处理器，使用 **I/O 多路复用程序 ** 来同时监听多个套接字，并将到达的事件传送给 <strong>文件事件分派器</strong>，分派器会根据套接字产生的事件类型调用相应的 <strong>事件处理器</strong>。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a1f750912f7a07dac7d91d18f89b3aeb.png" alt="image.png"><br><strong>2. 时间事件</strong><br>服务器有一些操作需要在给定的时间点执行，时间事件是对这类定时操作的抽象。<br>时间事件又分为：</p>
-<ul>
-<li><strong>定时事件：</strong> 是让一段程序在指定的时间之内执行一次</li>
-<li><strong>周期性事件：</strong> 是让一段程序每隔指定时间就执行一次</li>
-</ul>
-<p>Redis 将所有时间事件都放在一个无序链表中，通过遍历整个链表查找出已到达的时间事件，并调用相应的事件处理器。<br><strong>3. 事件的调度与执行</strong><br>服务器需要不断监听文件事件的套接字才能得到待处理的文件事件，但是不能一直监听，否则时间事件无法在规定的时间内执行，因此监听时间应该根据距离现在最近的时间事件来决定。<br>事件调度与执行由 aeProcessEvents 函数负责，伪代码如下：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def aeProcessEvents():</span><br><span class="line">    # 获取到达时间离当前时间最接近的时间事件</span><br><span class="line">    time_event = aeSearchNearestTimer()</span><br><span class="line">    # 计算最接近的时间事件距离到达还有多少毫秒</span><br><span class="line">    remaind_ms = time_event.when - unix_ts_now()</span><br><span class="line">    # 如果事件已到达，那么 remaind_ms 的值可能为负数，将它设为 0</span><br><span class="line">    if remaind_ms &lt; 0:</span><br><span class="line">        remaind_ms = 0</span><br><span class="line">    # 根据 remaind_ms 的值，创建 timeval</span><br><span class="line">    timeval = create_timeval_with_ms(remaind_ms)</span><br><span class="line">    # 阻塞并等待文件事件产生，最大阻塞时间由传入的 timeval 决定</span><br><span class="line">    aeApiPoll(timeval)</span><br><span class="line">    # 处理所有已产生的文件事件</span><br><span class="line">    procesFileEvents()</span><br><span class="line">    # 处理所有已到达的时间事件</span><br><span class="line">    processTimeEvents()</span><br></pre></td></tr></tbody></table></figure>
-
-<p>将 aeProcessEvents 函数置于一个循环里面，加上初始化和清理函数，就构成了 Redis 服务器的主函数，伪代码如下：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def main():</span><br><span class="line">    # 初始化服务器</span><br><span class="line">    init_server()</span><br><span class="line">    # 一直处理事件，直到服务器关闭为止</span><br><span class="line">    while server_is_not_shutdown():</span><br><span class="line">        aeProcessEvents()</span><br><span class="line">    # 服务器关闭，执行清理操作</span><br><span class="line">    clean_server()</span><br></pre></td></tr></tbody></table></figure>
-
-<p>从事件处理的角度来看，服务器运行流程如下：<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/63c539a813dc898a9f8aa3669cb5caf3.png" alt="image.png"><br><strong>七、分片</strong><br><strong><em>分片位置：</em></strong></p>
-<ul>
-<li>客户端分片：客户端使用一致性哈希等算法决定键应当分布到哪个节点</li>
-<li>代理分片：将客户端请求发送到代理上，由代理转发请求到正确的节点上</li>
-<li>服务器分片：Redis Cluster</li>
-</ul>
-<p><strong>1. 顺序分片</strong><br><strong><em>概述：</em></strong> 将数据划分为多个连续的部分，按数据的 ID 或者时间分布到不同节点上。例如 User 表的 ID 范围为 1 ~ 7000，使用顺序分片可以将其划分成多个子表，对应的主键范围为 1 ~ 1000，1001 ~ 2000，…，6001 ~ 7000<br><strong><em>优点：</em></strong></p>
-<ul>
-<li>能保持数据 <strong>原有的顺序</strong></li>
-<li>并且能够 <strong>准确控制每台服务器存储的数据量</strong>，从而使得存储空间的利用率最大</li>
-</ul>
-<p><strong>2. 哈希分片</strong><br><strong><em>概述：</em></strong> 哈希分片就是将数据计算哈希值之后，按照哈希值分配到不同的节点上。例如有 N 个节点，数据的主键为 key，则将该数据分配的节点序号为：hash (key)% N<br><strong><em>问题：</em></strong> 传统的哈希分片算法存在一个问题：当节点数量变化时，也就是 N 值变化，那么几乎所有的数据都需要重新分布，将导致大量的数据迁移<br><strong>3. 一致性哈希</strong><br><strong><em>概述：</em></strong> Distributed Hash Table（DHT）是一种哈希分片方式，其目的是为了克服传统哈希分布在服务器节点数量变化时大量数据迁移的问题<br><strong><em>基本原理：</em></strong><br>将哈希空间 [0, 2n-1] 看成一个哈希环，每个服务器节点都配置到哈希环上。每个数据对象通过哈希取模得到哈希值之后，存放到哈希环中顺时针方向第一个大于等于该哈希值的节点上<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/34b25f0e3b87856daa5e01354922f618.png" alt="image.png"></p>
-<p>一致性哈希在增加或者删除节点时只会影响到哈希环中相邻的节点<br>例如下图中新增节点 X，只需要将它前一个节点 C 上的数据重新进行分布即可，对于节点 A、B、D 都没有影响<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba169b2511d0030a34be78d0f88bc2b0.png" alt="image.png"></p>
-<p><strong>4. 虚拟节点（Redis Cluster）</strong><br><strong><em>问题：</em></strong> 上面描述的一致性哈希存在数据分布不均匀的问题，节点存储的数据量有可能会存在很大的不同<br><strong><em>原因：</em></strong> 数据不均匀主要是因为 <strong>节点在哈希环上分布的不均匀</strong>，这种情况在节点数量很少的情况下尤其明显<br><strong><em>解决方式：</em></strong> 通过增加虚拟节点，然后将虚拟节点映射到真实节点上。虚拟节点的数量比真实节点来得多，那么虚拟节点在哈希环上分布的均匀性就会比原来的真实节点好，从而使得数据分布也更加均匀<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/823cf8a9c7593081a5d5e6ddea68e730.png" alt="image.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -1878,8 +724,672 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/66915abb06c0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/66915abb06c0/" class="post-title-link" itemprop="url">792. 匹配子序列的单词数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-17 23:10:37" itemprop="dateCreated datePublished" datetime="2022-11-17T23:10:37+08:00">2022-11-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/66915abb06c0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="66915abb06c0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定字符串 <code>s</code>&nbsp;和字符串数组&nbsp;<code>words</code>, 返回&nbsp;&nbsp;<code>words[i]</code>&nbsp;中是 <code>s</code> 的子序列的单词个数&nbsp;。<br>字符串的 <strong>子序列</strong> 是从原始字符串中生成的新字符串，可以从中删去一些字符 (可以是 none)，而不改变其余字符的相对顺序。</p>
+<ul>
+<li>例如， <code>“ace”</code> 是 <code>“abcde”</code> 的子序列。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/e8fc79331955/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/e8fc79331955/" class="post-title-link" itemprop="url">矩阵快速幂</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-13 18:27:20" itemprop="dateCreated datePublished" datetime="2022-11-13T18:27:20+08:00">2022-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/e8fc79331955/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="e8fc79331955/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/">790. 多米诺和托米诺平铺</a><br>做题时看到官方除了 DP，还给出了这样一种解法，有点好奇便研究了一下</p>
+<p>矩阵快速幂由 **_ 矩阵运算 _** 和 **_快速幂 _** 两部分组成</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/e8fc79331955/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/6dc201714435/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/6dc201714435/" class="post-title-link" itemprop="url">764. 最大加号标志</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-13 18:18:38" itemprop="dateCreated datePublished" datetime="2022-11-13T18:18:38+08:00">2022-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/6dc201714435/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="6dc201714435/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在一个 <code>n x n</code> 的矩阵&nbsp;<code>grid</code>&nbsp;中，除了在数组&nbsp;<code>mines</code>&nbsp;中给出的元素为&nbsp;<code>0</code>，其他每个元素都为&nbsp;<code>1</code>。<code>mines[i] = [xi, yi]</code> 表示&nbsp;<code>grid[xi][yi] == 0</code><br>返回 &nbsp;<code>grid</code> 中包含&nbsp;<code>1</code>&nbsp;的最大的 <strong><em>轴对齐</em></strong> 加号标志的阶数 。如果未找到加号标志，则返回 <code>0</code> 。</p>
+<p>一个&nbsp;<code>k</code>&nbsp;阶由&nbsp;<code>1</code>&nbsp;组成的 <strong><em>“轴对称” 加号标志</em></strong> 具有中心网格&nbsp;<code>grid[r][c] == 1</code>&nbsp;，以及 4 个从中心向上、向下、向左、向右延伸，长度为&nbsp;<code>k-1</code>，由&nbsp;<code>1</code>&nbsp;组成的臂。注意，只有加号标志的所有网格要求为 1 ，别的网格可能为 <code>0</code> 也可能为 <code>1</code> 。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/6dc201714435/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/1728e5a327c0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/1728e5a327c0/" class="post-title-link" itemprop="url">864. 获取所有钥匙的最短路径</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-13 18:16:16" itemprop="dateCreated datePublished" datetime="2022-11-13T18:16:16+08:00">2022-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/1728e5a327c0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="1728e5a327c0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个二维网格&nbsp;grid&nbsp;，其中：</p>
+<ul>
+<li><code>'.'</code> 代表一个空房间</li>
+<li><code>'#'</code> 代表一堵</li>
+<li><code>'@'</code>&nbsp;是起点</li>
+<li>小写字母代表钥匙</li>
+<li>大写字母代表锁</li>
+</ul>
+<p>我们从起点开始出发，一次移动是指向四个基本方向之一行走一个单位空间。我们不能在网格外面行走，也无法穿过一堵墙。如果途经一个钥匙，我们就把它捡起来。除非我们手里有对应的钥匙，否则无法通过锁。<br>假设 k&nbsp;为 钥匙 / 锁 的个数，且满足&nbsp;<code>1 &lt;= k&nbsp;&lt;= 6</code>，字母表中的前 <code>k</code>&nbsp;个字母在网格中都有自己对应的一个小写和一个大写字母。换言之，每个锁有唯一对应的钥匙，每个钥匙也有唯一对应的锁。另外，代表钥匙和锁的字母互为大小写并按字母顺序排列。<br>返回获取所有钥匙所需要的移动的最少次数。如果无法获取所有钥匙，返回&nbsp;<code>-1</code>&nbsp;。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/1728e5a327c0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/8a6c84365f71/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/8a6c84365f71/" class="post-title-link" itemprop="url">790. 多米诺和托米诺平铺</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-13 18:12:38" itemprop="dateCreated datePublished" datetime="2022-11-13T18:12:38+08:00">2022-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/8a6c84365f71/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="8a6c84365f71/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
+<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/8a6c84365f71/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/9dc3e8a4d1b1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/9dc3e8a4d1b1/" class="post-title-link" itemprop="url">1620. 网络信号最好的坐标</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-06 23:14:16" itemprop="dateCreated datePublished" datetime="2022-11-06T23:14:16+08:00">2022-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/9dc3e8a4d1b1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="9dc3e8a4d1b1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给你一个数组 towers&nbsp;和一个整数 radius 。<br>数组&nbsp; towers&nbsp; 中包含一些网络信号塔，其中&nbsp;towers [i] = [xi, yi, qi]&nbsp;表示第&nbsp;i&nbsp;个网络信号塔的坐标是&nbsp;(xi, yi)&nbsp;且信号强度参数为&nbsp;qi&nbsp;。所有坐标都是在&nbsp; X-Y 坐标系内的&nbsp;整数&nbsp;坐标。两个坐标之间的距离用 欧几里得距离&nbsp;计算。<br>整数&nbsp;radius&nbsp;表示一个塔 能到达&nbsp;的 最远距离&nbsp;。如果一个坐标跟塔的距离在 radius&nbsp;以内，那么该塔的信号可以到达该坐标。在这个范围以外信号会很微弱，所以 radius&nbsp;以外的距离该塔是 不能到达的&nbsp;。<br>如果第 i&nbsp;个塔能到达 (x, y)&nbsp;，那么该塔在此处的信号为&nbsp;⌊qi / (1 + d)⌋&nbsp;，其中&nbsp;d&nbsp;是塔跟此坐标的距离。一个坐标的 信号强度 是所有 能到达&nbsp;该坐标的塔的信号强度之和。<br>请你返回数组 [cx, cy] ，表示 信号强度 最大的 整数 坐标点&nbsp;(cx, cy) 。如果有多个坐标网络信号一样大，请你返回字典序最小的 非负 坐标。<br>注意：</p>
+<ul>
+<li>坐标&nbsp;(x1, y1)&nbsp;字典序比另一个坐标&nbsp;(x2, y2) 小，需满足以下条件之一：<ul>
+<li>要么&nbsp;x1 &lt; x2&nbsp;，</li>
+<li>要么&nbsp;x1 == x2 且&nbsp;y1 &lt; y2&nbsp;。</li>
+</ul>
+</li>
+<li>⌊val⌋&nbsp;表示小于等于&nbsp;val&nbsp;的最大整数（向下取整函数）。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

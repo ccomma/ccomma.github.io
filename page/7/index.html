@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">7</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">79</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">17</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">97</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,13 +163,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -207,262 +207,6 @@
     </div>
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/ac7b735e1517/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/ac7b735e1517/" class="post-title-link" itemprop="url">Spring 事务（Transaction）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-05-13 16:04:37" itemprop="dateCreated datePublished" datetime="2022-05-13T16:04:37+08:00">2022-05-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/ac7b735e1517/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="ac7b735e1517/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUzMTA2NTU2Ng==&amp;mid=2247484702&amp;idx=1&amp;sn=c04261d63929db09ff6df7cadc7cca21&amp;chksm=fa497aafcd3ef3b94082da7bca841b5b7b528eb2a52dbc4eb647b97be63a9a1cf38a9e71bf90&amp;token=165108535&amp;lang=zh_CN#rd">可能是最漂亮的 Spring 事务管理详解</a></p>
-<h1 id="一、事务管理器"><a href="#一、事务管理器" class="headerlink" title="一、事务管理器"></a>一、事务管理器</h1><p><strong>概述：</strong><br>Spring 提供了事务管理器的接口，具体实现由 ORM 框架提供</p>
-<p>PlatformTransactionManager：事务管理器核⼼接⼝。提供标准</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PlatformTransactionManager</span> { </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取事务状态信息 </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    TransactionStatus <span class="title function_">getTransaction</span><span class="params">(<span class="meta">@Nullable</span> TransactionDefinition definition)</span> <span class="keyword">throws</span> TransactionException;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 提交事务 </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">commit</span><span class="params">(TransactionStatus status)</span> <span class="keyword">throws</span> TransactionException;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 回滚事务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">rollback</span><span class="params">(TransactionStatus status)</span> <span class="keyword">throws</span> TransactionException; </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="二、事务属性"><a href="#二、事务属性" class="headerlink" title="二、事务属性"></a>二、事务属性</h1><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TransactionDefinition</span> {</span><br><span class="line">    <span class="comment">// 返回事务的传播行为</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">getPropagationBehavior</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">// 返回事务的隔离级别，事务管理器根据它来控制另外一个事务可以看到本事务内的哪些数据</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">getIsolationLevel</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//返回事务的名字</span></span><br><span class="line">    String <span class="title function_">getName</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">// 返回事务超时时间</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">getTimeout</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">// 返回是否优化为只读事务</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">isReadOnly</span><span class="params">()</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 隔离级别、传播行为</span></span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="1-事务隔离级别"><a href="#1-事务隔离级别" class="headerlink" title="1. 事务隔离级别"></a>1. 事务隔离级别</h2><ul>
-<li><p><strong>ISOLATION_DEFAULT：</strong> 使用后端数据库默认的隔离级别</p>
-<blockquote>
-<p>Mysql 默认采用的 REPEATABLE_READ 隔离级别<br>Oracle 默认采用的 READ_COMMITTED 隔离级别</p>
-</blockquote>
-</li>
-<li><p><strong>ISOLATION_READ_UNCOMMITTED：</strong> 未提交读，允许读取尚未提交的数据变更，<em>可能会导致脏读、幻读或不可重复读</em></p>
-</li>
-<li><p><strong>ISOLATION_READ_COMMITTED：</strong> 已提交读，允许读取并发事务已经提交的数据，<em>可以阻止脏读，但是幻读或不可重复读仍有可能发生</em></p>
-</li>
-<li><p><strong>ISOLATION_REPEATABLE_READ：</strong> 可重复读，对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，<em>可以阻止脏读和不可重复读，但幻读仍有可能发生</em></p>
-</li>
-<li><p><strong>ISOLATION_SERIALIZABLE：</strong> 可串行化，所有的事务依次逐个执行， _可以防止脏读、不可重复读以及幻读。_但是这将严重影响程序的性能。通常情况下也不会用到该级别</p>
-</li>
-</ul>
-<h2 id="2-事务传播行为"><a href="#2-事务传播行为" class="headerlink" title="2. 事务传播行为"></a>2. 事务传播行为</h2><p><strong>概述：</strong>当事务方法被另一个事务方法调用时，必须指定事务应该如何传播</p>
-<ul>
-<li>支持当前事务：<ul>
-<li><strong>PROPAGATION_REQUIRED：</strong> 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务</li>
-<li><strong> PROPAGATION_SUPPORTS：</strong> 如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行</li>
-<li><strong> PROPAGATION_MANDATORY：</strong> 如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常</li>
-</ul>
-</li>
-<li>不支持当前事务：<ul>
-<li><strong>PROPAGATION_REQUIRES_NEW：</strong> 如果当前存在事务，则把当前事务挂起；如果当前没有事务，则创建一个新的事务</li>
-<li><strong> PROPAGATION_NOT_SUPPORTED：</strong> 如果当前存在事务，则把当前事务挂起；如果当前没有事务，则以非事务方式运行</li>
-<li><strong> PROPAGATION_NEVER：</strong>如果当前存在事务，则抛出异常；如果当前没有事务，则以非事务方式运行</li>
-</ul>
-</li>
-<li>其他情况：<ul>
-<li><strong>PROPAGATION_NESTED：</strong> 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于 PROPAGATION_REQUIRED</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/fcff05c50f30/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/fcff05c50f30/" class="post-title-link" itemprop="url">Spring 事件原理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-05-13 15:55:42" itemprop="dateCreated datePublished" datetime="2022-05-13T15:55:42+08:00">2022-05-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/fcff05c50f30/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="fcff05c50f30/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="一、事件"><a href="#一、事件" class="headerlink" title="一、事件"></a>一、事件</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/77cdb749d6378906d4e03ee1f7fc911a.png" alt="image.png"><br>自定义事件继承 ApplicationEvent 即可</p>
-<h1 id="二、事件监听者"><a href="#二、事件监听者" class="headerlink" title="二、事件监听者"></a>二、事件监听者</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c32ab68e117b017b6d1c1e7608e3dfdb.png" alt="image.png"><br>SmartApplicationListener</p>
-<h1 id="三、事件发布者"><a href="#三、事件发布者" class="headerlink" title="三、事件发布者"></a>三、事件发布者</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e8556596c3e85d62d256a931620a50c4.png" alt="image.png"></p>
-<h2 id="1-ApplicationEventPublisher"><a href="#1-ApplicationEventPublisher" class="headerlink" title="1. ApplicationEventPublisher"></a>1. ApplicationEventPublisher</h2><ul>
-<li>publishEvent(ApplicationEvent)</li>
-<li>publishEvent(Object)</li>
-</ul>
-<h3 id="1-1-AbstractApplicationContext"><a href="#1-1-AbstractApplicationContext" class="headerlink" title="1.1. AbstractApplicationContext"></a>1.1. AbstractApplicationContext</h3><p>调用了 ApplicationEventMulticaster 中的 multicastEvent 方法来具体实现发布事件给监听者的操作</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(Object event, <span class="meta">@Nullable</span> ResolvableType eventType)</span> {</span><br><span class="line">    Assert.notNull(event, <span class="string">"Event must not be null"</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.logger.isTraceEnabled()) {</span><br><span class="line">        <span class="built_in">this</span>.logger.trace(<span class="string">"Publishing event in "</span> + <span class="built_in">this</span>.getDisplayName() + <span class="string">": "</span> + event);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    Object applicationEvent;</span><br><span class="line">    <span class="keyword">if</span> (event <span class="keyword">instanceof</span> ApplicationEvent) {</span><br><span class="line">        applicationEvent = (ApplicationEvent)event;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        applicationEvent = <span class="keyword">new</span> <span class="title class_">PayloadApplicationEvent</span>(<span class="built_in">this</span>, event);</span><br><span class="line">        <span class="keyword">if</span> (eventType == <span class="literal">null</span>) {</span><br><span class="line">            eventType = ((PayloadApplicationEvent)applicationEvent).getResolvableType();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用了 ApplicationEventMulticaster 中的 multicastEvent 方法</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.earlyApplicationEvents != <span class="literal">null</span>) {</span><br><span class="line">        <span class="built_in">this</span>.earlyApplicationEvents.add(applicationEvent);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="built_in">this</span>.getApplicationEventMulticaster().multicastEvent((ApplicationEvent)applicationEvent, eventType);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.parent != <span class="literal">null</span>) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.parent <span class="keyword">instanceof</span> AbstractApplicationContext) {</span><br><span class="line">            ((AbstractApplicationContext)<span class="built_in">this</span>.parent).publishEvent(event, eventType);</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="built_in">this</span>.parent.publishEvent(event);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="2-ApplicationEventMulticaster"><a href="#2-ApplicationEventMulticaster" class="headerlink" title="2. ApplicationEventMulticaster"></a>2. ApplicationEventMulticaster</h2><p>定义了对 ApplicationListener 的维护操作（比如新增、 移除等）<br>以及将 ApplicationEvent 多播给可用 ApplicationListener 的操作</p>
-<ul>
-<li>multicastEvent(ApplicationEvent)</li>
-<li>multicastEvent(ApplicationEvent, ResolvableType)</li>
-</ul>
-<h3 id="2-1-SimpleApplicationEventMulticaster"><a href="#2-1-SimpleApplicationEventMulticaster" class="headerlink" title="2.1. SimpleApplicationEventMulticaster"></a>2.1. SimpleApplicationEventMulticaster</h3><p><strong>步骤：</strong></p>
-<ol>
-<li>调用父类中的 getApplicationListeners (ApplicationEvent, ResolvableType) 获取相关监听器</li>
-<li>遍历并执行各个监听器 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">multicastEvent</span><span class="params">(<span class="keyword">final</span> ApplicationEvent event, <span class="meta">@Nullable</span> ResolvableType eventType)</span> {</span><br><span class="line">   <span class="type">ResolvableType</span> <span class="variable">type</span> <span class="operator">=</span> (eventType != <span class="literal">null</span> ? eventType : resolveDefaultEventType(event));</span><br><span class="line">   <span class="comment">// 执行所有监听器</span></span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">final</span> ApplicationListener&lt;?&gt; listener : getApplicationListeners(event, type)) {</span><br><span class="line">      <span class="type">Executor</span> <span class="variable">executor</span> <span class="operator">=</span> getTaskExecutor();</span><br><span class="line">      <span class="keyword">if</span> (executor != <span class="literal">null</span>) {</span><br><span class="line">         executor.execute(() -&gt; invokeListener(listener, event));</span><br><span class="line">      }</span><br><span class="line">      <span class="keyword">else</span> {</span><br><span class="line">         invokeListener(listener, event);</span><br><span class="line">      }</span><br><span class="line">   }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ol>
-<h3 id="2-2-AbstractApplicationEventMulticaster"><a href="#2-2-AbstractApplicationEventMulticaster" class="headerlink" title="2.2. AbstractApplicationEventMulticaster"></a>2.2. AbstractApplicationEventMulticaster</h3><p><strong>步骤：</strong></p>
-<ol>
-<li>从缓存中取监听器集合（包括预加载的监听器）</li>
-<li>若无则检索监听器并加入缓存</li>
-</ol>
-<p><strong>思考：</strong></p>
-<ul>
-<li>考虑并发（ConcurrentHashMap、synchronized）</li>
-<li>利用 Map 进行缓存</li>
-<li>对键和值分别进行包装（ListenerCacheKey、ListenerRetriever），可附加额外功能（可扩展性）<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 ConcurrentHashMap 对监听器进行缓存</span></span><br><span class="line"><span class="keyword">final</span> Map&lt;ListenerCacheKey, ListenerRetriever&gt; retrieverCache = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;(<span class="number">64</span>);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">protected</span> Collection&lt;ApplicationListener&lt;?&gt;&gt; getApplicationListeners(</span><br><span class="line">      ApplicationEvent event, ResolvableType eventType) {</span><br><span class="line"></span><br><span class="line">   <span class="type">Object</span> <span class="variable">source</span> <span class="operator">=</span> event.getSource();</span><br><span class="line">   Class&lt;?&gt; sourceType = (source != <span class="literal">null</span> ? source.getClass() : <span class="literal">null</span>);</span><br><span class="line">   <span class="comment">// 以事件类型和源类型作为缓存的键</span></span><br><span class="line">   <span class="type">ListenerCacheKey</span> <span class="variable">cacheKey</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListenerCacheKey</span>(eventType, sourceType);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Quick check for existing entry on ConcurrentHashMap...</span></span><br><span class="line">   <span class="type">ListenerRetriever</span> <span class="variable">retriever</span> <span class="operator">=</span> <span class="built_in">this</span>.retrieverCache.get(cacheKey);</span><br><span class="line">   <span class="keyword">if</span> (retriever != <span class="literal">null</span>) {</span><br><span class="line">      <span class="keyword">return</span> retriever.getApplicationListeners();</span><br><span class="line">   }</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (<span class="built_in">this</span>.beanClassLoader == <span class="literal">null</span> ||</span><br><span class="line">         (ClassUtils.isCacheSafe(event.getClass(), <span class="built_in">this</span>.beanClassLoader) &amp;&amp;</span><br><span class="line">               (sourceType == <span class="literal">null</span> || ClassUtils.isCacheSafe(sourceType, <span class="built_in">this</span>.beanClassLoader)))) {</span><br><span class="line">      <span class="comment">// Fully synchronized building and caching of a ListenerRetriever</span></span><br><span class="line">      <span class="keyword">synchronized</span> (<span class="built_in">this</span>.retrievalMutex) {</span><br><span class="line">         retriever = <span class="built_in">this</span>.retrieverCache.get(cacheKey);</span><br><span class="line">         <span class="keyword">if</span> (retriever != <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">return</span> retriever.getApplicationListeners();</span><br><span class="line">         }</span><br><span class="line">         retriever = <span class="keyword">new</span> <span class="title class_">ListenerRetriever</span>(<span class="literal">true</span>);</span><br><span class="line">         <span class="comment">// 检索监听器</span></span><br><span class="line">         Collection&lt;ApplicationListener&lt;?&gt;&gt; listeners =</span><br><span class="line">               retrieveApplicationListeners(eventType, sourceType, retriever);</span><br><span class="line">         <span class="built_in">this</span>.retrieverCache.put(cacheKey, retriever);</span><br><span class="line">         <span class="keyword">return</span> listeners;</span><br><span class="line">      }</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">else</span> {</span><br><span class="line">      <span class="comment">// No ListenerRetriever caching -&gt; no synchronization necessary</span></span><br><span class="line">      <span class="keyword">return</span> retrieveApplicationListeners(eventType, sourceType, <span class="literal">null</span>);</span><br><span class="line">   }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据给出的事件类型和源类型检索相关监听器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> Collection&lt;ApplicationListener&lt;?&gt;&gt; retrieveApplicationListeners(</span><br><span class="line">      ResolvableType eventType, <span class="meta">@Nullable</span> Class&lt;?&gt; sourceType, <span class="meta">@Nullable</span> ListenerRetriever retriever) {</span><br><span class="line"></span><br><span class="line">   LinkedList&lt;ApplicationListener&lt;?&gt;&gt; allListeners = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">   Set&lt;ApplicationListener&lt;?&gt;&gt; listeners;</span><br><span class="line">   Set&lt;String&gt; listenerBeans;</span><br><span class="line">   <span class="keyword">synchronized</span> (<span class="built_in">this</span>.retrievalMutex) {</span><br><span class="line">      listeners = <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;(<span class="built_in">this</span>.defaultRetriever.applicationListeners);</span><br><span class="line">      listenerBeans = <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;(<span class="built_in">this</span>.defaultRetriever.applicationListenerBeans);</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">for</span> (ApplicationListener&lt;?&gt; listener : listeners) {</span><br><span class="line">      <span class="keyword">if</span> (supportsEvent(listener, eventType, sourceType)) {</span><br><span class="line">         <span class="keyword">if</span> (retriever != <span class="literal">null</span>) {</span><br><span class="line">            retriever.applicationListeners.add(listener);</span><br><span class="line">         }</span><br><span class="line">         allListeners.add(listener);</span><br><span class="line">      }</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">if</span> (!listenerBeans.isEmpty()) {</span><br><span class="line">      <span class="type">BeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> getBeanFactory();</span><br><span class="line">      <span class="keyword">for</span> (String listenerBeanName : listenerBeans) {</span><br><span class="line">         <span class="keyword">try</span> {</span><br><span class="line">            Class&lt;?&gt; listenerType = beanFactory.getType(listenerBeanName);</span><br><span class="line">            <span class="keyword">if</span> (listenerType == <span class="literal">null</span> || supportsEvent(listenerType, eventType)) {</span><br><span class="line">               ApplicationListener&lt;?&gt; listener =</span><br><span class="line">                     beanFactory.getBean(listenerBeanName, ApplicationListener.class);</span><br><span class="line">               <span class="keyword">if</span> (!allListeners.contains(listener) &amp;&amp; supportsEvent(listener, eventType, sourceType)) {</span><br><span class="line">                  <span class="keyword">if</span> (retriever != <span class="literal">null</span>) {</span><br><span class="line">                     retriever.applicationListenerBeans.add(listenerBeanName);</span><br><span class="line">                  }</span><br><span class="line">                  allListeners.add(listener);</span><br><span class="line">               }</span><br><span class="line">            }</span><br><span class="line">         }</span><br><span class="line">         <span class="keyword">catch</span> (NoSuchBeanDefinitionException ex) {</span><br><span class="line">            <span class="comment">// Singleton listener instance (without backing bean definition) disappeared -</span></span><br><span class="line">            <span class="comment">// probably in the middle of the destruction phase</span></span><br><span class="line">         }</span><br><span class="line">      }</span><br><span class="line">   }</span><br><span class="line">   AnnotationAwareOrderComparator.sort(allListeners);</span><br><span class="line">   <span class="keyword">return</span> allListeners;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -824,7 +568,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/1e3762295ed0/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/9576b5accc22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -842,7 +586,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/1e3762295ed0/" class="post-title-link" itemprop="url">Spring IoC 知识图</a>
+          <a href="/9576b5accc22/" class="post-title-link" itemprop="url">IoC</a>
         </h2>
 
         <div class="post-meta-container">
@@ -855,15 +599,6 @@
 
       <time title="Created: 2022-05-13 15:25:56" itemprop="dateCreated datePublished" datetime="2022-05-13T15:25:56+08:00">2022-05-13</time>
     </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-    </span>
 
   
   
@@ -874,8 +609,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/1e3762295ed0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="1e3762295ed0/" itemprop="commentCount"></span>
+    <a title="disqus" href="/9576b5accc22/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="9576b5accc22/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1194,7 +929,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/9576b5accc22/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/1e3762295ed0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1212,7 +947,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/9576b5accc22/" class="post-title-link" itemprop="url">IoC</a>
+          <a href="/1e3762295ed0/" class="post-title-link" itemprop="url">Spring IoC 知识图</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1225,6 +960,15 @@
 
       <time title="Created: 2022-05-13 15:25:56" itemprop="dateCreated datePublished" datetime="2022-05-13T15:25:56+08:00">2022-05-13</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
 
   
   
@@ -1235,8 +979,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/9576b5accc22/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="9576b5accc22/" itemprop="commentCount"></span>
+    <a title="disqus" href="/1e3762295ed0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="1e3762295ed0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2162,8 +1906,199 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/d59b3a8193b0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/d59b3a8193b0/" class="post-title-link" itemprop="url">git 配置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-13 09:57:31" itemprop="dateCreated datePublished" datetime="2022-05-13T09:57:31+08:00">2022-05-13</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/d59b3a8193b0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d59b3a8193b0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="1-配置用户名"><a href="#1-配置用户名" class="headerlink" title="1. 配置用户名"></a>1. 配置用户名</h2><p><code>git config --global user.name "username"</code></p>
+<h2 id="2-配置邮箱"><a href="#2-配置邮箱" class="headerlink" title="2. 配置邮箱"></a>2. 配置邮箱</h2><p><code>git config --global user.email "xxxx@xxxx.xx"</code></p>
+<h2 id="3-其他配置"><a href="#3-其他配置" class="headerlink" title="3. 其他配置"></a>3. 其他配置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">让 Git 不要管 Windows/Unix 换行符转换的事</span></span><br><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="4-编码配置"><a href="#4-编码配置" class="headerlink" title="4. 编码配置"></a>4. 编码配置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">避免 git gui 中的中文乱码</span></span><br><span class="line">git config --global gui.encoding utf-8</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">避免 git status 显示的中文文件名乱码</span></span><br><span class="line">git config --global core.quotepath off</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">让 git 对大小写敏感</span></span><br><span class="line">git config --global core.ignorecase false</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">配置别名</span></span><br><span class="line">git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>5. ssh key pair 配置</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/upshi/article/details/78327125">(10 条消息) Git 多 SSH 账号管理_一黑到底 - CSDN 博客_git 多 ssh</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/popfisher/p/5731232.html">Windows 下 Git 多账号配置，同一电脑多个 ssh-key 的管理 - popfisher - 博客园 (cnblogs.com)</a><br>SSH 是建立在应用层和传输层基础上的安全协议，其目的是专为远程登录会话和其他网络服务提供安全性的保障<br>SSH 密钥对可以让我们方便的登录到 SSH 服务器，而无需输入密码</p>
+<ol>
+<li>Windows 上 Git Bash 命令行窗口中输入：ssh-keygen -t rsa -C “<a href="mailto:xxx@xxx.com">xxx@xxx.com</a>“</li>
+<li>接着一直回车生成 ssh key pair</li>
+<li><code>ssh-add ~/.ssh/id_rsa</code>    #把专用密钥添加到 ssh-agent 的高速缓存中，ssh-agent 能避免这种反复输入私钥的烦恼</li>
+<li><code>cat ~/.ssh/id_rsa.pub</code></li>
+</ol>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e1edcae107e0bcbb1f409d558e1434a1.png" alt="image.png"></p>
+<h1 id=""><a href="#" class="headerlink" title=""></a><br></h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/cd58652eb14b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/cd58652eb14b/" class="post-title-link" itemprop="url">Git</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-12 22:59:00" itemprop="dateCreated datePublished" datetime="2022-05-12T22:59:00+08:00">2022-05-12</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/cd58652eb14b/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cd58652eb14b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652407285001-fab2c18e-81c0-4748-bdca-10cf3e727610.pdf?_lake_card=%7B%22src%22:%22https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652407285001-fab2c18e-81c0-4748-bdca-10cf3e727610.pdf%22,%22name%22:%22%E5%88%AB%E4%B9%B1%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E4%BA%86%EF%BC%8C%E7%9C%8B%E4%B8%8B%E5%A4%A7%E5%8E%82%20Git%20%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%81.pdf%22,%22size%22:1610472,%22ext%22:%22pdf%22,%22source%22:%22%22,%22status%22:%22done%22,%22download%22:true,%22type%22:%22application/pdf%22,%22taskId%22:%22u37544941-f41e-4c9f-972d-237495d4b11%22,%22taskType%22:%22upload%22,%22mode%22:%22title%22,%22id%22:%22u16e3b7e8%22,%22card%22:%22file%22%7D">别乱提交代码了，看下大厂 Git 提交规范是怎么做的！.pdf</a><br><a target="_blank" rel="noopener" href="http://iissnan.com/progit/">Pro Git 简体中文版 (iissnan.com)</a><br><a target="_blank" rel="noopener" href="https://github.com/zurawiki/gptcommit">gptcommit</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

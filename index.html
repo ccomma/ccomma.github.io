@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">7</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">79</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">17</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">97</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,13 +163,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1024,222 +1024,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/6ca75d594150/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/6ca75d594150/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土⑥：API</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-04-01 16:40:32" itemprop="dateCreated datePublished" datetime="2024-04-01T16:40:32+08:00">2024-04-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/6ca75d594150/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="6ca75d594150/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>6 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>zk 有 Session，没有线程池的概念</p>
-<h2 id="1-原生-API"><a href="#1-原生-API" class="headerlink" title="1. 原生 API"></a>1. 原生 API</h2><p>Zookeeper API 共包含五个包：</p>
-<ul>
-<li>org.apache.zookeeper</li>
-<li>org.apache.zookeeper.data</li>
-<li>org.apache.zookeeper.server</li>
-<li>org.apache.zookeeper.server.quorum</li>
-<li>org.apache.zookeeper.server.upgrade</li>
-</ul>
-<p>依赖：</p>
-<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="1-1-建立会话"><a href="#1-1-建立会话" class="headerlink" title="1.1. 建立会话"></a>1.1. 建立会话</h3><p>ZooKeeper 客户端和服务端会话的建⽴是⼀个异步的过程。<br>所以如果在 <code>new ZooKeeper</code> 后立即结束方法会话不能建立完毕，会话的⽣命周期中处于 CONNECTING 的状态。<br>当会话真正创建完毕后 ZooKeeper 服务端会向会话对应的客户端发送⼀个事件通知以告知客户端。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CreateSession</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">CountDownLatch</span> <span class="variable">countDownLatch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, IOException {</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">			客户端可以通过创建⼀个 zk 实例来连接 zk 服务器</span></span><br><span class="line"><span class="comment">			- connectString：连接地址：IP：端⼝</span></span><br><span class="line"><span class="comment">			- sesssionTimeOut：会话超时时间：单位毫秒</span></span><br><span class="line"><span class="comment">			- Wather：监听器(当特定事件触发监听时，zk 会通过 watcher 通知到客户端)</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">        <span class="type">ZooKeeper</span> <span class="variable">zooKeeper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(<span class="string">"10.211.55.4:2181,10.211.55.5:2181"</span>, <span class="number">5000</span>, watchedEvent -&gt; {</span><br><span class="line">            <span class="keyword">if</span> (watchedEvent.getState() == Watcher.Event.KeeperState.SyncConnected) {</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        System.out.println(zooKeeper.getState());</span><br><span class="line">        countDownLatch.await();</span><br><span class="line">        System.out.println(<span class="string">"=========Client Connected to zookeeper=========="</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="1-2-创建节点"><a href="#1-2-创建节点" class="headerlink" title="1.2. 创建节点"></a>1.2. 创建节点</h3><p><em>ZooKeeper#create(String path, byte[] data, List<acl> acl, CreateMode createMode)：</acl></em></p>
-<ul>
-<li>path：节点创建的路径</li>
-<li> data：节点创建要保存的数据</li>
-<li> acl：节点创建的权限信息（4 种类型） <ul>
-<li>ZooDefs.Ids.ANYONE_ID_UNSAFE：表示任何⼈</li>
-<li> ZooDefs.Ids.AUTH_IDS：此 ID 仅可⽤于设置 ACL。它将被客户机验证的 ID 替换。</li>
-<li>ZooDefs.Ids.OPEN_ACL_UNSAFE：这是⼀个完全开放的 ACL （常⽤）–&gt; world:anyone</li>
-<li>ZooDefs.Ids.CREATOR_ALL_ACL：此 ACL 授予创建者身份验证 ID 的所有权限</li>
-</ul>
-</li>
-<li> createMode：创建节点的类型（4 种类型） <ul>
-<li>CreateMode.PERSISTENT：持久节点</li>
-<li> CreateMode.PERSISTENT_SEQUENTIAL：持久顺序节点</li>
-<li> CreateMode.EPHEMERAL：临时节点</li>
-<li> CreateMode.EPHEMERAL_SEQUENTIAL：临时顺序节点 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CreateNote</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">CountDownLatch</span> <span class="variable">countDownLatch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ZooKeeper zooKeeper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        zooKeeper = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(<span class="string">"10.211.55.4:2181"</span>, <span class="number">5000</span>, watchedEvent -&gt; {</span><br><span class="line">            <span class="keyword">if</span> (watchedEvent.getState() == Watcher.Event.KeeperState.SyncConnected) {</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 调⽤创建节点⽅法</span></span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                createNodeSync();</span><br><span class="line">            } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        countDownLatch.await();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">createNodeSync</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">String</span> <span class="variable">nodePersistent</span> <span class="operator">=</span> zooKeeper.create(<span class="string">"/lg_persistent"</span>, <span class="string">"持久节点内容"</span>.getBytes(StandardCharsets.UTF_8), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);</span><br><span class="line">        <span class="type">String</span> <span class="variable">nodePersistentSequential</span> <span class="operator">=</span> zooKeeper.create(<span class="string">"/lg_persistent_sequential"</span>, <span class="string">"持久节点内容"</span>.getBytes(StandardCharsets.UTF_8), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL);</span><br><span class="line">        <span class="type">String</span> <span class="variable">nodeEpersistent</span> <span class="operator">=</span> zooKeeper.create(<span class="string">"/lg_ephemeral"</span>, <span class="string">"临时节点内容"</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"创建的持久节点是:"</span> + nodePersistent);</span><br><span class="line">        System.out.println(<span class="string">"创建的持久顺序节点是:"</span> + nodePersistentSequential);</span><br><span class="line">        System.out.println(<span class="string">"创建的临时节点是:"</span> + nodeEpersistent);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="1-3-获取节点数据"><a href="#1-3-获取节点数据" class="headerlink" title="1.3. 获取节点数据"></a>1.3. 获取节点数据</h3><ol>
-<li><em>ZooKeeper#getData(String path, boolean watch, Stat stat)：</em></li>
-</ol>
-<ul>
-<li>path：获取数据的路径</li>
-<li> watch：是否开启监听。ture 代表使用创建 zk 的那个监听</li>
-<li> stat：节点状态信息，null 则表示获取最新版本的数据</li>
-</ul>
-<ol start="2">
-<li><em> ZooKeeper#getChildren(String path, boolean watch)</em></li>
-</ol>
-<ul>
-<li>path：路径</li>
-<li> watch：是否要启动监听，当⼦节点列表发⽣变化，会触发监听 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GetNoteData</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ZooKeeper zooKeeper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        zooKeeper = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(<span class="string">"10.211.55.4:2181"</span>, <span class="number">10000</span>, watchedEvent -&gt; {</span><br><span class="line">            <span class="keyword">if</span> (watchedEvent.getState() == Watcher.Event.KeeperState.SyncConnected) {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    getNoteData();</span><br><span class="line">                    getChildren();</span><br><span class="line">                } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="comment">// ⼦节点列表发⽣变化时，服务器会发出 NodeChildrenChanged 通知，但不会把变化情况告诉给客户端</span></span><br><span class="line">            <span class="comment">// 需要客户端⾃⾏获取，且通知是⼀次性的，需反复注册监听</span></span><br><span class="line">            <span class="keyword">if</span> (watchedEvent.getType() == Watcher.Event.EventType.NodeChildrenChanged) {</span><br><span class="line">                <span class="comment">// 再次获取节点数据</span></span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    List&lt;String&gt; children = zooKeeper.getChildren(watchedEvent.getPath(), <span class="literal">true</span>);</span><br><span class="line">                    System.out.println(children);</span><br><span class="line">                } <span class="keyword">catch</span> (KeeperException | InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        Thread.sleep(Integer.MAX_VALUE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">getNoteData</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">byte</span>[] data = zooKeeper.getData(<span class="string">"/lg_persistent/lg-children"</span>, <span class="literal">true</span>, <span class="literal">null</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(data, StandardCharsets.UTF_8));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">getChildren</span><span class="params">()</span> <span class="keyword">throws</span> KeeperException, InterruptedException {</span><br><span class="line">        List&lt;String&gt; children = zooKeeper.getChildren(<span class="string">"/lg_persistent"</span>, <span class="literal">true</span>);</span><br><span class="line">        System.out.println(children);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h3 id="1-4-修改节点数据"><a href="#1-4-修改节点数据" class="headerlink" title="1.4. 修改节点数据"></a>1.4. 修改节点数据</h3><p>Stat ZooKeeper#setData(String path, byte[] data, int version)</p>
-<ul>
-<li>path：路径</li>
-<li> data：要修改的内容</li>
-<li> version：为 -1，表示对最新版本的数据进⾏修改 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UpdateNote</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ZooKeeper zooKeeper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        zooKeeper = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(<span class="string">"10.211.55.4:2181"</span>, <span class="number">5000</span>, watchedEvent -&gt; {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                updateNodeSync();</span><br><span class="line">            } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        Thread.sleep(Integer.MAX_VALUE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">updateNodeSync</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">byte</span>[] data = zooKeeper.getData(<span class="string">"/lg_persistent"</span>, <span class="literal">false</span>, <span class="literal">null</span>);</span><br><span class="line">        System.out.println(<span class="string">"修改前的值:"</span>+<span class="keyword">new</span> <span class="title class_">String</span>(data));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 修改 stat:状态信息对象</span></span><br><span class="line">        <span class="comment">// version: -1 代表最新版本</span></span><br><span class="line">        <span class="type">Stat</span> <span class="variable">stat</span> <span class="operator">=</span> zooKeeper.setData(<span class="string">"/lg_persistent"</span>, <span class="string">"客户端修改内容"</span>.getBytes(), -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span>[] data2 = zooKeeper.getData(<span class="string">"/lg_persistent"</span>, <span class="literal">false</span>, <span class="literal">null</span>);</span><br><span class="line">        System.out.println(<span class="string">"修改后的值:"</span>+<span class="keyword">new</span> <span class="title class_">String</span>(data2));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h3 id="1-5-删除节点"><a href="#1-5-删除节点" class="headerlink" title="1.5. 删除节点"></a>1.5. 删除节点</h3><ol>
-<li><em>ZooKeeper#exists(String path, boolean watch)：</em> 判断节点是否存在</li>
-<li><em> ZooKeeper#delete(String path, int version)：</em> 删除节点 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeleteNote</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ZooKeeper zooKeeper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        zooKeeper = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(<span class="string">"10.211.55.4:2181"</span>, <span class="number">5000</span>, watchedEvent -&gt; {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                deleteNodeSync();</span><br><span class="line">            } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        Thread.sleep(Integer.MAX_VALUE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">deleteNodeSync</span><span class="params">()</span> <span class="keyword">throws</span> KeeperException, InterruptedException {</span><br><span class="line">        <span class="type">Stat</span> <span class="variable">exists</span> <span class="operator">=</span> zooKeeper.exists(<span class="string">"/lg_persistent/lg-children"</span>, <span class="literal">false</span>);</span><br><span class="line">        System.out.println(exists == <span class="literal">null</span> ? <span class="string">"该节点不存在"</span>:<span class="string">"该节点存在"</span>);</span><br><span class="line"></span><br><span class="line">        zooKeeper.delete(<span class="string">"/lg_persistent/lg-children"</span>,-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Stat</span> <span class="variable">exists2</span> <span class="operator">=</span> zooKeeper.exists(<span class="string">"/lg_persistent/lg-children"</span>, <span class="literal">false</span>);</span><br><span class="line">        System.out.println(exists2 == <span class="literal">null</span> ? <span class="string">"该节点不存在"</span>:<span class="string">"该节点存在"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ol>
-<h2 id="2-Curator"><a href="#2-Curator" class="headerlink" title="2. Curator"></a>2. Curator</h2><ol>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4121">【跟着实例学习 ZooKeeper】–队列</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4123">【跟着实例学习 ZooKeeper】–缓存</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4125">【跟着实例学习 ZooKeeper】–计数器</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4127">【跟着实例学习 ZooKeeper】–Curator 扩展库</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4129">【跟着实例学习 ZooKeeper】–Barrier</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4131">【跟着实例学习 ZooKeeper】–临时节点</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4133">【跟着实例学习 ZooKeeper】–Curator 框架应用</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4135">【跟着实例学习 ZooKeeper】– Leader 选举</a></li>
-<li><a target="_blank" rel="noopener" href="http://cmsblogs.com/?p=4137">【跟着实例学习 ZooKeeper】–分布式锁</a></li>
-</ol>
-<h3 id="2-1-连接"><a href="#2-1-连接" class="headerlink" title="2.1. 连接"></a>2.1. 连接</h3><p><strong>重试策略：</strong></p>
-<ul>
-<li><strong>RetryNTimes：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;重试 n 次</li>
-<li><strong> RetryOneTime：</strong> &nbsp; &nbsp; &nbsp; &nbsp;重试 1 次</li>
-<li><strong> RetryForever：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;永远重试</li>
-<li><strong> RetryUntilElapsed：</strong> 重试直到超过最大重试时间 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同 RetryNTimes</span></span><br><span class="line"><span class="comment">// RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 5);</span></span><br><span class="line"><span class="comment">// 实际调用 CuratorFrameworkFactory.builder().build();</span></span><br><span class="line"><span class="comment">// CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.1.110:2181", retryPolicy);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 重试 3 次，每次间隔 5s</span></span><br><span class="line"><span class="type">RetryPolicy</span> <span class="variable">retryPolicy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RetryNTimes</span>(<span class="number">3</span>, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 只重试 1 次</span></span><br><span class="line"><span class="type">RetryPolicy</span> <span class="variable">retryPolicy2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RetryOneTime</span>(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 永远重试，每次间隔 3s</span></span><br><span class="line"><span class="type">RetryPolicy</span> <span class="variable">retryPolicy3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RetryForever</span>(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 重试直到超过 2s，每次间隔 3s</span></span><br><span class="line"><span class="type">RetryPolicy</span> <span class="variable">retryPolicy4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RetryUntilElapsed</span>(<span class="number">2000</span>, <span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">CuratorFramework</span> <span class="variable">client</span> <span class="operator">=</span> CuratorFrameworkFactory.builder()</span><br><span class="line">        .connectString(<span class="string">"192.168.1.110:2181"</span>)</span><br><span class="line">        .sessionTimeoutMs(<span class="number">10000</span>)</span><br><span class="line">        .retryPolicy(retryPolicy)</span><br><span class="line">        .namespace(<span class="string">"workspace"</span>)</span><br><span class="line">        .build();</span><br><span class="line">client.start();</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h3 id="2-2-创建"><a href="#2-2-创建" class="headerlink" title="2.2. 创建"></a>2.2. 创建</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> client.create()</span><br><span class="line">    	<span class="comment">// 1.递归创建节点</span></span><br><span class="line">        <span class="comment">//.creatingParentsIfNeeded()</span></span><br><span class="line">        <span class="comment">//.withMode(createMode)</span></span><br><span class="line">    	<span class="comment">// 2.ACL</span></span><br><span class="line">        <span class="comment">//.withACL(aclList)</span></span><br><span class="line">        .forPath(nodePath, <span class="string">"data"</span>.getBytes());</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-3-设置节点数据"><a href="#2-3-设置节点数据" class="headerlink" title="2.3. 设置节点数据"></a>2.3. 设置节点数据</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">client.setData()</span><br><span class="line">    <span class="comment">// 可带版本</span></span><br><span class="line">    <span class="comment">//.withVersion(version)</span></span><br><span class="line">    .forPath(nodePath, <span class="string">"data"</span>.getBytes());</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-4-删除"><a href="#2-4-删除" class="headerlink" title="2.4. 删除"></a>2.4. 删除</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">client.delete()</span><br><span class="line">    <span class="comment">// 1.如果删除失败，那么在后端还是继续会删除，直到成功（强制删除）</span></span><br><span class="line">    <span class="comment">//.guaranteed()</span></span><br><span class="line">    <span class="comment">// 2.如果有子节点，就删除</span></span><br><span class="line">    <span class="comment">//.deletingChildrenIfNeeded()</span></span><br><span class="line">    <span class="comment">// 3.指定版本</span></span><br><span class="line">    <span class="comment">//.withVersion(1)</span></span><br><span class="line">    .forPath(nodePath);</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-5-读取节点数据"><a href="#2-5-读取节点数据" class="headerlink" title="2.5. 读取节点数据"></a>2.5. 读取节点数据</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stat</span> <span class="variable">stat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Stat</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">byte</span>[] data = client.getData()</span><br><span class="line">    <span class="comment">// 包含状态查询</span></span><br><span class="line">    <span class="comment">//.storingStatIn(stat)</span></span><br><span class="line">    .forPath(nodePath);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"节点"</span> + nodePath + <span class="string">"的数据为："</span> + <span class="keyword">new</span> <span class="title class_">String</span>(data));</span><br><span class="line">System.out.println(<span class="string">"该节点的版本号为："</span>+ stat.getVersion());</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-6-获取子节点"><a href="#2-6-获取子节点" class="headerlink" title="2.6. 获取子节点"></a>2.6. 获取子节点</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; nodeList = client.getChildren().forPath(nodePath);</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-7-检查节点是否存在"><a href="#2-7-检查节点是否存在" class="headerlink" title="2.7. 检查节点是否存在"></a>2.7. 检查节点是否存在</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Boolean <span class="title function_">checkExists</span><span class="params">(String nodePath)</span> {</span><br><span class="line">    <span class="keyword">return</span> client.checkExists().forPath(nodePath) != <span class="literal">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-8-监听器"><a href="#2-8-监听器" class="headerlink" title="2.8. 监听器"></a>2.8. 监听器</h3><p>usingWatcher<br><strong>概述：</strong> 监听只会触发一次</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] data = client.getData()</span><br><span class="line">            .usingWatcher(event -&gt; System.out.println(<span class="string">"触发watcher，节点路径为："</span> + event.getPath()))</span><br><span class="line">            .forPath(nodePath);</span><br></pre></td></tr></tbody></table></figure>
-
-<p>NodeCache<br><strong>概述：</strong> 永久监听 <strong>当前路径的节点</strong> 的创建、更新、删除</p>
-<p><em>start()：</em></p>
-<ul>
-<li>NodeCache#start()</li>
-<li>NodeCache#start (boolean buildInitial)： true 表示初始化时获取 node 的值并保存 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NodeCache</span> <span class="variable">nodeCache</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NodeCache</span>(client, nodePath);</span><br><span class="line"><span class="comment">// true 表示初始化时获取 node 的值并保存</span></span><br><span class="line">nodeCache.start(<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">if</span> (nodeCache.getCurrentData() != <span class="literal">null</span>) {</span><br><span class="line">    System.out.println(<span class="string">"节点初始化数据为："</span> + <span class="keyword">new</span> <span class="title class_">String</span>(nodeCache.getCurrentData().getData()));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">nodeCache.getListenable().addListener(() -&gt; {</span><br><span class="line">    <span class="type">ChildData</span> <span class="variable">currentData</span> <span class="operator">=</span> nodeCache.getCurrentData();</span><br><span class="line">    System.out.println(<span class="string">"节点 "</span>+ currentData.getPath() + <span class="string">" 的数据为："</span> + <span class="keyword">new</span> <span class="title class_">String</span>(currentData.getData()));</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<p>PathChildrenCache<br><strong>概述：</strong> 永久监听 <strong>当前路径下的子节点</strong> 的创建、更新、删除</p>
-<p><strong>start()：</strong></p>
-<ul>
-<li><strong>NodeCache#start()：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;默认 buildInitial 为 false </li>
-<li><strong>NodeCache#start(boolean buildInitial)：</strong> true 表示初始化时获取 node 的值并保存 </li>
-<li><strong>NodeCache#start(StartMode mode)：</strong> </li>
-<li><ul>
-<li>StartMode.<em>POST_INITIALIZED_EVENT：</em> 异步初始化，并触发 INITIALIZED 事件</li>
-<li> StartMode.<em>NORMAL：</em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 异步初始化</li>
-<li> StartMode.<em>BUILD_INITIAL_CACHE：</em> &nbsp; &nbsp; &nbsp; &nbsp;同步初始化</li>
-</ul>
-</li>
-</ul>
-<p><strong>事件类型：</strong></p>
-<ul>
-<li><strong>INITIALIZED：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 初始化事件</li>
-<li><strong> CHILD_ADDED：</strong> &nbsp; &nbsp; &nbsp;子节点添加事件</li>
-<li><strong> CHILD_REMOVED：</strong> 子节点删除事件</li>
-<li><strong> CHILD_UPDATED：</strong> &nbsp;子节点更新事件 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// true 表示把节点内容放入 stat 里</span></span><br><span class="line"><span class="type">PathChildrenCache</span> <span class="variable">childrenCache</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PathChildrenCache</span>(client, nodePath, <span class="literal">true</span>);</span><br><span class="line">childrenCache.start(StartMode.POST_INITIALIZED_EVENT);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 同步初始化后可获取子节点数据</span></span><br><span class="line">List&lt;ChildData&gt; childDataList = childrenCache.getCurrentData();</span><br><span class="line"><span class="keyword">for</span> (ChildData childData : childDataList) {</span><br><span class="line">    System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(childData.getData()));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听子节点</span></span><br><span class="line">childrenCache.getListenable().addListener((client, event) -&gt; {</span><br><span class="line">    <span class="type">ChildData</span> <span class="variable">eventData</span> <span class="operator">=</span> event.getData();</span><br><span class="line">    <span class="comment">// 初始化事件</span></span><br><span class="line">    <span class="keyword">if</span> (event.getType().equals(PathChildrenCacheEvent.Type.INITIALIZED)) {</span><br><span class="line">        System.out.println(<span class="string">"子节点初始化完成"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 子节点添加事件</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (event.getType().equals(PathChildrenCacheEvent.Type.CHILD_ADDED)) {</span><br><span class="line">        System.out.println(<span class="string">"添加子节点 "</span> + eventData.getPath() + <span class="string">": "</span> + <span class="keyword">new</span> <span class="title class_">String</span>(eventData.getData()));</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 子节点删除事件</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (event.getType().equals(PathChildrenCacheEvent.Type.CHILD_REMOVED)) {</span><br><span class="line">        System.out.println(<span class="string">"删除子节点 "</span> + eventData.getPath());</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 子节点更新事件</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (event.getType().equals(PathChildrenCacheEvent.Type.CHILD_UPDATED)) {</span><br><span class="line">        System.out.println(<span class="string">"修改子节点 "</span> + eventData.getPath() + <span class="string">": "</span> + <span class="keyword">new</span> <span class="title class_">String</span>(eventData.getData()));</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ccomma.cn/3766fb8154b0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1368,7 +1152,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/b4d982169ec9/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/4216ce6ea7d2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1386,7 +1170,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/b4d982169ec9/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土④：ACL 权限</a>
+          <a href="/4216ce6ea7d2/" class="post-title-link" itemprop="url">ES 写入原理及调优</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1397,7 +1181,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-04-01 16:38:42" itemprop="dateCreated datePublished" datetime="2024-04-01T16:38:42+08:00">2024-04-01</time>
+      <time title="Created: 2024-03-12 10:37:13" itemprop="dateCreated datePublished" datetime="2024-03-12T10:37:13+08:00">2024-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1405,7 +1189,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+          <a href="/categories/ES-%E5%86%99%E5%85%A5%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">ES 写入原理</span></a>
         </span>
     </span>
 
@@ -1418,8 +1202,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/b4d982169ec9/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="b4d982169ec9/" itemprop="commentCount"></span>
+    <a title="disqus" href="/4216ce6ea7d2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="4216ce6ea7d2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1429,7 +1213,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>10 mins.</span>
     </span>
 </div>
 
@@ -1440,54 +1224,28 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="1-ACL-构成"><a href="#1-ACL-构成" class="headerlink" title="1. ACL 构成"></a>1. ACL 构成</h2><p><strong>概述：</strong> 针对节点可以设置相关读写权限，保障数据安全</p>
-<p>通过 <code>scheme:id:permissions</code> 来构成权限列表</p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？</p>
+<p><strong>1. 解决写入问题</strong><br>心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。</p>
+<p><strong>2. 学习架构设计思想</strong><br>这也是很重要的一点，了解 ES 是如何处理写入中遇到的问题，以及这些处理方式是否在我们平常项目中有所帮助。</p>
+<p><strong>3. 应对面试</strong><br>虽然比较功利，但不可否认，写入原理是 ES 面试的高频问题</p>
+<p>常见的面试问题：</p>
 <ul>
-<li><strong>scheme：</strong> &nbsp; &nbsp; &nbsp; &nbsp; 代表采用的某种权限机制</li>
-<li><strong> id：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 代表允许访问的用户</li>
-<li><strong> permissions：</strong> 代表允许的操作权限</li>
+<li>你了解 ES 的写入原理吗</li>
+<li>你了解文档的写入 / 删除过程吗</li>
+<li>如何保证 ES 数据写入一致性</li>
+<li>文档写入超时原因</li>
+<li> ES 写入实时性如何去保证</li>
+<li>数据量大时如何保证数据写入性能</li>
+<li>如何提高数据检索能力</li>
 </ul>
-<p><em>例：</em> setAcl path world:anyone:d 代表为 path 下的节点设置权限为所有人都只能删除该节点</p>
-<h3 id="1-1-scheme-类型"><a href="#1-1-scheme-类型" class="headerlink" title="1.1. scheme 类型"></a>1.1. scheme 类型</h3><ul>
-<li><strong>world（world:anyone:[permissions]）：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 默认权限。只有一个用户 —— anyone</li>
-<li><strong>auth（auth:user:password:[permissions]）：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;代表认证登录，需要注册用户拥有权限</li>
-<li><strong> digest（digest:username:BASE64(SHA1(password)):[permissions]）：</strong> 需要对密码加密才能访问</li>
-<li><strong> ip（ip:192.168.1.1:[permissions]）：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;限制 ip 进行访问</li>
-<li><strong> super：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 超级管理员，拥有所有权限</li>
-</ul>
-<h3 id="1-2-permissions"><a href="#1-2-permissions" class="headerlink" title="1.2. permissions"></a>1.2. permissions</h3><p><em>crdwa 代表的权限含义：</em></p>
-<ul>
-<li><strong>CREATE：</strong> 创建 <strong>子节点</strong></li>
-<li><strong> READ：</strong> &nbsp; &nbsp; 读取节点数据</li>
-<li><strong> WRITE：</strong> &nbsp; &nbsp;往节点写入数据</li>
-<li><strong> DELETE：</strong> 删除 <strong>子节点，对于 delete 权限，要谨慎规划</strong></li>
-<li><strong> ADMIN：</strong> &nbsp; 可以使用 setAcl 命令设置权限</li>
-</ul>
-<h2 id="2-命令"><a href="#2-命令" class="headerlink" title="2. 命令"></a>2. 命令</h2><h3 id="2-1-addauth-scheme-auth"><a href="#2-1-addauth-scheme-auth" class="headerlink" title="2.1. addauth scheme auth"></a>2.1. addauth scheme auth</h3><p><strong>概述：</strong><br>添加认证授权信息到 Zookeeper 库中（注册）<br>并使用该认证作为当前客户端的认证信息（登录），这之后进行的所有操作会以该认证为前提<br>密码需输入明文，但在 Zookeeper 中密码以加密形式存储</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] addauth digest ccomma:ccomma</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-2-setAcl-path-schemepwd-permissions"><a href="#2-2-setAcl-path-schemepwd-permissions" class="headerlink" title="2.2. setAcl path schemepwd:permissions"></a>2.2. setAcl path scheme<img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/da6180df7a470ee728d47348410724ae.svg">pwd:permissions</h3><p><strong>auth：</strong></p>
-<ul>
-<li><p>设置某个节点的 acl 权限信息 </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 6] setAcl /ccomma auth:ccomma:ccomma:crdwa</span><br><span class="line">cZxid = 0x18</span><br><span class="line">ctime = Mon May 27 16:36:40 CST 2019</span><br><span class="line">mZxid = 0x2b</span><br><span class="line">mtime = Mon May 30 16:10:49 CST 2019</span><br><span class="line">pZxid = 0x1f</span><br><span class="line">cversion = 5</span><br><span class="line">dataVersion = 2</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 6</span><br><span class="line">numChildren = 1</span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>当使用 addauth 添加认证后，setAcl 账号和密码可以省略，默认取第一个认证 </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 6] setAcl /ccomma auth::crdwa</span><br><span class="line">cZxid = 0x18</span><br><span class="line">ctime = Mon May 27 16:36:40 CST 2019</span><br><span class="line">mZxid = 0x2b</span><br><span class="line">mtime = Mon May 30 16:10:49 CST 2019</span><br><span class="line">pZxid = 0x1f</span><br><span class="line">cversion = 5</span><br><span class="line">dataVersion = 2</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 6</span><br><span class="line">numChildren = 1</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<p><strong>digest：</strong> 密码加密</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 8] setAcl /ccomma digest:ccomma:91PXC4WimSDWZikp99kGvvjeVnY=:crdwa</span><br><span class="line">cZxid = 0x60</span><br><span class="line">ctime = Fri May 31 13:33:42 CST 2019</span><br><span class="line">mZxid = 0x60</span><br><span class="line">mtime = Fri May 31 13:33:42 CST 2019</span><br><span class="line">pZxid = 0x60</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 1</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>ip：</strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 15] setAcl /ccomma/ip ip:192.168.1.7:crdwa</span><br><span class="line">cZxid = 0x62</span><br><span class="line">ctime = Fri May 31 13:36:51 CST 2019</span><br><span class="line">mZxid = 0x62</span><br><span class="line">mtime = Fri May 31 13:36:51 CST 2019</span><br><span class="line">pZxid = 0x62</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 2</span><br><span class="line">numChildren = 0</span><br><span class="line">[zk: localhost:2181(CONNECTED) 15] getAcl /ccomma/ip</span><br><span class="line">'ip,'192.168.1.7</span><br><span class="line">:crdwa</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-3-getAcl-path"><a href="#2-3-getAcl-path" class="headerlink" title="2.3. getAcl path"></a>2.3. getAcl path</h3><p>获取某个节点的 acl 权限信息<br>密码以密文形式存储</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 8] getAcl /ccomma</span><br><span class="line">'digest,'ccomma:91PXC4WimSDWZikp99kGvvjeVnY=</span><br><span class="line">:crdwa</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="3-super-auth"><a href="#3-super-auth" class="headerlink" title="3. super auth"></a>3. super auth</h2><p><strong>添加超级用户：</strong><br>在 nohup “JAVA” “-Dzookeeper.log.dir={ZOO_LOG_DIR}” “-Dzookeeper.root.logger=${ZOO_LOG4J_PROP}” &nbsp;后面加上 “-Dzookeeper.DigestAuthenticationProvider.superDigest=admin:9iPCX4WimSDWZikp99kGvvjeVnY=”</p>
-<p>代表添加超级用户 admin:9iPCX4WimSDWZikp99kGvvjeVnY= （明文：ccomma）</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">    echo  -n "Starting zookeeper ... "</span><br><span class="line">    if [ -f "$ZOOPIDFILE" ]; then</span><br><span class="line">      if kill -0 `cat "$ZOOPIDFILE"` &gt; /dev/null 2&gt;&amp;1; then</span><br><span class="line">         echo $command already running as process `cat "$ZOOPIDFILE"`.</span><br><span class="line">         exit 0</span><br><span class="line">      fi</span><br><span class="line">    fi</span><br><span class="line">    nohup "$JAVA" "-Dzookeeper.log.dir=${ZOO_LOG_DIR}" "-Dzookeeper.root.logger=${ZOO_LOG4J_PROP}" </span><br><span class="line">    "-Dzookeeper.DigestAuthenticationProvider.superDigest=admin:9iPCX4WimSDWZikp99kGvvjeVnY=" \</span><br><span class="line">    -cp "$CLASSPATH" $JVMFLAGS $ZOOMAIN "$ZOOCFG" &gt; "$_ZOO_DAEMON_OUT" 2&gt;&amp;1 &lt; /dev/null &amp;</span><br><span class="line">    if [ $? -eq 0 ]</span><br><span class="line">    then</span><br><span class="line">      case "$OSTYPE" in</span><br><span class="line">      *solaris*)</span><br><span class="line">        /bin/echo "${!}\\c" &gt; "$ZOOPIDFILE"</span><br><span class="line">        ;;</span><br><span class="line">      *)</span><br><span class="line">        /bin/echo -n $! &gt; "$ZOOPIDFILE"</span><br><span class="line">        ;;</span><br><span class="line">      esac</span><br><span class="line">      if [ $? -eq 0 ];</span><br><span class="line">      then</span><br><span class="line">        sleep 1</span><br><span class="line">        echo STARTED</span><br><span class="line">      else</span><br><span class="line">        echo FAILED TO WRITE PID</span><br><span class="line">        exit 1</span><br><span class="line">      fi</span><br><span class="line">    else</span><br><span class="line">      echo SERVER DID NOT START</span><br><span class="line">      exit 1</span><br><span class="line">    fi</span><br><span class="line">    ;;</span><br></pre></td></tr></tbody></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/4216ce6ea7d2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1513,7 +1271,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/e8305ee4e550/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/58a80fbce4aa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1531,7 +1289,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/e8305ee4e550/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土③：Watcher</a>
+          <a href="/58a80fbce4aa/" class="post-title-link" itemprop="url">从 0 到 1 快速搭建博客</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1542,7 +1300,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-04-01 16:37:14" itemprop="dateCreated datePublished" datetime="2024-04-01T16:37:14+08:00">2024-04-01</time>
+      <time title="Created: 2024-02-13 15:05:42" itemprop="dateCreated datePublished" datetime="2024-02-13T15:05:42+08:00">2024-02-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1550,7 +1308,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+          <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
         </span>
     </span>
 
@@ -1563,8 +1321,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/e8305ee4e550/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="e8305ee4e550/" itemprop="commentCount"></span>
+    <a title="disqus" href="/58a80fbce4aa/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="58a80fbce4aa/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1574,7 +1332,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>4 mins.</span>
     </span>
 </div>
 
@@ -1585,44 +1343,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><em>概述：</em> 为一个节点注册监听器，在节点状态发生改变时，会给客户端发送消息。</p>
-<h2 id="1-特性"><a href="#1-特性" class="headerlink" title="1. 特性"></a>1. 特性</h2><ul>
-<li><em>一次性：</em> watcher 触发后立即销毁。</li>
-<li><em>轻量级：</em> watch 是轻量级的，其实就是本地 JVM 的 Callback，服务器端只是存了是否有设置了 watcher 的布尔类型</li>
-<li><em>可见性：</em> Watch 被触发的同时再次读取数据，客户端会得到 Watch 消息再看到更新后的数据。</li>
-<li><em>可能会丢失：</em> 对于一个未创建的 znode 的 exist watch，如果在客户端断开连接期间被创建了，并且随后在客户端连接上之前又删除了，这种情况下，这个 Watch 事件可能会被丢失。</li>
+          <h1 id="为什么搭建博客"><a href="#为什么搭建博客" class="headerlink" title="为什么搭建博客"></a>为什么搭建博客</h1><ul>
+<li>知识积累</li>
+<li>分享</li>
+<li>影响力</li>
 </ul>
-<h2 id="2-设置-watcher"><a href="#2-设置-watcher" class="headerlink" title="2. 设置 watcher"></a>2. 设置 watcher</h2><p>只有 stat、get、ls 才能设置 watcher</p>
-<h2 id="3-事件类型"><a href="#3-事件类型" class="headerlink" title="3. 事件类型"></a>3. 事件类型</h2><p><em>NodeCreated：</em> 创建节点事件</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 38] stat /ccomma watch</span><br><span class="line">Note does not exist: /ccomma</span><br><span class="line">[zk: localhost:2181(CONNECTED) 39] create /ccomma data</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteCreated path:/ccomma</span><br><span class="line">Created /ccomma</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>NodeDataChanged：</em> 修改节点数据事件</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 40] get /ccomma watch</span><br><span class="line">data</span><br><span class="line">cZxid = 0x15</span><br><span class="line">ctime = Mon May 27 16:09:24 CST 2019</span><br><span class="line">mZxid = 0x15</span><br><span class="line">mtime = Mon May 27 16:09:24 CST 2019</span><br><span class="line">pZxid = 0x15</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4</span><br><span class="line">numChildren = 0</span><br><span class="line">[zk: localhost:2181(CONNECTED) 41] set /ccomma 123</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteDataChanged path:/ccomma</span><br><span class="line">cZxid = 0x15</span><br><span class="line">ctime = Mon May 27 16:09:24 CST 2019</span><br><span class="line">mZxid = 0x16</span><br><span class="line">mtime = Mon May 27 16:17:17 CST 2019</span><br><span class="line">pZxid = 0x15</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 1</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 3</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>NodeDeleted：</em> 删除节点事件</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 43] delete /ccomma</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteDeleted path:/ccomma</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>NodeChildrenChanged：</em> 子节点变更事件（修改子节点不会触发事件）</p>
-<ul>
-<li><p>创建： </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 47] ls /ccomma watch</span><br><span class="line">[]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 48] create /ccomma/abc data</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteChildrenChanged path:/ccomma</span><br><span class="line">Created /ccomma/abc</span><br></pre></td></tr></tbody></table></figure>
-
-</li>
-<li><p>删除： </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 49] ls /ccomma watch</span><br><span class="line">[abc]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 48] delete /ccomma/abc</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteChildrenChanged path:/ccomma</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h2 id="4-watcher-原理框架"><a href="#4-watcher-原理框架" class="headerlink" title="4. watcher 原理框架"></a>4. watcher 原理框架</h2><p><strong>过程：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e3a61f750e1698c43d402acc21740487.png"></p>
-<ul>
-<li>zk 客户端向 zk 服务器注册 watcher 的同时，会将 watcher 对象存储在客户端的 watchManager。</li>
-<li>zk 服务器触发 watcher 事件后，会向客户端发送通知，客户端线程从 watchManager 中回调 watcher 执行相应的功能。</li>
-</ul>
-<p><strong>watchManager：</strong><br>Zk 服务器端 watcher 的管理者。负责 watcher 事件的触发。</p>
-<p>从两个维度维护 watcher</p>
-<ul>
-<li>watchTable：从数据节点的粒度来维护</li>
-<li> watch2Paths：从 watcher 的粒度来维护 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">WatchManager</span> {</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Set&lt;Watcher&gt;&gt; watchTable = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Set&lt;Watcher&gt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Watcher, Set&lt;String&gt;&gt; watch2Paths = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Watcher, Set&lt;String&gt;&gt;();</span><br><span class="line">    </span><br><span class="line">    Set&lt;Watcher&gt; <span class="title function_">triggerWatch</span><span class="params">(String path, EventType type)</span> { </span><br><span class="line">        <span class="keyword">return</span> triggerWatch(path, type, <span class="literal">null</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-
+<h1 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h1><h2 id="静态页面生成"><a href="#静态页面生成" class="headerlink" title="静态页面生成"></a>静态页面生成</h2><p>我们可以自己写一套个人博客网站，不过那样做周期太长，样式之类的东西都得手动去调整，也不利于我们去专心的写作。</p>
+<p>像博客这种静态页面可以由工具直接生成。市面上的博客工具有很多，像 hexo、vuepress</p>
+<p>为什么选择 hexo？主题较现代化、方便快捷<br><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">hexo github</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/58a80fbce4aa/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1648,7 +1384,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/c71f39133dc3/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/f8c8b8272337/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1666,7 +1402,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/c71f39133dc3/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土②：常用命令</a>
+          <a href="/f8c8b8272337/" class="post-title-link" itemprop="url">可重入锁实现</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1677,7 +1413,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-04-01 16:36:11" itemprop="dateCreated datePublished" datetime="2024-04-01T16:36:11+08:00">2024-04-01</time>
+      <time title="Created: 2023-08-17 14:56:10" itemprop="dateCreated datePublished" datetime="2023-08-17T14:56:10+08:00">2023-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1685,7 +1421,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
         </span>
     </span>
 
@@ -1698,8 +1434,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/c71f39133dc3/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c71f39133dc3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/f8c8b8272337/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="f8c8b8272337/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1709,7 +1445,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>1 mins.</span>
     </span>
 </div>
 
@@ -1720,47 +1456,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="1-ls-path-watch"><a href="#1-ls-path-watch" class="headerlink" title="1. ls path [watch]"></a>1. ls path [watch]</h2><p>查看某个路径下有多少个节点</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] ls /</span><br><span class="line">[zookeeper]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 3] ls /zookeeper</span><br><span class="line">[quota]</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="2-ls2-path-watch"><a href="#2-ls2-path-watch" class="headerlink" title="2. ls2 path [watch]"></a>2. ls2 path [watch]</h2><p>= ls + stat</p>
-<h2 id="3-get-path-watch"><a href="#3-get-path-watch" class="headerlink" title="3. get path [watch]"></a>3. get path [watch]</h2><p>获取值</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 10] get /test</span><br><span class="line">test</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0x8</span><br><span class="line">mtime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">pZxid = 0x8</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4 </span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="4-stat-path-watch"><a href="#4-stat-path-watch" class="headerlink" title="4. stat path [watch]"></a>4. stat path [watch]</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 4] stat /</span><br><span class="line">cZxid = 0x0</span><br><span class="line">ctime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">mZxid = 0x0</span><br><span class="line">mtime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">pZxid = 0x0</span><br><span class="line">cversion = -1</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 0 </span><br><span class="line">numChildren = 1</span><br></pre></td></tr></tbody></table></figure>
-
-<ul>
-<li>cZxid：Create ZXID，表示节点被创建时的事务 ID。</li>
-<li>ctime：Create Time，表示节点创建时间。</li>
-<li>mZxid：Modified ZXID，表示节点最后⼀次被修改时的事务 ID。</li>
-<li>mtime：Modified Time，表示节点最后⼀次被修改的时间。</li>
-<li>pZxid：该节点的⼦节点列表最后⼀次被修改时的事务 ID。只有⼦节点列表变更才会更新 pZxid， ⼦节点内容变更不会更新。</li>
-<li>cversion：⼦节点的版本号。</li>
-<li>dataVersion：内容版本号。</li>
-<li>aclVersion：标识 acl 版本</li>
-<li> ephemeralOwner：创建该临时节点时的会话 sessionID，如果是持久性节点那么值为 0</li>
-<li>dataLength：数据⻓度。</li>
-<li>numChildren：直系⼦节点数。</li>
-</ul>
-<h2 id="5-create-s-e-path-data-acl"><a href="#5-create-s-e-path-data-acl" class="headerlink" title="5. create [-s] [-e] path data acl"></a>5. create [-s] [-e] path data acl</h2><p><em>-s： sequence。顺序节点，为节点自动添加</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 15] create -s /test/sec seq</span><br><span class="line">Created test/sec0000000001</span><br><span class="line">[zk: localhost:2181(CONNECTED) 16] ls /test</span><br><span class="line">[sec0000000001]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 17] create -s /test/sec seq</span><br><span class="line">Created test/sec0000000002</span><br><span class="line">[zk: localhost:2181(CONNECTED) 18] ls /test</span><br><span class="line">[sec0000000001, sec0000000002]</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>-e： ephemeral。Session 创建临时节点</em></p>
-<ul>
-<li>非持久化，临时节点</li>
-<li>客户端与服务端之间维持心跳联系，无心跳则删除</li>
-<li><strong> ephemeralOwner</strong> 为非 0x0<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 12] create -e /test/tmp test-data</span><br><span class="line">Created test/tmp</span><br><span class="line">[zk: localhost:2181(CONNECTED) 13] get /test/tmp</span><br><span class="line">test-data</span><br><span class="line">cZxid = 0x9</span><br><span class="line">ctime = Mon May 27 14:26:43 CST 2019</span><br><span class="line">mZxid = 0x9</span><br><span class="line">mtime = Mon May 27 14:26:43 CST 2019</span><br><span class="line">pZxid = 0x9</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x16adeeddbe80003</span><br><span class="line">dataLength = 9</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h2 id="6-set-path-data-version"><a href="#6-set-path-data-version" class="headerlink" title="6. set path data [version]"></a>6. set path data [version]</h2><p><em>dataVersion 会 +1</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 23] set /test new-test-data</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0xc</span><br><span class="line">mtime = Mon May 27 14:53:38 CST 2019</span><br><span class="line">pZxid = 0xb</span><br><span class="line">cversion = 3</span><br><span class="line">dataVersion = 1</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 13</span><br><span class="line">numChildren = 3</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>version： 验证版本号</strong><br>若填写的版本号与当前版本号不一致则 set 失败</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 25] set /test new-test-data-2 1</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0xd</span><br><span class="line">mtime = Mon May 27 15:15:12 CST 2019</span><br><span class="line">pZxid = 0xb</span><br><span class="line">cversion = 3</span><br><span class="line">dataVersion = 2</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 15</span><br><span class="line">numChildren = 3</span><br><span class="line">[zk: localhost:2181(CONNECTED) 26] set /test new-test-data-2 1</span><br><span class="line">version No is not valid : /test</span><br><span class="line">[zk: localhost:2181(CONNECTED) 27] set /test new-test-data-2 3</span><br><span class="line">version No is not valid : /test</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="7-delete-path-version"><a href="#7-delete-path-version" class="headerlink" title="7. delete path [version]"></a>7. delete path [version]</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 31] delete /test/sec</span><br><span class="line">[zk: localhost:2181(CONNECTED) 32] ls /test</span><br><span class="line">[tmp]</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>version： 验证版本号</strong><br>若填写的版本号与当前版本号不一致则 delete 失败（ 同 set）</p>
-
+          <p>在做项目时遇到需要可重入的缓存锁场景，缓存锁用的是 Redis 分布式锁，于是考虑用 ThreadLocal 来实现本机上的可重入锁</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/f8c8b8272337/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1786,7 +1490,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/7ef86e889d3a/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/cb2072810346/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1804,7 +1508,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/7ef86e889d3a/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土①：概述</a>
+          <a href="/cb2072810346/" class="post-title-link" itemprop="url">并行流导致接口慢调用问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1815,7 +1519,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-04-01 16:33:29" itemprop="dateCreated datePublished" datetime="2024-04-01T16:33:29+08:00">2024-04-01</time>
+      <time title="Created: 2023-08-14 08:55:38" itemprop="dateCreated datePublished" datetime="2023-08-14T08:55:38+08:00">2023-08-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1823,7 +1527,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+          <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">问题记录</span></a>
         </span>
     </span>
 
@@ -1836,8 +1540,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/7ef86e889d3a/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="7ef86e889d3a/" itemprop="commentCount"></span>
+    <a title="disqus" href="/cb2072810346/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cb2072810346/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1858,53 +1562,121 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><p>ZooKeeper 是一个分布式协调中间件，是 Google 的 Chubby 一个开源的实现。它是集群的管理者，监视着集群中各个节点的状态根据节点提交的反馈进行下一步合理操作。最终，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
-<p><strong><em>特性：</em></strong></p>
-<ul>
-<li><em>顺序一致性：</em> 客户端的更新将按顺序执行。因其写操作完全由单一 Leader 节点来执行（事务 id）</li>
-<li><em>原子性：</em> &nbsp; &nbsp; &nbsp; &nbsp; 操作要么成功要么失败（事务）</li>
-<li><em>单一视图：</em> &nbsp; &nbsp; 无论连接到哪个节点，客户端都能看到相同的视图。（恢复模式 + 广播模式）</li>
-<li><em>及时性：</em> &nbsp; &nbsp; &nbsp; &nbsp; 在特定时间范围内的数据是最新的。由最终一致性保证，同步需一定时间（数据同步）</li>
-<li><em>可靠性：</em> <ul>
-<li>数据不会丢失。zk 是将数据存储到内存中的，所以肯定会有持久化（日志 + 快照）</li>
-<li>快速恢复 Leader。恢复模式（选主 + 数据同步）</li>
-</ul>
-</li>
-</ul>
-<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2. 配置"></a>2. 配置</h1><p><strong><em>conf/zoo.cfg：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">计算时间的基本单元 ms</span></span><br><span class="line">tickTime=2000</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许从节点连接并同步到主节点的初始化连接时间，以 tickTime 为单位</span></span><br><span class="line">initLimit=10</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主节点与从节点请求和应答（心跳）的时间长度，以 tickTime 为单位</span></span><br><span class="line">syncLimit=5</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">快照及 Log 存储位置</span></span><br><span class="line">dataDir=/usr/local/zookeeper/dataDir</span><br><span class="line">dataLogDir=/usr/local/zookeeper/dataLogDir</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">服务端口</span></span><br><span class="line">clientPort=2181</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host1</span></span><br><span class="line">server.1=0.0.0.0:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host2</span></span><br><span class="line">server.2=121.43.178.178:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host3</span></span><br><span class="line">server.3=47.99.220.125:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host4，observer 角色</span></span><br><span class="line">server.4=49.56.165.144:2888:3888:observer</span><br></pre></td></tr></tbody></table></figure>
+          <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>2023.08.12 18:30 开始，桌位状态应用的请求量大幅增长，dubbo 线程数达到最大值，与此同时查询桌位状态接口出现大量慢调用。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/cb2072810346/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
-<p><strong>集群：</strong></p>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/6c827d88b19c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/6c827d88b19c/" class="post-title-link" itemprop="url">如何快速定位问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-08-10 22:23:27" itemprop="dateCreated datePublished" datetime="2023-08-10T22:23:27+08:00">2023-08-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">问题记录</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/6c827d88b19c/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="6c827d88b19c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这周碰到一个问题：客户在 C 端下单后，打印机延迟打印甚至不打印。很是让人头疼，耗费了大把时间结果发现只是因为手机 B 端 APP 处于后台无法自动更新。</p>
+<p>整个链路流程大致是这样，用户在小程序上下单后通过消息通道发消息给客户端，客户端再去调用打印机打印，然后再去更新打印状态。</p>
+<p>排查了很久发现是客户端接收不到消息，客户端同学也表示不知所措，问了消息通道那边的同学后发现安卓客户端在这之前就断开连接了，重新连接后立马就接收到了消息。一度怀疑是消息通道的问题，后来才发现客户端一直运行在后台，且自动刷新是关闭的。</p>
+<p>因整个排查浪费了太多时间故在此做个复盘<br>整个链路很长，任何环节都有可能出现问题。</p>
 <ol>
-<li>创建 dataDir/myid，内容为 1 代表 id 为 1。其他实例同上创建不同 id 的 myid 文件 </li>
-<li>server. 服务器 id = 服务器 ip: 服务器之间的通信端口：服务器之间的投票选举端口 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host1 当前机器的 host，用 0.0.0.0 表示</span></span><br><span class="line">server.1=0.0.0.0:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host2</span></span><br><span class="line">server.2=121.43.178.178:2888:3888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">host3</span></span><br><span class="line">server.3=47.99.220.125:2888:3888</span><br></pre></td></tr></tbody></table></figure></li>
+<li>先尽可能排除用户误操作产生的影响</li>
+<li>有些地方不好排查（如消息通道），排查必须得有侧重点</li>
+<li>需要有一个负责人协调多位项目相关人，依次推进进度，提高效率</li>
 </ol>
-<h1 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h1><p>启动服务：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh start</span><br></pre></td></tr></tbody></table></figure>
-
-<p>启动客户端：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkCli.sh</span><br></pre></td></tr></tbody></table></figure>
-
-<p>查看启动状态：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="4-Session"><a href="#4-Session" class="headerlink" title="4. Session"></a>4. Session</h1><ul>
-<li>每当客户端连接到服务端会创建一个 SessionId。<strong>创建 / 删除 SessionId 也是事务操作，会有 zxid，会被同步到所有节点中</strong> </li>
-<li> Session 过期，则根据该 Session 创建的临时节点 znode 都会被抛弃 </li>
-<li>可设置超时时间。未超时的情况下，客户端 api 若保存了 SessionId，重连后 Session 不会消失（还是原来的 Session） </li>
-<li>心跳机制</li>
-</ul>
-<h1 id="5-基本模型"><a href="#5-基本模型" class="headerlink" title="5. 基本模型"></a>5. 基本模型</h1><h2 id="5-1-Zookeeper-抽象模型"><a href="#5-1-Zookeeper-抽象模型" class="headerlink" title="5.1. Zookeeper 抽象模型"></a>5.1. Zookeeper 抽象模型</h2><p>Zookeeper 提供了一种树形结构级的命名空间<br>为了保证高吞吐和低延迟，Zookeeper 在内存中维护了这个树状的目录结构，这种特性使得 Zookeeper <strong>不能用于存放大量的数据</strong>，每个节点的存放数据上限为 <strong>1M</strong>。</p>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/71cee598f8577e486a102cf8e2e06ba4.png"></p>
-<h2 id="5-2-节点类型"><a href="#5-2-节点类型" class="headerlink" title="5.2. 节点类型"></a>5.2. 节点类型</h2><ul>
-<li><strong>永久无序节点：</strong> 不会因为会话结束或者超时而消失</li>
-<li><strong>永久有序节点：</strong> 不会因为会话结束或者超时而消失，且有序</li>
-<li><strong>临时无序节点：</strong> 如果会话结束或者超时就会消失</li>
-<li><strong>临时有序节点：</strong> 如果会话结束或者超时就会消失，且有序<blockquote>
-<p>有序节点：会在节点名的后面加一个数字后缀，并且是有序的，例如生成的有序节点为 /lock/node-0000000000，它的下一个有序节点则为 /lock/node-0000000001，以此类推</p>
-</blockquote>
-</li>
-</ul>
 
       
     </div>
@@ -1924,7 +1696,7 @@
 
 
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
