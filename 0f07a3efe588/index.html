@@ -23,26 +23,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="下一个目标：改变世界！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CComma&#39;s Blog">
-<meta property="og:url" content="https://ccomma.cn/categories/Java/%E5%B9%B6%E5%8F%91/">
+    <meta name="description" content="强引用被强引用关联的对象不会被回收。 1Object obj &#x3D; new Object();  软引用被软引用关联的对象只有在内存不够的情况下才会被回收。作用： 缓存 123Object obj &#x3D; new Object();SoftReference&lt;Object&gt; sf &#x3D; new SoftReference&lt;Object&gt;(obj);obj &#x3D; null;  &#x2F;&#x2F; 使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象引用类型">
+<meta property="og:url" content="https://ccomma.cn/0f07a3efe588/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="下一个目标：改变世界！">
+<meta property="og:description" content="强引用被强引用关联的对象不会被回收。 1Object obj &#x3D; new Object();  软引用被软引用关联的对象只有在内存不够的情况下才会被回收。作用： 缓存 123Object obj &#x3D; new Object();SoftReference&lt;Object&gt; sf &#x3D; new SoftReference&lt;Object&gt;(obj);obj &#x3D; null;  &#x2F;&#x2F; 使">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-04-02T08:27:15.539Z">
+<meta property="article:modified_time" content="2024-04-02T08:27:15.539Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://ccomma.cn/categories/Java/%E5%B9%B6%E5%8F%91/">
+<link rel="canonical" href="https://ccomma.cn/0f07a3efe588/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":"","permalink":"","path":"categories/Java/并发/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/0f07a3efe588/","path":"0f07a3efe588/","title":"对象引用类型"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Category: 并发 | CComma's Blog</title>
+<title>对象引用类型 | CComma's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -136,7 +138,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -149,6 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%BC%95%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E5%BC%95%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B1%E5%BC%95%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E5%BC%95%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">虚引用</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -206,171 +209,185 @@
 
     </div>
 
-    <div class="main-inner category posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">并发
-          <small>Category</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/0f07a3efe588/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="对象引用类型 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对象引用类型
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-05T18:48:44+08:00"
-              content="2021-03-05">
-          03-05
-        </time>
-      </div>
+      <time title="Created: 2024-04-02 16:27:15" itemprop="dateCreated datePublished" datetime="2024-04-02T16:27:15+08:00">2024-04-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
 
-      <div class="post-title">
-        <a class="post-title-link" href="/26d195955dea/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ⑦：AQS</span>
-        </a>
-      </div>
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/0f07a3efe588/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="0f07a3efe588/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
 
-      
-    </header>
-  </article>
+        </div>
+      </header>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-02T21:58:11+08:00"
-              content="2021-03-02">
-          03-02
-        </time>
-      </div>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>被强引用关联的对象不会被回收。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br></pre></td></tr></tbody></table></figure>
 
-      <div class="post-title">
-        <a class="post-title-link" href="/492a0017fe9d/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ⑥：volatile</span>
-        </a>
-      </div>
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><p>被软引用关联的对象只有在内存不够的情况下才会被回收。<br><strong>作用：</strong> 缓存</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">SoftReference&lt;Object&gt; sf = <span class="keyword">new</span> <span class="title class_">SoftReference</span>&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="literal">null</span>;  <span class="comment">// 使对象只被软引用关联</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>// ===== 软引用测试（-Xms:20M -Xmx20M） =====</p>
+<p>SoftReference&lt;byte[]&gt; m = new SoftReference&lt;&gt;(new byte[1024<em>1024</em>10]);<br>System.out.println(m.get());</p>
+<p>// 再分配一个数组，heap 将装不下，这时候系统会垃圾回收，先回收一次，如果不够，会把软引用干掉<br>byte[] b = new byte[1024<em>1024</em>15];<br>System.out.println(m.get()); // null</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>被弱引用关联的对象一定会被回收，也就是说它只能存活到下一次垃圾回收发生之前。</p>
+<p><strong>作用：</strong> 一般用在容器里。强引用和弱引用同时指向某个对象，当强引用不再指向该对象时，该对象就该被回收</p>
+<p>例：ThreadLocal 对象 new 后有强引用，而当前线程中的 ThreadLocalMap 对象的键也有 ThreadLocal 对象的弱引用，所以当 ThreadLocal 对象失去强引用时 ThreadLocalMap 中对应的键也会变为 null，防止了内存泄露。虽然 ThreadLocalMap 的键为 null 了，但是其 value 值还存在所以依然会有内存泄露，所以需要执行 ThreadLocal#remove 方法</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">WeakReference&lt;Object&gt; wf = <span class="keyword">new</span> <span class="title class_">WeakReference</span>&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="literal">null</span>;</span><br></pre></td></tr></tbody></table></figure>
 
-      
-    </header>
-  </article>
+<blockquote>
+<p>WeakReference<m> m = new WeakReference&lt;&gt;(new M());</m></p>
+<p>System.out.println(m.get());<br>System.gc();<br>System.out.println(m.get()); // null</p>
+<p>ThreadLocal<m> tl = new ThreadLocal&lt;&gt;();<br>tl.set(new M());<br>tl.remove();</m></p>
+</blockquote>
+<h2 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h2><p>又称为幽灵引用或者幻影引用。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用取得一个对象。</p>
+<p><em>作用：</em></p>
+<ul>
+<li>为一个对象设置虚引用关联的唯一目的就是能在这个对象被回收时收到一个系统通知。 </li>
+<li>管理堆外内存（通常给编写 JVM 的人使用）：DirectByteBuffer 对象指向堆外内存。当 DirectByteBuffer 被回收时，可以通过队列检测到，然后清理堆外内存 </li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关联了对象和队列</span></span><br><span class="line"><span class="comment">// 当对象被回收引用会放入队列中</span></span><br><span class="line">ReferenceQueue&lt;Object&gt; queue = <span class="keyword">new</span> <span class="title class_">ReferenceQueue</span>&lt;&gt;();</span><br><span class="line">PhantomReference&lt;Object&gt; pf = <span class="keyword">new</span> <span class="title class_">PhantomReference</span>&lt;Object&gt;(<span class="keyword">new</span> <span class="title class_">Object</span>(), queue);</span><br><span class="line"><span class="comment">// 不能通过 get() 拿到里面的值</span></span><br><span class="line">pf.get();</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 对象被回收后，通过 poll() 方法可以拿出</span></span><br><span class="line">Reference&lt;? <span class="keyword">extends</span> <span class="title class_">Object</span>&gt; poll = queue.poll();</span><br><span class="line"><span class="keyword">if</span> (poll != <span class="literal">null</span>) {</span><br><span class="line">    System.out.println(<span class="string">"--- 虚引用对象被jvm回收了 ---- "</span> + poll);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-02-27T20:11:29+08:00"
-              content="2021-02-27">
-          02-27
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/08479805e3e3/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ⑤：自旋锁</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-02-25T13:03:22+08:00"
-              content="2021-02-25">
-          02-25
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/75f42c054e7b/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ④：ReentrantLock</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-02-21T21:34:38+08:00"
-              content="2021-02-21">
-          02-21
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/fb02556d0484/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ③：Synchronized</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-02-13T18:55:08+08:00"
-              content="2021-02-13">
-          02-13
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/b9fa8c7b4232/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ②：线程池</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-02-10T15:22:04+08:00"
-              content="2021-02-10">
-          02-10
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/3ccff5d7e907/" itemprop="url">
-          <span itemprop="name">Java 并发详解 ①：线程</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
 
     </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/4216ce6ea7d2/" rel="prev" title="ES 写入原理及调优">
+                  <i class="fa fa-angle-left"></i> ES 写入原理及调优
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
-  
-  
-
 </div>
   </main>
 
@@ -452,7 +469,7 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/categories/Java/%E5%B9%B6%E5%8F%91/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/0f07a3efe588/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>
