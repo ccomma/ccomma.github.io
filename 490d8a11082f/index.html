@@ -23,28 +23,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="测试12345&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;  &lt;scope&gt;test&lt;&#x2F;scope&gt;&lt;&#x2F;dependency&gt;  1">
+    <meta name="description" content="强引用被强引用关联的对象不会被回收。 1Object obj &#x3D; new Object();  软引用被软引用关联的对象只有在内存不够的情况下才会被回收。作用： 缓存 123Object obj &#x3D; new Object();SoftReference&lt;Object&gt; sf &#x3D; new SoftReference&lt;Object&gt;(obj);obj &#x3D; null;  &#x2F;&#x2F; 使">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring">
-<meta property="og:url" content="https://ccomma.cn/f5f86795b0f8/">
+<meta property="og:title" content="对象引用类型">
+<meta property="og:url" content="https://ccomma.cn/490d8a11082f/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="测试12345&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;  &lt;scope&gt;test&lt;&#x2F;scope&gt;&lt;&#x2F;dependency&gt;  1">
+<meta property="og:description" content="强引用被强引用关联的对象不会被回收。 1Object obj &#x3D; new Object();  软引用被软引用关联的对象只有在内存不够的情况下才会被回收。作用： 缓存 123Object obj &#x3D; new Object();SoftReference&lt;Object&gt; sf &#x3D; new SoftReference&lt;Object&gt;(obj);obj &#x3D; null;  &#x2F;&#x2F; 使">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-13T06:41:23.000Z">
-<meta property="article:modified_time" content="2024-04-02T03:56:26.607Z">
+<meta property="article:published_time" content="2024-04-02T08:09:09.223Z">
+<meta property="article:modified_time" content="2024-04-02T08:09:09.223Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://ccomma.cn/f5f86795b0f8/">
+<link rel="canonical" href="https://ccomma.cn/490d8a11082f/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/f5f86795b0f8/","path":"f5f86795b0f8/","title":"Spring"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/490d8a11082f/","path":"490d8a11082f/","title":"对象引用类型"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Spring | CComma's Blog</title>
+<title>对象引用类型 | CComma's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -100,7 +100,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">90</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">87</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringFactoryUtil"><span class="nav-number">2.</span> <span class="nav-text">SpringFactoryUtil</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%BC%95%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E5%BC%95%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B1%E5%BC%95%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E5%BC%95%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">虚引用</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -220,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/f5f86795b0f8/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/490d8a11082f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -233,12 +233,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Spring | CComma's Blog">
+      <meta itemprop="name" content="对象引用类型 | CComma's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring
+          对象引用类型
         </h1>
 
         <div class="post-meta-container">
@@ -249,7 +249,16 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-05-13 14:41:23" itemprop="dateCreated datePublished" datetime="2022-05-13T14:41:23+08:00">2022-05-13</time>
+      <time title="Created: 2024-04-02 16:09:09" itemprop="dateCreated datePublished" datetime="2024-04-02T16:09:09+08:00">2024-04-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
     </span>
 
   
@@ -268,8 +277,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/f5f86795b0f8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="f5f86795b0f8/" itemprop="commentCount"></span>
+    <a title="disqus" href="/490d8a11082f/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="490d8a11082f/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -279,7 +288,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>2 mins.</span>
     </span>
 </div>
 
@@ -289,11 +298,35 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+    <div class="post-body" itemprop="articleBody"><h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>被强引用关联的对象不会被回收。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &gt;&gt;&gt; spring boot 1.4.0 版本之后使用以下两个配置</span></span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt;&gt;&gt; spring boot 1.4.0 版本之前使用以下三个配置</span></span><br><span class="line"><span class="comment">//@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="comment">//classes 需要指定 spring boot 的启动类如：DemoApplication.class 不然 WebApplicationContext 不被实例化</span></span><br><span class="line"><span class="comment">//@SpringApplicationConfiguration(classes = DemoApplication.class)</span></span><br><span class="line"><span class="comment">//@WebAppConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IndexControllerTests</span> {</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">* mock api 模拟http请求</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="keyword">private</span> MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> WebApplicationContext webApplicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化工作</span></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> {</span><br><span class="line">        <span class="comment">// 独立安装测试</span></span><br><span class="line">        <span class="comment">// mockMvc = MockMvcBuilders.standaloneSetup(new ReserveManageController()).build();</span></span><br><span class="line">        <span class="comment">// 集成Web环境测试（此种方式并不会集成真正的web环境，而是通过相应的Mock API进行模拟测试，无须启动服务器）</span></span><br><span class="line">        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//测试</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">index</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="comment">// 构建请求</span></span><br><span class="line">        <span class="type">MockHttpServletRequestBuilder</span> <span class="variable">requestBuilder</span> <span class="operator">=</span> MockMvcRequestBuilders.post(<span class="string">"/reserve_manage/v1/get_sms_template?s_eid=00604049"</span>)</span><br><span class="line">            <span class="comment">// .param("pageNum", "10")</span></span><br><span class="line">            .accept(MediaType.APPLICATION_JSON);</span><br><span class="line">        <span class="comment">// 返回结果</span></span><br><span class="line">        <span class="type">MvcResult</span> <span class="variable">mvcResult</span> <span class="operator">=</span> mockMvc.perform(requestBuilder)</span><br><span class="line">            <span class="comment">// 等同于Assert.assertEquals(200,status);</span></span><br><span class="line">            .andExpect(MockMvcResultMatchers.status().isOk())</span><br><span class="line">            <span class="comment">//  等同于 Assert.assertEquals("hello lvgang",content);</span></span><br><span class="line">            <span class="comment">// .andExpect(MockMvcResultMatchers.content().string(""))</span></span><br><span class="line">            <span class="comment">// 添加一个结果处理器，表示要对结果做点什么事情</span></span><br><span class="line">            .andDo(MockMvcResultHandlers.print())</span><br><span class="line">            <span class="comment">// 执行完成后返回相应的结果</span></span><br><span class="line">            .andReturn();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到返回状态</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">status</span> <span class="operator">=</span> mvcResult.getResponse().getStatus();</span><br><span class="line">        <span class="comment">// 得到返回结果</span></span><br><span class="line">        Assert.assertEquals(<span class="number">200</span>, status);</span><br><span class="line">        <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> mvcResult.getResponse().getContentAsString();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><p>被软引用关联的对象只有在内存不够的情况下才会被回收。<br><strong>作用：</strong> 缓存</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">SoftReference&lt;Object&gt; sf = <span class="keyword">new</span> <span class="title class_">SoftReference</span>&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="literal">null</span>;  <span class="comment">// 使对象只被软引用关联</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>// ===== 软引用测试（-Xms:20M -Xmx20M） =====</p>
+<p>SoftReference&lt;byte[]&gt; m = new SoftReference&lt;&gt;(new byte[1024<em>1024</em>10]);<br>System.out.println(m.get());</p>
+<p>// 再分配一个数组，heap 将装不下，这时候系统会垃圾回收，先回收一次，如果不够，会把软引用干掉<br>byte[] b = new byte[1024<em>1024</em>15];<br>System.out.println(m.get()); // null</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>被弱引用关联的对象一定会被回收，也就是说它只能存活到下一次垃圾回收发生之前。</p>
+<p><strong>作用：</strong> 一般用在容器里。强引用和弱引用同时指向某个对象，当强引用不再指向该对象时，该对象就该被回收</p>
+<p>例：ThreadLocal 对象 new 后有强引用，而当前线程中的 ThreadLocalMap 对象的键也有 ThreadLocal 对象的弱引用，所以当 ThreadLocal 对象失去强引用时 ThreadLocalMap 中对应的键也会变为 null，防止了内存泄露。虽然 ThreadLocalMap 的键为 null 了，但是其 value 值还存在所以依然会有内存泄露，所以需要执行 ThreadLocal#remove 方法</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">WeakReference&lt;Object&gt; wf = <span class="keyword">new</span> <span class="title class_">WeakReference</span>&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="literal">null</span>;</span><br></pre></td></tr></tbody></table></figure>
 
-<h1 id="SpringFactoryUtil"><a href="#SpringFactoryUtil" class="headerlink" title="SpringFactoryUtil"></a>SpringFactoryUtil</h1><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringFactoryUtil</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException {</span><br><span class="line">        SpringFactoryUtil.applicationContext = applicationContext;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(name);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(requiredType);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>WeakReference<m> m = new WeakReference&lt;&gt;(new M());</m></p>
+<p>System.out.println(m.get());<br>System.gc();<br>System.out.println(m.get()); // null</p>
+<p>ThreadLocal<m> tl = new ThreadLocal&lt;&gt;();<br>tl.set(new M());<br>tl.remove();</m></p>
+</blockquote>
+<h2 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h2><p>又称为幽灵引用或者幻影引用。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用取得一个对象。</p>
+<p><em>作用：</em></p>
+<ul>
+<li>为一个对象设置虚引用关联的唯一目的就是能在这个对象被回收时收到一个系统通知。 </li>
+<li>管理堆外内存（通常给编写 JVM 的人使用）：DirectByteBuffer 对象指向堆外内存。当 DirectByteBuffer 被回收时，可以通过队列检测到，然后清理堆外内存 </li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关联了对象和队列</span></span><br><span class="line"><span class="comment">// 当对象被回收引用会放入队列中</span></span><br><span class="line">ReferenceQueue&lt;Object&gt; queue = <span class="keyword">new</span> <span class="title class_">ReferenceQueue</span>&lt;&gt;();</span><br><span class="line">PhantomReference&lt;Object&gt; pf = <span class="keyword">new</span> <span class="title class_">PhantomReference</span>&lt;Object&gt;(<span class="keyword">new</span> <span class="title class_">Object</span>(), queue);</span><br><span class="line"><span class="comment">// 不能通过 get() 拿到里面的值</span></span><br><span class="line">pf.get();</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 对象被回收后，通过 poll() 方法可以拿出</span></span><br><span class="line">Reference&lt;? <span class="keyword">extends</span> <span class="title class_">Object</span>&gt; poll = queue.poll();</span><br><span class="line"><span class="keyword">if</span> (poll != <span class="literal">null</span>) {</span><br><span class="line">    System.out.println(<span class="string">"--- 虚引用对象被jvm回收了 ---- "</span> + poll);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
 
     </div>
 
@@ -334,14 +367,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/cd58652eb14b/" rel="prev" title="Git">
-                  <i class="fa fa-angle-left"></i> Git
+                <a href="/4216ce6ea7d2/" rel="prev" title="ES 写入原理及调优">
+                  <i class="fa fa-angle-left"></i> ES 写入原理及调优
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/ed1836dca5d2/" rel="next" title="Zookeeper 从入门到入土②：常用命令">
-                  Zookeeper 从入门到入土②：常用命令 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -439,7 +469,7 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/f5f86795b0f8/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/490d8a11082f/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>
