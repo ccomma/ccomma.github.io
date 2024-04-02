@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">83</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -216,7 +216,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/8a6c84365f71/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/154d52f4ac2d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -234,7 +234,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/8a6c84365f71/" class="post-title-link" itemprop="url">790. 多米诺和托米诺平铺</a>
+          <a href="/154d52f4ac2d/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土⑨：ZAB 协议</a>
         </h2>
 
         <div class="post-meta-container">
@@ -245,7 +245,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-11-13 18:12:38" itemprop="dateCreated datePublished" datetime="2022-11-13T18:12:38+08:00">2022-11-13</time>
+      <time title="Created: 2022-06-28 22:58:27" itemprop="dateCreated datePublished" datetime="2022-06-28T22:58:27+08:00">2022-06-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -253,11 +253,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
         </span>
     </span>
 
@@ -270,8 +266,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/8a6c84365f71/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="8a6c84365f71/" itemprop="commentCount"></span>
+    <a title="disqus" href="/154d52f4ac2d/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="154d52f4ac2d/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -281,7 +277,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>7 mins.</span>
     </span>
 </div>
 
@@ -292,11 +288,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
-<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
+          <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Zookeeper 使用⼀个单⼀的主进程来接收并处理客户端的所有事务请求</p>
+<p>并采用 ZAB （ Zookeeper Atomic Broadcast，原子广播协议），将服务器数据的状态变更以事务 Proposal 的形式广播到所有的副本进程中</p>
+<p><strong>读写请求官方压测：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7bee1d45d9132d4cc362f7b83d99edd3.png"></p>
+<p><strong>3888 端口通信模型：</strong><br>任何两个节点都互通<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2540cbee09bd8a4e1f2ef002e8b61d7b.png"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/8a6c84365f71/#more" rel="contents">
+              <a class="btn" href="/154d52f4ac2d/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -327,7 +325,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/a428f26c6b50/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/1474e6bd8a26/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -345,7 +343,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/a428f26c6b50/" class="post-title-link" itemprop="url">Redis 从入门到入土②：数据类型与结构</a>
+          <a href="/1474e6bd8a26/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土⑧：集群</a>
         </h2>
 
         <div class="post-meta-container">
@@ -356,7 +354,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-11-09 22:23:01" itemprop="dateCreated datePublished" datetime="2022-11-09T22:23:01+08:00">2022-11-09</time>
+      <time title="Created: 2022-06-25 21:03:25" itemprop="dateCreated datePublished" datetime="2022-06-25T21:03:25+08:00">2022-06-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -364,7 +362,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
         </span>
     </span>
 
@@ -377,8 +375,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/a428f26c6b50/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="a428f26c6b50/" itemprop="commentCount"></span>
+    <a title="disqus" href="/1474e6bd8a26/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="1474e6bd8a26/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -399,43 +397,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="1-数据类型"><a href="#1-数据类型" class="headerlink" title="1. 数据类型"></a>1. 数据类型</h2><table>
-<thead>
-<tr>
-<th><strong>数据类型</strong></th>
-<th><strong>可以存储的值</strong></th>
-<th><strong>应用场景</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td> STRING</td>
-<td> 字符串、整数或者浮点数</td>
-<td>计数（秒杀、点赞）、缓存</td>
-</tr>
-<tr>
-<td> LIST</td>
-<td> 列表</td>
-<td>消息队列、排行榜、关注列表</td>
-</tr>
-<tr>
-<td> SET</td>
-<td> 无序集合</td>
-<td>集群部署全局去重<br>共同喜好，自己独有的喜好</td>
-</tr>
-<tr>
-<td> ZSET</td>
-<td> 有序集合</td>
-<td>排行榜</td>
-</tr>
-<tr>
-<td> HASH</td>
-<td> 包含键值对的无序散列表</td>
-<td>单点登录，以 cookieId 作为 key<br>模拟 session、<br>存储对象</td>
-</tr>
-</tbody></table>
+          <h2 id="1-事务-Id"><a href="#1-事务-Id" class="headerlink" title="1. 事务 Id"></a>1. 事务 Id</h2><p><strong>概述：</strong></p>
+<ul>
+<li><em>变更状态：</em> 事务是指能够改变 ZooKeeper 服务器状态的操作，我们也称之为事务操作或更新操作。⼀般包括数据节点创建与删除、数据节点内容更新等操作。 </li>
+<li><em>ZXID：</em> 对于每⼀个事务请求（proposal 提议），ZooKeeper 都会为其分配⼀个全局唯⼀（zk 中唯一）且有序的事务 ID，用 ZXID 来表示，通常是⼀个 64 位的数字。 <ul>
+<li>高 32 位是 epoch（投票轮次），用来标识 Leader 是否发生改变。从 1 开始，如果有新的 Leader 产生出来，epoch 会自增。</li>
+<li>低 32 位用来递增计数。每次 epoch 变化，都将低 32 位的序号重置。</li>
+</ul>
+</li>
+</ul>
+<p><strong>作用：</strong> 标识节点同步状态。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/a428f26c6b50/#more" rel="contents">
+              <a class="btn" href="/1474e6bd8a26/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -466,7 +440,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/9dc3e8a4d1b1/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/3b9c328b0e7b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -484,7 +458,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/9dc3e8a4d1b1/" class="post-title-link" itemprop="url">1620. 网络信号最好的坐标</a>
+          <a href="/3b9c328b0e7b/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土⑦：应用场景</a>
         </h2>
 
         <div class="post-meta-container">
@@ -495,7 +469,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-11-06 23:14:16" itemprop="dateCreated datePublished" datetime="2022-11-06T23:14:16+08:00">2022-11-06</time>
+      <time title="Created: 2022-06-21 19:22:01" itemprop="dateCreated datePublished" datetime="2022-06-21T19:22:01+08:00">2022-06-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -503,11 +477,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
         </span>
     </span>
 
@@ -520,8 +490,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/9dc3e8a4d1b1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="9dc3e8a4d1b1/" itemprop="commentCount"></span>
+    <a title="disqus" href="/3b9c328b0e7b/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="3b9c328b0e7b/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -531,7 +501,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>8 mins.</span>
     </span>
 </div>
 
@@ -542,16 +512,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>给你一个数组 towers&nbsp;和一个整数 radius 。<br>数组&nbsp; towers&nbsp; 中包含一些网络信号塔，其中&nbsp;towers [i] = [xi, yi, qi]&nbsp;表示第&nbsp;i&nbsp;个网络信号塔的坐标是&nbsp;(xi, yi)&nbsp;且信号强度参数为&nbsp;qi&nbsp;。所有坐标都是在&nbsp; X-Y 坐标系内的&nbsp;整数&nbsp;坐标。两个坐标之间的距离用 欧几里得距离&nbsp;计算。<br>整数&nbsp;radius&nbsp;表示一个塔 能到达&nbsp;的 最远距离&nbsp;。如果一个坐标跟塔的距离在 radius&nbsp;以内，那么该塔的信号可以到达该坐标。在这个范围以外信号会很微弱，所以 radius&nbsp;以外的距离该塔是 不能到达的&nbsp;。<br>如果第 i&nbsp;个塔能到达 (x, y)&nbsp;，那么该塔在此处的信号为&nbsp;⌊qi / (1 + d)⌋&nbsp;，其中&nbsp;d&nbsp;是塔跟此坐标的距离。一个坐标的 信号强度 是所有 能到达&nbsp;该坐标的塔的信号强度之和。<br>请你返回数组 [cx, cy] ，表示 信号强度 最大的 整数 坐标点&nbsp;(cx, cy) 。如果有多个坐标网络信号一样大，请你返回字典序最小的 非负 坐标。<br>注意：</p>
+          <h2 id="1-数据发布-订阅"><a href="#1-数据发布-订阅" class="headerlink" title="1. 数据发布/订阅"></a>1. 数据发布 / 订阅</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1. 概述"></a>1.1. 概述</h3><p>即所谓的配置中⼼，顾名思义就是发布者将数据发布到 ZooKeeper 的⼀个或⼀系列节点上，供订阅者进⾏数据订阅，进⽽达到动态获取数据的目的，实现配置信息的集中式管理和数据的动态更新。</p>
+<p><em>两种设计模式：</em></p>
 <ul>
-<li>坐标&nbsp;(x1, y1)&nbsp;字典序比另一个坐标&nbsp;(x2, y2) 小，需满足以下条件之一：<ul>
-<li>要么&nbsp;x1 &lt; x2&nbsp;，</li>
-<li>要么&nbsp;x1 == x2 且&nbsp;y1 &lt; y2&nbsp;。</li>
+<li>推（Push）模式：服务端主动将数据更新发送给所有订阅的客户端 </li>
+<li>拉（Pull）模式：由客户端主动发起请求来获取最新数据，通常客户端都采⽤定时进⾏轮询拉取的⽅式 </li>
+<li>ZooKeeper 采⽤的是推拉相结合的⽅式： <ul>
+<li>客户端向服务端注册⾃⼰需要关注的节点，⼀旦该节点的数据 发⽣变更，那么服务端就会向相应的客户端发送 Watcher 事件通知。 </li>
+<li>客户端接收到这个消息通知之后， 需要主动到服务端获取最新的数据。</li>
 </ul>
 </li>
-<li>⌊val⌋&nbsp;表示小于等于&nbsp;val&nbsp;的最大整数（向下取整函数）。</li>
 </ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/3b9c328b0e7b/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -577,7 +556,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/084a2e22f3ba/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/5d0f9080cef8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -595,7 +574,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/084a2e22f3ba/" class="post-title-link" itemprop="url">1668. 最大重复子字符串</a>
+          <a href="/5d0f9080cef8/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土⑥：API</a>
         </h2>
 
         <div class="post-meta-container">
@@ -606,7 +585,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-11-06 22:59:11" itemprop="dateCreated datePublished" datetime="2022-11-06T22:59:11+08:00">2022-11-06</time>
+      <time title="Created: 2022-06-19 20:48:57" itemprop="dateCreated datePublished" datetime="2022-06-19T20:48:57+08:00">2022-06-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -614,11 +593,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
         </span>
     </span>
 
@@ -631,8 +606,231 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/084a2e22f3ba/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="084a2e22f3ba/" itemprop="commentCount"></span>
+    <a title="disqus" href="/5d0f9080cef8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="5d0f9080cef8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>6 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>zk 有 Session，没有线程池的概念</p>
+<h2 id="1-原生-API"><a href="#1-原生-API" class="headerlink" title="1. 原生 API"></a>1. 原生 API</h2><p>Zookeeper API 共包含五个包：</p>
+<ul>
+<li>org.apache.zookeeper</li>
+<li>org.apache.zookeeper.data</li>
+<li>org.apache.zookeeper.server</li>
+<li>org.apache.zookeeper.server.quorum</li>
+<li>org.apache.zookeeper.server.upgrade</li>
+</ul>
+<p>依赖：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/5d0f9080cef8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/b4e159ffd1c4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/b4e159ffd1c4/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土⑤：四字命令（Four Letter Words）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-11 21:31:07" itemprop="dateCreated datePublished" datetime="2022-06-11T21:31:07+08:00">2022-06-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/b4e159ffd1c4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="b4e159ffd1c4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>安装 nc：</strong> <code>yum install nc</code><br><strong>命令格式：</strong> echo [commond] | nc [ip] [port]<br><strong>stat：</strong> 查看 zk 的状态信息</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp101vzs716yznuegsljz bin]# echo stat | nc localhost 2181</span><br><span class="line">Zookeeper version: 3.4.9-1757313, built on 08/23/2016 06:50 GMTClients:</span><br><span class="line">/127.0.0.1:55394 [0] (queued-0, recved=1, sent=0)</span><br><span class="line"></span><br><span class="line">Latency min/avg/max: 0/0/0</span><br><span class="line">Received: 2</span><br><span class="line">Sent: 1</span><br><span class="line">Connections: 1</span><br><span class="line">Outatanding: 0</span><br><span class="line">Zxid: 0xed</span><br><span class="line">Mode: standalone</span><br><span class="line">Node count: 29</span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/b4e159ffd1c4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/a4d32f43a4f8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/a4d32f43a4f8/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土④：ACL 权限</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-31 23:53:18" itemprop="dateCreated datePublished" datetime="2022-05-31T23:53:18+08:00">2022-05-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/a4d32f43a4f8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="a4d32f43a4f8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -653,242 +851,32 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>给你一个字符串&nbsp;sequence&nbsp;，如果字符串 word&nbsp;连续重复&nbsp;k&nbsp;次形成的字符串是&nbsp;sequence&nbsp;的一个子字符串，那么单词&nbsp;word 的 重复值为 k 。单词 word&nbsp;的 最大重复值&nbsp;是单词&nbsp;word&nbsp;在&nbsp;sequence&nbsp;中最大的重复值。如果&nbsp;word&nbsp;不是&nbsp;sequence&nbsp;的子串，那么重复值&nbsp;k&nbsp;为 0 。<br>给你一个字符串 sequence&nbsp;和 word&nbsp;，请你返回 最大重复值&nbsp;k 。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/084a2e22f3ba/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/7fe9682c61b6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/7fe9682c61b6/" class="post-title-link" itemprop="url">754. 到达终点数字</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-06 22:48:28" itemprop="dateCreated datePublished" datetime="2022-11-06T22:48:28+08:00">2022-11-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/7fe9682c61b6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="7fe9682c61b6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在一根无限长的数轴上，你站在 0 的位置。终点在 target 的位置。<br>你可以做一些数量的移动 numMoves :</p>
+          <h2 id="1-ACL-构成"><a href="#1-ACL-构成" class="headerlink" title="1. ACL 构成"></a>1. ACL 构成</h2><p><strong>概述：</strong> 针对节点可以设置相关读写权限，保障数据安全</p>
+<p>通过 <code>scheme:id:permissions</code> 来构成权限列表</p>
 <ul>
-<li>每次你可以选择向左或向右移动。</li>
-<li>第 i&nbsp;次移动（从 &nbsp;i == 1&nbsp;开始，到&nbsp;i == numMoves ），在选择的方向上走 i&nbsp;步。</li>
+<li><strong>scheme：</strong> &nbsp; &nbsp; &nbsp; &nbsp; 代表采用的某种权限机制</li>
+<li><strong> id：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 代表允许访问的用户</li>
+<li><strong> permissions：</strong> 代表允许的操作权限</li>
 </ul>
-<p>给定整数&nbsp;target ，返回 到达目标所需的 最小&nbsp;移动次数 (即最小 numMoves)&nbsp;。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/7fe9682c61b6/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/ef40641adb89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/ef40641adb89/" class="post-title-link" itemprop="url">1106. 解析布尔表达式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-06 20:41:13" itemprop="dateCreated datePublished" datetime="2022-11-06T20:41:13+08:00">2022-11-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/ef40641adb89/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="ef40641adb89/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给你一个以字符串形式表述的&nbsp;布尔表达式（boolean） expression，返回该式的运算结果。<br>有效的表达式需遵循以下约定：</p>
+<p><em>例：</em> setAcl path world:anyone:d 代表为 path 下的节点设置权限为所有人都只能删除该节点</p>
+<h3 id="1-1-scheme-类型"><a href="#1-1-scheme-类型" class="headerlink" title="1.1. scheme 类型"></a>1.1. scheme 类型</h3><ul>
+<li><strong>world（world:anyone:[permissions]）：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 默认权限。只有一个用户 —— anyone</li>
+<li><strong>auth（auth:user:password:[permissions]）：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;代表认证登录，需要注册用户拥有权限</li>
+<li><strong> digest（digest:username:BASE64(SHA1(password)):[permissions]）：</strong> 需要对密码加密才能访问</li>
+<li><strong> ip（ip:192.168.1.1:[permissions]）：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;限制 ip 进行访问</li>
+<li><strong> super：</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 超级管理员，拥有所有权限</li>
+</ul>
+<h3 id="1-2-permissions"><a href="#1-2-permissions" class="headerlink" title="1.2. permissions"></a>1.2. permissions</h3><p><em>crdwa 代表的权限含义：</em></p>
 <ul>
-<li>“t”，运算结果为 True</li>
-<li>“f”，运算结果为 False</li>
-<li>“!(expr)”，运算过程为对内部表达式 expr 进行逻辑 非的运算（NOT）</li>
-<li>“&amp;(expr1,expr2,…)”，运算过程为对 2 个或以上内部表达式 expr1, expr2, … 进行逻辑 与的运算（AND）</li>
-<li>“|(expr1,expr2,…)”，运算过程为对 2 个或以上内部表达式 expr1, expr2, … 进行逻辑 或的运算（OR）</li>
+<li><strong>CREATE：</strong> 创建 <strong>子节点</strong></li>
+<li><strong> READ：</strong> &nbsp; &nbsp; 读取节点数据</li>
+<li><strong> WRITE：</strong> &nbsp; &nbsp;往节点写入数据</li>
+<li><strong> DELETE：</strong> 删除 <strong>子节点，对于 delete 权限，要谨慎规划</strong></li>
+<li><strong> ADMIN：</strong> &nbsp; 可以使用 setAcl 命令设置权限</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ef40641adb89/#more" rel="contents">
+              <a class="btn" href="/a4d32f43a4f8/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -919,7 +907,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/6f11515c0e71/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/27d6899ac71a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -937,7 +925,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/6f11515c0e71/" class="post-title-link" itemprop="url">Redis 从入门到入土①：概述及问题</a>
+          <a href="/27d6899ac71a/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土③：Watcher</a>
         </h2>
 
         <div class="post-meta-container">
@@ -948,7 +936,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-11-03 22:12:01" itemprop="dateCreated datePublished" datetime="2022-11-03T22:12:01+08:00">2022-11-03</time>
+      <time title="Created: 2022-05-24 23:00:29" itemprop="dateCreated datePublished" datetime="2022-05-24T23:00:29+08:00">2022-05-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -956,7 +944,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
         </span>
     </span>
 
@@ -969,254 +957,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/6f11515c0e71/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="6f11515c0e71/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>4 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Redis 是速度非常快的 <strong>非关系型（NoSQL）内存键值数据库</strong>，可以存储键和五种不同类型的值之间的映射</p>
-<h2 id="1-与-Memcached-的不同"><a href="#1-与-Memcached-的不同" class="headerlink" title="1. 与 Memcached 的不同"></a>1. 与 Memcached 的不同</h2><ol>
-<li><strong>数据类型：</strong><ol>
-<li>Redis 支持五种不同的数据类型，可以更灵活地解决问题</li>
-<li> Memcached <strong>仅支持字符串类型</strong></li>
-</ol>
-</li>
-<li><strong>数据持久化：</strong><ol>
-<li>Redis 支持两种持久化策略：RDB 快照和 AOF 日志</li>
-<li> Memcached <strong>不支持持久化</strong></li>
-</ol>
-</li>
-<li><strong>分布式：</strong><ol>
-<li>Redis Cluster 实现了分布式的支持</li>
-<li> Memcached <strong>不支持分布式</strong>，只能通过在客户端使用一致性哈希来实现分布式存储，这种方式在存储和查询时都需要先在客户端计算一次数据所在的节点</li>
-</ol>
-</li>
-<li><strong>内存管理机制：</strong><ol>
-<li>在 Redis 中，并不是所有数据都一直存储在内存中，可以将一些很久没用的 value 交换到磁盘，而 Memcached 的数据则会一直在内存中</li>
-<li> Memcached 将内存分割成特定长度的块来存储数据，以完全解决内存碎片的问题。但是这种方式会使得内存的利用率不高，例如块的大小为 128 bytes，只存储 100 bytes 的数据，那么剩下的 28 bytes 就浪费掉了</li>
-</ol>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/6f11515c0e71/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/5889a7e516e2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/5889a7e516e2/" class="post-title-link" itemprop="url">481. 神奇字符串</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-10-31 22:09:44" itemprop="dateCreated datePublished" datetime="2022-10-31T22:09:44+08:00">2022-10-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/5889a7e516e2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="5889a7e516e2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>神奇字符串 s 仅由 ‘1’ 和 ‘2’ 组成，并需要遵守下面的规则：</p>
-<ul>
-<li>神奇字符串 s 的神奇之处在于，串联字符串中 ‘1’ 和 ‘2’ 的连续出现次数可以生成该字符串。</li>
-</ul>
-<p>s 的前几个元素是 s = “1221121221221121122……” 。如果将 s 中连续的若干 1 和 2 进行分组，可以得到 “1 22 11 2 1 22 1 22 11 2 11 22 ……” 。每组中 1 或者 2 的出现次数分别是 “1 2 2 1 1 2 1 2 2 1 2 2 ……” 。上面的出现次数正是 s 自身。<br>给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/5889a7e516e2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/e5d94578b16c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/e5d94578b16c/" class="post-title-link" itemprop="url">深入检出 Redis 主从复制</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-10-10 21:47:01" itemprop="dateCreated datePublished" datetime="2022-10-10T21:47:01+08:00">2022-10-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/%E9%9B%86%E7%BE%A4/" itemprop="url" rel="index"><span itemprop="name">集群</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/e5d94578b16c/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="e5d94578b16c/" itemprop="commentCount"></span>
+    <a title="disqus" href="/27d6899ac71a/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="27d6899ac71a/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1237,23 +979,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p><strong>单机、单节点、单实例问题</strong></p>
-<ul>
-<li>单点故障</li>
-<li>容量有限</li>
-<li>压力</li>
-</ul>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2ca3031938d6a22279811aba11b68492.png" alt="image.png"><br>X 轴问题<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a5ef3ff143bff5663034d49986fc1a04.png" alt="image.png"></p>
-<ul>
-<li>主备数据一致性<ul>
-<li>强一致性：降低可用性</li>
-<li>最终一致性：使用可靠的速度快的消息队列集群</li>
-</ul>
-</li>
+          <p><em>概述：</em> 为一个节点注册监听器，在节点状态发生改变时，会给客户端发送消息。</p>
+<h2 id="1-特性"><a href="#1-特性" class="headerlink" title="1. 特性"></a>1. 特性</h2><ul>
+<li><em>一次性：</em> watcher 触发后立即销毁。</li>
+<li><em>轻量级：</em> watch 是轻量级的，其实就是本地 JVM 的 Callback，服务器端只是存了是否有设置了 watcher 的布尔类型</li>
+<li><em>可见性：</em> Watch 被触发的同时再次读取数据，客户端会得到 Watch 消息再看到更新后的数据。</li>
+<li><em>可能会丢失：</em> 对于一个未创建的 znode 的 exist watch，如果在客户端断开连接期间被创建了，并且随后在客户端连接上之前又删除了，这种情况下，这个 Watch 事件可能会被丢失。</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/e5d94578b16c/#more" rel="contents">
+              <a class="btn" href="/27d6899ac71a/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1284,7 +1019,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/15e20a853a5b/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/ed1836dca5d2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1302,7 +1037,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/15e20a853a5b/" class="post-title-link" itemprop="url">深入检出 Redis Sentinel ③：客户端</a>
+          <a href="/ed1836dca5d2/" class="post-title-link" itemprop="url">Zookeeper 从入门到入土②：常用命令</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1313,7 +1048,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-09-27 21:56:21" itemprop="dateCreated datePublished" datetime="2022-09-27T21:56:21+08:00">2022-09-27</time>
+      <time title="Created: 2022-05-19 23:44:11" itemprop="dateCreated datePublished" datetime="2022-05-19T23:44:11+08:00">2022-05-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1321,11 +1056,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/%E9%9B%86%E7%BE%A4/" itemprop="url" rel="index"><span itemprop="name">集群</span></a>
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
         </span>
     </span>
 
@@ -1338,8 +1069,106 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/15e20a853a5b/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="15e20a853a5b/" itemprop="commentCount"></span>
+    <a title="disqus" href="/ed1836dca5d2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="ed1836dca5d2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="1-ls-path-watch"><a href="#1-ls-path-watch" class="headerlink" title="1. ls path [watch]"></a>1. ls path [watch]</h2><p>查看某个路径下有多少个节点</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] ls /</span><br><span class="line">[zookeeper]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 3] ls /zookeeper</span><br><span class="line">[quota]</span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/ed1836dca5d2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/f5f86795b0f8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/f5f86795b0f8/" class="post-title-link" itemprop="url">Spring</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-13 14:41:23" itemprop="dateCreated datePublished" datetime="2022-05-13T14:41:23+08:00">2022-05-13</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/f5f86795b0f8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="f5f86795b0f8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1360,25 +1189,102 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="1-客户端实现原理"><a href="#1-客户端实现原理" class="headerlink" title="1. 客户端实现原理"></a>1. 客户端实现原理</h2><ol>
-<li><strong>获取 Sentinel 节点：</strong> 遍历所有 Sentinel 节点，获取一个可用的 Sentinel 节点</li>
-<li><strong>获取 master 节点：</strong> 执行 sentinel get-master-addr-by-name ${masterName} 命令获取 master 节点</li>
-<li><strong>验证 master 节点：</strong> 执行 role 或 role replication 命令获取节点信息进行验证其是否故障</li>
-<li><strong>故障转移通知：</strong> 当 redis 主从变化时通知客户端<ol>
-<li><em> +switch-master：</em> 切换主节点（从节点晋升主节点）</li>
-<li><em>+convert-to-slave：</em> 切换从节点（主节点降为从节点）</li>
-<li><em>+sdown：</em> 主观下线</li>
-</ol>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/15e20a853a5b/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &gt;&gt;&gt; spring boot 1.4.0 版本之后使用以下两个配置</span></span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt;&gt;&gt; spring boot 1.4.0 版本之前使用以下三个配置</span></span><br><span class="line"><span class="comment">//@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="comment">//classes 需要指定 spring boot 的启动类如：DemoApplication.class 不然 WebApplicationContext 不被实例化</span></span><br><span class="line"><span class="comment">//@SpringApplicationConfiguration(classes = DemoApplication.class)</span></span><br><span class="line"><span class="comment">//@WebAppConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IndexControllerTests</span> {</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">* mock api 模拟http请求</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="keyword">private</span> MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> WebApplicationContext webApplicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化工作</span></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> {</span><br><span class="line">        <span class="comment">// 独立安装测试</span></span><br><span class="line">        <span class="comment">// mockMvc = MockMvcBuilders.standaloneSetup(new ReserveManageController()).build();</span></span><br><span class="line">        <span class="comment">// 集成Web环境测试（此种方式并不会集成真正的web环境，而是通过相应的Mock API进行模拟测试，无须启动服务器）</span></span><br><span class="line">        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//测试</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">index</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="comment">// 构建请求</span></span><br><span class="line">        <span class="type">MockHttpServletRequestBuilder</span> <span class="variable">requestBuilder</span> <span class="operator">=</span> MockMvcRequestBuilders.post(<span class="string">"/reserve_manage/v1/get_sms_template?s_eid=00604049"</span>)</span><br><span class="line">            <span class="comment">// .param("pageNum", "10")</span></span><br><span class="line">            .accept(MediaType.APPLICATION_JSON);</span><br><span class="line">        <span class="comment">// 返回结果</span></span><br><span class="line">        <span class="type">MvcResult</span> <span class="variable">mvcResult</span> <span class="operator">=</span> mockMvc.perform(requestBuilder)</span><br><span class="line">            <span class="comment">// 等同于Assert.assertEquals(200,status);</span></span><br><span class="line">            .andExpect(MockMvcResultMatchers.status().isOk())</span><br><span class="line">            <span class="comment">//  等同于 Assert.assertEquals("hello lvgang",content);</span></span><br><span class="line">            <span class="comment">// .andExpect(MockMvcResultMatchers.content().string(""))</span></span><br><span class="line">            <span class="comment">// 添加一个结果处理器，表示要对结果做点什么事情</span></span><br><span class="line">            .andDo(MockMvcResultHandlers.print())</span><br><span class="line">            <span class="comment">// 执行完成后返回相应的结果</span></span><br><span class="line">            .andReturn();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到返回状态</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">status</span> <span class="operator">=</span> mvcResult.getResponse().getStatus();</span><br><span class="line">        <span class="comment">// 得到返回结果</span></span><br><span class="line">        Assert.assertEquals(<span class="number">200</span>, status);</span><br><span class="line">        <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> mvcResult.getResponse().getContentAsString();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="SpringFactoryUtil"><a href="#SpringFactoryUtil" class="headerlink" title="SpringFactoryUtil"></a>SpringFactoryUtil</h1><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringFactoryUtil</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException {</span><br><span class="line">        SpringFactoryUtil.applicationContext = applicationContext;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(name);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(requiredType);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/cd58652eb14b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/cd58652eb14b/" class="post-title-link" itemprop="url">Git</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-12 22:59:00" itemprop="dateCreated datePublished" datetime="2022-05-12T22:59:00+08:00">2022-05-12</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/cd58652eb14b/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cd58652eb14b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652407285001-fab2c18e-81c0-4748-bdca-10cf3e727610.pdf?_lake_card=%7B%22src%22:%22https://www.yuque.com/attachments/yuque/0/2022/pdf/12939765/1652407285001-fab2c18e-81c0-4748-bdca-10cf3e727610.pdf%22,%22name%22:%22%E5%88%AB%E4%B9%B1%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E4%BA%86%EF%BC%8C%E7%9C%8B%E4%B8%8B%E5%A4%A7%E5%8E%82%20Git%20%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%81.pdf%22,%22size%22:1610472,%22ext%22:%22pdf%22,%22source%22:%22%22,%22status%22:%22done%22,%22download%22:true,%22type%22:%22application/pdf%22,%22taskId%22:%22u37544941-f41e-4c9f-972d-237495d4b11%22,%22taskType%22:%22upload%22,%22mode%22:%22title%22,%22id%22:%22u16e3b7e8%22,%22card%22:%22file%22%7D">别乱提交代码了，看下大厂 Git 提交规范是怎么做的！.pdf</a><br><a target="_blank" rel="noopener" href="http://iissnan.com/progit/">Pro Git 简体中文版 (iissnan.com)</a><br><a target="_blank" rel="noopener" href="https://github.com/zurawiki/gptcommit">gptcommit</a></p>
+
       
     </div>
 
@@ -1397,7 +1303,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
