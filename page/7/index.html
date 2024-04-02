@@ -216,133 +216,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/b9fa8c7b4232/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/b9fa8c7b4232/" class="post-title-link" itemprop="url">Java 并发详解 ②：线程池</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-13 18:55:08" itemprop="dateCreated datePublished" datetime="2021-02-13T18:55:08+08:00">2021-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">并发</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/b9fa8c7b4232/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="b9fa8c7b4232/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>12 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="1-ThreadPoolExecutor"><a href="#1-ThreadPoolExecutor" class="headerlink" title="1. ThreadPoolExecutor"></a>1. ThreadPoolExecutor</h2><p>线程数计算公式： 线程数 = CPU 核数 * 期望 CPU 使用率 0~1_ *_（1 + 等待时间 / 计算时间）</p>
-<h3 id="1-1-七大参数"><a href="#1-1-七大参数" class="headerlink" title="1.1. 七大参数"></a>1.1. 七大参数</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ThreadPoolExecutor</span> <span class="variable">tpe</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">60</span>, TimeUnit.SECONDS, </span><br><span class="line">                                                <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">4</span>), </span><br><span class="line">                                                Executors.defaultThreadFactory(),</span><br><span class="line">                                                <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.CallerRunsPolicy());</span><br></pre></td></tr></tbody></table></figure>
-
-<ul>
-<li>corePoolSize：核心线程数。保留在线程池中的线程数，即使它们处于空闲状态，除非设置了 <code>allowCoreThreadTimeOut</code>。</li>
-<li>maximumPoolSize：最大线程数。线程池中允许的最大线程数，在阻塞队列满了之后加入的任务会创建非核心线程进行处理。</li>
-<li>keepAliveTime：当线程数大于 <code>corePoolSize</code> 时，非核心线程在终止之前等待新任务的最大时间。</li>
-<li>unit：<code>keepAliveTime</code> 参数的时间单位。</li>
-<li>workQueue：阻塞队列。在执行任务之前用于保存任务的队列。 这个队列将只保存 <code>execute</code> 方法提交的 <code>Runnable</code> 任务。提交的线程后若发现线程总数超过 <code>corePoolSize</code> 但是不超过 <code>keepAliveTime</code> 的情况下。</li>
-<li>threadFactory：用来执行的时候创建线程的线程工厂，可用于线程命名。</li>
-<li>handler：在执行被阻塞时使用的处理程序，因为达到了线程边界和队列容量。 <ul>
-<li>AbortPolicy：直接抛出异常，这是默认策略。</li>
-<li>CallerRunsPolicy：用调用者所在的线程来执行任务。</li>
-<li>DiscardOldestPolicy：丢弃阻塞队列中靠最前的任务，并执行当前任务。</li>
-<li>DiscardPolicy：直接丢弃任务。</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/b9fa8c7b4232/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ccomma.cn/3ccff5d7e907/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1111,6 +984,121 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/291701d89b2f/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/ff660a81acea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/ff660a81acea/" class="post-title-link" itemprop="url">对象引用类型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-08-14 18:12:33" itemprop="dateCreated datePublished" datetime="2020-08-14T18:12:33+08:00">2020-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/ff660a81acea/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="ff660a81acea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>2 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>被强引用关联的对象不会被回收。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><p>被软引用关联的对象只有在内存不够的情况下才会被回收。<br><strong>作用：</strong> 缓存</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">SoftReference&lt;Object&gt; sf = <span class="keyword">new</span> <span class="title class_">SoftReference</span>&lt;Object&gt;(obj);</span><br><span class="line">obj = <span class="literal">null</span>;  <span class="comment">// 使对象只被软引用关联</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>// ===== 软引用测试（-Xms:20M -Xmx20M） =====</p>
+<p>SoftReference&lt;byte[]&gt; m = new SoftReference&lt;&gt;(new byte[1024<em>1024</em>10]);<br>System.out.println(m.get());</p>
+<p>// 再分配一个数组，heap 将装不下，这时候系统会垃圾回收，先回收一次，如果不够，会把软引用干掉<br>byte[] b = new byte[1024<em>1024</em>15];<br>System.out.println(m.get()); // null</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/ff660a81acea/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
