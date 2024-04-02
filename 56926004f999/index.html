@@ -23,28 +23,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="测试12345&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;  &lt;scope&gt;test&lt;&#x2F;scope&gt;&lt;&#x2F;dependency&gt;  1">
+    <meta name="description" content="一、慢查询1. Redis 请求过程慢查询发生在 执行命令阶段">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring">
-<meta property="og:url" content="https://ccomma.cn/f5f86795b0f8/">
+<meta property="og:title" content="Redis 从入门到入土⑦：高级特性">
+<meta property="og:url" content="https://ccomma.cn/56926004f999/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="测试12345&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;  &lt;scope&gt;test&lt;&#x2F;scope&gt;&lt;&#x2F;dependency&gt;  1">
+<meta property="og:description" content="一、慢查询1. Redis 请求过程慢查询发生在 执行命令阶段">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-13T06:41:23.000Z">
-<meta property="article:modified_time" content="2024-04-01T08:13:04.829Z">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e54533b87280e919df50ae491be9c654.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d8834ce0eb85fc2f1215b30305114cc7.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bb66464075181714bc5d0e455049de93.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bca2b6ea3715c2b07d6589450a2542ef.png">
+<meta property="article:published_time" content="2022-12-28T11:35:09.000Z">
+<meta property="article:modified_time" content="2024-04-02T03:51:46.698Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e54533b87280e919df50ae491be9c654.png">
 
 
-<link rel="canonical" href="https://ccomma.cn/f5f86795b0f8/">
+<link rel="canonical" href="https://ccomma.cn/56926004f999/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/f5f86795b0f8/","path":"f5f86795b0f8/","title":"Spring"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/56926004f999/","path":"56926004f999/","title":"Redis 从入门到入土⑦：高级特性"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Spring | CComma's Blog</title>
+<title>Redis 从入门到入土⑦：高级特性 | CComma's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -151,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringFactoryUtil"><span class="nav-number">2.</span> <span class="nav-text">SpringFactoryUtil</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%85%A2%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">一、慢查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Redis-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1. Redis 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">2. 结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">3. 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">4. 命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88pipeline%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、流水线（pipeline）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BD%8D%E5%9B%BE%EF%BC%88Bitmap%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">三、位图（Bitmap）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81HyperLogLog"><span class="nav-number">4.</span> <span class="nav-text">四、HyperLogLog</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">1. 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BC%BA%E9%99%B7"><span class="nav-number">4.2.</span> <span class="nav-text">2. 缺陷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81GEO"><span class="nav-number">5.</span> <span class="nav-text">五、GEO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%91%BD%E4%BB%A4-1"><span class="nav-number">5.1.</span> <span class="nav-text">1. 命令</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -220,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/f5f86795b0f8/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/56926004f999/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -233,12 +238,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Spring | CComma's Blog">
+      <meta itemprop="name" content="Redis 从入门到入土⑦：高级特性 | CComma's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring
+          Redis 从入门到入土⑦：高级特性
         </h1>
 
         <div class="post-meta-container">
@@ -249,7 +254,16 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-05-13 14:41:23" itemprop="dateCreated datePublished" datetime="2022-05-13T14:41:23+08:00">2022-05-13</time>
+      <time title="Created: 2022-12-28 19:35:09" itemprop="dateCreated datePublished" datetime="2022-12-28T19:35:09+08:00">2022-12-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
     </span>
 
   
@@ -268,8 +282,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/f5f86795b0f8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="f5f86795b0f8/" itemprop="commentCount"></span>
+    <a title="disqus" href="/56926004f999/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="56926004f999/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -279,7 +293,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>2 mins.</span>
     </span>
 </div>
 
@@ -289,11 +303,28 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+    <div class="post-body" itemprop="articleBody"><h1 id="一、慢查询"><a href="#一、慢查询" class="headerlink" title="一、慢查询"></a>一、慢查询</h1><h2 id="1-Redis-请求过程"><a href="#1-Redis-请求过程" class="headerlink" title="1. Redis 请求过程"></a>1. Redis 请求过程</h2><p>慢查询发生在 执行命令阶段<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e54533b87280e919df50ae491be9c654.png" alt="image.png"></p>
+<span id="more"></span>
+<h2 id="2-结构"><a href="#2-结构" class="headerlink" title="2. 结构"></a>2. 结构</h2><p>保存在内存中的长度固定的 <strong>先进先出队列</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/d8834ce0eb85fc2f1215b30305114cc7.png" alt="image.png"></p>
+<h2 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. 配置</h2><p><strong><em>slowlog-max-len：</em></strong> 最大长度，默认为 128<br><strong><em>slowlog-log-slower-than=1000：</em></strong> 超过 1s 则加入慢查队列中，默认为 10000</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 动态配置</span><br><span class="line">config set slowlog-max-len 1000</span><br><span class="line">config set slowlog-log-slower-than=10000</span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &gt;&gt;&gt; spring boot 1.4.0 版本之后使用以下两个配置</span></span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt;&gt;&gt; spring boot 1.4.0 版本之前使用以下三个配置</span></span><br><span class="line"><span class="comment">//@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="comment">//classes 需要指定 spring boot 的启动类如：DemoApplication.class 不然 WebApplicationContext 不被实例化</span></span><br><span class="line"><span class="comment">//@SpringApplicationConfiguration(classes = DemoApplication.class)</span></span><br><span class="line"><span class="comment">//@WebAppConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IndexControllerTests</span> {</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">* mock api 模拟http请求</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="keyword">private</span> MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> WebApplicationContext webApplicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化工作</span></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> {</span><br><span class="line">        <span class="comment">// 独立安装测试</span></span><br><span class="line">        <span class="comment">// mockMvc = MockMvcBuilders.standaloneSetup(new ReserveManageController()).build();</span></span><br><span class="line">        <span class="comment">// 集成Web环境测试（此种方式并不会集成真正的web环境，而是通过相应的Mock API进行模拟测试，无须启动服务器）</span></span><br><span class="line">        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//测试</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">index</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="comment">// 构建请求</span></span><br><span class="line">        <span class="type">MockHttpServletRequestBuilder</span> <span class="variable">requestBuilder</span> <span class="operator">=</span> MockMvcRequestBuilders.post(<span class="string">"/reserve_manage/v1/get_sms_template?s_eid=00604049"</span>)</span><br><span class="line">            <span class="comment">// .param("pageNum", "10")</span></span><br><span class="line">            .accept(MediaType.APPLICATION_JSON);</span><br><span class="line">        <span class="comment">// 返回结果</span></span><br><span class="line">        <span class="type">MvcResult</span> <span class="variable">mvcResult</span> <span class="operator">=</span> mockMvc.perform(requestBuilder)</span><br><span class="line">            <span class="comment">// 等同于Assert.assertEquals(200,status);</span></span><br><span class="line">            .andExpect(MockMvcResultMatchers.status().isOk())</span><br><span class="line">            <span class="comment">//  等同于 Assert.assertEquals("hello lvgang",content);</span></span><br><span class="line">            <span class="comment">// .andExpect(MockMvcResultMatchers.content().string(""))</span></span><br><span class="line">            <span class="comment">// 添加一个结果处理器，表示要对结果做点什么事情</span></span><br><span class="line">            .andDo(MockMvcResultHandlers.print())</span><br><span class="line">            <span class="comment">// 执行完成后返回相应的结果</span></span><br><span class="line">            .andReturn();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到返回状态</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">status</span> <span class="operator">=</span> mvcResult.getResponse().getStatus();</span><br><span class="line">        <span class="comment">// 得到返回结果</span></span><br><span class="line">        Assert.assertEquals(<span class="number">200</span>, status);</span><br><span class="line">        <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> mvcResult.getResponse().getContentAsString();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="4-命令"><a href="#4-命令" class="headerlink" title="4. 命令"></a>4. 命令</h2><p><strong><em>slowlog get [n]：</em></strong> 获取慢查询队列，n 为条数<br><strong><em>slowlog len：</em></strong> 获取慢查询队列长度<br><strong><em>slowlog reset：</em></strong> 清空慢查询队列</p>
+<h1 id="二、流水线（pipeline）"><a href="#二、流水线（pipeline）" class="headerlink" title="二、流水线（pipeline）"></a>二、流水线（pipeline）</h1><p><strong><em>作用：</em></strong> 解决批量执行 hset、hget 等操作的问题<br><strong><em>非原子命令</em></strong><br><strong><em>只能作用在一个 Redis 节点上</em></strong><br><strong><em>例：</em></strong></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = new Jedis("127.0.0.1", 6379);</span><br><span class="line">for (int i = 0; i &lt; 100; i++) {</span><br><span class="line">    Pipeline pipeline = jedis.pipelined();</span><br><span class="line">    for (int j = i * 100; j &lt; (i + 1) * 100; j++) {</span><br><span class="line">        pipeline.hset("hashkey:" + j, "field" + j, "value" + j);</span><br><span class="line">    }</span><br><span class="line">    pipeline.syncAndReturnAll();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<h1 id="SpringFactoryUtil"><a href="#SpringFactoryUtil" class="headerlink" title="SpringFactoryUtil"></a>SpringFactoryUtil</h1><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringFactoryUtil</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException {</span><br><span class="line">        SpringFactoryUtil.applicationContext = applicationContext;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(name);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(requiredType);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="三、位图（Bitmap）"><a href="#三、位图（Bitmap）" class="headerlink" title="三、位图（Bitmap）"></a>三、位图（Bitmap）</h1><p><strong><em>setbit key offset value：</em></strong> 给位图指定索引设置值，返回之前位的值<br><strong>例：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bb66464075181714bc5d0e455049de93.png" alt="image.png"><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/bca2b6ea3715c2b07d6589450a2542ef.png" alt="image.png"><br><strong><em>get key offset：</em></strong> 返回位图指定索引的值<br><strong><em>bitcount key [start] [end]：</em></strong> 获取位图指定范围值为 1 的个数<br><strong><em>bitops key targetBit [start] [end]：</em></strong> 计算位图指定范围内第一个值等于 targetBit 的位置<br><strong><em>bitop op destkey key [key…]：</em></strong> 把多个 Bitmap 的 与、或、非、异或 操作的结果保存在 destkey 中</p>
+<ul>
+<li>op： and（与）、or（或）、not（非）、xor（异或）</li>
+</ul>
+<h1 id="四、HyperLogLog"><a href="#四、HyperLogLog" class="headerlink" title="四、HyperLogLog"></a>四、HyperLogLog</h1><p><strong><em>概述：</em></strong> 以极小的空间统计独立数量，本质还是 string 类型</p>
+<h2 id="1-命令"><a href="#1-命令" class="headerlink" title="1. 命令"></a>1. 命令</h2><p><strong><em>pfadd key element [element…]：</em></strong> 添加元素<br><strong><em>pfcount key [key…]：</em></strong> 计算总数<br><strong><em>pfmerge destkey key [key…]：</em></strong> 合并多个 hyperloglog</p>
+<h2 id="2-缺陷"><a href="#2-缺陷" class="headerlink" title="2. 缺陷"></a>2. 缺陷</h2><p><strong><em>错误率：</em></strong> 0.81%</p>
+<h1 id="五、GEO"><a href="#五、GEO" class="headerlink" title="五、GEO"></a>五、GEO</h1><p><strong><em>概述：</em></strong> 地理信息定位。存储经纬度，计算两地距离和范围等，本质是 zset 类型</p>
+<h2 id="1-命令-1"><a href="#1-命令-1" class="headerlink" title="1. 命令"></a>1. 命令</h2><p><strong><em>geo key longitude latitude member [longitude latitude member…]：</em></strong> 添加地理位置信息<br><strong><em>geopos key member：</em></strong> 获取地理位置信息<br><strong><em>geodist key member1 member2 [unit]：</em></strong> 获取两个地理位置的距离</p>
+<ul>
+<li>unit： m、km、mi、ft</li>
+</ul>
 
     </div>
 
@@ -334,13 +365,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/d59b3a8193b0/" rel="prev" title="git 配置">
-                  <i class="fa fa-angle-left"></i> git 配置
+                <a href="/291dfc4393a0/" rel="prev" title="Redis 主从复制">
+                  <i class="fa fa-angle-left"></i> Redis 主从复制
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/09cb9486a3e4/" rel="next" title="AOP">
-                  AOP <i class="fa fa-angle-right"></i>
+                <a href="/09de003c8a49/" rel="next" title="Redis 从入门到入土⑦：高级使用">
+                  Redis 从入门到入土⑦：高级使用 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -439,7 +470,7 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/f5f86795b0f8/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/56926004f999/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>

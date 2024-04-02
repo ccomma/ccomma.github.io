@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -207,6 +207,183 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/d2fb4e59d77a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/d2fb4e59d77a/" class="post-title-link" itemprop="url">Nginx 笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-12-03 23:55:11" itemprop="dateCreated datePublished" datetime="2022-12-03T23:55:11+08:00">2022-12-03</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/d2fb4e59d77a/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d2fb4e59d77a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>8 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li>Tengine 下载和文档：<a target="_blank" rel="noopener" href="http://tengine.taobao.org/">http://tengine.taobao.org/</a></li>
+<li>Nginx 官网和文档：<a target="_blank" rel="noopener" href="http://nginx.org/">http://nginx.org</a></li>
+<li> 特点：CPU 和内存占用少，并发能力强，支持 50000 个并发连接数</li>
+</ul>
+<p><strong>nginx 相对于 apache 的优点：</strong></p>
+<ul>
+<li>轻量级，同样起 web 服务，比 apache 占用更少的内存及资源</li>
+<li>抗并发，nginx 处理请求是异步非阻塞的，而 apache 则是阻塞型的，在高并发下 nginx 能保持低资源低消耗高性能</li>
+<li>高度模块化的设计，编写模块相对简单</li>
+<li>社区活跃，各种高性能模块出品迅速</li>
+</ul>
+<p><strong>apache 相对于 nginx 的优点：</strong></p>
+<ul>
+<li>rewrite ，比 nginx 的 rewrite 强大</li>
+<li>模块超多，基本想到的都可以找到</li>
+<li>少 bug ，nginx 的 bug 相对较多</li>
+</ul>
+<p>Nginx 配置简洁，Apache 复杂<br>最核心的区别在于 apache 是同步多进程模型，一个连接对应一个进程；nginx 是异步的，多个连接（万级别）可以对应一个进程</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>conf/nginx.conf</p>
+<h3 id="1-全局块"><a href="#1-全局块" class="headerlink" title="1. 全局块"></a>1. 全局块</h3><p>全局配置（events 块之前都是全局块），比如 worker 进 程的数量、错误⽇志的位置</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">运行用户</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">user nobody;</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">worker 进程数量，通常设置为和 cpu 数量相等</span></span><br><span class="line">worker_processes 1;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全局错误日志</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  info;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pid 文件位置</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">pid        logs/nginx.pid;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">一个 nginx 进程打开的最多文件描述符数目</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">worker_rlimit_nofile 65535;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="2-events"><a href="#2-events" class="headerlink" title="2. events"></a>2. events</h3><p>主要影响 nginx 服务器与⽤户的网络连接</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">events {</span><br><span class="line">    # 参考事件模型，use [ kqueue | rtsig | epoll | /dev/poll | select | poll ]; </span><br><span class="line">    # epoll 模型是Linux 2.6以上版本内核中的高性能网络I/O模型，如果跑在FreeBSD上面，就用kqueue模型。</span><br><span class="line">    use epoll;</span><br><span class="line">    # 每个 workder 进程最⼤连接数为 1024</span><br><span class="line">    worker_connections 1024;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>单个进程最大连接数：</strong></p>
+<ul>
+<li>并发总数：worker_processes * worker_connections</li>
+<li> 在设置了反向代理的情况下，并发总数 = worker_processes * worker_connections / 4。为什么上面反向代理要除以 4，应该说是一个经验值。</li>
+<li>因为并发受 IO 约束，max_clients 的值须小于系统可以打开的最大文件数</li>
+</ul>
+<p><strong>可以打开的文件句柄数是多少</strong></p>
+<ul>
+<li>系统总限制： <code>/proc/sys/fs/file-max</code></li>
+<li>当前使用句柄数：<code>/proc/sys/fs/file-nr</code></li>
+<li>修改句柄数：<code>ulimit -SHn 65535</code></li>
+</ul>
+<p><code>–$ cat /proc/sys/fs/file-max</code>，输出：<code>97320</code><br>并发连接总数小于系统可以打开的文件句柄总数，这样就在操作系统可以承受的范围之内<br>所以，worker_connections 的值需根据 worker_processes 进程数目和系统可以打开的最大文件总数进行适当地进行设置，使得并发总数小于操作系统可以打开的最大文件数目</p>
+<h3 id="3-http"><a href="#3-http" class="headerlink" title="3. http"></a>3. http</h3><p>配置最频繁的部分，虚拟主机的配置，监听端⼝的配置，请求转发、反向代理、负载均衡等<br>每个 server 可以独立对外提供服务，这样就可以实现一台主机对外提供多个 web 服务，支持三种类型的虚拟主机配置：</p>
+<ul>
+<li>基于 ip 的虚拟主机， （一块主机绑定多个 ip 地址）</li>
+<li>基于域名的虚拟主机（servername）</li>
+<li>基于端口的虚拟主机（listen 如果不写 ip 端口模式）<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">http 全局配置</span></span><br><span class="line">http {</span><br><span class="line">    # 引入mime类型定义文件</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    # 设定日志格式</span><br><span class="line">    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">    #                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">    #                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    # 开启高效文件传输模式</span><br><span class="line">    # 是否调用 sendfile 函数来输出文件，对于普通应用设为 on，</span><br><span class="line">    # 如果用来进行下载等应用磁盘 I/O 重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的负载</span><br><span class="line">    sendfile      on;</span><br><span class="line">    # 在 linux/Unix 系统中优化 tcp 数据传输，仅在 sendfile 开启时有效</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #开启目录列表访问，合适下载服务器，默认关闭。</span><br><span class="line">    autoindex on;</span><br><span class="line"></span><br><span class="line">    # 长连接超时时间，秒</span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout 65;</span><br><span class="line"></span><br><span class="line">    # 反向代理</span><br><span class="line">    upstream myServer {</span><br><span class="line">        # weight：默认为1。weight越大，负载的权重就越大。</span><br><span class="line">        server 127.0.0.1:8080    weight=5  max_conns=800;</span><br><span class="line">        server 127.0.0.1:8081;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    # 开启 gzip 压缩</span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    # 设置允许压缩的页面最小字节数，默认值是0，不管页面多大都压缩</span><br><span class="line">    # 页面字节数从 header 头的 content-length 中进行获取。</span><br><span class="line">    # 建议设置成大于2k的字节数，小于2k可能会越压越大。</span><br><span class="line">    #gzip_min_length 1k;</span><br><span class="line"></span><br><span class="line">    # 设置系统获取几个单位的缓存用于存储 gzip 的压缩结果数据流。</span><br><span class="line">    # 例如 4 4k 代表以 4k 为单位，按照原始数据大小以 4k 为单位的 4 倍申请内存。 </span><br><span class="line">    #     4 8k 代表以 8k 为单位，按照原始数据大小以 8k 为单位的 4 倍申请内存。</span><br><span class="line">    # 如果没有设置，默认值是申请跟原始数据相同大小的内存空间去存储 gzip 压缩结果。</span><br><span class="line">    #gzip_buffers 4 16k;</span><br><span class="line"></span><br><span class="line">    # 压缩版本（默认1.1，前端如果是squid2.5请使用1.0）</span><br><span class="line">    #gzip_http_version 1.0;</span><br><span class="line"></span><br><span class="line">    # 压缩级别，1-10，数字越大压缩的越好，也越占用 CPU 时间</span><br><span class="line">    #gzip_comp_level 2;</span><br><span class="line"></span><br><span class="line">    # 压缩类型，默认就已经包含text/html</span><br><span class="line">    #gzip_types text/plain application/x-javascript text/css application/xml;</span><br><span class="line"></span><br><span class="line">    # E6及以下禁止压缩</span><br><span class="line">    #gzip_disable "MSIE [1-6]\.";</span><br><span class="line"></span><br><span class="line">    # 给 CDN 和代理服务器使用</span><br><span class="line">    # 针对相同url，可以根据头信息返回压缩和非压缩副本</span><br><span class="line">    #gzip_vary on;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">server 块，虚拟主机</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">每个 server 可以独立对外提供服务，这样就可以实现一台主机对外提供多个web服务</span></span><br><span class="line">    server {</span><br><span class="line">        # 监听的端口</span><br><span class="line">        listen       80;</span><br><span class="line">        # 定义使用 localhost 访问。域名可以有多个，用空格隔开</span><br><span class="line">        server_name  localhost xxx.com;</span><br><span class="line"></span><br><span class="line">        # 编码集</span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        # 默认请求</span><br><span class="line">        # location URI {}    对当前路径及子路径下的所有对象都生效；</span><br><span class="line">        # location = URI {}  精确匹配指定的路径，不包括子路径；</span><br><span class="line">        # location ~ URI {} location ~* URI {}  </span><br><span class="line">        #     模式匹配URI，可使用正则表达式，区分字符大小写，*不区分字符大小写；</span><br><span class="line">        # location ^~ URI {} 禁用正则表达式</span><br><span class="line">        # 优先级：= &gt; ^~ &gt; |* &gt;  /|/dir/</span><br><span class="line">        location / {</span><br><span class="line">            proxy_pass http://myServer/;</span><br><span class="line">            # 默认的网站根目录位置</span><br><span class="line">            # root   html;</span><br><span class="line">            # 默认页</span><br><span class="line">            # index  index.html index.htm;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        # ip 控制</span><br><span class="line">        location  {</span><br><span class="line">      	   deny  IP /IP段</span><br><span class="line">      	   deny  192.168.1.109;</span><br><span class="line">      	   allow 192.168.1.0/24;192.168.0.0/16;192.0.0.0/8</span><br><span class="line">      	}</span><br><span class="line"></span><br><span class="line">        # 用户认证访问</span><br><span class="line">        location ~ (.*)\.avi$ {</span><br><span class="line">                 auth_basic  "closed site";</span><br><span class="line">                 auth_basic_user_file conf/users;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page /50x.html</span><br><span class="line">        #</span><br><span class="line">        # 错误提示页面</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html {</span><br><span class="line">            root   html;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ {</span><br><span class="line">        #    proxy_pass   http://127.0.0.1;</span><br><span class="line">        #}</span><br><span class="line"></span><br><span class="line">        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ {</span><br><span class="line">        #    root           html;</span><br><span class="line">        #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        #    fastcgi_index  index.php;</span><br><span class="line">        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">        #    include        fastcgi_params;</span><br><span class="line">        #}</span><br><span class="line"></span><br><span class="line">        # deny access to .htaccess files, if Apache's document root</span><br><span class="line">        # concurs with nginx's one</span><br><span class="line">        #</span><br><span class="line">        #location ~ /\.ht {</span><br><span class="line">        #    deny  all;</span><br><span class="line">        #}</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="1-反向代理服务器"><a href="#1-反向代理服务器" class="headerlink" title="1. 反向代理服务器"></a>1. 反向代理服务器</h3><p>浏览器设置代理服务器为正向代理。Nginx 作为反向代理服务器接收并转发请求 </p>
+<ol>
+<li>部署 tomcat，保持默认监听 8080 端⼝ </li>
+<li>修改配置<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8987a1ed1c748ec90345cada5aa50600.png"><br>多 location 的使⽤（优先级从高到低排序）：<br>  - 精确匹配：location = /lagou {…}<br>  - 匹配路径的前缀：location ^~ /lagou {…}<br>  - 不区分⼤⼩写的正则匹配：location ~* /lagou {…}<br>  - 正则匹配：location ~ /lagou {…}<br>  - 普通路径前缀匹配：location /lagou {…}，</li>
+</ol>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/92112df4d02c36f181d30155b0be3f69.png"></p>
+<h3 id="2-负载均衡"><a href="#2-负载均衡" class="headerlink" title="2. 负载均衡"></a>2. 负载均衡</h3><h4 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h4><p>默认策略，每个请求按时间顺序逐⼀分配到不同的服务器，如果某⼀个服务器下线，能⾃动剔除</p>
+<figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> lagouServer{</span><br><span class="line">  <span class="attribute">server</span> <span class="number">111.229.248.243:8080</span>;</span><br><span class="line">  <span class="attribute">server</span> <span class="number">111.229.248.243:8082</span>;</span><br><span class="line">} </span><br><span class="line"></span><br><span class="line"><span class="section">location</span> /abc {</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://lagouServer/;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="权重"><a href="#权重" class="headerlink" title="权重"></a>权重</h4><p>默认每⼀个负载的服务器都为 1，权重越⾼那么被分配的请求越多（⽤于服务器性能不均衡的场景） </p>
+<figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> lagouServer{ </span><br><span class="line">  <span class="attribute">server</span> <span class="number">111.229.248.243:8080</span> weight=<span class="number">1</span>; </span><br><span class="line">  <span class="attribute">server</span> <span class="number">111.229.248.243:8082</span> weight=<span class="number">2</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><p>ip_hash：每个请求按照 ip 的 hash 结果分配，每⼀个客户端的请求会固定分配到同⼀个⽬标服务器处理，可以解决 session 问题 </p>
+<figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> lagouServer{ </span><br><span class="line">  ip_hash;</span><br><span class="line">  <span class="attribute">server</span> <span class="number">111.229.248.243:8080</span>; </span><br><span class="line">  <span class="attribute">server</span> <span class="number">111.229.248.243:8082</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>一致性 Hash<br>ngx_http_upstream_consistent_hash 模块是⼀个第三⽅模块，需要我们下载安装后使⽤<br><a target="_blank" rel="noopener" href="https://github.com/replay/ngx_http_consistent_hash">下载</a>并解压<br>分别执行以下命令：./configure —add-module=/root/ngx_http_consistent_hash-master、make、make install </p>
+<ul>
+<li>consistent_hash $remote_addr：可以根据客户端 ip 映射</li>
+<li> consistent_hash $request_uri：根据客户端请求的 uri 映射</li>
+<li> consistent_hash $args：根据客户端携带的参数进⾏映 <figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> myServer {</span><br><span class="line">	<span class="attribute">consistent_hash</span> <span class="variable">$request_uri</span>;</span><br><span class="line">	<span class="attribute">server</span> <span class="number">127.0.0.1:8080</span>;</span><br><span class="line">	<span class="attribute">server</span> <span class="number">127.0.0.1:8082</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h4><figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 静态资源处理，直接去 Nginx 服务器目录中加载</span></span><br><span class="line"><span class="section">location</span> /static/ {</span><br><span class="line">  <span class="attribute">root</span> staticData;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="底层进程机制"><a href="#底层进程机制" class="headerlink" title="底层进程机制"></a>底层进程机制</h2><p>Nginx 启动后，以 daemon 多进程⽅式在后台运⾏。包括⼀个 Master 进程和多个 Worker 进程</p>
+<h3 id="1-结构"><a href="#1-结构" class="headerlink" title="1. 结构"></a>1. 结构</h3><ul>
+<li>Master 进程：管理 worker 进程<ul>
+<li>接收外界信号向各 worker 进程发送信号 (./nginx -s reload)</li>
+<li> 监控 worker 进程的运⾏状态，当 worker 进程异常退出后 Master 进程会⾃动重新启动新的 worker 进程等</li>
+</ul>
+</li>
+<li> Worker 进程：worker 进程具体处理⽹络请求，各进程互相之间是独⽴，⼀个 worker 进程处理一个请求。worke r 进程的个数是可以设置的，⼀般设置与机器 cpu 核数⼀致</li>
+</ul>
+<h3 id="2-流程"><a href="#2-流程" class="headerlink" title="2. 流程"></a>2. 流程<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7dfc77419ac998684dafb6ae9b3dae53.png"></h3><ol>
+<li><strong>fork worker 进程：</strong>master 进程创建之后，会建⽴好需要监听的的 socket，然后从 master 进程再 fork 出多个 worker 进程。所以所有 worker 进程的监听描述符 listenfd 在新连接到来时都变得可读</li>
+<li><strong>进程锁：</strong>nginx 使⽤互斥锁来保证只有⼀个 workder 进程能够处理请求，拿到互斥锁的那个进程注册 listenfd 读事件，在读事件⾥调⽤ accept 接受该连接，然后解析、处理、返回客户端</li>
+</ol>
+<h3 id="3-nginx-多进程模型好处"><a href="#3-nginx-多进程模型好处" class="headerlink" title="3. nginx 多进程模型好处"></a>3. nginx 多进程模型好处</h3><ul>
+<li>每个 worker 进程都是独⽴的，不需要加锁，节省开销</li>
+<li>每个 worker 进程都是独⽴的，互不影响，⼀个异常结束，其他的照样能提供服务</li>
+<li>多进程模型为 reload 热部署机制提供了⽀撑</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -288,84 +465,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Redis 是内存型数据库，为了保证数据在断电后不会丢失，需要将内存中的数据持久化到硬盘上</p>
-<h2 id="1-RDB-持久化"><a href="#1-RDB-持久化" class="headerlink" title="1. RDB 持久化"></a>1. RDB 持久化</h2><p><strong><em>概述：</em></strong><br>将 ** 某个时间点 ** 的所有数据都存放到硬盘上<br>可以将 <strong>快照 <strong>复制到其它服务器从而创建具有相同数据的服务器副本<br></strong><em>缺点：</em></strong></p>
-<ul>
-<li>如果数据量很大，保存快照的 <strong>时间会很长</strong></li>
-<li>如果系统发生故障，将会 ** 丢失 ** 最后一次创建快照之后的数据</li>
-<li>不支持拉链，只有一个 dump.rdb</li>
-</ul>
-<p><strong><em>优点：</em></strong> 回复速度相对快<br><strong><em>场景：</em></strong> 关机维护<br><strong><em>三种触发机制：</em></strong></p>
-<ul>
-<li><strong>save 命令：</strong><ul>
-<li>同步</li>
-<li>直接生成 rdb 二进制文件</li>
-<li>若有老的备份，新的备份会替换老的备份</li>
-</ul>
-</li>
-<li><strong> bgsave 命令：</strong><ul>
-<li>异步</li>
-<li>通过 fork () 创建一个子进程去创建 rdb 文件</li>
-<li> fork ()：浅拷贝 + copy on write：可以做到快速拷贝，且父子互不影响<ul>
-<li>快速拷贝</li>
-<li>写时复制触发次数不多（不可能父子进程把所有数据都改一遍）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>配置：</strong><ul>
-<li>save seconds changes（save 900 1）</li>
-<li>本质为执行 bgsave</li>
-<li> 一般都会把配置关闭</li>
-<li>推荐配置如下 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份命名为 dump-<span class="variable">${port}</span>.rdb</span></span><br><span class="line">dbfilename "dump-${port}.rdb"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份存储位置</span></span><br><span class="line">dir /bigdiskpath</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bgsave 错误时停止写入</span></span><br><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">压缩格式</span></span><br><span class="line">rdbcompression yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">校验和</span></span><br><span class="line">rdbchecksum yes</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-</li>
-</ul>
-<h2 id="2-AOF-持久化"><a href="#2-AOF-持久化" class="headerlink" title="2. AOF 持久化"></a>2. AOF 持久化</h2><p><strong><em>概述：</em></strong> 将写命令添加到 AOF 文件（Append Only File）的末尾<br><strong><em>过程：</em></strong> 每次执行写命令时会把命令加入缓冲区，缓冲区根据策略进行持久化<br><strong><em>缺点：</em></strong> 体量无限变大</p>
-<h3 id="2-1-同步选项"><a href="#2-1-同步选项" class="headerlink" title="2.1. 同步选项"></a>2.1. 同步选项</h3><p>使用 AOF 持久化需要设置同步选项，从而确保写命令 ** 什么时候 ** 会同步到磁盘文件上<br>这是因为对文件进行写入并不会马上将内容同步到磁盘上，而是先存储到缓冲区，然后由操作系统决定什么时候同步到磁盘</p>
-<table>
-<thead>
-<tr>
-<th><strong>选项</strong></th>
-<th><strong>同步频率</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td> always</td>
-<td> 每个写命令都同步</td>
-</tr>
-<tr>
-<td> everysec</td>
-<td> 每秒同步一次</td>
-</tr>
-<tr>
-<td> no</td>
-<td> 让操作系统来决定何时同步</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong> always：</strong> 会严重减低服务器的性能</li>
-<li><strong> everysec：</strong> 比较合适，可以保证系统崩溃时只会丢失一秒左右的数据，并且 Redis 每秒执行一次同步对服务器性能几乎没有任何影响</li>
-<li><strong> no：</strong> 并不能给服务器性能带来多大的提升，而且也会增加系统崩溃时数据丢失的数量</li>
-</ul>
-<h3 id="2-2-AOF-重写（4-0-以前）"><a href="#2-2-AOF-重写（4-0-以前）" class="headerlink" title="2.2. AOF 重写（4.0 以前）"></a>2.2. AOF 重写（4.0 以前）</h3><p>随着服务器写请求的增多，AOF 文件会越来越大<br>Redis 提供了一种将 AOF 重写的特性，能够去除 AOF 文件中的冗余写命令<br><strong><em>原理：</em></strong> 删除抵消的命令，合并重复的命令<br><strong><em>两种方式：</em></strong></p>
-<ul>
-<li>bgrewriteaof 命令：<ul>
-<li>异步</li>
-<li>通过 fork () 创建一个子进程来在内存中执行 AOF 重写</li>
-</ul>
-</li>
-<li>配置：<ul>
-<li>推荐配置如下 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 AOF</span></span><br><span class="line">appendonly yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份名</span></span><br><span class="line">appendfilename "appendonly-${port}.aof"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">持久化策略为每秒进行</span></span><br><span class="line">appendfsync everysec</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份存储位置</span></span><br><span class="line">dir /bigdiskpath</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF 重写时不会执行 AOF</span></span><br><span class="line">no-appendfsync-on-rewrite yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF 文件重写所需的最小大小</span></span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF 文件增长率</span></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="2-3-AOF-重写（4-0-以后）"><a href="#2-3-AOF-重写（4-0-以后）" class="headerlink" title="2.3. AOF 重写（4.0 以后）"></a>2.3. AOF 重写（4.0 以后）</h3><p>RDB 和 AOF 混合</p>
-<ul>
-<li>将老的数据 RDB 到 AOF 文件中</li>
-<li>将增量的数据以指令的方式 append 到 AOF 中</li>
-</ul>
-
+          <p>Redis 是内存型数据库，为了保证数据在断电后不会丢失，需要将内存中的数据持久化到硬盘上。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/d4581e6c9497/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -464,22 +572,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="一、事务"><a href="#一、事务" class="headerlink" title="一、事务"></a>一、事务</h1><p>一个事务包含了 <strong>多个命令</strong>，服务器在执行事务期间，<strong>不会改去执行其它客户端的命令请求</strong><br>事务中的多个命令被 ** 一次性 ** 发送给服务器，而不是一条一条发送，这种方式被称为流水线，它可以减少客户端与服务器之间的网络通信次数从而提升性能。<br>Redis 最简单的事务实现方式是使用 MULTI 和 EXEC 命令将事务操作包围起来。</p>
-<h1 id="二、事件"><a href="#二、事件" class="headerlink" title="二、事件"></a>二、事件</h1><p>Redis 服务器是一个事件驱动程序。</p>
-<h2 id="1-文件事件"><a href="#1-文件事件" class="headerlink" title="1. 文件事件"></a>1. 文件事件</h2><p><strong><em>概述：</em></strong> 服务器通过套接字与客户端或者其它服务器进行通信，<strong>文件事件就是对套接字操作的抽象</strong>。<br>Redis 基于 Reactor 模式开发了自己的网络事件处理器，使用 **I/O 多路复用程序 ** 来同时监听多个套接字，并将到达的事件传送给 <strong>文件事件分派器</strong>，分派器会根据套接字产生的事件类型调用相应的 <strong>事件处理器</strong>。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a1f750912f7a07dac7d91d18f89b3aeb.png" alt="image.png"></p>
-<h2 id="2-时间事件"><a href="#2-时间事件" class="headerlink" title="2. 时间事件"></a>2. 时间事件</h2><p>服务器有一些操作需要在给定的时间点执行，时间事件是对这类定时操作的抽象。<br>时间事件又分为：</p>
-<ul>
-<li><strong>定时事件：</strong> 是让一段程序在指定的时间之内执行一次</li>
-<li><strong>周期性事件：</strong> 是让一段程序每隔指定时间就执行一次</li>
-</ul>
-<p>Redis 将所有时间事件都放在一个无序链表中，通过遍历整个链表查找出已到达的时间事件，并调用相应的事件处理器。</p>
-<h2 id="3-事件的调度与执行"><a href="#3-事件的调度与执行" class="headerlink" title="3. 事件的调度与执行"></a>3. 事件的调度与执行</h2><p>服务器需要不断监听文件事件的套接字才能得到待处理的文件事件，但是不能一直监听，否则时间事件无法在规定的时间内执行，因此监听时间应该根据距离现在最近的时间事件来决定。<br>事件调度与执行由 aeProcessEvents 函数负责，伪代码如下：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def aeProcessEvents():</span><br><span class="line">    # 获取到达时间离当前时间最接近的时间事件</span><br><span class="line">    time_event = aeSearchNearestTimer()</span><br><span class="line">    # 计算最接近的时间事件距离到达还有多少毫秒</span><br><span class="line">    remaind_ms = time_event.when - unix_ts_now()</span><br><span class="line">    # 如果事件已到达，那么 remaind_ms 的值可能为负数，将它设为 0</span><br><span class="line">    if remaind_ms &lt; 0:</span><br><span class="line">        remaind_ms = 0</span><br><span class="line">    # 根据 remaind_ms 的值，创建 timeval</span><br><span class="line">    timeval = create_timeval_with_ms(remaind_ms)</span><br><span class="line">    # 阻塞并等待文件事件产生，最大阻塞时间由传入的 timeval 决定</span><br><span class="line">    aeApiPoll(timeval)</span><br><span class="line">    # 处理所有已产生的文件事件</span><br><span class="line">    procesFileEvents()</span><br><span class="line">    # 处理所有已到达的时间事件</span><br><span class="line">    processTimeEvents()</span><br></pre></td></tr></tbody></table></figure>
-
-<p>将 aeProcessEvents 函数置于一个循环里面，加上初始化和清理函数，就构成了 Redis 服务器的主函数，伪代码如下：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def main():</span><br><span class="line">    # 初始化服务器</span><br><span class="line">    init_server()</span><br><span class="line">    # 一直处理事件，直到服务器关闭为止</span><br><span class="line">    while server_is_not_shutdown():</span><br><span class="line">        aeProcessEvents()</span><br><span class="line">    # 服务器关闭，执行清理操作</span><br><span class="line">    clean_server()</span><br></pre></td></tr></tbody></table></figure>
-
-<p>从事件处理的角度来看，服务器运行流程如下：<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/63c539a813dc898a9f8aa3669cb5caf3.png" alt="image.png"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/4ee5322c6d14/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -578,41 +678,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="1-过期策略"><a href="#1-过期策略" class="headerlink" title="1. 过期策略"></a>1. 过期策略</h2><p><strong><em>定期删除：</em></strong> 默认每隔 <strong>100ms 随机抽取 <strong>进行检查，是否有过期的 key，有过期 key 则删除。因此没抽查到的需要惰性删除进一步筛选<br></strong><em>惰性删除：</em></strong> 获取某个 key 的时候，如果该 key 已过期，则删除。</p>
-<h2 id="2-数据淘汰"><a href="#2-数据淘汰" class="headerlink" title="2. 数据淘汰"></a>2. 数据淘汰</h2><p>可以设置内存最大使用量，当内存使用量超出时，会施行数据淘汰。<br>Redis 具体有 6 种淘汰策略：</p>
-<table>
-<thead>
-<tr>
-<th><strong>策略</strong></th>
-<th><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td> volatile-lru</td>
-<td> 从已设置过期时间的数据集中挑选最近最少使用的数据淘汰</td>
-</tr>
-<tr>
-<td> volatile-ttl</td>
-<td> 从已设置过期时间的数据集中挑选将要过期的数据淘汰</td>
-</tr>
-<tr>
-<td> volatile-random</td>
-<td> 从已设置过期时间的数据集中任意选择数据淘汰</td>
-</tr>
-<tr>
-<td> allkeys-lru</td>
-<td> 从所有数据集中挑选最近最少使用的数据淘汰</td>
-</tr>
-<tr>
-<td> allkeys-random</td>
-<td> 从所有数据集中任意选择数据进行淘汰</td>
-</tr>
-<tr>
-<td> noeviction</td>
-<td> 禁止驱逐数据</td>
-</tr>
-</tbody></table>
-<p>作为内存数据库，出于对性能和内存消耗的考虑，Redis 的淘汰算法实际实现上并非针对所有 key，而是抽样一小部分并且从中选出被淘汰的 key。<br>使用 Redis 缓存数据时，为了提高缓存命中率，需要保证缓存数据都是热点数据。可以将内存最大使用量设置为热点数据占用的内存量，然后启用 allkeys-lru 淘汰策略，将最近最少使用的数据淘汰。<br>Redis 4.0 引入了 volatile-lfu 和 allkeys-lfu 淘汰策略，LFU 策略通过统计访问频率，将访问频率最少的键值对淘汰。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/9e6a2758b52d/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1272,117 +1345,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/1728e5a327c0/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/8a6c84365f71/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/8a6c84365f71/" class="post-title-link" itemprop="url">790. 多米诺和托米诺平铺</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-13 18:12:38" itemprop="dateCreated datePublished" datetime="2022-11-13T18:12:38+08:00">2022-11-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/8a6c84365f71/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="8a6c84365f71/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>有两种形状的瓷砖：一种是&nbsp;2 x 1 的多米诺形，另一种是形如&nbsp;“L” 的托米诺形。两种形状都可以旋转。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9ba5351e90e431406c86a1f5aeb30dd5.png" alt="image.png"></p>
-<p>给定整数 n ，返回可以平铺&nbsp;2 x n 的面板的方法的数量。返回对&nbsp;109&nbsp;+ 7&nbsp;取模&nbsp;的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/8a6c84365f71/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

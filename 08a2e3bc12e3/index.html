@@ -23,15 +23,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. ls path [watch]查看某个路径下有多少个节点 1234[zk: localhost:2181(CONNECTED) 2] ls &#x2F;[zookeeper][zk: localhost:2181(CONNECTED) 3] ls &#x2F;zookeeper[quota]  2. ls2 path [watch]&#x3D; ls + stat 3. get path [watch]获取值 12345">
+    <meta name="description" content="1. ls path [watch]查看某个路径下有多少个节点 1234[zk: localhost:2181(CONNECTED) 2] ls &#x2F;[zookeeper][zk: localhost:2181(CONNECTED) 3] ls &#x2F;zookeeper[quota]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper 从入门到入土②：常用命令">
 <meta property="og:url" content="https://ccomma.cn/08a2e3bc12e3/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="1. ls path [watch]查看某个路径下有多少个节点 1234[zk: localhost:2181(CONNECTED) 2] ls &#x2F;[zookeeper][zk: localhost:2181(CONNECTED) 3] ls &#x2F;zookeeper[quota]  2. ls2 path [watch]&#x3D; ls + stat 3. get path [watch]获取值 12345">
+<meta property="og:description" content="1. ls path [watch]查看某个路径下有多少个节点 1234[zk: localhost:2181(CONNECTED) 2] ls &#x2F;[zookeeper][zk: localhost:2181(CONNECTED) 3] ls &#x2F;zookeeper[quota]">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-19T15:44:11.000Z">
-<meta property="article:modified_time" content="2024-04-02T03:31:44.778Z">
+<meta property="article:modified_time" content="2024-04-02T03:51:46.712Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
@@ -100,7 +100,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -301,6 +301,7 @@
     <div class="post-body" itemprop="articleBody"><h2 id="1-ls-path-watch"><a href="#1-ls-path-watch" class="headerlink" title="1. ls path [watch]"></a>1. ls path [watch]</h2><p>查看某个路径下有多少个节点</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] ls /</span><br><span class="line">[zookeeper]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 3] ls /zookeeper</span><br><span class="line">[quota]</span><br></pre></td></tr></tbody></table></figure>
 
+<span id="more"></span>
 <h2 id="2-ls2-path-watch"><a href="#2-ls2-path-watch" class="headerlink" title="2. ls2 path [watch]"></a>2. ls2 path [watch]</h2><p>= ls + stat</p>
 <h2 id="3-get-path-watch"><a href="#3-get-path-watch" class="headerlink" title="3. get path [watch]"></a>3. get path [watch]</h2><p>获取值</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 10] get /test</span><br><span class="line">test</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0x8</span><br><span class="line">mtime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">pZxid = 0x8</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4 </span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>

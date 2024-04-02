@@ -31,7 +31,7 @@
 <meta property="og:description" content="问题在编码过程中，经常会遇到用某个数值来表示某种状态、类型或者阶段的情况，比如有这样一个枚举： 12345678910111213141516public enum ComputerState {    OPEN(10),         &#x2F;&#x2F;开启        CLOSE(11),         &#x2F;&#x2F;关闭        OFF_LINE(12),     &#x2F;&#x2F;离线        FAULT(2">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-05T11:49:27.000Z">
-<meta property="article:modified_time" content="2024-04-02T03:31:44.774Z">
+<meta property="article:modified_time" content="2024-04-02T03:51:46.693Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
@@ -100,7 +100,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -302,6 +302,7 @@
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">ComputerState</span> {</span><br><span class="line"></span><br><span class="line">    OPEN(<span class="number">10</span>),         <span class="comment">//开启</span></span><br><span class="line">    </span><br><span class="line">    CLOSE(<span class="number">11</span>),         <span class="comment">//关闭</span></span><br><span class="line">    </span><br><span class="line">    OFF_LINE(<span class="number">12</span>),     <span class="comment">//离线</span></span><br><span class="line">    </span><br><span class="line">    FAULT(<span class="number">200</span>),     <span class="comment">//故障</span></span><br><span class="line">    </span><br><span class="line">    UNKNOWN(<span class="number">255</span>);     <span class="comment">//未知</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    ComputerState(<span class="type">int</span> code) { <span class="built_in">this</span>.code = code; }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>通常我们希望将表示状态的数值存入数据库，即 ComputerState.OPEN 存入数据库取值为 10。</p>
+<span id="more"></span>
 <h1 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h1><p>首先，我们先看看 MyBatis 是否能够满足我们的需求。<br>MyBatis 内置了两个枚举转换器分别是：<code>org.apache.ibatis.type.EnumTypeHandler</code> 和 <code>org.apache.ibatis.type.EnumOrdinalTypeHandler</code>。</p>
 <h2 id="EnumTypeHandler"><a href="#EnumTypeHandler" class="headerlink" title="EnumTypeHandler"></a>EnumTypeHandler</h2><p>这是默认的枚举转换器，该转换器将枚举实例转换为实例名称的字符串，即将 <code>ComputerState.OPEN</code> 转换 <code>OPEN</code>。</p>
 <h2 id="EnumOrdinalTypeHandler"><a href="#EnumOrdinalTypeHandler" class="headerlink" title="EnumOrdinalTypeHandler"></a>EnumOrdinalTypeHandler</h2><p>顾名思义这个转换器将枚举实例的 ordinal 属性作为取值，即 <code>ComputerState.OPEN</code> 转换为 0，<code>ComputerState.CLOSE</code> 转换为 1。<br>使用它的方式是在 MyBatis 配置文件中定义：</p>

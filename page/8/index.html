@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -207,6 +207,146 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/3d60638d936b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/3d60638d936b/" class="post-title-link" itemprop="url">MyBatis 中使用枚举</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-06 10:53:10" itemprop="dateCreated datePublished" datetime="2022-06-06T10:53:10+08:00">2022-06-06</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/3d60638d936b/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="3d60638d936b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>5 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在编码过程中，经常会遇到用某个数值来表示某种状态、类型或者阶段的情况，比如有这样一个枚举：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">ComputerState</span> {</span><br><span class="line"></span><br><span class="line">    OPEN(<span class="number">10</span>),         <span class="comment">//开启</span></span><br><span class="line">    </span><br><span class="line">    CLOSE(<span class="number">11</span>),         <span class="comment">//关闭</span></span><br><span class="line">    </span><br><span class="line">    OFF_LINE(<span class="number">12</span>),     <span class="comment">//离线</span></span><br><span class="line">    </span><br><span class="line">    FAULT(<span class="number">200</span>),     <span class="comment">//故障</span></span><br><span class="line">    </span><br><span class="line">    UNKNOWN(<span class="number">255</span>);     <span class="comment">//未知</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    ComputerState(<span class="type">int</span> code) { <span class="built_in">this</span>.code = code; }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>通常我们希望将表示状态的数值存入数据库，即 ComputerState.OPEN 存入数据库取值为 10。</p>
+<h1 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h1><p>首先，我们先看看 MyBatis 是否能够满足我们的需求。<br>MyBatis 内置了两个枚举转换器分别是：<code>org.apache.ibatis.type.EnumTypeHandler</code> 和 <code>org.apache.ibatis.type.EnumOrdinalTypeHandler</code>。</p>
+<h2 id="EnumTypeHandler"><a href="#EnumTypeHandler" class="headerlink" title="EnumTypeHandler"></a>EnumTypeHandler</h2><p>这是默认的枚举转换器，该转换器将枚举实例转换为实例名称的字符串，即将 <code>ComputerState.OPEN</code> 转换 <code>OPEN</code>。</p>
+<h2 id="EnumOrdinalTypeHandler"><a href="#EnumOrdinalTypeHandler" class="headerlink" title="EnumOrdinalTypeHandler"></a>EnumOrdinalTypeHandler</h2><p>顾名思义这个转换器将枚举实例的 ordinal 属性作为取值，即 <code>ComputerState.OPEN</code> 转换为 0，<code>ComputerState.CLOSE</code> 转换为 1。<br>使用它的方式是在 MyBatis 配置文件中定义：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span> <span class="tag">&lt;<span class="name">typeHandler</span> <span class="attr">handler</span>=<span class="string">"org.apache.ibatis.type.EnumOrdinalTypeHandler"</span> <span class="attr">javaType</span>=<span class="string">"com.example.entity.enums.ComputerState"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">typeHandlers</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p> &nbsp;<br>以上的两种转换器都不能满足我们的需求，所以看起来要自己编写一个转换器了。</p>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><p>MyBatis 提供了 <code>org.apache.ibatis.type.BaseTypeHandler</code> 类用于我们自己扩展类型转换器，上面的 <code>EnumTypeHandler</code> 和 <code>EnumOrdinalTypeHandler</code> 也都实现了这个接口。</p>
+<h2 id="1-定义接口"><a href="#1-定义接口" class="headerlink" title="1. 定义接口"></a>1. 定义接口</h2><p>我们需要一个接口来确定某部分枚举类的行为。如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BaseCodeEnum</span> {</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getCode</span><span class="params">()</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><br>该接口只有一个返回编码的方法，返回值将被存入数据库。</p>
+<h2 id="2-改造枚举"><a href="#2-改造枚举" class="headerlink" title="2. 改造枚举"></a>2. 改造枚举</h2><p>就拿上面的 <code>ComputerState</code> 来实现 <code>BaseCodeEnum</code> 接口：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">ComputerState</span> <span class="keyword">implements</span> <span class="title class_">BaseCodeEnum</span>{</span><br><span class="line"></span><br><span class="line">    OPEN(<span class="number">10</span>),         <span class="comment">//开启</span></span><br><span class="line">    </span><br><span class="line">    CLOSE(<span class="number">11</span>),         <span class="comment">//关闭</span></span><br><span class="line">    </span><br><span class="line">    OFF_LINE(<span class="number">12</span>),     <span class="comment">//离线</span></span><br><span class="line">    </span><br><span class="line">    FAULT(<span class="number">200</span>),     <span class="comment">//故障</span></span><br><span class="line">    </span><br><span class="line">    UNKNOWN(<span class="number">255</span>);     <span class="comment">//未知</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    ComputerState(<span class="type">int</span> code) { <span class="built_in">this</span>.code = code; }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCode</span><span class="params">()</span> { <span class="keyword">return</span> <span class="built_in">this</span>.code; }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="3-编写一个转换工具类"><a href="#3-编写一个转换工具类" class="headerlink" title="3. 编写一个转换工具类"></a>3. 编写一个转换工具类</h2><p>现在我们能顺利的将枚举转换为某个数值了，还需要一个工具将数值转换为枚举实例。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CodeEnumUtil</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;E <span class="keyword">extends</span> <span class="title class_">Enum</span>&lt;?&gt; &amp; BaseCodeEnum&gt; E <span class="title function_">codeOf</span><span class="params">(Class&lt;E&gt; enumClass, <span class="type">int</span> code)</span> {</span><br><span class="line">        E[] enumConstants = enumClass.getEnumConstants();</span><br><span class="line">        <span class="keyword">for</span> (E e : enumConstants) {</span><br><span class="line">            <span class="keyword">if</span> (e.getCode() == code)</span><br><span class="line">                <span class="keyword">return</span> e;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="4-自定义类型转换器"><a href="#4-自定义类型转换器" class="headerlink" title="4. 自定义类型转换器"></a>4. 自定义类型转换器</h2><p>准备工作做的差不多了，是时候开始编写转换器了。<br><code>BaseTypeHandler&lt;T&gt;</code> 一共需要实现 4 个方法：</p>
+<ol>
+<li><code>void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType)</code></li>
+</ol>
+<p>用于定义设置参数时，该如何把 Java 类型的参数转换为对应的数据库类型</p>
+<ol start="2">
+<li><code>T getNullableResult(ResultSet rs, String columnName)</code></li>
+</ol>
+<p>用于定义通过字段名称获取字段数据时，如何把数据库类型转换为对应的 Java 类型</p>
+<ol start="3">
+<li><code> T getNullableResult(ResultSt rs, int columnIndex)</code><br>用于定义通过字段索引获取字段数据时，如何把数据库类型转换为对应的 Java 类型</li>
+<li><code>T getNullableResult(CallableStatement cs, int columnIndex)</code><br>用定义调用存储过程后，如何把数据库类型转换为对应的 Java 类型 </li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CodeEnumTypeHandler</span>&lt;E <span class="keyword">extends</span> <span class="title class_">Enum</span>&lt;?&gt; &amp; BaseCodeEnum&gt; <span class="keyword">extends</span> <span class="title class_">BaseTypeHandler</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;E&gt; type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CodeEnumTypeHandler</span><span class="params">(Class&lt;E&gt; type)</span> {</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"Type argument cannot be null"</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNonNullParameter</span><span class="params">(PreparedStatement ps, <span class="type">int</span> i, BaseCodeEnum parameter, JdbcType jdbcType)</span></span><br><span class="line">    <span class="keyword">throws</span> SQLException {</span><br><span class="line">        ps.setInt(i, parameter.getCode());</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> rs.getInt(columnName);</span><br><span class="line">        <span class="keyword">return</span> rs.wasNull() ? <span class="literal">null</span> : codeOf(code);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> rs.getInt(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> rs.wasNull() ? <span class="literal">null</span> : codeOf(code);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(CallableStatement cs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> cs.getInt(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> cs.wasNull() ? <span class="literal">null</span> : codeOf(code);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> E <span class="title function_">codeOf</span><span class="params">(<span class="type">int</span> code)</span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">return</span> CodeEnumUtil.codeOf(type, code);</span><br><span class="line">        } <span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"Cannot convert "</span> + code + <span class="string">" to "</span> + type.getSimpleName() + <span class="string">" by code value."</span>, ex);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="5-使用"><a href="#5-使用" class="headerlink" title="5. 使用"></a>5. 使用</h2><p>接下来需要指定哪个类使用我们自己编写转换器进行转换，在 MyBatis 配置文件中配置如下：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span> <span class="tag">&lt;<span class="name">typeHandler</span> <span class="attr">handler</span>=<span class="string">"com.example.typeHandler.CodeEnumTypeHandler"</span> <span class="attr">javaType</span>=<span class="string">"com.example.entity.enums.ComputerState"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">typeHandlers</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p> &nbsp;<br>搞定！ 经测试 <code>ComputerState.OPEN</code> 被转换为 10，<code>ComputerState.UNKNOWN</code> 被转换为 255，达到了预期的效果。</p>
+<h2 id="6-优化"><a href="#6-优化" class="headerlink" title="6. 优化"></a>6. 优化</h2><p>在第 5 步时，我们在 MyBatis 中添加 typeHandler 用于指定哪些类使用我们自定义的转换器，一旦系统中的枚举类多了起来，MyBatis 的配置文件维护起来会变得非常麻烦，也容易出错。如何解决呢？<br>在 Spring 中我们可以使用 JavaConfig 方式来干预 SqlSessionFactory 的创建过程，来完成转换器的指定。</p>
+<p><strong>思路</strong></p>
+<ol>
+<li>再写一个能自动匹配转换行为的转换器</li>
+<li>通过 <code>sqlSessionFactory.getConfiguration().getTypeHandlerRegistry()</code> 取得类型转换器注册器</li>
+<li>再使用 typeHandlerRegistry.setDefaultEnumTypeHandler (Class&lt;? extends TypeHandler&gt; typeHandler) 将第一步的转换器注册成为默认的</li>
+</ol>
+<p>首先，我们需要一个能确定转换行为的转换器：<br>AutoEnumTypeHandler.java</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoEnumTypeHandler</span>&lt;E <span class="keyword">extends</span> <span class="title class_">Enum</span>&gt; <span class="keyword">extends</span> <span class="title class_">BaseTypeHandler</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">BaseTypeHandler</span> <span class="variable">typeHandler</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AutoEnumTypeHandler</span><span class="params">(Class&lt;E&gt; type)</span> {</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">"Type argument cannot be null"</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(BaseCodeEnum.class.isAssignableFrom(type)){</span><br><span class="line">            <span class="comment">// 如果实现了 BaseCodeEnum 则使用我们自定义的转换器</span></span><br><span class="line">            typeHandler = <span class="keyword">new</span> <span class="title class_">CodeEnumTypeHandler</span>(type);</span><br><span class="line">        }<span class="keyword">else</span> {</span><br><span class="line">            <span class="comment">// 默认转换器 也可换成 EnumOrdinalTypeHandler</span></span><br><span class="line">            typeHandler = <span class="keyword">new</span> <span class="title class_">EnumTypeHandler</span>&lt;&gt;(type);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNonNullParameter</span><span class="params">(PreparedStatement ps, <span class="type">int</span> i, E parameter, JdbcType jdbcType)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        typeHandler.setNonNullParameter(ps,i, parameter,jdbcType);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="keyword">return</span> (E) typeHandler.getNullableResult(rs,columnName);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(ResultSet rs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="keyword">return</span> (E) typeHandler.getNullableResult(rs,columnIndex);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> E <span class="title function_">getNullableResult</span><span class="params">(CallableStatement cs, <span class="type">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException {</span><br><span class="line">        <span class="keyword">return</span> (E) typeHandler.getNullableResult(cs,columnIndex);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接下来，我们需要干预 <code>SqlSessionFactory</code> 的创建过程，将刚刚的转换器指定为默认的：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>  </span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix  = "mybatis")</span> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisConfig</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String configLocation;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String mapperLocations;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>  </span><br><span class="line">    <span class="keyword">public</span> SqlSessionFactory <span class="title function_">sqlSessionFactory</span><span class="params">(</span></span><br><span class="line"><span class="params">        DataSource dataSource,</span></span><br><span class="line"><span class="params">        JSONArrayHandler jsonArrayHandler,</span></span><br><span class="line"><span class="params">        JSONObjectHandler jsonObjectHandler)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">SqlSessionFactoryBean</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SqlSessionFactoryBean</span>();</span><br><span class="line">        factory.setDataSource(dataSource);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 设置配置文件及mapper文件地址</span></span><br><span class="line">        <span class="type">ResourcePatternResolver</span> <span class="variable">resolver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PathMatchingResourcePatternResolver</span>();</span><br><span class="line">        factory.setConfigLocation(resolver.getResource(configLocation));</span><br><span class="line">        factory.setMapperLocations(resolver.getResources(mapperLocations));</span><br><span class="line">    </span><br><span class="line">        <span class="type">SqlSessionFactory</span> <span class="variable">sqlSessionFactory</span> <span class="operator">=</span> factory.getObject();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 取得类型转换注册器</span></span><br><span class="line">        <span class="type">TypeHandlerRegistry</span> <span class="variable">typeHandlerRegistry</span> <span class="operator">=</span> sqlSessionFactory.getConfiguration().getTypeHandlerRegistry();</span><br><span class="line">        <span class="comment">// 注册默认枚举转换器</span></span><br><span class="line">        typeHandlerRegistry.setDefaultEnumTypeHandler(AutoEnumTypeHandler.class);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactory;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ... getter setter</span></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>搞定！ 这样一来，如果枚举实现了 <code>BaseCodeEnum</code> 接口就使用我们自定义的 <code>CodeEnumTypeHandler</code>，如果没有实现 <code>BaseCodeEnum</code> 接口就使用默认的。再也不用写 MyBatis 的配置文件了！</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -311,31 +451,14 @@
 <li><strong> DELETE：</strong> 删除 <strong>子节点，对于 delete 权限，要谨慎规划</strong></li>
 <li><strong> ADMIN：</strong> &nbsp; 可以使用 setAcl 命令设置权限</li>
 </ul>
-<h2 id="2-命令"><a href="#2-命令" class="headerlink" title="2. 命令"></a>2. 命令</h2><h3 id="2-1-addauth-scheme-auth"><a href="#2-1-addauth-scheme-auth" class="headerlink" title="2.1. addauth scheme auth"></a>2.1. addauth scheme auth</h3><p><strong>概述：</strong><br>添加认证授权信息到 Zookeeper 库中（注册）<br>并使用该认证作为当前客户端的认证信息（登录），这之后进行的所有操作会以该认证为前提<br>密码需输入明文，但在 Zookeeper 中密码以加密形式存储</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] addauth digest ccomma:ccomma</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-2-setAcl-path-schemepwd-permissions"><a href="#2-2-setAcl-path-schemepwd-permissions" class="headerlink" title="2.2. setAcl path schemepwd:permissions"></a>2.2. setAcl path scheme<img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/da6180df7a470ee728d47348410724ae.svg">pwd:permissions</h3><p><strong>auth：</strong></p>
-<ul>
-<li><p>设置某个节点的 acl 权限信息 </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 6] setAcl /ccomma auth:ccomma:ccomma:crdwa</span><br><span class="line">cZxid = 0x18</span><br><span class="line">ctime = Mon May 27 16:36:40 CST 2019</span><br><span class="line">mZxid = 0x2b</span><br><span class="line">mtime = Mon May 30 16:10:49 CST 2019</span><br><span class="line">pZxid = 0x1f</span><br><span class="line">cversion = 5</span><br><span class="line">dataVersion = 2</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 6</span><br><span class="line">numChildren = 1</span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>当使用 addauth 添加认证后，setAcl 账号和密码可以省略，默认取第一个认证 </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 6] setAcl /ccomma auth::crdwa</span><br><span class="line">cZxid = 0x18</span><br><span class="line">ctime = Mon May 27 16:36:40 CST 2019</span><br><span class="line">mZxid = 0x2b</span><br><span class="line">mtime = Mon May 30 16:10:49 CST 2019</span><br><span class="line">pZxid = 0x1f</span><br><span class="line">cversion = 5</span><br><span class="line">dataVersion = 2</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 6</span><br><span class="line">numChildren = 1</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<p><strong>digest：</strong> 密码加密</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 8] setAcl /ccomma digest:ccomma:91PXC4WimSDWZikp99kGvvjeVnY=:crdwa</span><br><span class="line">cZxid = 0x60</span><br><span class="line">ctime = Fri May 31 13:33:42 CST 2019</span><br><span class="line">mZxid = 0x60</span><br><span class="line">mtime = Fri May 31 13:33:42 CST 2019</span><br><span class="line">pZxid = 0x60</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 1</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>ip：</strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 15] setAcl /ccomma/ip ip:192.168.1.7:crdwa</span><br><span class="line">cZxid = 0x62</span><br><span class="line">ctime = Fri May 31 13:36:51 CST 2019</span><br><span class="line">mZxid = 0x62</span><br><span class="line">mtime = Fri May 31 13:36:51 CST 2019</span><br><span class="line">pZxid = 0x62</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 1</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 2</span><br><span class="line">numChildren = 0</span><br><span class="line">[zk: localhost:2181(CONNECTED) 15] getAcl /ccomma/ip</span><br><span class="line">'ip,'192.168.1.7</span><br><span class="line">:crdwa</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-3-getAcl-path"><a href="#2-3-getAcl-path" class="headerlink" title="2.3. getAcl path"></a>2.3. getAcl path</h3><p>获取某个节点的 acl 权限信息<br>密码以密文形式存储</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 8] getAcl /ccomma</span><br><span class="line">'digest,'ccomma:91PXC4WimSDWZikp99kGvvjeVnY=</span><br><span class="line">:crdwa</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="3-super-auth"><a href="#3-super-auth" class="headerlink" title="3. super auth"></a>3. super auth</h2><p><strong>添加超级用户：</strong><br>在 nohup “JAVA” “-Dzookeeper.log.dir={ZOO_LOG_DIR}” “-Dzookeeper.root.logger=${ZOO_LOG4J_PROP}” &nbsp;后面加上 “-Dzookeeper.DigestAuthenticationProvider.superDigest=admin:9iPCX4WimSDWZikp99kGvvjeVnY=”</p>
-<p>代表添加超级用户 admin:9iPCX4WimSDWZikp99kGvvjeVnY= （明文：ccomma）</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">    echo  -n "Starting zookeeper ... "</span><br><span class="line">    if [ -f "$ZOOPIDFILE" ]; then</span><br><span class="line">      if kill -0 `cat "$ZOOPIDFILE"` &gt; /dev/null 2&gt;&amp;1; then</span><br><span class="line">         echo $command already running as process `cat "$ZOOPIDFILE"`.</span><br><span class="line">         exit 0</span><br><span class="line">      fi</span><br><span class="line">    fi</span><br><span class="line">    nohup "$JAVA" "-Dzookeeper.log.dir=${ZOO_LOG_DIR}" "-Dzookeeper.root.logger=${ZOO_LOG4J_PROP}" </span><br><span class="line">    "-Dzookeeper.DigestAuthenticationProvider.superDigest=admin:9iPCX4WimSDWZikp99kGvvjeVnY=" \</span><br><span class="line">    -cp "$CLASSPATH" $JVMFLAGS $ZOOMAIN "$ZOOCFG" &gt; "$_ZOO_DAEMON_OUT" 2&gt;&amp;1 &lt; /dev/null &amp;</span><br><span class="line">    if [ $? -eq 0 ]</span><br><span class="line">    then</span><br><span class="line">      case "$OSTYPE" in</span><br><span class="line">      *solaris*)</span><br><span class="line">        /bin/echo "${!}\\c" &gt; "$ZOOPIDFILE"</span><br><span class="line">        ;;</span><br><span class="line">      *)</span><br><span class="line">        /bin/echo -n $! &gt; "$ZOOPIDFILE"</span><br><span class="line">        ;;</span><br><span class="line">      esac</span><br><span class="line">      if [ $? -eq 0 ];</span><br><span class="line">      then</span><br><span class="line">        sleep 1</span><br><span class="line">        echo STARTED</span><br><span class="line">      else</span><br><span class="line">        echo FAILED TO WRITE PID</span><br><span class="line">        exit 1</span><br><span class="line">      fi</span><br><span class="line">    else</span><br><span class="line">      echo SERVER DID NOT START</span><br><span class="line">      exit 1</span><br><span class="line">    fi</span><br><span class="line">    ;;</span><br></pre></td></tr></tbody></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/436001084cfc/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -440,37 +563,14 @@
 <li><em>可见性：</em> Watch 被触发的同时再次读取数据，客户端会得到 Watch 消息再看到更新后的数据。</li>
 <li><em>可能会丢失：</em> 对于一个未创建的 znode 的 exist watch，如果在客户端断开连接期间被创建了，并且随后在客户端连接上之前又删除了，这种情况下，这个 Watch 事件可能会被丢失。</li>
 </ul>
-<h2 id="2-设置-watcher"><a href="#2-设置-watcher" class="headerlink" title="2. 设置 watcher"></a>2. 设置 watcher</h2><p>只有 stat、get、ls 才能设置 watcher</p>
-<h2 id="3-事件类型"><a href="#3-事件类型" class="headerlink" title="3. 事件类型"></a>3. 事件类型</h2><p><em>NodeCreated：</em> 创建节点事件</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 38] stat /ccomma watch</span><br><span class="line">Note does not exist: /ccomma</span><br><span class="line">[zk: localhost:2181(CONNECTED) 39] create /ccomma data</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteCreated path:/ccomma</span><br><span class="line">Created /ccomma</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>NodeDataChanged：</em> 修改节点数据事件</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 40] get /ccomma watch</span><br><span class="line">data</span><br><span class="line">cZxid = 0x15</span><br><span class="line">ctime = Mon May 27 16:09:24 CST 2019</span><br><span class="line">mZxid = 0x15</span><br><span class="line">mtime = Mon May 27 16:09:24 CST 2019</span><br><span class="line">pZxid = 0x15</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4</span><br><span class="line">numChildren = 0</span><br><span class="line">[zk: localhost:2181(CONNECTED) 41] set /ccomma 123</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteDataChanged path:/ccomma</span><br><span class="line">cZxid = 0x15</span><br><span class="line">ctime = Mon May 27 16:09:24 CST 2019</span><br><span class="line">mZxid = 0x16</span><br><span class="line">mtime = Mon May 27 16:17:17 CST 2019</span><br><span class="line">pZxid = 0x15</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 1</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 3</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>NodeDeleted：</em> 删除节点事件</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 43] delete /ccomma</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteDeleted path:/ccomma</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>NodeChildrenChanged：</em> 子节点变更事件（修改子节点不会触发事件）</p>
-<ul>
-<li><p>创建： </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 47] ls /ccomma watch</span><br><span class="line">[]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 48] create /ccomma/abc data</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteChildrenChanged path:/ccomma</span><br><span class="line">Created /ccomma/abc</span><br></pre></td></tr></tbody></table></figure>
-
-</li>
-<li><p>删除： </p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 49] ls /ccomma watch</span><br><span class="line">[abc]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 48] delete /ccomma/abc</span><br><span class="line"></span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NoteChildrenChanged path:/ccomma</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h2 id="4-watcher-原理框架"><a href="#4-watcher-原理框架" class="headerlink" title="4. watcher 原理框架"></a>4. watcher 原理框架</h2><p><strong>过程：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e3a61f750e1698c43d402acc21740487.png"></p>
-<ul>
-<li>zk 客户端向 zk 服务器注册 watcher 的同时，会将 watcher 对象存储在客户端的 watchManager。</li>
-<li>zk 服务器触发 watcher 事件后，会向客户端发送通知，客户端线程从 watchManager 中回调 watcher 执行相应的功能。</li>
-</ul>
-<p><strong>watchManager：</strong><br>Zk 服务器端 watcher 的管理者。负责 watcher 事件的触发。</p>
-<p>从两个维度维护 watcher</p>
-<ul>
-<li>watchTable：从数据节点的粒度来维护</li>
-<li> watch2Paths：从 watcher 的粒度来维护 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">WatchManager</span> {</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Set&lt;Watcher&gt;&gt; watchTable = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Set&lt;Watcher&gt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Watcher, Set&lt;String&gt;&gt; watch2Paths = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Watcher, Set&lt;String&gt;&gt;();</span><br><span class="line">    </span><br><span class="line">    Set&lt;Watcher&gt; <span class="title function_">triggerWatch</span><span class="params">(String path, EventType type)</span> { </span><br><span class="line">        <span class="keyword">return</span> triggerWatch(path, type, <span class="literal">null</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/ee7b5292a1e0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -570,45 +670,14 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="1-ls-path-watch"><a href="#1-ls-path-watch" class="headerlink" title="1. ls path [watch]"></a>1. ls path [watch]</h2><p>查看某个路径下有多少个节点</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] ls /</span><br><span class="line">[zookeeper]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 3] ls /zookeeper</span><br><span class="line">[quota]</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="2-ls2-path-watch"><a href="#2-ls2-path-watch" class="headerlink" title="2. ls2 path [watch]"></a>2. ls2 path [watch]</h2><p>= ls + stat</p>
-<h2 id="3-get-path-watch"><a href="#3-get-path-watch" class="headerlink" title="3. get path [watch]"></a>3. get path [watch]</h2><p>获取值</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 10] get /test</span><br><span class="line">test</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0x8</span><br><span class="line">mtime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">pZxid = 0x8</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4 </span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="4-stat-path-watch"><a href="#4-stat-path-watch" class="headerlink" title="4. stat path [watch]"></a>4. stat path [watch]</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 4] stat /</span><br><span class="line">cZxid = 0x0</span><br><span class="line">ctime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">mZxid = 0x0</span><br><span class="line">mtime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">pZxid = 0x0</span><br><span class="line">cversion = -1</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 0 </span><br><span class="line">numChildren = 1</span><br></pre></td></tr></tbody></table></figure>
-
-<ul>
-<li>cZxid：Create ZXID，表示节点被创建时的事务 ID。</li>
-<li>ctime：Create Time，表示节点创建时间。</li>
-<li>mZxid：Modified ZXID，表示节点最后⼀次被修改时的事务 ID。</li>
-<li>mtime：Modified Time，表示节点最后⼀次被修改的时间。</li>
-<li>pZxid：该节点的⼦节点列表最后⼀次被修改时的事务 ID。只有⼦节点列表变更才会更新 pZxid， ⼦节点内容变更不会更新。</li>
-<li>cversion：⼦节点的版本号。</li>
-<li>dataVersion：内容版本号。</li>
-<li>aclVersion：标识 acl 版本</li>
-<li> ephemeralOwner：创建该临时节点时的会话 sessionID，如果是持久性节点那么值为 0</li>
-<li>dataLength：数据⻓度。</li>
-<li>numChildren：直系⼦节点数。</li>
-</ul>
-<h2 id="5-create-s-e-path-data-acl"><a href="#5-create-s-e-path-data-acl" class="headerlink" title="5. create [-s] [-e] path data acl"></a>5. create [-s] [-e] path data acl</h2><p><em>-s： sequence。顺序节点，为节点自动添加</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 15] create -s /test/sec seq</span><br><span class="line">Created test/sec0000000001</span><br><span class="line">[zk: localhost:2181(CONNECTED) 16] ls /test</span><br><span class="line">[sec0000000001]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 17] create -s /test/sec seq</span><br><span class="line">Created test/sec0000000002</span><br><span class="line">[zk: localhost:2181(CONNECTED) 18] ls /test</span><br><span class="line">[sec0000000001, sec0000000002]</span><br></pre></td></tr></tbody></table></figure>
-
-<p><em>-e： ephemeral。Session 创建临时节点</em></p>
-<ul>
-<li>非持久化，临时节点</li>
-<li>客户端与服务端之间维持心跳联系，无心跳则删除</li>
-<li><strong> ephemeralOwner</strong> 为非 0x0<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 12] create -e /test/tmp test-data</span><br><span class="line">Created test/tmp</span><br><span class="line">[zk: localhost:2181(CONNECTED) 13] get /test/tmp</span><br><span class="line">test-data</span><br><span class="line">cZxid = 0x9</span><br><span class="line">ctime = Mon May 27 14:26:43 CST 2019</span><br><span class="line">mZxid = 0x9</span><br><span class="line">mtime = Mon May 27 14:26:43 CST 2019</span><br><span class="line">pZxid = 0x9</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0 </span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x16adeeddbe80003</span><br><span class="line">dataLength = 9</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h2 id="6-set-path-data-version"><a href="#6-set-path-data-version" class="headerlink" title="6. set path data [version]"></a>6. set path data [version]</h2><p><em>dataVersion 会 +1</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 23] set /test new-test-data</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0xc</span><br><span class="line">mtime = Mon May 27 14:53:38 CST 2019</span><br><span class="line">pZxid = 0xb</span><br><span class="line">cversion = 3</span><br><span class="line">dataVersion = 1</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 13</span><br><span class="line">numChildren = 3</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>version： 验证版本号</strong><br>若填写的版本号与当前版本号不一致则 set 失败</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 25] set /test new-test-data-2 1</span><br><span class="line">cZxid = 0x8</span><br><span class="line">ctime = Mon May 27 14:12:38 CST 2019</span><br><span class="line">mZxid = 0xd</span><br><span class="line">mtime = Mon May 27 15:15:12 CST 2019</span><br><span class="line">pZxid = 0xb</span><br><span class="line">cversion = 3</span><br><span class="line">dataVersion = 2</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 15</span><br><span class="line">numChildren = 3</span><br><span class="line">[zk: localhost:2181(CONNECTED) 26] set /test new-test-data-2 1</span><br><span class="line">version No is not valid : /test</span><br><span class="line">[zk: localhost:2181(CONNECTED) 27] set /test new-test-data-2 3</span><br><span class="line">version No is not valid : /test</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="7-delete-path-version"><a href="#7-delete-path-version" class="headerlink" title="7. delete path [version]"></a>7. delete path [version]</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 31] delete /test/sec</span><br><span class="line">[zk: localhost:2181(CONNECTED) 32] ls /test</span><br><span class="line">[tmp]</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>version： 验证版本号</strong><br>若填写的版本号与当前版本号不一致则 delete 失败（ 同 set）</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/08a2e3bc12e3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1679,107 +1748,6 @@
 
 <h1 id="SpringFactoryUtil"><a href="#SpringFactoryUtil" class="headerlink" title="SpringFactoryUtil"></a>SpringFactoryUtil</h1><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringFactoryUtil</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException {</span><br><span class="line">        SpringFactoryUtil.applicationContext = applicationContext;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(name);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> {</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getBean(requiredType);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/d59b3a8193b0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/d59b3a8193b0/" class="post-title-link" itemprop="url">git 配置</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-05-13 09:57:31" itemprop="dateCreated datePublished" datetime="2022-05-13T09:57:31+08:00">2022-05-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/d59b3a8193b0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d59b3a8193b0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="1-配置用户名"><a href="#1-配置用户名" class="headerlink" title="1. 配置用户名"></a>1. 配置用户名</h2><p><code>git config --global user.name "username"</code></p>
-<h2 id="2-配置邮箱"><a href="#2-配置邮箱" class="headerlink" title="2. 配置邮箱"></a>2. 配置邮箱</h2><p><code>git config --global user.email "xxxx@xxxx.xx"</code></p>
-<h2 id="3-其他配置"><a href="#3-其他配置" class="headerlink" title="3. 其他配置"></a>3. 其他配置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">让 Git 不要管 Windows/Unix 换行符转换的事</span></span><br><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="4-编码配置"><a href="#4-编码配置" class="headerlink" title="4. 编码配置"></a>4. 编码配置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">避免 git gui 中的中文乱码</span></span><br><span class="line">git config --global gui.encoding utf-8</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">避免 git status 显示的中文文件名乱码</span></span><br><span class="line">git config --global core.quotepath off</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">让 git 对大小写敏感</span></span><br><span class="line">git config --global core.ignorecase false</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">配置别名</span></span><br><span class="line">git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>5. ssh key pair 配置</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/upshi/article/details/78327125">(10 条消息) Git 多 SSH 账号管理_一黑到底 - CSDN 博客_git 多 ssh</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/popfisher/p/5731232.html">Windows 下 Git 多账号配置，同一电脑多个 ssh-key 的管理 - popfisher - 博客园 (cnblogs.com)</a><br>SSH 是建立在应用层和传输层基础上的安全协议，其目的是专为远程登录会话和其他网络服务提供安全性的保障<br>SSH 密钥对可以让我们方便的登录到 SSH 服务器，而无需输入密码</p>
-<ol>
-<li>Windows 上 Git Bash 命令行窗口中输入：ssh-keygen -t rsa -C “<a href="mailto:xxx@xxx.com">xxx@xxx.com</a>“</li>
-<li>接着一直回车生成 ssh key pair</li>
-<li><code>ssh-add ~/.ssh/id_rsa</code>    #把专用密钥添加到 ssh-agent 的高速缓存中，ssh-agent 能避免这种反复输入私钥的烦恼</li>
-<li><code>cat ~/.ssh/id_rsa.pub</code></li>
-</ol>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e1edcae107e0bcbb1f409d558e1434a1.png" alt="image.png"></p>
-<h1 id=""><a href="#" class="headerlink" title=""></a><br></h1>
       
     </div>
 

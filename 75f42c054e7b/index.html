@@ -23,15 +23,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="boolean tryLock(long time, TimeUnit unit)： 尝试获得锁，阻塞时间不会超过给定的值；如果成功返回 true void &nbsp;lockInterruptibly()： 获得锁，但是会不确定地发生阻塞。如果线程被中断，抛出一个 InterruptedException 异常  1. 条件对象作用： 条件对象用来管理那些已经进入被保护的代码段但还不能运行的">
+    <meta name="description" content="boolean tryLock(long time, TimeUnit unit)： 尝试获得锁，阻塞时间不会超过给定的值；如果成功返回 true void &nbsp;lockInterruptibly()： 获得锁，但是会不确定地发生阻塞。如果线程被中断，抛出一个 InterruptedException 异常">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 并发详解 ④：ReentrantLock">
 <meta property="og:url" content="https://ccomma.cn/75f42c054e7b/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="boolean tryLock(long time, TimeUnit unit)： 尝试获得锁，阻塞时间不会超过给定的值；如果成功返回 true void &nbsp;lockInterruptibly()： 获得锁，但是会不确定地发生阻塞。如果线程被中断，抛出一个 InterruptedException 异常  1. 条件对象作用： 条件对象用来管理那些已经进入被保护的代码段但还不能运行的">
+<meta property="og:description" content="boolean tryLock(long time, TimeUnit unit)： 尝试获得锁，阻塞时间不会超过给定的值；如果成功返回 true void &nbsp;lockInterruptibly()： 获得锁，但是会不确定地发生阻塞。如果线程被中断，抛出一个 InterruptedException 异常">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-25T05:03:22.000Z">
-<meta property="article:modified_time" content="2024-04-02T03:31:44.771Z">
+<meta property="article:modified_time" content="2024-04-02T03:51:46.684Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
@@ -100,7 +100,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -306,6 +306,7 @@
 <li><em>boolean tryLock(long time, TimeUnit unit)：</em> 尝试获得锁，阻塞时间不会超过给定的值；如果成功返回 true</li>
 <li><em>void &nbsp;lockInterruptibly()：</em> 获得锁，但是会不确定地发生阻塞。如果线程被中断，抛出一个 InterruptedException 异常</li>
 </ul>
+<span id="more"></span>
 <h2 id="1-条件对象"><a href="#1-条件对象" class="headerlink" title="1. 条件对象"></a>1. 条件对象</h2><p><strong>作用：</strong> 条件对象用来管理那些已经进入被保护的代码段但还不能运行的线程。一个 Condition 对象为一个队列。</p>
 <p><strong>方法：</strong><br>ReentrantLock &lt;==&gt; synchronized</p>
 <ul>

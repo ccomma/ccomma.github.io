@@ -23,17 +23,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="12345678910111213141516171819202122232425@Aspect@Componentpublic class MenuBalanceLogAspect {    private static final Logger BIZ_ERROR_LOG &#x3D; LoggerFactory.getLogger(&quot;biz_error_log&quot;);    &#x2F;&#x2F; @Around(&quot;ex">
+    <meta name="description" content="一、概述AOP:⾯向切⾯编程，让程序员关注于类中方法的某个切点上在不改变原有业务逻辑情况下，增强横切逻辑代码，根本上解耦合，避免横切逻辑代码重复默认情况下，Spring 会根据被代理对象是否实现接⼝来选择使⽤ JDK 还是 CGLIB。当被代理对象没有实现 任何接⼝时，Spring 会选择 CGLIB。当被代理对象实现了接⼝，Spring 会选择 JDK 官⽅的代理技术，不过 我们可以通过配置的⽅">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring AOP 详解">
 <meta property="og:url" content="https://ccomma.cn/f8bf585b0820/">
 <meta property="og:site_name" content="CComma&#39;s Blog">
-<meta property="og:description" content="12345678910111213141516171819202122232425@Aspect@Componentpublic class MenuBalanceLogAspect {    private static final Logger BIZ_ERROR_LOG &#x3D; LoggerFactory.getLogger(&quot;biz_error_log&quot;);    &#x2F;&#x2F; @Around(&quot;ex">
+<meta property="og:description" content="一、概述AOP:⾯向切⾯编程，让程序员关注于类中方法的某个切点上在不改变原有业务逻辑情况下，增强横切逻辑代码，根本上解耦合，避免横切逻辑代码重复默认情况下，Spring 会根据被代理对象是否实现接⼝来选择使⽤ JDK 还是 CGLIB。当被代理对象没有实现 任何接⼝时，Spring 会选择 CGLIB。当被代理对象实现了接⼝，Spring 会选择 JDK 官⽅的代理技术，不过 我们可以通过配置的⽅">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3e50af79311608e8c1970b9f7411403b.png">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c6f1f9cff941eeb554ecd0dd4ebac000.png">
 <meta property="article:published_time" content="2019-06-09T11:33:23.000Z">
-<meta property="article:modified_time" content="2024-04-02T03:31:44.770Z">
+<meta property="article:modified_time" content="2024-04-02T03:51:46.707Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="编程技术、Java">
 <meta name="twitter:card" content="summary">
@@ -103,7 +103,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -301,8 +301,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MenuBalanceLogAspect</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">BIZ_ERROR_LOG</span> <span class="operator">=</span> LoggerFactory.getLogger(<span class="string">"biz_error_log"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @Around("execution(public * com.dfire.soa.msstate.client.service.MenuBalanceClientServiceImpl..*(..))")</span></span><br><span class="line">    <span class="meta">@Around("bean(menuBalanceClientServiceImpl)")</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">aroundProviderService</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable {</span><br><span class="line">        BIZ_ERROR_LOG.debug(<span class="string">"start MenuBalanceLogAspect"</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">argJson</span> <span class="operator">=</span> StringUtils.EMPTY;</span><br><span class="line">        <span class="keyword">if</span> (ArrayUtils.isNotEmpty(pjp.getArgs())) {</span><br><span class="line">            List&lt;String&gt; argStringList = Arrays.stream(pjp.getArgs())</span><br><span class="line">                    .map(JSON::toJSONString)</span><br><span class="line">                    .collect(Collectors.toList());</span><br><span class="line">            argJson = String.join(<span class="string">","</span>, argStringList);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        BIZ_ERROR_LOG.info(<span class="string">"access {}#{},{}"</span>, pjp.getTarget().getClass().getSimpleName(), pjp.getSignature().getName(), argJson);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pjp.proceed();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p><strong>AOP:</strong><br>⾯向切⾯编程，让程序员关注于类中方法的某个切点上<br>在不改变原有业务逻辑情况下，增强横切逻辑代码，根本上解耦合，避免横切逻辑代码重复<br>默认情况下，Spring 会根据被代理对象是否实现接⼝来选择使⽤ JDK 还是 CGLIB。当被代理对象没有实现 任何接⼝时，Spring 会选择 CGLIB。当被代理对象实现了接⼝，Spring 会选择 JDK 官⽅的代理技术，不过 我们可以通过配置的⽅式，让 Spring 强制使⽤ CGLIB。</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p><strong>AOP:</strong><br>⾯向切⾯编程，让程序员关注于类中方法的某个切点上<br>在不改变原有业务逻辑情况下，增强横切逻辑代码，根本上解耦合，避免横切逻辑代码重复<br>默认情况下，Spring 会根据被代理对象是否实现接⼝来选择使⽤ JDK 还是 CGLIB。当被代理对象没有实现 任何接⼝时，Spring 会选择 CGLIB。当被代理对象实现了接⼝，Spring 会选择 JDK 官⽅的代理技术，不过 我们可以通过配置的⽅式，让 Spring 强制使⽤ CGLIB。</p>
 <ul>
 <li><strong>通知（Advice）：</strong>通知定义了切面是什么以及何时使用。除了描述切面要完成的工作，通知还解决了何时执行这个工作的问题<ul>
 <li><strong>前置通知（@Before）：</strong>在目标方法被调用之前调用通知功能</li>
@@ -319,6 +318,8 @@
 <li><strong>切面（Aspect）：</strong>切面 = 通知 + 切点。通知和切点共同定义了切面的全部内容 </li>
 </ul>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">5.1</span><span class="number">.12</span>.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">1.8</span><span class="number">.13</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<span id="more"></span>
 <h1 id="二、切点"><a href="#二、切点" class="headerlink" title="二、切点"></a>二、切点</h1><p>Spring 借助 AspectJ 的切点表达式语言来定义 Spring 切面</p>
 <table>
 <thead>
@@ -508,13 +509,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/e3b16e356deb/" rel="prev" title="Spring Boot 知识点">
-                  <i class="fa fa-angle-left"></i> Spring Boot 知识点
+                <a href="/ef9c4250508f/" rel="prev" title="MySQL 知识点梳理">
+                  <i class="fa fa-angle-left"></i> MySQL 知识点梳理
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/f5c90de53682/" rel="next" title="Spring 配置多数据源">
-                  Spring 配置多数据源 <i class="fa fa-angle-right"></i>
+                <a href="/e3b16e356deb/" rel="next" title="Spring Boot 知识点">
+                  Spring Boot 知识点 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
