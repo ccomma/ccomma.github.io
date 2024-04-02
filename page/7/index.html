@@ -98,7 +98,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">83</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">90</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -207,6 +207,118 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/08479805e3e3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/08479805e3e3/" class="post-title-link" itemprop="url">Java 并发详解 ⑤：自旋锁</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-27 20:11:29" itemprop="dateCreated datePublished" datetime="2021-02-27T20:11:29+08:00">2021-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">并发</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/08479805e3e3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="08479805e3e3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>6 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34337272/article/details/81252853">面试必备之深入理解自旋锁</a></p>
+<p>自旋锁的思想是让一个线程在请求一个共享数据的锁时执行忙循环（自旋）一段时间，如果在这段时间内能获得锁，就可以避免进入阻塞状态</p>
+<p><strong>缺点：</strong> 如果某个线程持有锁的时间过长，就会导致其它等待获取锁的线程进入循环等待，消耗 CPU。使用不当会造成 CPU 使用率极高。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/08479805e3e3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1032,7 +1144,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/321db62aa323/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/52c1fa2be06e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1050,7 +1162,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/321db62aa323/" class="post-title-link" itemprop="url">git flow</a>
+          <a href="/52c1fa2be06e/" class="post-title-link" itemprop="url">JVM 从入门到入土 ⑥：GC 调优</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1061,7 +1173,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2020-04-18 21:28:10" itemprop="dateCreated datePublished" datetime="2020-04-18T21:28:10+08:00">2020-04-18</time>
+      <time title="Created: 2020-09-07 21:37:01" itemprop="dateCreated datePublished" datetime="2020-09-07T21:37:01+08:00">2020-09-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1069,7 +1181,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
         </span>
     </span>
 
@@ -1082,8 +1194,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/321db62aa323/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="321db62aa323/" itemprop="commentCount"></span>
+    <a title="disqus" href="/52c1fa2be06e/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="52c1fa2be06e/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1093,7 +1205,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>15 mins.</span>
     </span>
 </div>
 
@@ -1104,116 +1216,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f388a58466a12a9126440b2257c9781a.png"></p>
-<h2 id="1-Master"><a href="#1-Master" class="headerlink" title="1. Master"></a>1. Master</h2><p>线上</p>
-<h2 id="2-Develop"><a href="#2-Develop" class="headerlink" title="2. Develop"></a>2. Develop</h2><p>开发</p>
-<h2 id="3-Feature"><a href="#3-Feature" class="headerlink" title="3. Feature"></a>3. Feature</h2><p>Feature 分支做完后，必须合并回 Develop 分支<br>合并完分支后一般会删点这个 Feature 分支，但是也可以保留</p>
-<h2 id="4-Release"><a href="#4-Release" class="headerlink" title="4. Release"></a>4. Release</h2><p><em><strong>概述：</strong></em> 基于 Develop 分支创建，用于测试，修改 Bug<br><em><strong>创建：</strong></em> 一旦创建了 Release 分支之后，不要再从 Develop 分支上合并新的改动到 Release 分支<br><em><strong>发布：</strong></em> 发布 Release 分支时，合并 Release 到 Master 和 Develop， 同时在 Master 分支上打个 Tag 记住 Release 版本号，然后删除 Release 分支</p>
-<h2 id="5-Hotfix"><a href="#5-Hotfix" class="headerlink" title="5. Hotfix"></a>5. Hotfix</h2><p>基于 Master 分支创建，开发完后需要合并回 Master 和 Develop 分支，同时在 Master 上打一个 tag</p>
-<p>若有收获，就点个赞吧</p>
+          <h1 id="GC-日志"><a href="#GC-日志" class="headerlink" title="GC 日志"></a>GC 日志</h1><h2 id="PS-GC-日志详解"><a href="#PS-GC-日志详解" class="headerlink" title="PS GC 日志详解"></a>PS GC 日志详解</h2><p>PS 日志格式：<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/cea63f941b61313d69888b79ac15efb4.png"></p>
+<p>heap dump 部分：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eden space 5632K, 94% used [0x00000000ff980000,0x00000000ffeb3e28,0x00000000fff00000)</span><br><span class="line">                            后面的内存地址指的是，起始地址，使用空间结束地址，整体空间结束地址</span><br></pre></td></tr></tbody></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/2cf460af3028/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2cf460af3028/" class="post-title-link" itemprop="url">git 常用配置记录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-04-17 16:53:55" itemprop="dateCreated datePublished" datetime="2020-04-17T16:53:55+08:00">2020-04-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2cf460af3028/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2cf460af3028/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="1-配置用户名"><a href="#1-配置用户名" class="headerlink" title="1. 配置用户名"></a>1. 配置用户名</h2><p><code>git config --global user.name "username"</code></p>
-<h2 id="2-配置邮箱"><a href="#2-配置邮箱" class="headerlink" title="2. 配置邮箱"></a>2. 配置邮箱</h2><p><code>git config --global user.email "xxxx@xxxx.xx"</code></p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2cbf3593b5f78f7b83cf8e027ad91748.png"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2cf460af3028/#more" rel="contents">
+              <a class="btn" href="/52c1fa2be06e/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1244,7 +1254,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/b5a35826dc8c/">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/703024019fe3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/ccomma.png">
@@ -1262,7 +1272,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/b5a35826dc8c/" class="post-title-link" itemprop="url">git 常用命令</a>
+          <a href="/703024019fe3/" class="post-title-link" itemprop="url">JVM 从入门到入土 ⑤：垃圾回收 GC</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1273,7 +1283,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2020-04-17 14:56:10" itemprop="dateCreated datePublished" datetime="2020-04-17T14:56:10+08:00">2020-04-17</time>
+      <time title="Created: 2020-08-24 18:56:00" itemprop="dateCreated datePublished" datetime="2020-08-24T18:56:00+08:00">2020-08-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1281,7 +1291,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
         </span>
     </span>
 
@@ -1294,8 +1304,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/b5a35826dc8c/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="b5a35826dc8c/" itemprop="commentCount"></span>
+    <a title="disqus" href="/703024019fe3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="703024019fe3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1305,7 +1315,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>9 mins.</span>
     </span>
 </div>
 
@@ -1316,10 +1326,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="1-提交和拉取"><a href="#1-提交和拉取" class="headerlink" title="1. 提交和拉取"></a>1. 提交和拉取</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暂存所有文件</span></span><br><span class="line">git add .</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暂存并提交</span></span><br><span class="line">git commit -am</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">push 到远程 git</span></span><br><span class="line">git push</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从远程 git 下拉到本地 git</span></span><br><span class="line">git pull</span><br></pre></td></tr></tbody></table></figure>
+          <p><a target="_blank" rel="noopener" href="https://my.oschina.net/wenbo123/blog/1822414">深入学习 JVM-JVM 安全点和安全区域</a><br>垃圾收集主要是针对 <strong>堆</strong> 和 <strong>方法区</strong> 进行<br>程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后也会消失，因此不需要对这三个区域进行垃圾回收</p>
+<blockquote>
+<p>简历：熟悉 GC 常用算法，熟悉常见垃圾回收器，具有实际 JVM 调优实战经验</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/b5a35826dc8c/#more" rel="contents">
+              <a class="btn" href="/703024019fe3/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
