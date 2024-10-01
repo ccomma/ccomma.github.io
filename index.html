@@ -304,422 +304,15 @@
 </ul>
 <p><font style="color:rgb(47, 47, 47);">需要特别注意，在每一条指令结尾需要加入换行符，即字符串 “\r\n” 或 16 进制 0x0D 0x0A</font></p>
 <p><font style="color:rgb(47, 47, 47);"></font></p>
-<h1 id="目标坐标计算方法"><a href="#目标坐标计算方法" class="headerlink" title="目标坐标计算方法"></a>目标坐标计算方法</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/858724772faa58262dd1856a51241236.png"></p>
-<p>200DPI:1mm = 8dots，也就是说在写实际指令时 X 和 Y 要乘上 8（7mm * 8 = 56，3mm * 8 = 24）</p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h1 id="常用语法指令"><a href="#常用语法指令" class="headerlink" title="常用语法指令"></a><font style="color:rgb(47, 47, 47);">常用语法指令</font></h1><h2 id="SIZE"><a href="#SIZE" class="headerlink" title="SIZE"></a><font style="color:rgb(47, 47, 47);">SIZE</font></h2><blockquote>
-<p><font style="color:rgb(47, 47, 47);">SIZE 60 mm,40 mm</font></p>
-</blockquote>
-<p><font style="color:rgb(47, 47, 47);">用于设定卷标纸的宽度和长度，使用公制单位。</font>200DPI:1mm = 8dots，<font style="color:rgb(47, 47, 47);">在单位与数字之间必须添加一个空。</font></p>
-<p>一倍倍率下，60mm 宽的标签，可以打印 19 个全角中文字符或者 39 个半角字母数字，中文字体高度为 24dtos。</p>
-<h2 id="DIRECTION"><a href="#DIRECTION" class="headerlink" title="DIRECTION"></a>DIRECTION</h2><blockquote>
-<p>DIRECTION 1</p>
-</blockquote>
-<p>定义打印机的打印方向及内容是否镜面反射</p>
-<p>DIRECTION n[,m]</p>
-<ul>
-<li>n：打印方向是否反转</li>
-<li> m：内容是否反转</li>
-</ul>
-<p>以下箭头为出纸方向</p>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c8451fe946dd9b74a0e591a3693ba13e.png"></p>
-<h2 id="GAP"><a href="#GAP" class="headerlink" title="GAP"></a><font style="color:rgb(47, 47, 47);">GAP</font></h2><blockquote>
-<p><font style="color:rgb(47, 47, 47);">GAP 2 mm</font></p>
-</blockquote>
-<p><font style="color:rgb(47, 47, 47);">用于定义两张卷标纸间的垂直间距距离。 可以设置 2mm 或者不设置。</font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h2 id="CLS"><a href="#CLS" class="headerlink" title="CLS"></a><font style="color:rgb(47, 47, 47);">CLS</font></h2><p><font style="color:rgb(47, 47, 47);">用于清除图像缓冲区（image buffer) 的数据。 注：此项指令必须置于 SIZE 指令之后。 </font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h2 id="REM"><a href="#REM" class="headerlink" title="REM"></a><font style="color:rgb(47, 47, 47);">REM</font></h2><blockquote>
-<p>REM ********************************</p>
-<p>REM This is a demonstration program*</p>
-<p>REM ******************************** </p>
-</blockquote>
-<p>注释</p>
-<p>不能用 #开头</p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h2 id="PRINT"><a href="#PRINT" class="headerlink" title="PRINT"></a><font style="color:rgb(47, 47, 47);">PRINT</font></h2><blockquote>
-<p><font style="color:rgb(47, 47, 47);">PRINT 1</font></p>
-</blockquote>
-<p><font style="color:rgb(47, 47, 47);">用于打印出存储于影像缓冲区内的数据，可设置打印多张，需放在全部指令最后的位置。</font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h2 id="END"><a href="#END" class="headerlink" title="END"></a>END</h2><p>此命令用来标示程序结束</p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h2 id="TEXT"><a href="#TEXT" class="headerlink" title="TEXT"></a><font style="color:rgb(47, 47, 47);">TEXT</font></h2><p><font style="color:rgb(47, 47, 47);">用于打印字符串。</font></p>
-<ul>
-<li><font style="color:rgb(47, 47, 47);">打印不会自动换行，超出宽度的文字将无法正常打印，所以多行文本，需要用到多个 TEXT 指令，每一打印文本的起始打印位置都需要手动设置，单位为 dtos，即点阵数。60mm<em>40mm 的点阵比为 480</em>320。</font></li>
-<li><font style="color:rgb(47, 47, 47);">TSPL 打印时没有居中指令，需要手动设置</font></li>
-</ul>
-<p><font style="color:rgb(47, 47, 47);">指令语法：</font></p>
-<p><font style="color:rgb(47, 47, 47);">TEXT x,y,”font”,rotation,x-multiplication,y-multiplication,”content”</font></p>
-<blockquote>
-<p>例：</p>
-<p>TEXT 0,10,”TSS24.BF2”,0,1,1,” 一二三四五六七八九十二二三四五六七八九十”</p>
-<p>TEXT 0,30,”TSS24.BF2”,0,1,1,”12345678902234567890323456789042345678905234567890”</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th><font style="color:rgb(47, 47, 47);">参数</font></th>
-<th><font style="color:rgb(47, 47, 47);">说明</font></th>
-<th>值</th>
-<th>值说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><font style="color:rgb(47, 47, 47);"> x</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 文字 X 方向起始点坐标</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> y</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 文字 Y 方向起始点坐标</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> font</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 字体名称</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 1</font></td>
-<td><font style="color:rgb(47, 47, 47);">8×12 dot 英数字体</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 2</font></td>
-<td><font style="color:rgb(47, 47, 47);">12×20 dot 英数字体</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 3</font></td>
-<td><font style="color:rgb(47, 47, 47);">16×24 dot 英数字体</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 4</font></td>
-<td><font style="color:rgb(47, 47, 47);">24×32 dot 英数字体</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 5</font></td>
-<td><font style="color:rgb(47, 47, 47);">32×48 dot 英数字体，</font>仅可打印大写字母</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 6</font></td>
-<td><font style="color:rgb(47, 47, 47);">14×19 dot 英数字体 OCR-B</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">7</font></td>
-<td><font style="color:rgb(47, 47, 47);">21×27 dot 英数字体 OCR-B</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">8</font></td>
-<td><font style="color:rgb(47, 47, 47);">14×25 dot 英数字体 OCR-A</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">9</font></td>
-<td><font style="color:rgb(47, 47, 47);">9×17 dot 英数字体</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 10</font></td>
-<td><font style="color:rgb(47, 47, 47);">12×24 dot 英数字体</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> TST24.BF2</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 繁体中文 24×24Font (大五码）</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">TSS24.BF2</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 简体中文 24×24Font（GB 码）</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">K</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 韩文 24×24Font（KS 码）</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">rotation</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 文字旋转角度（顺时针方向）</font></td>
-<td><font style="color:rgb(47, 47, 47);">0</font></td>
-<td><font style="color:rgb(47, 47, 47);">0 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 90</font></td>
-<td><font style="color:rgb(47, 47, 47);">90 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 180</font></td>
-<td><font style="color:rgb(47, 47, 47);">180 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 270</font></td>
-<td><font style="color:rgb(47, 47, 47);">270 度</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> x-multiplication</font></td>
-<td><font style="color:rgb(47, 47, 47);">X 方向放大倍率 1-10</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">y-multiplication</font></td>
-<td><font style="color:rgb(47, 47, 47);">Y 方向放大倍率 1-10</font></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><font style="color:rgb(47, 47, 47);">若要打印双引号时 (“) 在程序中请使用 [”] 来打印双引号</font></p>
-<p><font style="color:rgb(47, 47, 47);">若要打印 0D (hex) 字符时，请在程序中使用 [R] 来打印 CR</font></p>
-<p><font style="color:rgb(47, 47, 47);">若要打印 0A (hex) 字符时，请在程序中使用 [A] 来打印 LF</font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<h2 id="BAR"><a href="#BAR" class="headerlink" title="BAR"></a><font style="color:rgb(47, 47, 47);">BAR</font></h2><p><font style="color:rgb(47, 47, 47);">该指令用于在标签上画线。</font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<p><font style="color:rgb(47, 47, 47);">指令语法：</font></p>
-<p><font style="color:rgb(47, 47, 47);">BAR x,y,width,height</font></p>
-<blockquote>
-<p><font style="color:rgb(47, 47, 47);">例：BAR 100,100,300,200</font></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th><font style="color:rgb(47, 47, 47);">参数</font></th>
-<th><font style="color:rgb(47, 47, 47);">说明</font></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><font style="color:rgb(47, 47, 47);"> x</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 线条左上角 X 坐标，单位 dot</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">y</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 线条左上角 Y 坐标，单位 dot</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">width</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 线宽，单位 dot</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">height</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 线高，单位 dot</font></td>
-</tr>
-</tbody></table>
-<h2 id="BARCODE"><a href="#BARCODE" class="headerlink" title="BARCODE"></a>BARCODE</h2><p><font style="color:rgb(47, 47, 47);">用来画一维条码</font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<p><font style="color:rgb(47, 47, 47);">指令语法：</font></p>
-<p><font style="color:rgb(47, 47, 47);">BARCODE x,y,”code type”,height,human readable,rotation,narrow,wide,”content”</font></p>
-<blockquote>
-<p><font style="color:rgb(47, 47, 47);">例：BARCODE 100,100,”128”,50,0,0,2,4,”4600408762105840”</font></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th><font style="color:rgb(47, 47, 47);">参数</font></th>
-<th><font style="color:rgb(47, 47, 47);">说明</font></th>
-<th>值</th>
-<th>值说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><font style="color:rgb(47, 47, 47);"> x</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 左上角水平坐标起点，以点（dot）表示</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> y</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 左上角垂直坐标起点，以点（dot）表示</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> code type</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 条码类型，建议使用 39 或 128</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">height</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 条形码高度，以点（dot）表示</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> Human readable</font></td>
-<td><font style="color:rgb(47, 47, 47);">0 表示人眼不可识，1 表示人眼可识，即在条码下显示内容</font><br><font style="color:rgb(47, 47, 47);">需要预留条码内容的显示位置，内容高度 24dot</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">rotation</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 条形码旋转角度，顺时针方向</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 0</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 不旋转</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 90</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 顺时针方向旋转 90 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 180</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 顺时针方向旋转 180 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 270</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 顺时针方向旋转 270 度</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> narrow</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 窄 bar 宽度，以点（dot）表示</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> wide</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 宽 bar 宽度，以点（dot）表示</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> content</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 一维码内容</font></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="QRCODE"><a href="#QRCODE" class="headerlink" title="QRCODE"></a><font style="color:rgb(47, 47, 47);">QRCODE</font></h2><p><font style="color:rgb(47, 47, 47);">用来打印二维码</font></p>
-<p><font style="color:rgb(47, 47, 47);"></font></p>
-<p><font style="color:rgb(47, 47, 47);">程序语法：</font></p>
-<p><font style="color:rgb(47, 47, 47);">QRCODE x,y,ECC level,cellwidth,mode,rotation,”data string”</font></p>
-<blockquote>
-<p><font style="color:rgb(47, 47, 47);">例：QRCODE 50,50,M,6,A,0,”<a target="_blank" rel="noopener" href="http://www.feyin.cn/">www.feyin.cn</a>“</font></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th><font style="color:rgb(47, 47, 47);">参数</font></th>
-<th><font style="color:rgb(47, 47, 47);">说明</font></th>
-<th>值</th>
-<th>值说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><font style="color:rgb(47, 47, 47);">ｘ</font></td>
-<td><font style="color:rgb(47, 47, 47);">二维码水平方向起始点坐标</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">ｙ</font></td>
-<td><font style="color:rgb(47, 47, 47);">二维码垂直方向起始点坐标</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> ECC level</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 选择 QRCODE 纠错等级</font></td>
-<td><font style="color:rgb(47, 47, 47);"> L</font></td>
-<td><font style="color:rgb(47, 47, 47);">7%</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">M</font></td>
-<td><font style="color:rgb(47, 47, 47);">15%</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">Q</font></td>
-<td><font style="color:rgb(47, 47, 47);">25%</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">H</font></td>
-<td><font style="color:rgb(47, 47, 47);">30%</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">cell width</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 二维码宽度 1-10</font></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">mode</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 手动 / 自动编码</font></td>
-<td><font style="color:rgb(47, 47, 47);"> A</font></td>
-<td><font style="color:rgb(47, 47, 47);">Auto</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);">M</font></td>
-<td><font style="color:rgb(47, 47, 47);">Manual</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);">rotation</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 旋转角度（顺时针方向）</font></td>
-<td><font style="color:rgb(47, 47, 47);">0</font></td>
-<td><font style="color:rgb(47, 47, 47);">0 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 90</font></td>
-<td><font style="color:rgb(47, 47, 47);">90 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 180</font></td>
-<td><font style="color:rgb(47, 47, 47);">180 度</font></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><font style="color:rgb(47, 47, 47);"> 270</font></td>
-<td><font style="color:rgb(47, 47, 47);">270 度</font></td>
-</tr>
-<tr>
-<td><font style="color:rgb(47, 47, 47);"> data string</font></td>
-<td><font style="color:rgb(47, 47, 47);"> 编码的字符串</font></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h1 id="官方手册"><a href="#官方手册" class="headerlink" title="官方手册"></a>官方手册</h1><p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2024/pdf/12939765/1727769950843-89843c05-3ca0-4611-a2c4-85d8f3c54077.pdf">tspl_tspl2_programming_2018_5_17_scjiantizhongwen.pdf</a></p>
-
+<p><font style="color:rgb(47, 47, 47);">
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/fbdc6f4da9a4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -824,20 +417,14 @@
           <p>这篇文章来讲讲自己在工作中如何实现在标签打印中打印图片。</p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>为什么会有打印图片的需求？在许多 app 内都会有打印小票的功能，例如美团点外卖后商家会打印小票，小票上可以放商家的 logo、自定义图片等</p>
 <p>最近在项目中对接快递鸟发货后需要把快递鸟的返回的打印样式给打印出来。由于发货类型和快递公司非常多，也就存在多套打印模版，我们不可能每次对接一家公司就自己写一套模板，于是就迫切需要打印图片这么一个功能。</p>
-<h1 id="系统数据传输"><a href="#系统数据传输" class="headerlink" title="系统数据传输"></a>系统数据传输</h1><p>打印操作本质是通过 java 输出字节流到打印机上实现打印，所以我们要做的就是<strong>用 java 生成打印机支持指令的字节流</strong>，传送给打印机进行打印。</p>
-<p>而我们都知道计算机系统间传输数据的基本单位是位（bit，也就是 0 或 1），而通常计算机是以字节（1 字节 = 8 位）为单位来展示字符的，如 ASCII 码。这在 java 中体现为其 I/O 流是以字节为单位进行操作，从 <code>OutputStream</code> 中 write 方法也可以看出来。</p>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7cbffcf7b7b33a9cdfedd4aa126db67a.png"></p>
-<h1 id="位图打印"><a href="#位图打印" class="headerlink" title="位图打印"></a>位图打印</h1><p>了解以上后，我们再来看看标签打印的指令集。标签打印通常使用的是 TSPL 指令集，其打印图片的指令在官方文档中如下：</p>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/72539de2c39ab55fccc330eceab0f1fc.png"></p>
-<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b1be878109872539d4183705ee6c17ec.png"></p>
-<p>该指令是 bitmap，也就是打印位图，输出 0 打印黑点，输出 1 不打印（白点）。</p>
-<p>由于 java 不能输出位，我们只能遍历图片每个像素点。每个像素点输出一个位（ 0 或 1），再以 8 个位为一组生成字节数组，所以图片的宽度应调整为 8 的倍数。</p>
-<p>代码如下：</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImagePrint</span> {</span><br><span class="line">    <span class="comment">// 回车换行</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">byte</span>[] CRLF = <span class="keyword">new</span> <span class="title class_">byte</span>[]{<span class="number">13</span>, <span class="number">10</span>};</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">byte</span>[] buildImage(BufferedImage image) <span class="keyword">throws</span> IOException {</span><br><span class="line">        <span class="type">ByteArrayOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">        <span class="comment">// 定义宽高</span></span><br><span class="line">        out.write(<span class="string">"SIZE 76 mm,130 mm"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">        <span class="comment">// 打印纸间隙</span></span><br><span class="line">        out.write(<span class="string">"GAP 2 mm,0"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">        <span class="comment">// 打印方向</span></span><br><span class="line">        out.write(<span class="string">"DIRECTION 0"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">        out.write(<span class="string">"SET PEEL OFF"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">        out.write(<span class="string">"CLS"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 宽度 76 为字节数组长度</span></span><br><span class="line">        <span class="comment">// 高度 1040 = 130 * 8</span></span><br><span class="line">        <span class="type">byte</span>[] lineBytes = <span class="string">"BITMAP 0,0,76,1040,0,"</span>.getBytes();</span><br><span class="line">        out.write(lineBytes);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// byteBinary 方法调整图片为黑白图</span></span><br><span class="line">        <span class="comment">// resize 方法将图片放大 8 倍</span></span><br><span class="line">        image = ImageUtil.resize(ImageUtil.byteBinary(image), <span class="number">76</span> * <span class="number">8</span>);</span><br><span class="line">        <span class="type">byte</span>[] bytes = ImageUtil.encodeImage(image);</span><br><span class="line">        out.write(bytes);</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">    </span><br><span class="line">        out.write(<span class="string">"PRINT 1"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">        out.write(<span class="string">"END"</span>.getBytes());</span><br><span class="line">        out.write(CRLF);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> out.toByteArray();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImageUtil</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] encodeImage(BufferedImage image) <span class="keyword">throws</span> IOException {</span><br><span class="line">        <span class="type">int</span> <span class="variable">width</span> <span class="operator">=</span> image.getWidth() / <span class="number">8</span> * <span class="number">8</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> image.getHeight() / <span class="number">8</span> * <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[width / <span class="number">8</span> * height];</span><br><span class="line">        <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">stringBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> <span class="number">0</span>; y &lt; height; y++) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>; x &lt; width; x++) {</span><br><span class="line">                <span class="type">int</span> <span class="variable">pixel</span> <span class="operator">=</span> image.getRGB(x, y);</span><br><span class="line">                <span class="comment">// 白色</span></span><br><span class="line">                <span class="keyword">if</span> (pixel == <span class="number">0xFFFFFFFF</span>) {</span><br><span class="line">                    stringBuilder.append(<span class="string">"1"</span>);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    stringBuilder.append(<span class="string">"0"</span>);</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span> (stringBuilder.length() == <span class="number">8</span>) {</span><br><span class="line">                    <span class="comment">// 转为字节</span></span><br><span class="line">                    bytes[idx++] = (<span class="type">byte</span>) Integer.parseInt(stringBuilder.toString(), <span class="number">2</span>);</span><br><span class="line">                    <span class="comment">// 重置</span></span><br><span class="line">                    stringBuilder = <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bytes;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从给定的 URL 读取图片，并返回 BufferedImage 对象。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> imageUrl 图片的 URL 地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 读取到的 BufferedImage 对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title function_">loadImage</span><span class="params">(String imageUrl)</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">        <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(imageUrl);</span><br><span class="line">        <span class="keyword">return</span> ImageIO.read(url);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title function_">byteBinary</span><span class="params">(BufferedImage image)</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">        <span class="type">BufferedImage</span> <span class="variable">bwImage</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedImage</span>(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);</span><br><span class="line"></span><br><span class="line">        <span class="type">Graphics2D</span> <span class="variable">g</span> <span class="operator">=</span> bwImage.createGraphics();</span><br><span class="line">        g.drawImage(image, <span class="number">0</span>, <span class="number">0</span>, <span class="literal">null</span>);</span><br><span class="line">        g.dispose();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bwImage;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title function_">resize</span><span class="params">(BufferedImage image, <span class="type">int</span> targetWidth)</span> {</span><br><span class="line">        <span class="comment">// 计算高度以保持宽高比</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">targetHeight</span> <span class="operator">=</span> (<span class="type">int</span>) (image.getHeight() * ((<span class="type">double</span>) targetWidth / image.getWidth()));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建新的图片，按宽度等比例缩放</span></span><br><span class="line">        <span class="type">BufferedImage</span> <span class="variable">resizedImage</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedImage</span>(targetWidth, targetHeight, image.getType());</span><br><span class="line"></span><br><span class="line">        <span class="type">Graphics2D</span> <span class="variable">g</span> <span class="operator">=</span> resizedImage.createGraphics();</span><br><span class="line">        g.drawImage(image, <span class="number">0</span>, <span class="number">0</span>, targetWidth, targetHeight, <span class="literal">null</span>);</span><br><span class="line">        g.dispose();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> resizedImage;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/1fac0533df2b/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1522,6 +1109,115 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/b4ce99d25d0d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/b4ce99d25d0d/" class="post-title-link" itemprop="url">Redis 从入门到入土⑧：常用命令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-01-22 17:12:06" itemprop="dateCreated datePublished" datetime="2023-01-22T17:12:06+08:00">2023-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/b4ce99d25d0d/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="b4ce99d25d0d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>5 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="一、准备"><a href="#一、准备" class="headerlink" title="一、准备"></a>一、准备</h1><h2 id="1-redis-cli"><a href="#1-redis-cli" class="headerlink" title="1. redis-cli"></a>1. redis-cli</h2><p>执行命令<br><strong><em>例：</em></strong><br>远程 redis 服务上执行命令</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h host -p port -a password</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-ping"><a href="#2-ping" class="headerlink" title="2. ping"></a>2. ping</h2><p>该命令用于检测 redis 服务是否启动<br><strong><em>例：</em></strong></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PING</span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/b4ce99d25d0d/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ccomma.cn/a3bb20bb5445/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1603,115 +1299,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/a3bb20bb5445/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/b4ce99d25d0d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ccomma.png">
-      <meta itemprop="name" content="CComma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CComma's Blog">
-      <meta itemprop="description" content="下一个目标：改变世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CComma's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/b4ce99d25d0d/" class="post-title-link" itemprop="url">Redis 从入门到入土⑧：常用命令</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-01-22 17:12:06" itemprop="dateCreated datePublished" datetime="2023-01-22T17:12:06+08:00">2023-01-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/b4ce99d25d0d/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="b4ce99d25d0d/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>5 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="一、准备"><a href="#一、准备" class="headerlink" title="一、准备"></a>一、准备</h1><h2 id="1-redis-cli"><a href="#1-redis-cli" class="headerlink" title="1. redis-cli"></a>1. redis-cli</h2><p>执行命令<br><strong><em>例：</em></strong><br>远程 redis 服务上执行命令</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h host -p port -a password</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="2-ping"><a href="#2-ping" class="headerlink" title="2. ping"></a>2. ping</h2><p>该命令用于检测 redis 服务是否启动<br><strong><em>例：</em></strong></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PING</span><br></pre></td></tr></tbody></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/b4ce99d25d0d/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/72539de2c39ab55fccc330eceab0f1fc.png">
 <meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b1be878109872539d4183705ee6c17ec.png">
 <meta property="article:published_time" content="2024-10-01T07:46:11.000Z">
-<meta property="article:modified_time" content="2024-10-01T13:36:40.315Z">
+<meta property="article:modified_time" content="2024-10-01T14:05:40.409Z">
 <meta property="article:author" content="CComma">
 <meta property="article:tag" content="打印">
 <meta name="twitter:card" content="summary">
@@ -309,6 +309,8 @@
     <div class="post-body" itemprop="articleBody"><p>这篇文章来讲讲自己在工作中如何实现在标签打印中打印图片。</p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>为什么会有打印图片的需求？在许多 app 内都会有打印小票的功能，例如美团点外卖后商家会打印小票，小票上可以放商家的 logo、自定义图片等</p>
 <p>最近在项目中对接快递鸟发货后需要把快递鸟的返回的打印样式给打印出来。由于发货类型和快递公司非常多，也就存在多套打印模版，我们不可能每次对接一家公司就自己写一套模板，于是就迫切需要打印图片这么一个功能。</p>
+<span id="more"></span>
+
 <h1 id="系统数据传输"><a href="#系统数据传输" class="headerlink" title="系统数据传输"></a>系统数据传输</h1><p>打印操作本质是通过 java 输出字节流到打印机上实现打印，所以我们要做的就是<strong>用 java 生成打印机支持指令的字节流</strong>，传送给打印机进行打印。</p>
 <p>而我们都知道计算机系统间传输数据的基本单位是位（bit，也就是 0 或 1），而通常计算机是以字节（1 字节 = 8 位）为单位来展示字符的，如 ASCII 码。这在 java 中体现为其 I/O 流是以字节为单位进行操作，从 <code>OutputStream</code> 中 write 方法也可以看出来。</p>
 <p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7cbffcf7b7b33a9cdfedd4aa126db67a.png"></p>
