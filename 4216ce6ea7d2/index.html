@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="google-site-verification" content="5K7puGkNbKLWhZTmZZm6haOpSbJ-oOvUQFYJeMFBJSk">
+  <meta name="baidu-site-verification" content="codeva-3O8Y6jTFCL">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？ 1. 解决写入问题心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。 2. 学习架构设计思想这也是很重要的一点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES 写入原理及调优">
+<meta property="og:url" content="https://ccomma.cn/4216ce6ea7d2/">
+<meta property="og:site_name" content="CComma&#39;s Blog">
+<meta property="og:description" content="背景ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？ 1. 解决写入问题心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。 2. 学习架构设计思想这也是很重要的一点">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5b20c17eb26dfc1a90e9433ae005a39e.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba7282dc7f49c616767143d774646a3b.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ec5aedd4c9bc6e805872b3f5944957a8.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg">
+<meta property="article:published_time" content="2024-03-12T02:37:13.000Z">
+<meta property="article:modified_time" content="2024-04-02T08:27:15.554Z">
+<meta property="article:author" content="CComma">
+<meta property="article:tag" content="ES">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5b20c17eb26dfc1a90e9433ae005a39e.jpeg">
+
+
+<link rel="canonical" href="https://ccomma.cn/4216ce6ea7d2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/4216ce6ea7d2/","path":"4216ce6ea7d2/","title":"ES 写入原理及调优"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ES 写入原理及调优 | CComma's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?152282c2c823c1e5ab34c577ba338801"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="CComma's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/ccomma.png" alt="CComma's Blog">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CComma's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Connect the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">21</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">89</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">写入流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E4%B8%80%E8%87%B4%E6%80%A7%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">写一致性策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">写入原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="nav-number">5.</span> <span class="nav-text">写入性能调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%B0%83%E4%BC%98"><span class="nav-number">6.</span> <span class="nav-text">查询调优</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CComma"
+      src="/images/ccomma.png">
+  <p class="site-author-name" itemprop="name">CComma</p>
+  <div class="site-description" itemprop="description">下一个目标：改变世界！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccomma" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccomma" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/ccomma_cat" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;ccomma_cat" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/4216ce6ea7d2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ES 写入原理及调优 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES 写入原理及调优
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-03-12 10:37:13" itemprop="dateCreated datePublished" datetime="2024-03-12T10:37:13+08:00">2024-03-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ES/" itemprop="url" rel="index"><span itemprop="name">ES</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/4216ce6ea7d2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="4216ce6ea7d2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>10 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>ES 支持四种对文档的数据写操作：create、delete、index、update，这些对数据进行更改的操作的流程和原理是怎么样的呢？以及，了解写入原理对我们有什么帮助？</p>
+<p><strong>1. 解决写入问题</strong><br>心心念念用上了 ES，但是却在项目中遇到写入并发问题及写入大吞吐量数据之类的问题，这时候需要好好了解下 ES 的写入原理，再结合项目实际情况对相关参数进行调优。</p>
+<p><strong>2. 学习架构设计思想</strong><br>这也是很重要的一点，了解 ES 是如何处理写入中遇到的问题，以及这些处理方式是否在我们平常项目中有所帮助。</p>
+<p><strong>3. 应对面试</strong><br>虽然比较功利，但不可否认，写入原理是 ES 面试的高频问题</p>
+<p>常见的面试问题：</p>
+<ul>
+<li>你了解 ES 的写入原理吗</li>
+<li>你了解文档的写入 / 删除过程吗</li>
+<li>如何保证 ES 数据写入一致性</li>
+<li>文档写入超时原因</li>
+<li> ES 写入实时性如何去保证</li>
+<li>数据量大时如何保证数据写入性能</li>
+<li>如何提高数据检索能力</li>
+</ul>
+<span id="more"></span>
+<h2 id="写入流程"><a href="#写入流程" class="headerlink" title="写入流程"></a>写入流程</h2><p>ES 中的数据写入均发生在主分片上。由于 ES 是分布式系统，实际接收到写入请求的节点可能是任意一台节点，这就需要将请求通过 routing 路由到具体主分片所在的节点，将数据写入该节点的主分片中，然后主分片再同步数据到其他节点的副分片中。<br>路由公式：<code>shard_num = hash(_routing) % num_primary_shards</code><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5b20c17eb26dfc1a90e9433ae005a39e.jpeg"><br>具体流程：</p>
+<ol>
+<li>客户端发起写入请求至 node 4</li>
+<li>node 4 通过文档 id 在路由表中的映射信息确定当前数据的位置为分片 0，分片 0 的主分片位于 node 5，并将数据转发至 node 5。</li>
+<li>数据在 node 5 写入，写入成功之后将数据的同步请求转发至其副本所在的 node 4 和 node 6 上面，等待所有副本数据写入成功之后 node 5 将结果报告 node 4，并由 node 4 将结果返回给客户端，报告数据写入成功。</li>
+</ol>
+<h2 id="写一致性策略"><a href="#写一致性策略" class="headerlink" title="写一致性策略"></a>写一致性策略</h2><p>ES 5.x 之后，一致性策略由 <code>wait_for_active_shards</code> 参数控制：状态为 active 的主副分片数量达到设定阈值时才视为写入成功，才会返回数据给客户端。默认为 1，即只需要主分片写入成功，可设置为 <code>all</code> 或任何正整数，最大值为索引中的分片总数 (&nbsp;<code>number_of_replicas + 1</code> )。</p>
+<p>如果当前 active 状态的副本没有达到设定阈值，写操作必须等待并且重试，默认等待时间 30 秒，直到 active 状态的副本数量超过设定的阈值或者超时返回失败为止。</p>
+<p>执行索引操作时，分配给执行索引操作的主分片可能不可用。造成这种情况的原因可能是主分片当前正在从网关恢复或正在进行重定位。默认情况下，索引操作将在主分片上等待最多 1 分钟，然后才会失败并返回错误。</p>
+<h2 id="写入原理"><a href="#写入原理" class="headerlink" title="写入原理"></a>写入原理</h2><p>我们已经知道了宏观上的写入流程：先找到主节点，写入主节点后再同步到副节点。<br><strong>那 ES 是怎么把数据写入主节点和副节点中的呢？</strong></p>
+<p>大家可能会有疑问，难道不是直接写入到磁盘吗？<strong>我们可以思考下，每次请求都直接写入到磁盘这种方式在高并发的场景下会消耗大量的 IO 资源，每次都要寻址然后写入磁盘。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ba7282dc7f49c616767143d774646a3b.jpeg" alt="未命名文件.jpg"></p>
+<p>对此我们可以用缓存来解决，即把数据写入系统缓存后，定期批量写入磁盘，同时缓存也提供检索服务。<br>而 Lucene 中索引是细分为多个 segment 的，segment 是索引中存储索引数据的内部存储元素，并且是不可变的。较小的 segment 会定期合并到较大的 segment 中，以控制索引大小。问题又来了：<strong>如果每次请求都创建一个新的 segment，那么会导致频繁的合并操作（merge）。</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ec5aedd4c9bc6e805872b3f5944957a8.jpeg" alt="未命名文件.jpg"></p>
+<p>所以 ES 在请求进入缓存之前先让请求进缓冲区（memory buffer），每秒或每 100 个缓存才会执行刷新操作（Refresh）把缓冲区中的数据创建 segment 写入系统缓存中。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/10b375c43ff4ab15fe0c8ed7fa469f8e.jpeg" alt="未命名文件 (1).jpg"></p>
+<p>至此这套批量持久化结构已经比较完善，但还有一个问题：<strong>缓存虽然提高了性能，但毕竟未持久化到磁盘，一旦系统出现故障数据就会丢失。</strong>ES 采用事务日志（translog）的方式解决此问题，当请求进来时会同时写入缓冲区和事务日志中，当服务重启后就会从事务日志中恢复数据到缓存。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/dcb5acedec3e2a0f97e678cd403a0eea.jpeg" alt="未命名文件 (1).jpg"></p>
+<p>整体结构：</p>
+<ul>
+<li>Memory Buffer（缓冲区）：数据批量操作，高性能写入</li>
+<li> Translog（事务日志）：保证数据写入安全性，防止丢失</li>
+<li> OS Cache（内存）：保证数据高性能检索</li>
+<li> OS Disk（磁盘）：保证数据持久化</li>
+</ul>
+<p>具体流程：</p>
+<ol>
+<li>客户端写入 Memory Buffer 缓冲区，并追加写入 Translog 事务日志（删除、写入…）以保证数据安全性。</li>
+<li>Memory Buffer 达到阈值（100 条 / 1s）后执行 Refresh 操作生成 Segment 索引文件到系统缓存中。<ol>
+<li>然后系统缓存会把该 Segment 标记为可被检索，因此数据有 1s 不可读的延迟。</li>
+<li>Refresh 操作不能过于频繁，因此针对实时性不高的数据，可以配置 refresh 的间隔时间为 30s 一次。</li>
+</ol>
+</li>
+<li>每个 Segment 都会消耗文件句柄、内存、CPU 运行周期，所以每隔一段时间会执行 Merge 操作，合并 Segment。<ol>
+<li>Merge 操作发生在 JVM 中，频率过高会占用堆内存空间，所以 Refresh 的频率不能太高，否则会使 Merge 频率增高。</li>
+<li>不合并 Segment 的影响：<ol>
+<li>每个 Segment 占据的内存不会随着 GC 释放的。导致系统内存不足，进一步导致超时问题。</li>
+<li>查询时会遍历每个 Segment，过多的 Segment 会导致查询速度下降。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>执行 Flush 操作缓存写入 OS Disk（磁盘）并提交一次，并清空 Translog。<ol>
+<li>系统缓存每隔 30 分钟、Translog 每隔 5 秒刷一次到磁盘中，所以默认情况下，可能会有 5s 数据丢失。</li>
+<li>系统缓存和 Translog 写满时也会刷磁盘。</li>
+</ol>
+</li>
+<li>断电等异常操作导致数据丢失时，服务重启后会读取 Translog 中的数据到缓存中，以完成回滚操作。</li>
+</ol>
+<p>相关参数：</p>
+<ul>
+<li>index.translog.durability：同步还是异步<ul>
+<li> request：（默认）主副分片在每个请求后执行 fsync 和 commit，才会向客户端报告索引、删除、更新或批量请求的成功。如果发生崩溃，那么所有只要是已经确认的写操作都已经被提交到磁盘。</li>
+<li>async：在后台每 index.translog.sync_interval 时间进行一次 fsync 和 commit。意味着如果发生崩溃，那么所有在上一次自动提交以后的已确认的写操作将会丢失。</li>
+</ul>
+</li>
+<li>index.translog.sync_interval：translog 多久被同步到磁盘并提交一次。默认 5 秒。这个值不能小于 100ms。</li>
+<li>index.translog.flush_threshold_size：translog 执行 flush 操作的空间最大阈值，默认 512 MB。</li>
+</ul>
+<h2 id="写入性能调优"><a href="#写入性能调优" class="headerlink" title="写入性能调优"></a>写入性能调优</h2><p>生产经常面临的写入可以分为两种情况：</p>
+<ul>
+<li>高并发：高频的创建 / 更新索引文档，一般发生在 C 端场景下</li>
+<li>高吞吐：定期重建索引或批量更新文档数据，一般为 B 端场景</li>
+</ul>
+<p><strong>1. 提升写入吞吐量和并发</strong><br>ES 数据写入具有一定的延时性，这是为了减少频繁的索引文件产生。默认情况下 ES 每秒生成一个 segment 文件，当达到一定阈值的时候会执行 merge，merge 过程发生在 JVM 中，频繁的生成 segmen 文件可能会导致频繁的触发 FGC，导致 OOM。<br>为了避免避免这种情况，通常采取的手段是降低 segment 文件的生成频率，手段有两个，一个是增加时间阈值，另一个是增大 buffer 的空间阈值。</p>
+<ol>
+<li>增加 flush 时间间隔。Flush 是 IO 操作，很消耗性能，不能太频繁</li>
+<li>增加 refresh_interval 的参数值<ol>
+<li>目的是减少 segment 文件的创建，减少 segment 的 merge 次数。</li>
+<li>merge 是发生在 JVM 中的，有可能导致 full GC，增加 refresh 会降低搜索的实时性。</li>
+</ol>
+</li>
+<li>增加 buffer 大小<ol>
+<li>减小 refresh 的时间间隔，因为导致 segment 文件创建的原因不仅有时间阈值，还有 buffer 空间大小，写满了也会创建。</li>
+<li>默认最小值 48MB &lt; 默认值 JVM 空间的 10% &lt; 默认最大无限制</li>
+</ol>
+</li>
+<li>关闭副本（提高单次吞吐）<ol>
+<li>需要单次写入大量数据的时候，可以关闭副本（减少数据同步），暂停搜索服务，或选择在检索请求量谷值区间时间段来完成。因为副本的存在会导致主从之间频繁的进行数据同步，大大增加服务器的资源占用。</li>
+<li>可通过则设置 index.number_of_replicas 为 0 以加快索引速度。没有副本意味着丢失单个节点可能会导致数据丢失，因此数据保存在其他地方很重要，以便在出现问题时可以重试初始加载。初始加载完成后，可以设置 index.number_of_replicas 改回其原始值。</li>
+</ol>
+</li>
+<li>max_result_window 参数</li>
+</ol>
+<p>分页返回的最大数值，默认值为 10000。通过设定一个合理的阈值，避免初学者分页查询时由于单页数据过大而导致 OOM。</p>
+<p><strong>2. 提高写入实时性（不推荐）</strong><br>在搜索引擎的业务场景下，用户一般并不需要那么高的写入实时性。有时这个延时的过程需要处理很多事情，比如信息需要后台审核。<br>可以提高 Memory Buffer 的 refresh 操作频率，但是过高的 refresh 会导致频繁 merge segment，会消耗更多堆内存、CPU 的资源。</p>
+<h2 id="查询调优"><a href="#查询调优" class="headerlink" title="查询调优"></a>查询调优</h2><p>1. 避免单次召回大量数据<br>搜索引擎最擅长的事情是从海量数据中查询少量相关文档，而非单次检索大量文档。非常不建议动辄查询上万数据。如果有这样的需求，建议使用滚动查询。<br> <br>2. 避免单个文档过大<br>硬性限制：<br>鉴于默认 http.max_content_length 设置为 100MB，Elasticsearch 将拒绝索引任何大于该值的文档。可以增加该特定设置，但 Lucene 仍然有大约 2GB 的限制。<br> <br>大型文档对网络、内存使用和磁盘造成了更大的压力，即使对于不请求的搜索请求也是如此。<br> <br>3. 使用 filter 代替 query<br>query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。<br> <br>4. 避免深度分页<br> <br>5. 使用 Keyword 类型<br>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index-modules-translog.html">Translog | Elasticsearch Guide [7.17] | Elastic</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/a645293829/article/details/132223065">【HBZ 分享】ES 索引分片的写入原理 及 流程</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ES/" rel="tag"><i class="fa fa-tag"></i> ES</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/58a80fbce4aa/" rel="prev" title="从 0 到 1 快速搭建博客">
+                  <i class="fa fa-angle-left"></i> 从 0 到 1 快速搭建博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/1fac0533df2b/" rel="next" title="java 实现标签打印图片">
+                  java 实现标签打印图片 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">CComma</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ccomma" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/4216ce6ea7d2/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

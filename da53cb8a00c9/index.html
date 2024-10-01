@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="google-site-verification" content="5K7puGkNbKLWhZTmZZm6haOpSbJ-oOvUQFYJeMFBJSk">
+  <meta name="baidu-site-verification" content="codeva-3O8Y6jTFCL">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="深入理解计算机系统使用指南：https:&#x2F;&#x2F;book.douban.com&#x2F;review&#x2F;5627139&#x2F; 1. 什么是操作系统操作系统所处的位置硬件包括芯片、电路板、磁盘、键盘、显示器以及类似的设备。 用户态和内核态多数计算机有两种运行模式：内核态和用户态。  内核态：操作系统运行在内核态，具有对所有硬件的完全访问权，可以执行机器能够运行的任何指令。内核态的程序由硬件保护，防止用户试图对其进行修">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统从入门到入土①：概述">
+<meta property="og:url" content="https://ccomma.cn/da53cb8a00c9/">
+<meta property="og:site_name" content="CComma&#39;s Blog">
+<meta property="og:description" content="深入理解计算机系统使用指南：https:&#x2F;&#x2F;book.douban.com&#x2F;review&#x2F;5627139&#x2F; 1. 什么是操作系统操作系统所处的位置硬件包括芯片、电路板、磁盘、键盘、显示器以及类似的设备。 用户态和内核态多数计算机有两种运行模式：内核态和用户态。  内核态：操作系统运行在内核态，具有对所有硬件的完全访问权，可以执行机器能够运行的任何指令。内核态的程序由硬件保护，防止用户试图对其进行修">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/590b181ef083493161a55fbaf2fdc3c3.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/902ce2a4b8fbf79f5a078c45d91c759a.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f4de6dbc1320586c69e548b30db936f0.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ed211bcc7bcc01fc8becc25b4b24223b.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5daa365ab39433c1f7f95ea9d561b540.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0cab757be7497b7484eb81ea077f99a6.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5e547a976ceee90d436a019295be0c8f.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/869cb1408042650ad093b5f8b9e5ea52.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/fdaffb91f95605d5f515bf1c43744278.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a96f844f844d6460c884f87fdb5fa325.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f5410bebb3a5c861935545799d24673a.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4819fdb071292e7a1b549a75762fa5b3.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e2dd668189cb0c4710403d1fe3578022.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/751efc320e7e6078af3fddf32b2bd3e3.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7be685d0842f095478c4a8ec5d133368.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e3bd18a1e7aeb83e60b48cac26d32224.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4db296dab3b41db38c8ce5363f902b6b.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8b9c383ffb4292b3281fd9169719d85d.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c4e8e2382c2444687c3d06817d09d4e6.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/13120eed179bb298fadd9b6213436b73.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/312f99ce48aa5ad6ba301199402cc63f.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/cd380e424a2d459ac19ceab59d67fa32.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/491287cf15c1f944680853bd043f4d52.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/84bad2763dcb858b305543c2b2542986.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f2d774d2e4a167de32b95d9501fb6175.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b48fee8fcee4ccbc80d43fc246d00625.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a5e7937f43820fcebaf697e622ad0f7d.png">
+<meta property="article:published_time" content="2021-08-23T13:28:05.000Z">
+<meta property="article:modified_time" content="2024-04-02T08:27:15.541Z">
+<meta property="article:author" content="CComma">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/590b181ef083493161a55fbaf2fdc3c3.png">
+
+
+<link rel="canonical" href="https://ccomma.cn/da53cb8a00c9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/da53cb8a00c9/","path":"da53cb8a00c9/","title":"操作系统从入门到入土①：概述"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统从入门到入土①：概述 | CComma's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?152282c2c823c1e5ab34c577ba338801"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="CComma's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/ccomma.png" alt="CComma's Blog">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CComma's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Connect the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">21</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">89</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 操作系统分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 操作系统接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1. 系统调用接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-POSIX-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2. POSIX 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-%E9%A2%86%E5%9F%9F%E5%BA%94%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3. 领域应用接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%A1%AC%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2. 硬件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-CPU"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. CPU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1. 指令集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E7%89%B9%E6%9D%83%E7%BA%A7"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2. 特权级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3. 寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 存储器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.2. 高速缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E4%B8%BB%E5%AD%98"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.3. 主存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-%E7%A3%81%E7%9B%98"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.4. 磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-5-I-O-%E8%AE%BE%E5%A4%87"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.2.5. I&#x2F;O 设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-6-%E6%80%BB%E7%BA%BF"><span class="nav-number">2.2.5.</span> <span class="nav-text">2.2.6. 总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-7-%E5%90%AF%E5%8A%A8%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="nav-number">2.2.6.</span> <span class="nav-text">2.2.7. 启动计算机</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3"><span class="nav-number">3.</span> <span class="nav-text">3. 系统相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 文件系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">4. 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. 进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. 文件管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. 目录管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E5%85%B6%E4%BB%96"><span class="nav-number">4.4.</span> <span class="nav-text">4.4. 其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">5.</span> <span class="nav-text">5. 操作系统结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E7%AD%96%E7%95%A5%E5%92%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">5.1.</span> <span class="nav-text">5.1. 策略和机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E5%86%85%E6%A0%B8%E7%BB%93%E6%9E%84"><span class="nav-number">5.2.</span> <span class="nav-text">5.2. 内核结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-%E7%AE%80%E8%A6%81%E7%BB%93%E6%9E%84%EF%BC%88%E5%8D%95%E4%BD%93%EF%BC%89"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1. 简要结构（单体）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-%E5%AE%8F%E5%86%85%E6%A0%B8"><span class="nav-number">5.2.2.</span> <span class="nav-text">5.2.2. 宏内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">5.2.3.</span> <span class="nav-text">5.2.3. 微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-4-%E5%AE%A2%E6%88%B7%E7%AB%AF-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.2.4.</span> <span class="nav-text">5.2.4. 客户端 - 服务器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-5-%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">5.2.5.</span> <span class="nav-text">5.2.5. 虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-6-%E5%A4%96%E5%A3%B3"><span class="nav-number">5.2.6.</span> <span class="nav-text">5.2.6. 外壳</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CComma"
+      src="/images/ccomma.png">
+  <p class="site-author-name" itemprop="name">CComma</p>
+  <div class="site-description" itemprop="description">下一个目标：改变世界！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccomma" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccomma" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/ccomma_cat" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;ccomma_cat" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/da53cb8a00c9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统从入门到入土①：概述 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统从入门到入土①：概述
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-23 21:28:05" itemprop="dateCreated datePublished" datetime="2021-08-23T21:28:05+08:00">2021-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/da53cb8a00c9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="da53cb8a00c9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>28 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>深入理解计算机系统使用指南：<a target="_blank" rel="noopener" href="https://book.douban.com/review/5627139/">https://book.douban.com/review/5627139/</a></p>
+<h1 id="1-什么是操作系统"><a href="#1-什么是操作系统" class="headerlink" title="1. 什么是操作系统"></a>1. 什么是操作系统</h1><p>操作系统所处的位置<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/590b181ef083493161a55fbaf2fdc3c3.png" alt="image.png"><br>硬件包括芯片、电路板、磁盘、键盘、显示器以及类似的设备。</p>
+<p><strong>用户态和内核态</strong><br>多数计算机有两种运行模式：内核态和用户态。</p>
+<ul>
+<li>内核态：操作系统运行在内核态，具有对所有硬件的完全访问权，可以执行机器能够运行的任何指令。内核态的程序由硬件保护，防止用户试图对其进行修改。</li>
+<li>用户态：软件的其余部分运行在用户态，只使用了机器指令中的一个子集。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="1-1-操作系统分类"><a href="#1-1-操作系统分类" class="headerlink" title="1.1. 操作系统分类"></a>1.1. 操作系统分类</h2><ul>
+<li><strong>单用户操作系统：</strong>单用户操作系统一次只能支持一个用户程序的运行。单用户操作系统向用户提供联机交互式的工作环境，比如 MS-DOS 就是一个经典的单用户操作系统。</li>
+<li><strong>批处理操作系统：</strong>早期的一种大型机用操作系统。可对用户作业成批处理，期间无需用户干预，分为单道批处理系统和多道批处理系统。</li>
+<li><strong>分时操作系统：</strong>利用分时技术的一种联机的多用户交互式操作系统，每个用户可以通过自己的终端向系统发出各种操作控制命令，完成作业的运行。分时是指把处理机的运行时间分成很短的时间片，按时间片轮流把处理机分配给各联机作业使用。</li>
+<li><strong>实时操作系统：</strong>一个能够在指定或者确定的时间内完成系统功能以及对外部或内部事件在同步或异步时间内做出响应的系统，实时意思就是对响应时间有严格要求，要以足够快的速度进行处理。分为硬实时和软实时两种。</li>
+<li><strong>通用操作系统：</strong>同时兼有多道批处理、分时、实时处理的功能，或者其中两种以上功能的操作系统。</li>
+<li><strong>网络操作系统：</strong>一种在通常操作系统功能的基础上提供网络通信和网络服务功能的操作系统。</li>
+<li><strong>分布式操作系统：</strong>一种以计算机网络为基础的，将物理上分布的具有自治功能的数据处理系统或计算机系统互联起来的操作系统。分布式系统中各台计算机无主次之分，系统中若干台计算机可以并行运行同一个程序，分布式操作系统用于管理分布式系统资源。</li>
+<li><strong>嵌入式操作系统：</strong>一种运行在嵌入式智能芯片环境中，对整个智能芯片以及它所操作、控制的各种部件装置等资源进行统一协调、处理、指挥和控制的系统软件。</li>
+</ul>
+<h2 id="1-2-操作系统接口"><a href="#1-2-操作系统接口" class="headerlink" title="1.2. 操作系统接口"></a>1.2. 操作系统接口</h2><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/902ce2a4b8fbf79f5a078c45d91c759a.png" alt="image.png"><br>分为系统调用接口、POSIX 接口和领域应用接口</p>
+<h3 id="1-2-1-系统调用接口"><a href="#1-2-1-系统调用接口" class="headerlink" title="1.2.1. 系统调用接口"></a>1.2.1. 系统调用接口</h3><p>应用程序通过操作系统内核提供的接口（例如系统调用）向内核申请服务。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f4de6dbc1320586c69e548b30db936f0.png" alt="image.png"><br>printf -&gt; lib 中的 write -&gt; svc 下陷到内核 -&gt; 下陷处理函数 sys_syscall 找到内核对应中对应的函数 -&gt; sys_write</p>
+<h3 id="1-2-2-POSIX-接口"><a href="#1-2-2-POSIX-接口" class="headerlink" title="1.2.2. POSIX 接口"></a>1.2.2. POSIX 接口</h3><p>为了同一个应用程序在不同操作系统上的可移植性，逐渐形成了一些可移植操作系统接口标准。<br>POSIX（Portable Operating System Interface for uniX，可移植操作系统接口）。POSIX 标准通常通过 C library（libc）来实现，常见的 libc 包括 glibc、musl、eglibc。 Android 也实现了一个名为 bionic 的 libc。<br>应用程序只需要调用 libc 提供的接口就可以实现对操作系统功能的调用。</p>
+<h3 id="1-2-3-领域应用接口"><a href="#1-2-3-领域应用接口" class="headerlink" title="1.2.3. 领域应用接口"></a>1.2.3. 领域应用接口</h3><p>在 POSIX 或操作系统调用的基础上还可以封装面向不同领域的领域应用接口。</p>
+<h1 id="2-硬件"><a href="#2-硬件" class="headerlink" title="2. 硬件"></a>2. 硬件</h1><h2 id="2-1-CPU"><a href="#2-1-CPU" class="headerlink" title="2.1. CPU"></a>2.1. CPU</h2><p>指令集架构（Instruction Set Architecture, ISA）是 CPU 和软件之间的桥梁。ISA 包含指令集、特权级、寄存器、执行模式、安全扩展、性能加速扩展等诸多方面。</p>
+<h3 id="2-1-1-指令集"><a href="#2-1-1-指令集" class="headerlink" title="2.1.1. 指令集"></a>2.1.1. 指令集</h3><p>每个 CPU 都有一套可执行的专门 ** 指令集 **。所以，x86 处理器不能执行 ARM 程序，而 ARM 处理器也不能执行 x86 程序。</p>
+<h3 id="2-1-2-特权级"><a href="#2-1-2-特权级" class="headerlink" title="2.1.2. 特权级"></a>2.1.2. 特权级</h3><p>AArch64（首款 64 位架构的 ARM 处理器）中的特权级被称为异常级别（Exception Level，EL）<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/ed211bcc7bcc01fc8becc25b4b24223b.png" alt="image.png"></p>
+<ul>
+<li>EL0：最低的特权级，应用程序通常运行在该特权级，也称为 <strong>用户态</strong>。</li>
+<li>EL1：操作系统通常运行在该特权级，也称为 ** 内核态 **。</li>
+<li>EL2：在虚拟化场景下需要，虚拟机监控器（Virtual Machine Monitor，VMM）通常运行在该特权级。</li>
+<li>EL3：TrustZone 是从 ARMv6 体系结构开始引入的安全特性，其从逻辑上将整个系统分为安全世界（能访问所有资源）和普通世界（不能访问安全世界的资源）。</li>
+</ul>
+<p>EL3 和安全特性 TrustZone 相关，负责普通世界和安全世界之间的切换。</p>
+<p><strong>用户态切换至内核态的场景：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5daa365ab39433c1f7f95ea9d561b540.png" alt="image.png"></p>
+<ol>
+<li>应用程序执行 svc（特权调用，supervisor call）指令切换。</li>
+<li>指令触发异常切换，如缺页异常。</li>
+<li>CPU 收到来自外设的中断。</li>
+</ol>
+<p><strong>用户态切换至内核态过程：</strong><br>操作系统可以在异常向量表中为不同的异常类型配置相应的异常处理函数。</p>
+<ol>
+<li>发生特权级切换时，CPU 会读取 VBAR_EL1（向量基地址寄存器，Vector Base Address Register）来获得 <strong>异常向量表（exception vector table）</strong>的基地址。</li>
+<li>然后根据异常原因（ESR_EL1 中保存的内容）调用操作系统设置的相应异常处理函数。</li>
+<li>该函数通常会先保存应用程序的上下文（如通用寄存器），然后会根据异常原因进行相应的处理。</li>
+</ol>
+<p>例如，若特权级切换是应用程序执行 svc 指令导致的，则执行相应的系统调用；<br>若特权级切换是访存过程中缺页异常导致的，则执行相应的缺页异常处理函数。</p>
+<ol start="4">
+<li>异常处理完成之后，操作系统会恢复应用程序的上下文，然后执行 eret（异常返回，Exception Return）指令恢复 CPU 自动保存的 EL0 状态，并切回到 EL0，使应用程序从被中断处继续执行。</li>
+</ol>
+<p><strong>pipeline</strong><br>为了改善性能，CPU 设计师早就放弃了同时读取、解码和执行一条指令的简单模型。许多现代 CPU 具有同时 ** 取出多条指令 ** 的机制。这样的机制称为 <strong>流水线（pipeline）</strong>。<br>例如，一个 CPU 可以有单独的取指单元、解码单元和执行单元，于是当它执行指令 n 时，还可以对指令 n ＋1 解码，并且读取指令 n +2。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/0cab757be7497b7484eb81ea077f99a6.png" alt="image.png"></p>
+<p><strong>超标量 CPU</strong><br>超标量 CPU，有多个执行单元。两个或更多的指令被同时取出、解码并装入暂存缓冲区中，直至它们执行完毕。只要有一个执行单元空闲，就检查保持缓冲区中是否还有可处理的指令，如果有，就把指令从缓冲区中移出并执行之。<br>有指令不按顺序执行的隐患。</p>
+<blockquote>
+<p>例如，一个 CPU 用于整数算术运算，一个 CPU 用于浮点算术运算，一个 CPU 用于布尔运算。</p>
+</blockquote>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/5e547a976ceee90d436a019295be0c8f.png" alt="image.png"></p>
+<h3 id="2-1-3-寄存器"><a href="#2-1-3-寄存器" class="headerlink" title="2.1.3. 寄存器"></a>2.1.3. 寄存器</h3><p>用与 CPU 相同的材料制成，所以和 CPU 一样快。</p>
+<h2 id="2-2-存储器"><a href="#2-2-存储器" class="headerlink" title="2.2. 存储器"></a>2.2. 存储器</h2><p>存储器分层结构<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/869cb1408042650ad093b5f8b9e5ea52.png" alt="image.png"></p>
+<h3 id="2-2-2-高速缓存"><a href="#2-2-2-高速缓存" class="headerlink" title="2.2.2. 高速缓存"></a>2.2.2. 高速缓存</h3><p><strong>L1 缓存：</strong>总是在 CPU 中，用来将已解码的指令调入 CPU 的执行引擎，不存在任何延时。</p>
+<p><strong>L2 缓存：</strong>用来存放近来使用过的若干兆字节的内存字，延时 1 或 2 个时钟周期。</p>
+<ul>
+<li>带有共享 L2 缓存的 4 核芯片（Intel）：</li>
+</ul>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/fdaffb91f95605d5f515bf1c43744278.png" alt="image.png"></p>
+<ul>
+<li>带有分离 L2 缓存的 4 核芯片（AMD）：</li>
+</ul>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a96f844f844d6460c884f87fdb5fa325.png" alt="image.png"></p>
+<p><strong>缓存行：</strong><br>CPU 缓存是由若干个缓存行（cache line）组成的。物理内存与 CPU 缓存之间的数据传输以缓存行为单位，一般为 64 字节。这比单个字节读取要快得多。<br>每个缓存行有一个用于表示其是否有效的有效位（valid bit）和一个用于标识其对应的物理地址的标记地址（tag address）。</p>
+<p><strong>缓存命中：</strong><br>当某个程序需要读一个存储字时，高速缓存硬件检查所需要的高速缓存行是否在高速缓存中。</p>
+<ul>
+<li>命中，就不需要访问主存，命中通常需要两个时钟周期。</li>
+<li>未命中就必须访问内存，这将花费大量时间。<blockquote>
+<p>存储器读取某一个位置，接下来访问这个位置的概率非常高，尤其是紧随其后的内存位置。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>缓存结构：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f5410bebb3a5c861935545799d24673a.png" alt="image.png"><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4819fdb071292e7a1b549a75762fa5b3.png" alt="image.png"><br>物理地址在逻辑上分为 Tag、Set（也称为 Index）以及 Offset 三段。</p>
+<blockquote>
+<p>类似三维坐标中的 xyz 坐标</p>
+</blockquote>
+<p>组（Set）与路（Way）是 CPU 缓存的经典概念。</p>
+<ul>
+<li>物理地址中的 Set 段能表示的最大数目称为组。</li>
+<li>同一组（即 Set 段相等）下，支持的最大 Tag 数则称为路，即同一组下的缓存行数目，该 CPU 缓存被称为 4 路组相联（4-Way Set Associative）。</li>
+</ul>
+<h3 id="2-2-3-主存"><a href="#2-2-3-主存" class="headerlink" title="2.2.3. 主存"></a>2.2.3. 主存</h3><ul>
+<li>随机访问存储器（RAM）</li>
+<li>只读存储器（ROM）：用于启动计算机的引导加载模块</li>
+<li>电可擦除可编程 ROM（EEPROM） 和闪存：与 ROM 相比可以擦除和重写</li>
+</ul>
+<h3 id="2-2-4-磁盘"><a href="#2-2-4-磁盘" class="headerlink" title="2.2.4. 磁盘"></a>2.2.4. 磁盘</h3><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e2dd668189cb0c4710403d1fe3578022.png" alt="image.png"><br><strong>概念：</strong></p>
+<ul>
+<li>在任意一个给定臂的位置，每个磁头可以读取一段环形区域，称为 <strong>磁道</strong>（track）。</li>
+<li>把一个给定臂的位置上的所有磁道合并起来，组成了一个 <strong>柱面</strong>（cylinder）。外部的柱面比内部的柱面有更多的扇区。</li>
+</ul>
+<p><strong>过程：</strong></p>
+<ol>
+<li>机械臂从一个柱面移到相邻的柱面大约需要 1ms。而随机移到一个柱面的典型时间为 5ms 至 10ms，其具体时间取决于驱动器。</li>
+<li>一旦磁臂到达正确的磁道上，驱动器必须等待所需的扇区旋转到磁头之下，这就增加了 5ms 至 10ms 的时延，其具体延时取决于驱动器的转速。</li>
+<li>一旦所需要的扇区移到磁头之下，就开始读写，低端硬盘的速率是 50MB/s，而高速磁盘的速率是 160 MB/s。</li>
+</ol>
+<h3 id="2-2-5-I-O-设备"><a href="#2-2-5-I-O-设备" class="headerlink" title="2.2.5. I/O 设备"></a>2.2.5. I/O 设备</h3><ul>
+<li><strong>实际设备：</strong>如 SATA（串行高级技术附件），标准化后任何一个 SATA 磁盘控制器就可以适配任一种 SATA 磁盘。</li>
+<li><strong>设备控制器：</strong></li>
+</ul>
+<p>设备控制器是插在电路板上的一块芯片或一组芯片。它从操作系统接收命令，物理地控制设备。</p>
+<blockquote>
+<p>例如，从设备读数据，并且完成数据的处理。</p>
+</blockquote>
+<p>控制器的任务是为操作系统提供一个简单的接口（不过还是很复杂）。</p>
+<blockquote>
+<p>例如，磁盘控制器可以接受一个命令从磁盘 2 读出 11206 号扇区，然后，控制器把这个线性扇区号转化为柱面、扇区和磁头。</p>
+</blockquote>
+<ul>
+<li><strong>设备驱动程序：</strong>与设备控制器交互的软件。每个控制器厂家必须为所支持的操作系统提供相应的设备驱动程序。<blockquote>
+<p>例如，一台扫描仪会配有用于 OS X、Windows 7、Windows 8 以及 Linux 的设备驱动程序。</p>
+</blockquote>
+</li>
+</ul>
+<p>设备驱动器装入操作系统的三个途径：</p>
+<ol>
+<li>将内核与设备驱动程序重新链接，然后重启动系统。许多 UNIX 系统以这种方式工作。</li>
+<li>在一个操作系统文件中设置一个入口，并通知该文件需要一个设备驱动程序，然后重启动系统。在系统启动时，操作系统去找寻所需的设备驱动程序并装载之。Windows 就是以这种方式工作。</li>
+<li>操作系统能够在运行时接受新的设备驱动程序并且立即将其安装好，无须重启动系统。热插拔设备，像 USB 之类需要动态可装载设备驱动程序。</li>
+</ol>
+<ul>
+<li><strong>I/O 端口空间：</strong></li>
+</ul>
+<p>每个设备控制器都有少量用于通信的寄存器。<br>要激活控制器，设备驱动程序从操作系统获得一条命令，然后翻译成对应的值，并写进设备寄存器中。所有设备寄存器的集合构成了 I/O 端口空间。</p>
+<blockquote>
+<p>例如，一个最小的磁盘控制器也会有用于指定磁盘地址、内存地址、扇区计数和方向（读或写）的寄存器。</p>
+</blockquote>
+<p><strong>内存映射 I/O（Memory-Mapped I/O MMIO）</strong><br>把输人输出设备和物理内存放到同一个地址空间，为设备内部的内存和寄存器也分配相应的地址。<br>CPU 可以使用和访问物理内存一样的指令去读写这些属于设备的地址。</p>
+<p><strong>实现输入输出的三种方式：</strong></p>
+<ul>
+<li>忙等待（轮询）：</li>
+</ul>
+<p>用户程序发出一个系统调用，内核对设备驱动程序进行过程调用，然后设备驱动程序启动 I/O 并循环检查该设备是否完成了工作。<br>当 I/O 结束后，设备驱动程序把数据送到指定的地方并返回，然后操作系统将控制返回给调用者。<br>其缺点是要占据 CPU，CPU 一直轮询设备直到对应的 I/O 操作完成。</p>
+<ul>
+<li>中断：</li>
+</ul>
+<p>设备驱动程序启动设备，让该设备在操作完成时发出一个中断，设备驱动程序在这个时刻返回。<br>当设备驱动程序检测到该设备的操作完毕时，它发出一个中断通知操作完成，操作系统接着在需要时阻塞调用者并安排其他工作进行。</p>
+<ul>
+<li>直接存储器访问（DMA）芯片：</li>
+</ul>
+<p>可以控制在内存和某些控制器之间的位流，而无须持续的 CPU 干预。CPU 对 DMA 芯片进行设置，说明需要传送的字节数、有关的设备和内存地址以及操作方向，接着启动 DMA。当 DMA 芯片完成时，它引发一个中断。</p>
+<p>MMIO 使得 CPU 可以主动地访问设备，中断使得设备能够主动地通知 CPU，这两种机制是 CPU 与设备之间交互的重要方式。</p>
+<h3 id="2-2-6-总线"><a href="#2-2-6-总线" class="headerlink" title="2.2.6. 总线"></a>2.2.6. 总线</h3><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/751efc320e7e6078af3fddf32b2bd3e3.png" alt="image.png"><br><strong>概述：</strong><br>系统有很多总线（例如高速缓存、内存、PCle、PCI、USB、SATA 和 DMI)，每条总线的传输速度和功能都不同。操作系统必须了解所有总线的配置和管理。其中主要的总线是 PCIe 总线。</p>
+<p><strong>USB（Universal Serial Bus）：</strong><br>将所有慢速 I/O 设备（如键盘和鼠标）与计算机连接。USB 是一种集中式总线，其根设备每 1ms 轮询一次 IO 设备，看是否有信息收发。USB 1.0 可以处理总计 12Mb/s 的负载，USB 2.0 总线提速到 480 Mb/s，而 USB 3.0 能达到不小于 5Gb/s 的速率。</p>
+<p><strong>SCSI（Small Computer System Interface）：</strong><br>是一种高速总线，用在高速硬盘、扫描仪和其他需要较大带宽的设备上。主要用在服务器和工作站中，速度可以达到 640MB/s。</p>
+<h3 id="2-2-7-启动计算机"><a href="#2-2-7-启动计算机" class="headerlink" title="2.2.7. 启动计算机"></a>2.2.7. 启动计算机</h3><p><strong>BIOS：</strong><br>基本输入输出系统（Basic Input Output System，BIOS）。<br>在 BIOS 内有底层 I/O 软件，包括读键盘、写屏幕、进行磁盘 IO 以及其他过程。<br>现在这个程序存放在一块闪速 RAM 中，它是非易失性的，但是在发现 BIOS 中有错时可以通过操作系统对它进行更新。</p>
+<p><strong>BIOS 的运行过程：</strong><br>在计算机启动时，BIOS 开始运行。</p>
+<ol>
+<li>首先检查所安装的 RAM 数量，键盘和其他基本设备是否已安装并正常响应。</li>
+<li>接着，开始扫描 PCIe 和 PCI 总线并找出连在上面的所有设备。</li>
+</ol>
+<p>也会记录即插即用设备。如果现有的设备和系统上一次启动时的设备不同，则新的设备将被配置。</p>
+<ol start="3">
+<li>根据存储在 CMOS 存储器中的设备清单决定启动设备。用户可以在系统刚启动之后进入一个 BIOS 配置程序，对设备清单进行修改。</li>
+</ol>
+<p>如果存在 CD-ROM（有时是 USB），则系统试图从中启动，如果失败，系统将从硬盘启动。</p>
+<ol start="5">
+<li>启动设备上的第一个扇区，被读入内存并执行。这个扇区中包含一个检查分区表的程序，以确定哪个分区是活动的。</li>
+<li>然后，从该分区读入第二个启动装载模块。来自活动分区的这个装载模块被读入操作系统，并启动。</li>
+<li>然后，操作系统询问 BIOS，以获得配置信息。系统检查每个设备对应的设备驱动程序是否存在。如果没有，系统要求用户插入含有该设备驱动程序的 CD-ROM。</li>
+<li>一旦有了全部的设备驱动程序，操作系统就将它们调入内核。然后初始化有关表格，创建需要的任何背景进程，并在每个终端上启动登录程序或 GUI。</li>
+</ol>
+<p><strong>即插即用（plug and play）：</strong><br>每块 I/O 卡有一个固定的中断请求级别和用于其 I/O 寄存器的固定地址。</p>
+<blockquote>
+<p>例如，键盘的中断级别是 1，并使用 0x60 至 0x64 的 I/O 地址，<br>软盘控制器是中断 6 级并使用 Ox3F0 至 0x3F7 的 I/O 地址，<br>而打印机是中断 7 级并使用 0x378 至 0x37A 的 I/O 地址等。</p>
+</blockquote>
+<p>如果有一块声卡和调制解调卡，都是使用中断 4，它们就会冲突。必须得在每块 I/O 卡上提供 DIP 开关或跳接器，并指导用户对其进行设置去选择中断级别和 I/O 地址才能解决冲突。</p>
+<p>即插即用让系统能自动地收集有关 I/O 设备的信息，集中赋予中断级别和 I/O 地址，然后通知每块卡所使用的数值。计算机启动时 BIOS 会记录所有的设备，如果现有的设备和系统上一次启动时的设备不同，则新的设备将被配置。</p>
+<h1 id="3-系统相关"><a href="#3-系统相关" class="headerlink" title="3. 系统相关"></a>3. 系统相关</h1><h2 id="3-1-文件系统"><a href="#3-1-文件系统" class="headerlink" title="3.1. 文件系统"></a>3.1. 文件系统</h2><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7be685d0842f095478c4a8ec5d133368.png" alt="image.png"><br><strong>进程树和文件树的区别：</strong></p>
+<ul>
+<li>一般进程的树状结构层次不深（很少超过三层），而文件树状结构的层次常常多达四层、五层或更多层。</li>
+<li>进程树层次结构是暂时的，通常最多存在几分钟，而目录层次则可能存在数年之久。</li>
+<li>所有权及保护：只有父进程能控制和访问子进程，而在文件和目录能使其他用户也可以访问。</li>
+</ul>
+<p><strong>文件描述符：</strong><br>在读写文件之前，首先要打开文件，检查其访问权限。若权限许可，系统将返回一个小整数，称作 <strong>文件描述符（file descriptor）</strong>，供后续操作使用。若禁止访问，系统则返回一个错误码。</p>
+<p><strong>安装文件系统：</strong><br>UNIX 允许把光盘上的文件系统接到主文件树上。mount 系统调用允许把在 CD-ROM 上的文件系统连接到程序所希望的根文件系统上。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/e3bd18a1e7aeb83e60b48cac26d32224.png" alt="image.png"></p>
+<p>装配文件系统将使得装配目录中已有的任何文件都不可访问，因此装配点通常都是空的。<br>但是，系统管理人员可能需要将某些位于被装配目录中的非常重要的文件复制到装配点，使得他们在进行设备检查或修理时，可以在紧急事件中的普通路径上找到这些文件。</p>
+<p><strong>特殊文件：</strong><br>提供特殊文件是为了使 I/O 设备看起来像文件一般。I/O 设备也可通过同样的系统调用进行读写。<br>按照惯例，特殊文件保存在 <code>/dev</code> 目录中。例如， <code>/dev/lp</code> 是打印机。</p>
+<ul>
+<li><strong>块特殊文件：</strong>指那些由可随机存取的块组成的设备，如磁盘等。比如打开一个块特殊文件，然后读第 4 块，程序可以直接访问设备的第 4 块而不必考虑存放该文件的文件系统结构。</li>
+<li><strong>字符特殊文件：</strong>用于打印机、调制解调器和其他接收或输出字符流的设备。</li>
+</ul>
+<p><strong>管道：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/4db296dab3b41db38c8ce5363f902b6b.png" alt="image.png"><br>管道（pipe）是一种虚文件，它可连接两个进程。如果进程 A 和 B 希望通过管道对话，它们必须提前设置该管道。</p>
+<p>当进程 A 想对进程 B 发送数据时，它把数据写到管道上，进程 B 可以通过读该管道而得到数据。这样，在 UNIX 中两个进程之间的通信就非常类似于普通文件的读写了。</p>
+<p>若进程想发现它所写入的输出文件不是真正的文件而是管道，则需要使用特殊的系统调用。</p>
+<h1 id="4-系统调用"><a href="#4-系统调用" class="headerlink" title="4. 系统调用"></a>4. 系统调用</h1><p><strong>read 系统调用：</strong><br>它的调用由 C 程序完成，方法是调用一个与该系统调用名称相同的库过程 read。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count = read(fd, buffer,nbytes);</span><br></pre></td></tr></tbody></table></figure>
+<p>调用过程如下<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/8b9c383ffb4292b3281fd9169719d85d.png" alt="image.png"></p>
+<h2 id="4-1-进程管理"><a href="#4-1-进程管理" class="headerlink" title="4.1. 进程管理"></a>4.1. 进程管理</h2><table>
+<thead>
+<tr>
+<th><strong>进程管理</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>调用</strong></td>
+<td><strong>说明</strong></td>
+</tr>
+<tr>
+<td> pid = fork()</td>
+<td> 创建与父进程相同的子进程</td>
+</tr>
+<tr>
+<td> pid = waitpid(pid, &amp;statloc, options)</td>
+<td> 等待一个子进程终止</td>
+</tr>
+<tr>
+<td> s = execve(name, argv, environp)</td>
+<td>execve () 系统调用的作用是运行另外一个指定的程序。它会把新程序加载到当前进程的内存空间内，当前的进程会被丢弃，它的堆、栈和所有的段数据都会被新进程相应的部分代替，然后会从新程序的初始化代码和 main 函数开始运行。同时，进程的 ID 将保持不变。<br><br>execve () 系统调用通常与 fork () 系统调用配合使用。从一个进程中启动另一个程序时，通常是先 fork () 一个子进程，然后在子进程中使用 execve () 变身为运行指定程序的进程。</td>
+</tr>
+<tr>
+<td>exit(status)</td>
+<td> 终止进程执行并返回状态</td>
+</tr>
+</tbody></table>
+<p>pid：进程的 id</p>
+<p><strong>fork：</strong></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define TRUE 1</span></span><br><span class="line"></span><br><span class="line">/*一直循环下去*/</span><br><span class="line">while (TRUE) {</span><br><span class="line">    /*在屏幕上显示提示符*/</span><br><span class="line">    type_prompt();</span><br><span class="line">    /*从终端读取输入*/</span><br><span class="line">    read_command(command, parameters);</span><br><span class="line">    </span><br><span class="line">    /* 派生子进程 */</span><br><span class="line">    if(fork() != 0) {</span><br><span class="line">        /* 父代码 */</span><br><span class="line">        /*等待子进程退出*/</span><br><span class="line">        waitpid(-1, &amp;status, 0);</span><br><span class="line">    } else {</span><br><span class="line">        /* 子代码 */</span><br><span class="line">        /* 执行其他命令 */</span><br><span class="line">        execve(command, parameters, 0)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>父进程从终端读取命令，创建一个子进程，等待该子进程执行命令。</p>
+<ol>
+<li>父进程执行 waitpid 系统调用来等待子进程结束，直至子进程终止。</li>
+</ol>
+<p>waitpid 参数：</p>
+<ul>
+<li>waitpid 可以等待一个特定的子进程，或者通过将第一个参数设为 -1 的方式，等待任何一个老的子进程。</li>
+<li>在 waitpid 完成之后，将把第二个参数 statloc 所指向的地址设置为子进程的退出状态（正常或异常终止以及退出值）。</li>
+<li>有各种可使用的选项，它们由第三个参数确定。例如，如果没有已经退出的子进程则立即返回。</li>
+</ul>
+<ol start="2">
+<li>子进程通过使用 execve 系统调用执行用户的命令。这个系统调用会引起其整个核心映像被一个文件所替代，该文件由第一个参数给定。</li>
+</ol>
+<p>execve 参数：</p>
+<ul>
+<li>name：要执行的文件名称。如 <code>cp</code></li>
+<li>argv：指向变量数组的指针。传入命令的参数</li>
+<li> environp：指向环境数组的指针</li>
+</ul>
+<p><strong>进程存储空间：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/c4e8e2382c2444687c3d06817d09d4e6.png" alt="image.png"><br>在 UNIX 中的进程将其存储空间划分为三段：<strong>正文段</strong>（如程序代码）、<strong>数据段</strong>（如变量）以及 <strong>堆栈段</strong>。数据向上增长而堆栈向下增长。</p>
+<h2 id="4-2-文件管理"><a href="#4-2-文件管理" class="headerlink" title="4.2. 文件管理"></a>4.2. 文件管理</h2><table>
+<thead>
+<tr>
+<th><strong>文件管理</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>调用</strong></td>
+<td><strong>说明</strong></td>
+</tr>
+<tr>
+<td> fd = open(file, how, …)</td>
+<td> 打开一个文件供读、写或两者</td>
+</tr>
+<tr>
+<td> s = close(fd)</td>
+<td> 关闭一个打开的文件</td>
+</tr>
+<tr>
+<td> n = read(fd, buffer, bnytes)</td>
+<td> 把数据从一个文件读到缓冲区中</td>
+</tr>
+<tr>
+<td> n= write(fd, buffer, nbytes)</td>
+<td> 把数据从缓冲区写到一个文件中</td>
+</tr>
+<tr>
+<td> position = lseek(fd, offset, whence)</td>
+<td> 移动文件指针</td>
+</tr>
+<tr>
+<td> s = stat(name, &amp;buf)</td>
+<td> 取得文件的状态信息</td>
+</tr>
+</tbody></table>
+<p>fd：文件描述符<br>n：字节数<br>position：在文件中的偏移量</p>
+<p><strong>open：</strong><br>使用 open 打开文件返回文件描述符，然后可使用返回的文件描述符进行读写操作。接着可以用 close 关闭文件。</p>
+<p><strong>lseek：</strong><br>每个文件有一个指向文件当前位置的指针。在顺序读（写）时，该指针通常指向要读出（写入）的下一个字节。<br>lseek 调用可以改变该位置指针的值，这样后续的 read 或 write 调用就可以在文件的任何地方开始。</p>
+<h2 id="4-3-目录管理"><a href="#4-3-目录管理" class="headerlink" title="4.3. 目录管理"></a>4.3. 目录管理</h2><table>
+<thead>
+<tr>
+<th><strong>目录和文件系统管理</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>调用</strong></td>
+<td><strong>说明</strong></td>
+</tr>
+<tr>
+<td> s = mkdir(name, mode)</td>
+<td> 创建一个新目录</td>
+</tr>
+<tr>
+<td> s = rmdir(name)</td>
+<td> 删去一个空目录</td>
+</tr>
+<tr>
+<td> s = link(name1, name2)</td>
+<td> 创建 — 个新目录项 name2，并指向 name1</td>
+</tr>
+<tr>
+<td>s = unlink(name)</td>
+<td> 删去一个目录项</td>
+</tr>
+<tr>
+<td> s = mount(special, name, flag)</td>
+<td> 安装一个文件系统</td>
+</tr>
+<tr>
+<td> s = umount(special)</td>
+<td> 卸载一个文件系统</td>
+</tr>
+</tbody></table>
+<p><strong>link：</strong><br>允许同一个文件以两个或多个名称出现</p>
+<p>在 UNIX 中，每个文件都有唯一的编号，即 <strong>i - 编号</strong>，用以标识文件。该 i - 编号是对 i - 节点表格的一个引用，它们一一对应，说明该文件的拥有者、磁盘块的位置等。</p>
+<p>目录就是一个包含了（i - 编号，ASCII 名称）集合的文件。link 所做的只是利用某个已有文件的 i - 编号，创建一个新目录项（也许用一个新名称）。</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/13120eed179bb298fadd9b6213436b73.png" alt="image.png"><br>上图两个目录项有相同的 i - 编号（70)，从而指向同一个文件。如果使用 unlink 系统调用将其中一个文件移走了，可以保留另一个。</p>
+<p>如果两个都被移走了，UNIX 00 看到尚且存在的文件没有目录项，就会把该文件从磁盘中移去。</p>
+<h2 id="4-4-其他"><a href="#4-4-其他" class="headerlink" title="4.4. 其他"></a>4.4. 其他</h2><table>
+<thead>
+<tr>
+<th><strong>杂项</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>调用</strong></td>
+<td><strong>说明</strong></td>
+</tr>
+<tr>
+<td> s = chdir(dirname)</td>
+<td> 改变工作目录</td>
+</tr>
+<tr>
+<td> s = chmod(name, mode)</td>
+<td> 修改一个文件的保护位</td>
+</tr>
+<tr>
+<td> s = kill(pid, signal)</td>
+<td> 发送信号给一个进程</td>
+</tr>
+<tr>
+<td> seconds =time(&amp;seconds)</td>
+<td> 自 1970 年 1 月 1 日起的流逝时间</td>
+</tr>
+</tbody></table>
+<p>seconds：流逝时间</p>
+<h1 id="5-操作系统结构"><a href="#5-操作系统结构" class="headerlink" title="5. 操作系统结构"></a>5. 操作系统结构</h1><h2 id="5-1-策略和机制"><a href="#5-1-策略和机制" class="headerlink" title="5.1. 策略和机制"></a>5.1. 策略和机制</h2><p>策略表示要做什么，机制表示该怎么做。<br>有时会出现一个进程有多个子进程，每个子进程可能实现不同的功能（计算分析，访问磁盘等），并具有不同的优先级。这就要求调度程序需要从用户进程中获取调度决策信息。</p>
+<p>将调度算法以某种形式参数化，而参数可以由用户进程填写。这样便使得策略和机制分离，算法由底层实现，而用户进程可以设置参数来对其进行调整。<br>假设内核使用优先级调度算法，并提供一条可供进程设置优先级的系统调用，尽管父进程本身并不参与调度，但它可以控制如何调度子进程的细节。</p>
+<h2 id="5-2-内核结构"><a href="#5-2-内核结构" class="headerlink" title="5.2. 内核结构"></a>5.2. 内核结构</h2><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/312f99ce48aa5ad6ba301199402cc63f.png" alt="image.png"></p>
+<h3 id="5-2-1-简要结构（单体）"><a href="#5-2-1-简要结构（单体）" class="headerlink" title="5.2.1. 简要结构（单体）"></a>5.2.1. 简要结构（单体）</h3><p>整个操作系统在内核态以单一程序的方式运行。整个操作系统以过程集合的方式编写，链接成一个大型可执行二进制程序。</p>
+<p>使用这种技术，系统中每个过程可以自由调用其他过程，只要后者提供了前者所需要的一些有用的计算工作。调用任何一个你所需要的过程或许会非常高效。</p>
+<p>但上千个可以不受限制地彼此调用的过程常常导致系统笨拙且难于理解。并且，任何一个过程的崩溃都会连累整个系统。</p>
+<p><strong>结构：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/cd380e424a2d459ac19ceab59d67fa32.png" alt="image.png"><br>对于这类操作系统的基本结构，需要如下结构：</p>
+<ol>
+<li>需要一个主程序，用来处理服务过程请求。</li>
+<li>需要一套服务过程，用来执行系统调用。</li>
+<li>需要一套实用过程，用来辅助服务过程。</li>
+</ol>
+<p>每一个系统调用都通过一个服务过程为其工作并运行之。要有一组实用程序来完成一些服务过程所需要用到的功能，如从用户程序取数据等。</p>
+<h3 id="5-2-2-宏内核"><a href="#5-2-2-宏内核" class="headerlink" title="5.2.2. 宏内核"></a>5.2.2. 宏内核</h3><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/491287cf15c1f944680853bd043f4d52.png" alt="image.png"><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/84bad2763dcb858b305543c2b2542986.png" alt="image.png"><br>THE 操作系统结构，底层保证基础功能，上层依赖底层</p>
+<blockquote>
+<p>注：让我想起了七层网络模型</p>
+</blockquote>
+<h3 id="5-2-3-微内核"><a href="#5-2-3-微内核" class="headerlink" title="5.2.3. 微内核"></a>5.2.3. 微内核</h3><p>在宏内核架构下，所有内核模块均运行在特权空间，一个单点的错误就可能会导致整个系统崩溃或者被攻破。<br>为了实现高可靠性，将操作系统划分成小的、良好定义的模块，只有微内核运行在内核态，其余的模块由于功能相对弱些，则作为普通用户进程运行。</p>
+<p><strong>优点：</strong><br>由于把每个设备驱动和文件系统分别作为普通用户进程，这些模块中的错误虽然会使这些模块崩溃，但是不会使得整个系统死机。所以，音频驱动中的错误会使声音断续或停止，但是不会使整个计算机垮掉。</p>
+<p><strong>使用场景：</strong><br>通常桌面操作系统并不使用微内核。微内核在实时、工业、航空以及军事应用中特别流行，这些领域都是关键任务，需要有高度的可靠性。</p>
+<h3 id="5-2-4-客户端-服务器模式"><a href="#5-2-4-客户端-服务器模式" class="headerlink" title="5.2.4. 客户端-服务器模式"></a>5.2.4. 客户端 - 服务器模式</h3><p>客户端 - 服务器模式将进程划分为两类</p>
+<ul>
+<li><strong>服务器：</strong>每个服务器提供某种服务</li>
+<li><strong>客户端：</strong>使用这些服务。</li>
+</ul>
+<p>通常，在系统最底层是微内核，但并不是必须这样。客户端 - 服务器模式的本质是存在客户端进程和服务器进程。</p>
+<p><strong>消息通信：</strong><br>客户端和服务器之间的通信是消息传递。为了获得一个服务，客户端进程构造段消息，并将其发给合适的服务器。该服务器完成工作，发送回应。</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/f2d774d2e4a167de32b95d9501fb6175.png" alt="image.png"><br>一个普遍方式是运行在不同计算机上的客户端和服务器，通过局域网或广域网连接。<br>其内部细节对客户端来说是屏蔽的。所以，客户端 - 服务器模式是一种可以应用在单机或者网络机器上的抽象。</p>
+<h3 id="5-2-5-虚拟机"><a href="#5-2-5-虚拟机" class="headerlink" title="5.2.5. 虚拟机"></a>5.2.5. 虚拟机</h3><p><strong>虚拟机监控程序：</strong><br>VM/370 系统<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/b48fee8fcee4ccbc80d43fc246d00625.png" alt="image.png"><br>这个系统的核心被称为 <strong>虚拟机监控程序（virtual machine monitor）</strong>，它在裸机上运行并且具备了多道程序功能<br>该系统向上层提供了若干台虚拟机。每台虚拟机都与裸机相同，所以不同的虛拟机可以运行不同的操作系统。</p>
+<p><em>CMS：</em><br>在早期的 VM/370 系统上，有一些系统运行 OS/360 或者其他大型批处理或事务处理操作系统，而另一些虚拟机运行单用户、交互式系统供分时用户使用，这个系统称为 <strong>会话监控系统（Conversational Monitor System,CMS）</strong>。</p>
+<p><em>系统调用：</em><br>当一个 CMS 程序执行系统调用时，该调用被陷入到其虚拟机的操作系统上。<br>CMS 然后发出硬件 I/O 指令读出虛拟磁盘或其他需要执行的调用。这些 I/O 指令由 VM/370 陷入并完成指令。通过对多道程序功能和提供扩展机器二者的完全分离，每个部分都变得非常简单、非常灵活且容易维护。</p>
+<p><strong>第一类与第二类虚拟机管理程序：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/a5e7937f43820fcebaf697e622ad0f7d.png" alt="image.png"><br><em>区别：</em><br>第二类虚拟机管理程序利用 <strong>宿主操作系统（host operatingsystem）</strong>并通过其文件系统创建进程、存储文件等。它从 CD-ROM 安装盘中读入供选择的 <strong>客户操作系统（guestoperating system）</strong>，并安装在一个虚拟盘上，该盘实际上只是宿主操作系统的文件系统中的一个大文件。</p>
+<p>第一类虚拟机管理程序没有底层（宿主操作系统）支持，所以必须在原始的硬盘分区上自行管理储存。</p>
+<h3 id="5-2-6-外壳"><a href="#5-2-6-外壳" class="headerlink" title="5.2.6. 外壳"></a>5.2.6. 外壳</h3><p>与虚拟机克隆真实机器不同，另一种策略是对机器进行分区，即给每个用户整个资源的一个子集。</p>
+<p>外核的任务是为虚拟机分配资源，确保没有机器会使用他人的资源。每个用户层的虚拟机可以运行自己的操作系统。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/a39820b4ce4b/" rel="prev" title="ThreadLocal 详解">
+                  <i class="fa fa-angle-left"></i> ThreadLocal 详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/e9eb9f4d0df9/" rel="next" title="操作系统从入门到入土③：内存管理">
+                  操作系统从入门到入土③：内存管理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">CComma</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ccomma" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/da53cb8a00c9/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

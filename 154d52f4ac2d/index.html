@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="google-site-verification" content="5K7puGkNbKLWhZTmZZm6haOpSbJ-oOvUQFYJeMFBJSk">
+  <meta name="baidu-site-verification" content="codeva-3O8Y6jTFCL">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. 概述Zookeeper 使用⼀个单⼀的主进程来接收并处理客户端的所有事务请求 并采用 ZAB （ Zookeeper Atomic Broadcast，原子广播协议），将服务器数据的状态变更以事务 Proposal 的形式广播到所有的副本进程中 读写请求官方压测： 3888 端口通信模型：任何两个节点都互通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper 从入门到入土⑨：ZAB 协议">
+<meta property="og:url" content="https://ccomma.cn/154d52f4ac2d/">
+<meta property="og:site_name" content="CComma&#39;s Blog">
+<meta property="og:description" content="1. 概述Zookeeper 使用⼀个单⼀的主进程来接收并处理客户端的所有事务请求 并采用 ZAB （ Zookeeper Atomic Broadcast，原子广播协议），将服务器数据的状态变更以事务 Proposal 的形式广播到所有的副本进程中 读写请求官方压测： 3888 端口通信模型：任何两个节点都互通">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7bee1d45d9132d4cc362f7b83d99edd3.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2540cbee09bd8a4e1f2ef002e8b61d7b.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3bed488b8c94c6165de6883718f48f04.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9f27cd7993e2ce58e318a97357e40a8c.png">
+<meta property="article:published_time" content="2022-06-28T14:58:27.000Z">
+<meta property="article:modified_time" content="2024-04-02T08:27:15.552Z">
+<meta property="article:author" content="CComma">
+<meta property="article:tag" content="编程技术、Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7bee1d45d9132d4cc362f7b83d99edd3.png">
+
+
+<link rel="canonical" href="https://ccomma.cn/154d52f4ac2d/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/154d52f4ac2d/","path":"154d52f4ac2d/","title":"Zookeeper 从入门到入土⑨：ZAB 协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Zookeeper 从入门到入土⑨：ZAB 协议 | CComma's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?152282c2c823c1e5ab34c577ba338801"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="CComma's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/ccomma.png" alt="CComma's Blog">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CComma's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Connect the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">21</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">89</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%81%A2%E5%A4%8D%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%80%89-Master-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. 恢复模式（选 Master + 数据同步）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Leader-%E9%80%89%E4%B8%BE"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. Leader 选举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 数据同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%B9%BF%E6%92%AD%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%BA%8B%E5%8A%A1%E6%93%8D%E4%BD%9C%E8%8A%82%E7%82%B9%E5%90%8C%E6%AD%A5%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. 广播模式（事务操作节点同步）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ZAB-%E4%B8%8E-Paxos-%E7%9A%84%E5%BC%82%E5%90%8C"><span class="nav-number">4.</span> <span class="nav-text">4. ZAB 与 Paxos 的异同</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CComma"
+      src="/images/ccomma.png">
+  <p class="site-author-name" itemprop="name">CComma</p>
+  <div class="site-description" itemprop="description">下一个目标：改变世界！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccomma" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccomma" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/ccomma_cat" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;ccomma_cat" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/154d52f4ac2d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Zookeeper 从入门到入土⑨：ZAB 协议 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Zookeeper 从入门到入土⑨：ZAB 协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-28 22:58:27" itemprop="dateCreated datePublished" datetime="2022-06-28T22:58:27+08:00">2022-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/154d52f4ac2d/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="154d52f4ac2d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>7 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Zookeeper 使用⼀个单⼀的主进程来接收并处理客户端的所有事务请求</p>
+<p>并采用 ZAB （ Zookeeper Atomic Broadcast，原子广播协议），将服务器数据的状态变更以事务 Proposal 的形式广播到所有的副本进程中</p>
+<p><strong>读写请求官方压测：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7bee1d45d9132d4cc362f7b83d99edd3.png"></p>
+<p><strong>3888 端口通信模型：</strong><br>任何两个节点都互通<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/2540cbee09bd8a4e1f2ef002e8b61d7b.png"></p>
+<span id="more"></span>
+<h2 id="2-恢复模式（选-Master-数据同步）"><a href="#2-恢复模式（选-Master-数据同步）" class="headerlink" title="2. 恢复模式（选 Master + 数据同步）"></a>2. 恢复模式（选 Master + 数据同步）</h2><p>官方压测 200ms 恢复</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><em>Leader 选举过程：</em> Leader 与过半 Follower 失去联系，Follower 服务器都会将自己的服务器状态变更为 LOOKING，并进⼊ Leader 选举过程。 </li>
+<li><em>数据同步：</em> ZAB 会选举产生新的 Leader 服务器，然后有过半（防止脑裂）的机器与该 Leader 服务器完成了数据同步之后会退出恢复模式。</li>
+</ol>
+<p><strong>注意的问题：</strong></p>
+<ul>
+<li>ZAB 协议需要确保那些已经在 Leader 上提交的事务最终被所有服务器都提交</li>
+<li> ZAB 协议需要确保丢弃那些只在 Leader 上被提出但尚未发出的事务</li>
+</ul>
+<p>ZAB 保证新选举出来的 Leader 服务器拥有集群中所有机器最高编号（即 ZXID 最大）事务 Id 的 Proposal 来解决上述问题</p>
+<h3 id="2-1-Leader-选举"><a href="#2-1-Leader-选举" class="headerlink" title="2.1. Leader 选举"></a>2.1. Leader 选举</h3><p>Leader 所在的机器挂了或者失去大多数的 Follower 会进入恢复模式，进行新⼀轮的 Leader 选举。<br>服务器运行期间的 Leader 选举和启动时期的 Leader 选举基本过程是⼀致的。</p>
+<p><strong><em>选举算法：</em></strong><br>通过 zoo.cfg 配置文件中的 electionAlg 属性指定（0-3）<br>FastLeaderElection 算法（值为 3。TCP 实现，zk 3.4.0 之后只保留了该算法，废弃了 0-2）</p>
+<p><strong><em>过程：</em></strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/3bed488b8c94c6165de6883718f48f04.png"></p>
+<ol>
+<li><p>每个 Server 会将自身的（myid，ZXID）发送给集群以便通知其他 Server 自己的选择。 </p>
+<blockquote>
+<p>这是投给自己的票，因为此时还不知道其他 Server 的状态。例如 Server1 的 myid 为 1，ZXID 为 0，则发送（1, 0）</p>
+</blockquote>
+</li>
+<li><p>接受来自各个服务器的投票 </p>
+</li>
+<li><p>集群的每个服务器收到投票后，判断该投票的有效性，如检查是否是本轮投票、是否来⾃ LOOKING 状态的服务器。</p>
+</li>
+<li><p>针对每⼀个投票，服务器都需要将别人的投票和自己的投票进行选择，以确定是否变更投票 </p>
+<ul>
+<li>比较 ZXID：如果接收到的投票的 ZXID 比自己的大，则当前 Server 认可收到的投票，并再次将该投票发送出去。反之，若接收到的投票的 ZXID 比自己的小，则不做任何操作</li>
+<li>比较 myid：如果 ZXID 相同则比较 myid。myid 较⼤的投票会被认可并再次发送出去。反之，若接收到的 myid 比自己的小，则不做任何操作</li>
+</ul>
+</li>
+<li><p>统计投票<br>Server 都接收到其他 Server 的变更投票后会开始统计投票，如果一台 Server 中相同的投票超过半数则该投票对应的 myid 的 Server 成为 Leader。 </p>
+<blockquote>
+<p>为什么过半机制中是大于，而不是大于等于。就是为了防止脑裂</p>
+</blockquote>
+</li>
+<li><p>改变服务器状态<br>⼀旦确定了 Leader，每个服务器就会更新⾃⼰的状态：如果是 Follower，那么就变更为 FOLLOWING，如果是 Leader，那么就变更为 LEADING。</p>
+</li>
+</ol>
+<h3 id="2-2-数据同步"><a href="#2-2-数据同步" class="headerlink" title="2.2. 数据同步"></a>2.2. 数据同步</h3><p><em>数据同步消息方式：</em></p>
+<table>
+<thead>
+<tr>
+<th>消息类型</th>
+<th>发送方向</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td> DIFF</td>
+<td>Leader -&gt; Learner</td>
+<td> 通知 Learner 即将与 Learner 进行增量方式的数据同步</td>
+</tr>
+<tr>
+<td> TRUNC</td>
+<td>Leader -&gt; Learner</td>
+<td> 触发 Learner 进行其内存数据库的回滚操作</td>
+</tr>
+<tr>
+<td> SNAP</td>
+<td>Leader -&gt; Learner</td>
+<td> 通知 Learner 即将与 Learner 进行全量方式的数据同步</td>
+</tr>
+<tr>
+<td> UPTODATE</td>
+<td>Leader -&gt; Learner</td>
+<td> 通知 Learner 已完成数据同步，可对外提供服务</td>
+</tr>
+</tbody></table>
+<p><em>服务器初始化消息类型：</em></p>
+<table>
+<thead>
+<tr>
+<th>消息类型</th>
+<th>发送方向</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td> OBSERVERINFO</td>
+<td>Observer -&gt; Leader</td>
+<td>Observer 启动时发送自身的（myid，zxid）给 Leader，用于向 Leader 表明角色并注册自己</td>
+</tr>
+<tr>
+<td> FOLLOWERINFO</td>
+<td>Follower -&gt; Leader</td>
+<td>Follower 启动时发送自身的（myid，zxid）给 Leader，用于向 Leader 表明角色并注册自己</td>
+</tr>
+<tr>
+<td> LEADERINFO</td>
+<td>Leader -&gt; Learner</td>
+<td>Leader 接收到来自 Learner 的上述两类消息后会将当前 Leader 的 epoch 发送 Learner</td>
+</tr>
+<tr>
+<td>ACKEPOCH</td>
+<td>Learner -&gt; Leader</td>
+<td>Learner 收到 LEADERINFO 消息后会将自己最新的 zxid 和 epoch 发送给 Leader</td>
+</tr>
+<tr>
+<td>NEWLEAEDER</td>
+<td>Leader -&gt; Learner</td>
+<td> 足够多的 Follower 连上 Leader 或完成数据同步后，Leader 会向 Learner 发送当前 Leader 最新的 zxid</td>
+</tr>
+</tbody></table>
+<p><strong><em>过程：</em></strong></p>
+<ol>
+<li><p><em>Leader 加载快照：</em> 重新加载本地磁盘上的数据快照至内存，并从日志文件中取出快照之后的所有事务操作，逐条应用至内存，并添加到已提交事务缓存 commitedProposals。 </p>
+<blockquote>
+<p>这样能保证日志文件中的事务操作，必定会应用到 leader 的内存数据库中。</p>
+</blockquote>
+</li>
+<li><p><em>确定同步方式：</em> </p>
+</li>
+<li><p>获取 Learner 发送的 <code>OBSERVERINFO/FOLLOWERINFO</code> 信息（myid，zxid），即 id 和已提交过的最大消息 zxid。 </p>
+</li>
+<li><p>用 Learner 的最大 zxid 与 Leader 提交过的消息（commitedProposals）中的最小 zxid（min_zxid）和最大 zxid（max_zxid）分别作比对，确定采用哪种同步方式（DIFF 同步、TRUNC+DIFF 同步、SNAP 同步）。<br>  - 如果该 zxid 介于 min_zxid 与 max_zxid 之间，但又不存在于 commitedProposals 中时，说明该 zxid 对应的事务需要 TRUNC 回滚<br>  - 如果该 zxid 介于 min_zxid 与 max_zxid 之间且存在于 commitedProposals 中，则 Leader 需要将 zxid+1~max_zxid 间所有事务同步给 Learner（DIFF）<br>  - 如果该 zxid == max_zxid，说明已经完全同步了</p>
+</li>
+<li><p><em>数据同步：</em> Leader 主动向所有 Learner 发送同步数据消息，每个 Learner 有自己的发送队列。<br>同步结束时，Leader 会向 Learner 发送 NEWLEADER 消息，同时 Learner 会反馈一个 ACK。当 Leader 接收到来自 Learner 的 ACK 消息后，就认为当前 Learner 已经完成了数据同步，然后进入 等待是否过半阶段。 </p>
+</li>
+<li><p><em>同步完成：</em> 当 Leader 统计到收到了一半已上的 ACK 时，会向所有已经完成数据同步的 Learner 发送一个 <code>UPTODATE</code> 消息，用来通知 Learner 集群已经完成了数据同步，可以对外服务了。</p>
+</li>
+</ol>
+<h2 id="3-广播模式（事务操作节点同步）"><a href="#3-广播模式（事务操作节点同步）" class="headerlink" title="3. 广播模式（事务操作节点同步）"></a>3. 广播模式（事务操作节点同步）</h2><p><strong>原子广播协议特性：</strong></p>
+<ul>
+<li>原子性：要么成功，要么失败，不存在中间状态。（队列 + 2PC 实现）</li>
+<li>广播：Leader 通知所有节点进行操作</li>
+</ul>
+<p>有过半的 Follower 服务器完成了和 Leader 服务器的数据同步，那么就会进⼊消息⼴播模式。<br>扩容加入的新服务器会与 Leader 进行数据同步然后参与到消息⼴播流程中<br>Leader/Follower/Observer 都可直接处理读请求，从本地内存中读取数据并返回给客户端即可。<br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/9f27cd7993e2ce58e318a97357e40a8c.png"></p>
+<ol>
+<li><em>转发请求：</em> Follower 接收到写请求后会转发给 Leader 来处理</li>
+<li><em>发送事务消息：</em> Leader 接收到写请求后会把该写请求转换成带有各种状态的事务，并会分配给 Proposal 一个单调递增的唯一 id（zxid）。然后 Leader 会将广播的事务 Proposal 依次添加到 <strong>发送队列</strong> 中，并且根据 FIFO 策略进行消息发送。<strong>保证最终一致性</strong></li>
+<li><em>返回应答：</em> 每⼀个 Follower 接收到这个事务 Proposal 之后，都会将其以事务日志的形式写入到本地磁盘中去，然后向 Leader 返回 Ack 进行投票。Observer 不参与投票</li>
+<li><em>提交事务：</em> Leader 接收到超过半数 Ack，会给所有的 Follower 广播⼀个 COMMIT 消息进行事务提交，给所有的 Observer 广播 INFORM 消息进行提交，同时 Leader 也会进行事务提交</li>
+</ol>
+<p>随着 zookeeper 的集群机器增多，读请求的吞吐会提高但是写请求的吞吐会下降。</p>
+<h2 id="4-ZAB-与-Paxos-的异同"><a href="#4-ZAB-与-Paxos-的异同" class="headerlink" title="4. ZAB 与 Paxos 的异同"></a>4. ZAB 与 Paxos 的异同</h2><p><strong>相同点：</strong></p>
+<ul>
+<li>都存在⼀个类似于 Leader 进程的角色，由其负责协调多个 Follower 进程的运行</li>
+<li> Leader 进程都会等待超过半数的 Follower 做出正确的反馈后，才会将⼀个提议进行提交</li>
+<li>在 ZAB 协议中，每个 Proposal 中都包含了⼀个 epoch 值，用来代表当前的 Leader 周期。在 Paxos 算法中为 Ballot</li>
+</ul>
+<p><strong>不同点：</strong> ZAB 协议主要⽤于构建⼀个⾼可⽤的分布式数据主备系统，Paxos 算法则⽤于构建⼀个分布式的⼀致性状态机系统</p>
+<ul>
+<li>Paxos 算法中，新选举产⽣的主进程会进⾏两个阶段的⼯作，第⼀阶段称为读阶段，新的主进程和其他进程通信来收集主进程提出的提议，并将它们提交。第⼆阶段称为写阶段，当前主进程开始提出自己的提议。</li>
+<li>ZAB 协议在 Paxos 基础上添加了同步阶段。新选出的 Leader 会确保存在过半的 Follower 提交<br>了之前接收到的所有事务 Proposal。这⼀同步阶段的引入，能够有效地保证 Leader 在新的周期中提出事务 Proposal 之前，所有的进程都已经完成了对之前所有事务 Proposal 的提交</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/1474e6bd8a26/" rel="prev" title="Zookeeper 从入门到入土⑧：集群">
+                  <i class="fa fa-angle-left"></i> Zookeeper 从入门到入土⑧：集群
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/f668d8876330/" rel="next" title="Zookeeper 从入门到入土⑩：相关源码阅读">
+                  Zookeeper 从入门到入土⑩：相关源码阅读 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">CComma</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ccomma" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/154d52f4ac2d/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

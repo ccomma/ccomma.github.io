@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="google-site-verification" content="5K7puGkNbKLWhZTmZZm6haOpSbJ-oOvUQFYJeMFBJSk">
+  <meta name="baidu-site-verification" content="codeva-3O8Y6jTFCL">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. 创建线程继承 Thread 类 12345678910111213public class SubThread extends Thread {    &#x2F;&#x2F;重写 run（）方法    public void run() {        &#x2F;&#x2F;输出...    }}public class TestThread {     public static void main(String[] ar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 并发详解 ①：线程">
+<meta property="og:url" content="https://ccomma.cn/3ccff5d7e907/">
+<meta property="og:site_name" content="CComma&#39;s Blog">
+<meta property="og:description" content="1. 创建线程继承 Thread 类 12345678910111213public class SubThread extends Thread {    &#x2F;&#x2F;重写 run（）方法    public void run() {        &#x2F;&#x2F;输出...    }}public class TestThread {     public static void main(String[] ar">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/aefed34583c4eb2ca8cce9552e6e9241.png">
+<meta property="article:published_time" content="2021-02-10T07:22:04.000Z">
+<meta property="article:modified_time" content="2024-04-02T08:27:15.537Z">
+<meta property="article:author" content="CComma">
+<meta property="article:tag" content="编程技术、Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/aefed34583c4eb2ca8cce9552e6e9241.png">
+
+
+<link rel="canonical" href="https://ccomma.cn/3ccff5d7e907/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/3ccff5d7e907/","path":"3ccff5d7e907/","title":"Java 并发详解 ①：线程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java 并发详解 ①：线程 | CComma's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?152282c2c823c1e5ab34c577ba338801"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="CComma's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/ccomma.png" alt="CComma's Blog">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CComma's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Connect the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">21</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">89</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">1. 创建线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 线程方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%B0%83%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E4%B8%AD%E6%96%AD"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 中断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">3. 线程的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BA%BF%E7%A8%8B%E5%BC%82%E5%B8%B8"><span class="nav-number">4.</span> <span class="nav-text">4. 线程异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.</span> <span class="nav-text">5. 线程安全场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">5.1.</span> <span class="nav-text">5.1. 不可变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%90%8C%E6%AD%A5"><span class="nav-number">5.2.</span> <span class="nav-text">5.2. 同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E6%97%A0%E5%90%8C%E6%AD%A5"><span class="nav-number">5.3.</span> <span class="nav-text">5.3. 无同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E7%BA%A4%E7%A8%8B%EF%BC%88%E5%8D%8F%E7%A8%8B%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">6. 进程、线程、纤程（协程）</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CComma"
+      src="/images/ccomma.png">
+  <p class="site-author-name" itemprop="name">CComma</p>
+  <div class="site-description" itemprop="description">下一个目标：改变世界！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccomma" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccomma" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/ccomma_cat" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;ccomma_cat" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/3ccff5d7e907/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java 并发详解 ①：线程 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 并发详解 ①：线程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-10 15:22:04" itemprop="dateCreated datePublished" datetime="2021-02-10T15:22:04+08:00">2021-02-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">并发</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/3ccff5d7e907/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="3ccff5d7e907/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="1-创建线程"><a href="#1-创建线程" class="headerlink" title="1. 创建线程"></a>1. 创建线程</h2><p><strong>继承 Thread 类</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SubThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> {</span><br><span class="line">    <span class="comment">//重写 run（）方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">        <span class="comment">//输出...</span></span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestThread</span> {</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">          <span class="type">SubThread</span> <span class="variable">st</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SubThread</span>();</span><br><span class="line">          <span class="comment">//调用start（）方法运行线程</span></span><br><span class="line">          st.start();</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>实现 Runnable 接口</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrintNum1</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> {</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">          ...</span><br><span class="line">     }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestThread1</span> {</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">          <span class="type">PrintNum1</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintNum1</span>();</span><br><span class="line">          <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(p);</span><br><span class="line">          t1.start();</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>实现 Callable 接口</strong><br>与 Runnable 相比，Callable 可以有返回值，返回值通过 FutureTask 进行封装</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCallable</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;Integer&gt; {</span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">call</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException {</span><br><span class="line">    <span class="type">MyCallable</span> <span class="variable">mc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyCallable</span>();</span><br><span class="line">    FutureTask&lt;Integer&gt; ft = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(mc);</span><br><span class="line">    <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(ft);</span><br><span class="line">    thread.start();</span><br><span class="line">    System.out.println(ft.get());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+<span id="more"></span>
+<h2 id="2-线程方法"><a href="#2-线程方法" class="headerlink" title="2. 线程方法"></a>2. 线程方法</h2><h3 id="2-1-调度"><a href="#2-1-调度" class="headerlink" title="2.1. 调度"></a>2.1. 调度</h3><ul>
+<li>Thread.sleep (millisec)：睡眠</li>
+<li> Thread.yield ()：调用此方法的线程释放当前 cpu 的执行权（可能会再次调用该线程）<br>声明了当前线程已经完成了生命周期中最重要的部分，可以切换给其它线程来执行。该方法只是对线程调度器的一个建议，而且也只是建议具有相同优先级的其它线程可以运行。</li>
+<li>join ()：等其他线程调用结束<br>在线程中调用另一个线程的 join () 方法，会将当前线程挂起，直到目标线程结束。<br>例：A 线程中调用 B 线程的 join，当执行到 join 方法时 A 停止，直到 B 执行完，A 再接着 join 之后的代码执行</li>
+</ul>
+<h3 id="2-2-优先级"><a href="#2-2-优先级" class="headerlink" title="2.2. 优先级"></a>2.2. 优先级</h3><p><strong>Api：</strong></p>
+<ul>
+<li>getPriority ()：返回线程优先值</li>
+<li> setPriority (int newPriority)：改变线程的优先级</li>
+</ul>
+<p><strong>概述：</strong><br>优先级高只能是说明，它获得时间片的概率大，但不是一定会执行它<br>线程创建时继承父线程的优先级</p>
+<ul>
+<li>1（MIN_PRIORITY）</li>
+<li>5（NORMAL_PRIORITY）</li>
+<li>10（MAX_PRIORITY）</li>
+</ul>
+<h3 id="2-3-中断"><a href="#2-3-中断" class="headerlink" title="2.3. 中断"></a>2.3. 中断</h3><ul>
+<li><p>void interrupt ()：向线程发送中断请求。线程的中断状态将被设置为 true。如果该线程被 sleep 调用阻塞、限期等待或者无限期等待状态，抛出 InterruptedException 异常。 </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">    <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        } <span class="keyword">catch</span>(InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }).start();</span><br><span class="line">    <span class="comment">// 线程在 sleep 时中断，抛出异常</span></span><br><span class="line">    thread.interrupt();</span><br><span class="line">    System.out.println(<span class="string">"Main run"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+<li><p>static boolean interrupted ()：测试当前线程是否被中断，并将当前线程的中断状态重置为 false </p>
+</li>
+<li><p>boolean isInterrupted ()：测试线程是否被终止，不改变线程的中断状态</p>
+</li>
+</ul>
+<h2 id="3-线程的生命周期"><a href="#3-线程的生命周期" class="headerlink" title="3. 线程的生命周期"></a>3. 线程的生命周期</h2><p>新建、就绪、运行、阻塞、死亡</p>
+<p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/aefed34583c4eb2ca8cce9552e6e9241.png"></p>
+<h2 id="4-线程异常"><a href="#4-线程异常" class="headerlink" title="4. 线程异常"></a>4. 线程异常</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/rouqinglangzi/p/10843701.html">多线程中的异常处理</a></p>
+<h2 id="5-线程安全场景"><a href="#5-线程安全场景" class="headerlink" title="5. 线程安全场景"></a>5. 线程安全场景</h2><p>多个线程不管以何种方式访问某个类，并且在主调代码中不需要进行同步，都能表现正确的行为</p>
+<h3 id="5-1-不可变"><a href="#5-1-不可变" class="headerlink" title="5.1. 不可变"></a>5.1. 不可变</h3><p>不可变（Immutable）的对象一定是线程安全的。</p>
+<ul>
+<li><strong>final</strong> 关键字修饰的基本数据类型 </li>
+<li><strong>String</strong> </li>
+<li><strong> 枚举类型</strong> </li>
+<li><strong> Number 部分子类</strong>，如 Long 和 Double 等数值包装类型，BigInteger 和 BigDecimal 等大数据类型。但同为 Number 的原子类 AtomicInteger 和 AtomicLong 则是可变的 </li>
+<li><strong>不可变集合：</strong>可以使用 Collections.unmodifiableXXX () 方法来获取一个不可变的集合。对集合进行修改的方法都直接抛出异常。 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImmutableExample</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        Map&lt;String, Integer&gt; unmodifiableMap = Collections.unmodifiableMap(map);</span><br><span class="line">        unmodifiableMap.put(<span class="string">"a"</span>, <span class="number">1</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">/* Exception in thread "main" java.lang.UnsupportedOperationException</span></span><br><span class="line"><span class="comment">    at java.util.Collections$UnmodifiableMap.put(Collections.java:1457)</span></span><br><span class="line"><span class="comment">    at ImmutableExample.main(ImmutableExample.java:9) */</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h3 id="5-2-同步"><a href="#5-2-同步" class="headerlink" title="5.2. 同步"></a>5.2. 同步</h3><ul>
+<li>阻塞同步：悲观锁：synchronized 和 ReentrantLock </li>
+<li>非阻塞同步 <ul>
+<li>CAS（Compare-and-Swap，CAS）乐观锁</li>
+<li> AtomicInteger 等原子类</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-无同步"><a href="#5-3-无同步" class="headerlink" title="5.3. 无同步"></a>5.3. 无同步</h3><p>如果一个方法本来就不涉及共享数据，那它自然就无须任何同步措施去保证正确性</p>
+<ul>
+<li><strong>栈封闭：</strong><br>多个线程访问同一个方法的局部变量时，不会出现线程安全问题，因为局部变量存储在虚拟机栈中，属于线程私有的 </li>
+<li><strong>ThreadLocal：</strong><br>把共享数据的可见范围限制在同一个线程之内，这样，无须同步也能保证线程之间不出现数据争用的问题 </li>
+<li><strong>可重入代码：</strong><br>这种代码也叫做 <strong>纯代码（Pure Code）</strong>，可以在代码执行的任何时刻中断它，转而去执行另外一段代码（包括递归调用它本身），而在控制权返回后，原来的程序不会出现任何错误。<br>可重入代码有一些共同的特征，例如不依赖存储在堆上的数据和公用的系统资源、用到的状态量都由参数中传入、不调用非可重入的方法等。</li>
+</ul>
+<h2 id="6-进程、线程、纤程（协程）"><a href="#6-进程、线程、纤程（协程）" class="headerlink" title="6. 进程、线程、纤程（协程）"></a>6. 进程、线程、纤程（协程）</h2><p>线程在内核态<br>纤程在用户态，可以启动的数据比线程多</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/e27ad8b5a7cb/" rel="prev" title="JVM 常用指令">
+                  <i class="fa fa-angle-left"></i> JVM 常用指令
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/b9fa8c7b4232/" rel="next" title="Java 并发详解 ②：线程池">
+                  Java 并发详解 ②：线程池 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">CComma</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ccomma" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/3ccff5d7e907/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

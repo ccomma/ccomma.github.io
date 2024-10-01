@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="google-site-verification" content="5K7puGkNbKLWhZTmZZm6haOpSbJ-oOvUQFYJeMFBJSk">
+  <meta name="baidu-site-verification" content="codeva-3O8Y6jTFCL">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ccomma.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JVM 组成 JVM 的结构基本上由 4 部分组成：  _类加载器：_在 JVM 启动时或者类运行时将需要的 class 加载到 JVM 中 _运行时数据区：_将内存划分成若干个区以模拟实际机器上的存储、记录和调度功能模块 执行引擎：执行引擎的任务是负责执行 class 文件中包含的字节码指令，相当于实际机器上的 CPU  本地方法调用：调用 C 或 C++ 实现的本地方法的代码返回结果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM 从入门到入土 ④：JVM 结构">
+<meta property="og:url" content="https://ccomma.cn/291701d89b2f/">
+<meta property="og:site_name" content="CComma&#39;s Blog">
+<meta property="og:description" content="JVM 组成 JVM 的结构基本上由 4 部分组成：  _类加载器：_在 JVM 启动时或者类运行时将需要的 class 加载到 JVM 中 _运行时数据区：_将内存划分成若干个区以模拟实际机器上的存储、记录和调度功能模块 执行引擎：执行引擎的任务是负责执行 class 文件中包含的字节码指令，相当于实际机器上的 CPU  本地方法调用：调用 C 或 C++ 实现的本地方法的代码返回结果">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7262d675db05948b1465f1a2a9357640.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/6c3857d9b048e4cc8a8885bdb6a24cb5.png">
+<meta property="og:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/6edee50da5b933a07357b09c750bb056.png">
+<meta property="article:published_time" content="2020-08-20T11:17:21.000Z">
+<meta property="article:modified_time" content="2024-04-02T08:27:15.538Z">
+<meta property="article:author" content="CComma">
+<meta property="article:tag" content="编程技术、Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7262d675db05948b1465f1a2a9357640.png">
+
+
+<link rel="canonical" href="https://ccomma.cn/291701d89b2f/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ccomma.cn/291701d89b2f/","path":"291701d89b2f/","title":"JVM 从入门到入土 ④：JVM 结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JVM 从入门到入土 ④：JVM 结构 | CComma's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS592DM662"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-GS592DM662","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?152282c2c823c1e5ab34c577ba338801"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="CComma's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/ccomma.png" alt="CComma's Blog">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CComma's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Connect the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">21</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">89</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM-%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">JVM 组成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F"><span class="nav-number">2.</span> <span class="nav-text">运行时数据区域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PC-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">PC 程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">2.2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="nav-number">2.3.</span> <span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">2.4.</span> <span class="nav-text">堆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E7%94%9F%E4%BB%A3%EF%BC%88Young-Generation%EF%BC%89"><span class="nav-number">2.4.1.</span> <span class="nav-text">新生代（Young Generation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%80%81%E5%B9%B4%E4%BB%A3%EF%BC%88Old-Generation%EF%BC%89"><span class="nav-number">2.4.2.</span> <span class="nav-text">老年代（Old Generation）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="nav-number">2.5.</span> <span class="nav-text">方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="nav-number">2.6.</span> <span class="nav-text">内存分配策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Full-GC-%E7%9A%84%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.7.</span> <span class="nav-text">Full GC 的触发条件</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CComma"
+      src="/images/ccomma.png">
+  <p class="site-author-name" itemprop="name">CComma</p>
+  <div class="site-description" itemprop="description">下一个目标：改变世界！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccomma" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccomma" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/ccomma_cat" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;ccomma_cat" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ccomma.cn/291701d89b2f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ccomma.png">
+      <meta itemprop="name" content="CComma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CComma's Blog">
+      <meta itemprop="description" content="下一个目标：改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JVM 从入门到入土 ④：JVM 结构 | CComma's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM 从入门到入土 ④：JVM 结构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-08-20 19:17:21" itemprop="dateCreated datePublished" datetime="2020-08-20T19:17:21+08:00">2020-08-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/291701d89b2f/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="291701d89b2f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>8 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="JVM-组成"><a href="#JVM-组成" class="headerlink" title="JVM 组成"></a>JVM 组成</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/7262d675db05948b1465f1a2a9357640.png"></p>
+<p><strong>JVM 的结构基本上由 4 部分组成：</strong></p>
+<ul>
+<li>_类加载器：_在 JVM 启动时或者类运行时将需要的 class 加载到 JVM 中</li>
+<li>_运行时数据区：_将内存划分成若干个区以模拟实际机器上的存储、记录和调度功能模块</li>
+<li><strong>执行引擎：</strong>执行引擎的任务是负责执行 class 文件中包含的字节码指令，相当于实际机器上的 CPU</li>
+<li><strong> 本地方法调用：</strong>调用 C 或 C++ 实现的本地方法的代码返回结果</li>
+</ul>
+<span id="more"></span>
+<h1 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h1><p><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/6c3857d9b048e4cc8a8885bdb6a24cb5.png"></p>
+<h2 id="PC-程序计数器"><a href="#PC-程序计数器" class="headerlink" title="PC 程序计数器"></a>PC 程序计数器</h2><p>记录正在执行的虚拟机字节码指令的地址（如果正在执行的是本地方法则为空）<br>用于存放指令位置<br>虚拟机的运行，类似于这样的循环：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (not end) {</span><br><span class="line"></span><br><span class="line">	取 PC 中的位置，找到对应位置的指令；</span><br><span class="line"></span><br><span class="line">	执行该指令；</span><br><span class="line"></span><br><span class="line">	PC ++;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jt781861965/article/details/114957201?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">变量定义在 for 循环外面还是里面</a></li>
+</ul>
+<p>Java 方法在执行的同时会创建一个栈帧用于存储局部变量表、操作数栈、常量池引用等信息<br>从方法调用直至执行完成的过程，就对应着一个栈帧在 Java 虚拟机栈中入栈和出栈的过程</p>
+<p><strong>栈结构：</strong><br><img data-src="https://ccomma-pic-storage.oss-cn-hangzhou.aliyuncs.com/img/6edee50da5b933a07357b09c750bb056.png"></p>
+<p>Frame：每个方法对应一个栈帧</p>
+<ol>
+<li>Local Variable Table </li>
+<li>Operand Stack<br>对于 long 的处理（store and load），多数虚拟机的实现都是原子的<br>jls 17.7，没必要加 volatile </li>
+<li>Dynamic Linking<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41813060/article/details/88379473">java Dynamic Linking</a><br>jvms 2.6.3 </li>
+<li>return address<br>a () -&gt; b ()，方法 a 调用了方法 b，b 方法的返回值放在什么地方</li>
+</ol>
+<p>例：<code>i = i++;</code> 的栈实现</p>
+<p><strong>常用字节码指令：</strong><br>store、load、pop、mul、sub<br>invoke：</p>
+<ol>
+<li>InvokeStatic：调用静态方法</li>
+<li> InvokeVirtual：普通方法，自带多态</li>
+<li> InvokeInterface：调用接口的方法</li>
+<li> InovkeSpecial：<br>可以直接定位，不需要多态的方法<br>private 方法 ， 构造方法</li>
+<li> InvokeDynamic：<br>lambda 表达式或者反射或者其他动态语言 scala kotlin，或者 CGLib ASM，动态产生的 class，会用到的指令</li>
+</ol>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈与 Java 虚拟机栈类似，它们之间的区别只不过是本地方法栈为本地方法服务。</p>
+<p>本地方法一般是用其它语言（C、C++ 或汇编语言等）编写的，并且被编译为基于本机硬件和操作系统的程序，对待这些方法需要特别处理。</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p><strong>所有对象都在这里分配内存</strong>，是垃圾收集的主要区域<br>堆不需要连续内存，并且可以动态增加其内存，增加失败会抛出 OutOfMemoryError 异常</p>
+<p>堆是所有 <strong>线程共享</strong> 的<br>默认新生代：老年代 = 1 : 2</p>
+<h3 id="新生代（Young-Generation）"><a href="#新生代（Young-Generation）" class="headerlink" title="新生代（Young Generation）"></a>新生代（Young Generation）</h3><p>分为 伊甸园（Edne）和两个 幸存区（Survival），默认比例为 Eden：from：to = 8：1：1，保证了内存的利用率达到 90%</p>
+<p><strong>Eden：</strong></p>
+<ul>
+<li><strong>线程共享：</strong> 由于堆是所有线程共享的，因此在堆上分配内存 <strong>需要加锁</strong> </li>
+<li><strong> TLAB：</strong> 为提升效率，每个新建的线程在 Eden 上分配了一块独立的空间由该线程独享，这块空间称为 <strong>TLAB</strong>（Thread Local Allocation Buffer） </li>
+<li>在 TLAB 上分配内存 <strong>不需要加锁</strong>，因此 JVM 在给线程中的对象分配内存时会尽量在 TLAB 上分配 <ul>
+<li>如果对象过大或 TLAB 用完，则仍然在堆上进行分配。如果 Eden 区内存也用完了，则会进行一次 Minor GC（young GC）</li>
+</ul>
+</li>
+</ul>
+<p><strong>Survival（from &amp; to）：</strong><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/989d3b06a49d">jvm 误区 – 动态对象年龄判定</a></p>
+<ul>
+<li>在发生 Minor GC 时，Eden 区和 Survival from 区会把一些仍然存活的对象复制进 Survival to 区，并清除内存 <ul>
+<li>将此时在 Survivor to 区存活下来的对象的年龄设置为 1，以后这些对象每在 Survivor 区熬过一次 GC，它们的年龄就加 1，当对象年龄达到某个年龄（默认值为 15）时，就会把它们移到老年代中<br><strong>调整年龄：</strong> -XX:MaxTenuringThreshold<br><strong>默认年龄：</strong> <ul>
+<li>·Parallel Scavenge 15</li>
+<li>CMS 6</li>
+<li>G1 15</li>
+</ul>
+</li>
+<li>s1 -&gt; s2 超过 50%：把年龄最大的放入老年代</li>
+</ul>
+</li>
+<li>在发生一次 Minor GC 后，from 区就会和 to 区互换</li>
+</ul>
+<p><strong>分配担保：</strong><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1082730">JVM 内存分配担保机制</a><br>如果每次回收有多于 10% 的对象存活，那么一块 Survivor 空间就不够用了，此时需要依赖于老年代进行分配担保，也就是借用老年代的空间存储放不下的对象</p>
+<h3 id="老年代（Old-Generation）"><a href="#老年代（Old-Generation）" class="headerlink" title="老年代（Old Generation）"></a>老年代（Old Generation）</h3><p>年老代里存放的都是存活时间较久的，大小较大的对象。<br><strong>Full GC：</strong> 当年老代容量满的时候，会触发一次 Major GC（Full GC），回收年老代和年轻代中不再被使用的对象资源</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>用于存放已被加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。<br>不需要连续的内存，并且可以动态扩展，动态扩展失败一样会抛出 OutOfMemoryError 异常。</p>
+<p><strong>垃圾回收：</strong> 对这块区域进行垃圾回收的主要目标是对常量池的回收和对类的卸载，但是一般比较难实现。</p>
+<p><strong>永久代（PermSpace）：</strong><br>JDK &lt; 1.8<br>方法区是 Java 虚拟机规范中的定义，是一种规范，而永久代是 Hotspot 虚拟机对其的一种实现。</p>
+<p>永久代的大小受到很多因素影响，并且每次 Full GC 之后永久代的大小都会改变</p>
+<ul>
+<li>字符串常量位于 PermSpace</li>
+<li>FGC 不会清理</li>
+<li>大小启动的时候指定，不能变</li>
+</ul>
+<p><strong>元空间（MetaSpace）：</strong><br>JDK &gt;= 1.8</p>
+<ul>
+<li>移除永久代，并把方法区移至元空间（位于本地内存中，而不是虚拟机内存中）</li>
+<li>字符串常量存放到堆内存中</li>
+<li>会触发 FGC 清理</li>
+<li>元空间大小默认没有限制，一般根据系统内存的大小。JVM 会动态改变此值。</li>
+</ul>
+<h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><ol>
+<li><strong>栈上分配：</strong> 无需手动调整<ul>
+<li>线程私有小对象</li>
+<li>无逃逸</li>
+<li>支持标量替换</li>
+</ul>
+</li>
+<li><strong>线程本地分配 TLAB（Thread Local Allocation Buffer）：</strong> 无需手动调整</li>
+</ol>
+<ul>
+<li>占用 Eden，默认 1%</li>
+<li> 多线程的时候不用竞争 Eden 就可以申请空间，提高效率</li>
+<li>小对象</li>
+</ul>
+<ol start="3">
+<li><strong>大对象直接进入老年代：</strong></li>
+</ol>
+<ul>
+<li>大对象是指需要连续内存空间的对象，最典型的大对象是那种很长的字符串以及数组</li>
+<li>经常出现大对象会提前触发垃圾收集以获取足够的连续空间分配给大对象</li>
+<li> XX:PretenureSizeThreshold，大于此值的对象直接在老年代分配，避免在 Eden 区和 Survivor 区之间的大量内存复制</li>
+</ul>
+<ol start="4">
+<li><strong>对象优先在 Eden 分配：</strong> 大多数情况下，对象在新生代 Eden 区分配，当 Eden 区空间不够时，发起 Minor GC </li>
+<li><strong>长期存活的对象进入老年代：</strong> 为对象定义年龄计数器，对象在 Eden 出生并经过 Minor GC 依然存活，将移动到 Survivor 中，年龄就增加 1 岁，增加到一定年龄则移动到老年代中 </li>
+<li><strong>空间分配担保：</strong></li>
+</ol>
+<ul>
+<li>在发生 Minor GC 之前，虚拟机先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果条件成立的话，那么 Minor GC 可以确认是安全的 </li>
+<li>如果不成立的话虚拟机会查看 HandlePromotionFailure 设置值是否允许担保失败 <ul>
+<li>如果允许那么就会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小</li>
+<li>如果大于，将尝试着进行一次 Minor GC；如果小于，或者 HandlePromotionFailure 设置不允许冒险，那么就要进行一次 Full GC</li>
+</ul>
+</li>
+</ul>
+<h2 id="Full-GC-的触发条件"><a href="#Full-GC-的触发条件" class="headerlink" title="Full GC 的触发条件"></a>Full GC 的触发条件</h2><ul>
+<li><strong>调用 System.gc ()：</strong> 只是建议虚拟机执行 Full GC，但是虚拟机不一定真正去执行。不建议使用这种方式，而是让虚拟机管理内存 </li>
+<li><strong>老年代空间不足：</strong> <ul>
+<li>老年代空间不足的常见场景为前文所讲的大对象直接进入老年代、长期存活的对象进入老年代等</li>
+<li>为了避免以上原因引起的 Full GC，应当尽量不要创建过大的对象以及数组。除此之外，可以通过 -Xmn 虚拟机参数调大新生代的大小，让对象尽量在新生代被回收掉，不进入老年代。还可以通过 -XX:MaxTenuringThreshold 调大对象进入老年代的年龄，让对象在新生代多存活一段时间。</li>
+</ul>
+</li>
+<li><strong>空间分配担保失败：</strong> 使用复制算法的 Minor GC 需要老年代的内存空间作担保，如果担保失败会执行一次 Full GC </li>
+<li><strong>JDK 1.7 及以前的永久代空间不足：</strong> <ul>
+<li>当系统中要加载的类、反射的类和调用的方法较多时，永久代可能会被占满，在未配置为采用 CMS GC 的情况下也会执行 Full GC。如果经过 Full GC 仍然回收不了，那么虚拟机会抛出 java.lang.OutOfMemoryError。</li>
+<li>为避免以上原因引起的 Full GC，可采用的方法为增大永久代空间或转为使用 CMS GC。</li>
+</ul>
+</li>
+<li><strong>Concurrent Mode Failure：</strong> 执行 CMS GC 的过程中同时有对象要放入老年代，而此时老年代空间不足（可能是 GC 过程中浮动垃圾过多导致暂时性的空间不足），便会报 Concurrent Mode Failure 错误，并触发 Full GC。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/ccomma_cat">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ff660a81acea/" rel="prev" title="对象引用类型">
+                  <i class="fa fa-angle-left"></i> 对象引用类型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/703024019fe3/" rel="next" title="JVM 从入门到入土 ⑤：垃圾回收 GC">
+                  JVM 从入门到入土 ⑤：垃圾回收 GC <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">CComma</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ccomma" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://ccomma.cn/291701d89b2f/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"ccomma","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
